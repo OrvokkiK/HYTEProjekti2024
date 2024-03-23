@@ -1,0 +1,24 @@
+create_timestamp: "2024-02-25T13:25:36.554703+00:00"
+daily_result: "2024-02-25"
+measure_id: "7fe11caf-8614-4359-8457-2f1cae73bc03"
+measured_timestamp: "2024-02-25T15:22:12+02:00"
+artefact: 0
+artefact_level: "GOOD"
+
+            mean_hr_bpm: 64.40632717079356
+            mean_rr_ms: 931.5854922279792
+            pns_index: 0.3227441282409515
+            readiness: 66.85579905808478
+            recovery: 66.85579905808478
+            respiratory_rate: 13.94
+            rmssd_ms: 50.12562858284169
+            sd1_ms: 35.537496313357394
+            sd2_ms: 56.73285833710959
+            sdnn_ms: 47.26890774349144
+            sns_index: -0.2573724746125223
+            stress_index: 8.676786867394357
+        result_id: "5e9acb08-fcc4-4254-aacc-967cb2542eb5"
+        result_type: "readiness"
+        user_happiness: 4
+
+status: "ok"
