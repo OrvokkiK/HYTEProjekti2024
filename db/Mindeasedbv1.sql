@@ -8,11 +8,16 @@ CREATE TABLE Users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  Email VARCHAR(100) NOT NULL UNIQUE,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  first_name VARCHAR(20) NOT NULL,
+  last_name VARCHAR(20), 
+  title VARCHAR(20) DEFAULT 'Opiskelija', 
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   user_level VARCHAR(10) DEFAULT 'regular',
   risk_group VARCHAR(5) DEFAULT 'ei',
-  chat_permission VARCHAR(5) DEFAULT 'ei'
+  risk_group_date DATETIME,
+  chat_permission VARCHAR(5) DEFAULT 'ei',
+  chat_permission_date DATETIME
 );
 
 CREATE TABLE Symptoms (
@@ -130,44 +135,65 @@ CREATE TABLE Intoxicants (
 );
 
 --Inserts  sample data
-INSERT INTO Users(username, password, email, created_at, user_level, risk_group) VALUES 
-('johndoe', 'hashed_password', 'johndoe@example.com', '2024-03-24 09:00:00', 'regular', 'ei'),
-('janedoe', 'hashed_password', 'janedoe@example.com', '2024-03-24 09:10:00', 'admin', 'ei'),
-('ajones', 'hashed_password', 'alice.jones@example.com', '2024-03-24 09:20:00', 'regular', 'kyllä'),
-('bob_brown', 'hashed_password', 'bob@example.com', '2024-03-24 09:20:00', 'hcp', 'ei');
 
+-- Only required data When creating a student profile in db
+/* INSERT INTO Users(username, password, email, first_name) VALUES
+('johndoe', 'hashed_password', 'johndoe@example.com', 'John', 'Doe');*/
+
+-- Insert sample student info
+INSERT INTO Users(username, password, email, first_name, last_name, created_at, risk_group, chat_permission ) VALUES
+('johndoe', 'hashed_password', 'johndoe@example.com', 'John', 'Doe', '2024-03-24 09:00:00', 'ei', 'ei'),
+('tomsmith', 'hashed_password', 'tom.smith@example.com', 'Tom', 'Smith', '2024-03-24 09:00:00', 'ei', 'ei' );
+
+-- Sample riskgroup student
+INSERT INTO Users(username, password, email, first_name, last_name, created_at, risk_group, chat_permission, risk_group_date, chat_permission_date) VALUES
+('ajones', 'hashed_password', 'ajones@example.com', 'Alice', 'Jones', '2024-03-24 09:00:00', 'kyllä', 'kyllä', '2024-03-25 09:00:00', '2024-02-26 09:00:00');
+
+-- Insert sample professional roles
+INSERT INTO Users(username, password, email, first_name, last_name, title, created_at, user_level, chat_permission, chat_permission_date) VALUES 
+('janedoe', 'hashed_password', 'jane.doe@example.com', 'Jane', 'Doe', 'Ylläpitäjä', '2024-03-24 08:00:00', 'admin', 'kyllä', '2024-03-24 08:00:00'), 
+('bob_brown', 'hasehd_password', 'bob@example.com', 'Bob', 'Brown', 'Sairaanhoitaja', '2024-03-24 08:15:00', 'hcp', 'kyllä', '2024-03-24 08:15:00');
+
+-- Insert sample symptoms (oirekysely)
 INSERT INTO Symptoms(entry_date, frustration, grumpiness, recall_problems, restlesness, disquiet,
  tiredness, anxiety, difficulty_making_decisions, sleep_disturbances, changes_in_appetite, headache,
  neck_pain, vertigo, palpitation, nausea, upset_stomach, recurring_colds, back_issues, stress_level, user_id) VALUES 
 ('2024-03-25', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2', '1' ),
 ('2024-03-25', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '4', '3' );
 
-
+-- Insert sample lifestyle factors (Elämäntapakysely)
 INSERT INTO Lifestyle(entry_date, height, weight, age, hours_slept, quality_sleep, enough_sleep, illness, chronic_illness, 
 deficiency_D, deficiency_B12, deficiency_omega, physical_activity, duration, intensity, user_id) VALUES 
 ('2024-03-25', '175', '65.3', '25', '8.5', 'kyllä', 'hyvä', 'ei', 'heinäallergia', 'ei', 'ei', 'ei', 'Juoksulenkki', '45', 'keskiverto', '1'),
 ('2024-03-25', '163', '70', '23', '7', 'kyllä', 'hyvä', 'flunssa', 'ei', 'ei', 'ei', 'ei', 'kävely', '30', 'alhainen', '3');
 
+-- Insert sample lifestyle factors (Elämäntapakysely)
 INSERT INTO Medications(entry_date, medication, dose, unit, frequency, indication, user_id) VALUES
 ('2024-03-25', 'Histec', '10', 'mg', 'kerran päivässä', 'heinäallergia', '1' ),
 ('2024-03-25', 'Panadol', '500', 'mg', '2 kertaa päivsässä', 'flunssa', '3');
 
+-- Insert sample lifestyle factors (Elämäntapakysely)
 INSERT INTO Dietaries(entry_date, dietary_supplement, dose, unit, user_id) VALUES 
 ('2024-03-25', 'D-vitamiini', '20', 'mikrog', '3'),
 ('2024-03-25', 'Calcichew', '500', 'mg', '3');
 
+-- Insert sample lifestyle factors (Elämäntapakysely)
 INSERT INTO Intoxicants(entry_date, caffeine, nicotine, alcohol, user_id) VALUES 
 ('2024-03-25','400', '30', '4', '1'),
 ('2024-03-25', '320', '0.0', '0.0', '3');
 
+-- Insert sample messages
 INSERT INTO Messages(conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES 
 ('1', '3', 'Moi, miten voin auttaa?', '2024-03-25 09:00:00', '4'),
-('1', '4', 'Moi, mua stressaa.', '2024-03-25 09:01:00', '3');
+('1', '4', 'Moi, mua stressaa.', '2024-03-25 09:01:00', '3'),
+('1', '3', 'Okei, katon sun tietoja.', '2024-03-25 09:02:00', '4');
 
+-- Insert sample lifestyle factors (Elämäntapakysely)
 INSERT INTO hrv_analysis(stress_index, mood, entry_date, av_hr, user_id) VALUES 
 ('1.676786867394357', '4', '2024-03-25', '60.50632717079356', '1'),
 ('8.676786867394357', '3', '2024-03-25', '64.40632717079356', '3'); 
 
+-- Insert sample analysis (kokonaisanalyysi)
 INSERT INTO Complete_analysis(user_id, analysis_result, analysis_enumerated, created_at) VALUES 
 ('1', 'Alhainen stressi', '1', '2024-03-25 10:00:00'),
 ('3', 'Kohtalainen stressi', '2', '2024-03-25 10:00:00'); 
