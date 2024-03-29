@@ -10,7 +10,7 @@ document.getElementById("prevMonth").addEventListener("click", () => previous())
 document.getElementById("nextMonth").addEventListener("click", () => next());
 
 function showCalendar(month, year) {
-  let firstDay = (new Date(year, month).getDay() + 6) % 7; // Make Monday (0), Sunday (6)
+  let firstDay = (new Date(year, month).getDay() + 6) % 7; 
   let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
   let tbl = document.getElementById("calendar-body");
