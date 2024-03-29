@@ -3,8 +3,8 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import {fileURLToPath} from 'url'; 
-import logger from "./Middlewares/logger.mjs";
-import userRouter from './src/routes/user-router.mjs';
+import logger from "../../Middlewares/logger.mjs";
+import userRouter from './routes/user-router.mjs';
 
 
 // import http from 'http';
