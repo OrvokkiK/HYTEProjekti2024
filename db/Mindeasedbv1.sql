@@ -6,9 +6,8 @@ USE MindEase;
 
 CREATE TABLE Users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) NOT NULL UNIQUE,
+  username VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  email VARCHAR(100) NOT NULL UNIQUE,
   first_name VARCHAR(20) NOT NULL,
   last_name VARCHAR(20), 
   title VARCHAR(20) DEFAULT 'Opiskelija', 
@@ -141,18 +140,18 @@ CREATE TABLE Intoxicants (
 ('johndoe', 'hashed_password', 'johndoe@example.com', 'John', 'Doe');*/
 
 -- Insert sample student info
-INSERT INTO Users(username, password, email, first_name, last_name, created_at, risk_group, chat_permission ) VALUES
-('johndoe', 'hashed_password', 'johndoe@example.com', 'John', 'Doe', '2024-03-24 09:00:00', 'ei', 'ei'),
-('tomsmith', 'hashed_password', 'tom.smith@example.com', 'Tom', 'Smith', '2024-03-24 09:00:00', 'ei', 'ei' );
+INSERT INTO Users(password, username, first_name, last_name, created_at, risk_group, chat_permission ) VALUES
+('hashed_password', 'johndoe@example.com', 'John', 'Doe', '2024-03-24 09:00:00', 'ei', 'ei'),
+('hashed_password', 'tom.smith@example.com', 'Tom', 'Smith', '2024-03-24 09:00:00', 'ei', 'ei' );
 
 -- Sample riskgroup student
-INSERT INTO Users(username, password, email, first_name, last_name, created_at, risk_group, chat_permission, risk_group_date, chat_permission_date) VALUES
-('ajones', 'hashed_password', 'ajones@example.com', 'Alice', 'Jones', '2024-03-24 09:00:00', 'kyllä', 'kyllä', '2024-03-25 09:00:00', '2024-02-26 09:00:00');
+INSERT INTO Users(password, username, first_name, last_name, created_at, risk_group, chat_permission, risk_group_date, chat_permission_date) VALUES
+('hashed_password', 'ajones@example.com', 'Alice', 'Jones', '2024-03-24 09:00:00', 'kyllä', 'kyllä', '2024-03-25 09:00:00', '2024-02-26 09:00:00');
 
 -- Insert sample professional roles
-INSERT INTO Users(username, password, email, first_name, last_name, title, created_at, user_level, chat_permission, chat_permission_date) VALUES 
-('janedoe', 'hashed_password', 'jane.doe@example.com', 'Jane', 'Doe', 'Ylläpitäjä', '2024-03-24 08:00:00', 'admin', 'kyllä', '2024-03-24 08:00:00'), 
-('bob_brown', 'hasehd_password', 'bob@example.com', 'Bob', 'Brown', 'Sairaanhoitaja', '2024-03-24 08:15:00', 'hcp', 'kyllä', '2024-03-24 08:15:00');
+INSERT INTO Users(password, username, first_name, last_name, title, created_at, user_level, chat_permission, chat_permission_date) VALUES 
+('hashed_password', 'jane.doe@example.com', 'Jane', 'Doe', 'Ylläpitäjä', '2024-03-24 08:00:00', 'admin', 'kyllä', '2024-03-24 08:00:00'), 
+('hashed_password', 'bob@example.com', 'Bob', 'Brown', 'Sairaanhoitaja', '2024-03-24 08:15:00', 'hcp', 'kyllä', '2024-03-24 08:15:00');
 
 -- Insert sample symptoms (oirekysely)
 INSERT INTO Symptoms(entry_date, frustration, grumpiness, recall_problems, restlesness, disquiet,
