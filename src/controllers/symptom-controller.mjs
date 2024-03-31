@@ -1,5 +1,6 @@
 // symptom-controller.mjs
-import { listAllSymptoms, listSymptomsByUserId, listSymptomsBySymptomId, addSymptoms } from "../models/symptom-models.mjs";
+import { listAllSymptoms, listSymptomsByUserId, listSymptomsBySymptomId, addSymptoms, updateEntryById } from "../models/symptom-models.mjs";
+import promisePool from "../utils/database.mjs";
 
 //Get all symptoms
 const getAllSymptoms = async (req, res) => {
@@ -61,8 +62,74 @@ const postNewEntry = async(req,res) => {
     if (result.error) {
       return res.status(result.error).json(result);
     }
+    res.json(result);
   } else {
     return res.status(404).json({error: 400, message: 'bad request'});
+  }
+};
+
+// PUT (edit) an entry by entry_id
+const putEntryById = async (req, res) => {
+  const symptom_id = req.params.id
+  const {
+    frustration, 
+    grumpiness, 
+    recall_problems, 
+    restlesness, 
+    disquiet, 
+    tiredness, 
+    anxiety, 
+    difficulty_making_decisions, 
+    sleep_disturbances, 
+    changes_in_appetite, 
+    headache, 
+    neck_pain, 
+    vertigo, 
+    palpitation, 
+    nausea, 
+    upset_stomach, 
+    recurring_colds, 
+    back_issues, 
+    stress_level,
+    user_id} = req.body;
+  if ( user_id && stress_level) {
+    const entry = { 
+      frustration, 
+      grumpiness, 
+      recall_problems, 
+      restlesness, 
+      disquiet, 
+      tiredness, 
+      anxiety, 
+      difficulty_making_decisions, 
+      sleep_disturbances, 
+      changes_in_appetite, 
+      headache, 
+      neck_pain, 
+      vertigo, 
+      palpitation, 
+      nausea, 
+      upset_stomach, 
+      recurring_colds, 
+      back_issues, 
+      stress_level,
+      user_id,
+      symptom_id
+    }
+    // console.log('Controller ', entry);
+    const result = await updateEntryById(entry);
+    //console.log(result);
+
+    /*if (result.changedRows === 1) {
+      return {message: `Entry ${symptom_id} updated`};
+    }*/
+    if (result.error) {
+      return res.status(500).json(result); 
+    } else {
+      return res.status(200).json({message: 'data in symptoms is updated'});
+    }
+  } else {
+    return res.status(400).json({error: 400, message: 'bad request'});
   }
 };
 
@@ -71,4 +138,5 @@ export {
   getSymptomsByUserId,
   getSymptomsBySymptomId,
   postNewEntry,
+  putEntryById,
 };

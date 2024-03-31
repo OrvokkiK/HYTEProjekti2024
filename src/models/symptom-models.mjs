@@ -100,9 +100,53 @@ const addSymptoms = async (entry, user_id) => {
   }
 };
 
+// INSERT (edit) an existing entry;
+const updateEntryById = async (entry) => {
+  // console.log('Model: entry ', entry);
+  const sql = 'UPDATE Symptoms  SET frustration=?, grumpiness=?, recall_problems=?, restlesness=?, disquiet=?, tiredness=?, anxiety=?, difficulty_making_decisions=?, sleep_disturbances=?, changes_in_appetite=?, headache=?, neck_pain=?, vertigo=?, palpitation=?, nausea=?, upset_stomach=?, recurring_colds=?, back_issues=?, stress_level=?, user_id=? WHERE symptom_id=?';
+  const params = [
+    entry.frustration, 
+    entry.grumpiness, 
+    entry.recall_problems, 
+    entry.restlesness, 
+    entry.disquiet, 
+    entry.tiredness, 
+    entry.anxiety, 
+    entry.difficulty_making_decisions, 
+    entry.sleep_disturbances, 
+    entry.changes_in_appetite, 
+    entry.headache, 
+    entry.neck_pain, 
+    entry.vertigo, 
+    entry.palpitation, 
+    entry.nausea, 
+    entry.upset_stomach, 
+    entry.recurring_colds, 
+    entry.back_issues, 
+    entry.stress_level,
+    entry.user_id,
+    entry.symptom_id];
+    // console.log('Model: params', params);
+  try {
+    const [rows] = await promisePool.query(sql, params);
+    // console.log(rows);
+    if (rows.changedRows === 1) {
+      return rows;
+    } else {
+      return {error: 404, message: 'Entry not found'};
+    }
+  } catch (error) {
+    console.log('[Model] insertEntryById: ', error);
+    return {error: 500, message: 'db error'};
+  }
+};
+
+// DELETE an entry
+
 export {
   listAllSymptoms,
   listSymptomsByUserId,
   listSymptomsBySymptomId,
-  addSymptoms
+  addSymptoms,
+  updateEntryById
 }; 
