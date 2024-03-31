@@ -1,5 +1,5 @@
 // symptom-controller.mjs
-import { listAllSymptoms, listSymptomsByUserId, listSymptomsBySymptomId, addSymptoms, updateEntryById } from "../models/symptom-models.mjs";
+import { listAllSymptoms, listSymptomsByUserId, listSymptomsBySymptomId, addSymptoms, updateEntryById, deleteSymptomById } from "../models/symptom-models.mjs";
 import promisePool from "../utils/database.mjs";
 
 //Get all symptoms
@@ -133,10 +133,19 @@ const putEntryById = async (req, res) => {
   }
 };
 
+const removeSymptomById = async (req, res) => {
+  const result = await deleteSymptomById(req.params.id);
+  if (result.error) {
+    return res.status(result.error).json(result);
+  }
+  return res.json(result);
+};
+
 export {
   getAllSymptoms,
   getSymptomsByUserId,
   getSymptomsBySymptomId,
   postNewEntry,
   putEntryById,
+  removeSymptomById
 };

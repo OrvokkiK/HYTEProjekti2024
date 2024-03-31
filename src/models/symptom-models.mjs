@@ -141,12 +141,27 @@ const updateEntryById = async (entry) => {
   }
 };
 
-// DELETE an entry
+// DELETE an entry in symptoms
+const deleteSymptomById = async (symptom_id) => {
+  try {
+    const sql = `DELETE FROM Symptoms WHERE symptom_id=${symptom_id}`;
+    // console.log(sql); 
+    const [rows] = await promisePool.query(sql);
+    if (rows.affectedRows ===  0) {
+      return {error: 404, message: 'Entry not found'};
+    }
+    return {message: `Entry ${symptom_id} deleted`};
+  } catch (error) {
+    console.log('[Model] deleteSymptomsById: ', error);
+    return {error: 500, message: 'db error'};
+  }
+}
 
 export {
   listAllSymptoms,
   listSymptomsByUserId,
   listSymptomsBySymptomId,
   addSymptoms,
-  updateEntryById
+  updateEntryById,
+  deleteSymptomById
 }; 
