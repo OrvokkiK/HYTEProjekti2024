@@ -1,6 +1,6 @@
 // user-router.mjs
 import express from 'express';
-import {getUserById, getUsers, postNewUser, putUserById, removeUser} from '../../controllers/user-controller.mjs';
+import {getUserById, getUsers, postNewUser, putUserById, removeUser} from '../controllers/user-controller.mjs';
 
 const userRouter = express.Router();
 
@@ -15,7 +15,7 @@ userRouter.route('/')
 userRouter.route('/:id')
 //Lists a specific user
 .get(getUserById)
-//editing user
+//editing user's contact info
 .put(putUserById)
 //remove user
 .delete(removeUser);

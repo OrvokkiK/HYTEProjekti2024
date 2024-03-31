@@ -18,11 +18,11 @@ const listAllUsers = async () => {
 // still returns an empty set even if set is empty??
 const selectUserbyId = async (id) => {
   try {
-    const sql = 'SELECT username, user_level, email, title FROM Users WHERE user_id=?'; 
+    const sql = 'SELECT username, user_level, title FROM Users WHERE user_id=?'; 
     const params = [id];
     const [rows] = await promisePool.query(sql, params);
-    if (rows.lenght === 0) {
-      return {error: 404, message: 'user not found'};
+    if (rows.length == 0) {
+      return {error: 404, message: `No user found by id ${id}`};
     } else {
       return rows;
     }
@@ -40,7 +40,7 @@ const insertUser = async (user) => {
         console.log(result);
         return {message: 'new user created', user_id: result.insertId};
     } catch (error) {
-        console.error('InsertUser', error);
+        console.error('InsertUser:', error);
         return {error: 500, message: 'db error'};
     }
 }; 
@@ -49,15 +49,16 @@ const insertUser = async (user) => {
 const updateUserInfoById = async (user) => {
   try {
     // const sql = 'UPDATE Users SET username=?, password=?, first_name=?, last_name=? WHERE user_id=?';
-    const sql = 'UPDATE Users SET username=?, password=?, first_name=?, last_name=? WHERE user_id=?';
-    const params = [user.username, user.password, user.first_name, user.last_name, user.user_id];
+    const sql = 'UPDATE Users SET username=?, password=?, first_name=?, last_name=?, chat_permission=?, chat_permission_date=? WHERE user_id=?';
+    const params = [user.username, user.password, user.first_name, user.last_name, user.chat_permission, user.chat_permission_date, user.user_id];
+    console.log(params);
     const [result] = await promisePool.query(sql, params);
     if (result.affectedRows == 0) {
         return {error: 500, message: 'db error, data not changed'};
     } 
     return {message: 'user info updated', result};
   } catch (error) {
-    console.error ('updateUserById', error);
+    console.error ('updateUserById:', error);
     return {error: 500, message: 'db error'}; 
   }
 };
@@ -77,20 +78,41 @@ const deleteUserById = async (id) => {
     return {message: 'user deleted', user_id: id};
     } catch (error) {
       // note that users with other data (FK constraint) cant be deleted directly
-      console.error('deleteUserById', error);
+      console.error('deleteUserById:', error);
       return {error: 500, message: 'db error'};
     }
 };
 
 //login
+// TODO: Implement kubios login
+
 
 //update user priviledges
+//move to admin model??
+/*const updateUserPriviledges = async (user) => {
+  try {
+    const sql = 'UPDATE Users SET user_level=?, title=? WHERE id=?';
+    const params = [user.user_level, user.title, user.user_id];
+    const result = await promisePool.query(sql,params);
+    if (result.affectedRows === 0) {
+      return {error: 500, message: 'db error, data not changed'};
+    } else {
+      return {message: `User ${user.user_id} priviledges updated to ${user.user_level}`};
+    }
+  } catch (error) {
+    console.error('updateUserPriviledges: ',error );
+    return {error: 500, message: 'db error'};
+  }
+};*/ 
 
 //update riskgroup
+// TODO: Implement
 
 //update chat priviledges
+// TODO: Implement routes
 
-export {listAllUsers,
+export {
+  listAllUsers,
   selectUserbyId,
   insertUser,
   updateUserInfoById,
