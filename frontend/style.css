@@ -44,7 +44,11 @@ nav {
 .logo-text {
   font-family: "Inria Sans", sans-serif;
   font-weight: 700;
-  background: -webkit-linear-gradient(45deg, #6829e7, #bf62f5); /* Chrome & Safari */
+  background: -webkit-linear-gradient(
+    45deg,
+    #6829e7,
+    #bf62f5
+  ); /* Chrome & Safari */
   background: linear-gradient(45deg, #6829e7, #bf62f5); /* Standard syntax */
   -webkit-background-clip: text;
   background-clip: text;
@@ -53,7 +57,6 @@ nav {
   text-shadow: 2px 2px 8px rgba(100, 100, 255, 0.5);
   letter-spacing: 0.05em; /* Customizable based on preference */
 }
-
 
 .dropdown-content {
   display: none;
@@ -86,8 +89,8 @@ li a:not(.logo) {
   text-decoration: none;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-    font-size: smaller;
-    letter-spacing: 2px;
+  font-size: smaller;
+  letter-spacing: 2px;
 }
 
 .logo-text-link {
@@ -144,8 +147,8 @@ li a:not(.logo) {
   cursor: pointer;
 }
 
-li a:hover ,
-.login_form a:hover{
+li a:hover,
+.login_form a:hover {
   color: rgb(20, 205, 211);
   text-decoration: underline;
   text-underline-offset: 10px;
@@ -186,7 +189,6 @@ li a:hover ,
   font-size: xx-large;
 }
 
-
 form {
   color: #ffffff;
   padding: 10px;
@@ -220,10 +222,10 @@ select {
     "Lucida Sans", Arial, sans-serif;
 }
 
-input.loginuser, 
+input.loginuser,
 .forgot_password,
 .tallenna-button,
-.tallenna-kysely{
+.tallenna-kysely {
   background-color: #8b87f8;
   color: white;
   padding: 10px 15px;
@@ -243,7 +245,7 @@ input.loginuser:hover,
 .tallenna-button:hover,
 .tallenna-kysely:hover {
   background-color: #6c49ea;
-  color:#abe0f3;
+  color: #abe0f3;
 }
 
 h1 {
@@ -267,7 +269,7 @@ button:hover {
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto #6829e7;
 }
 
 .content-wrapper {
@@ -295,7 +297,11 @@ button:focus-visible {
 
 .user {
   color: #6829e7;
-  font-weight: 600;
+  font-weight: 500;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: large;
+  letter-spacing: 1px;
 }
 
 .survey-button {
@@ -341,7 +347,6 @@ button:focus-visible {
   background-color: #c6eff0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
-
 
 #graph {
   height: 350px;
@@ -452,7 +457,7 @@ button[type="submit"] {
 }
 
 .checkbox-group label {
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 input[type="checkbox"] {
@@ -486,19 +491,78 @@ input[type="range"] {
   width: 100%;
 }
 
+/* // Chat sivun tyylittely */
+
+.chat-section {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100vh;
+  margin-bottom: 20px;
+}
+
+#chat-container {
+  width: 100%;
+  max-width: 600px; /* Säädä tätä arvoa tarpeen mukaan */
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+#chat-messages {
+  height: 400px; /* Säädä tätä arvoa tarpeen mukaan */
+  overflow-y: scroll;
+  padding: 10px;
+  background: #e7ecef;
+}
+.message {
+  background-color: #d9e8ff;
+  padding: 8px 15px;
+  margin: 5px 0;
+  border-radius: 15px;
+  max-width: 70%;
+  clear: both;
+}
+.message.sent {
+  background-color: #aad4ff;
+  margin-left: auto;
+}
+.message.received {
+  background-color: #d9e8ff;
+  margin-right: auto;
+}
+#chat-input-container {
+  padding: 10px;
+  background: #f0f4f8;
+}
+#chat-input {
+  width: calc(100% - 60px);
+  padding: 10px;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+}
+
 footer {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 70px; /* Footerin korkeus */
-  background-color: #aeecfa; /* Footerin taustaväri */
+  height: 70px;
+  background-color: #aeecfa;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   color: #6829e7;
   font-weight: 600;
+  box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.2);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: smaller;
+  letter-spacing: 1px;
 }
 
 @media screen and (max-width: 1000px) {
