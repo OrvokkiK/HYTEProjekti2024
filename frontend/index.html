@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -27,21 +27,41 @@
       <div>
         <form class="login_form">
           <div class="logo-wrapper">
-          <img src="images/icon5.png" alt="logo" class="nav-logo" />
-          <div class="logo-text">MindEase</div></div>
+            <img src="images/icon5.png" alt="logo" class="nav-logo" />
+            <div class="logo-text">MindEase</div>
+          </div>
           <h2>Kirjaudu sisään</h2>
           <label for="username">Käyttäjätunnus</label>
-          <input type="text" name="username" placeholder="Käyttäjätunnus" id="username" />
+          <input
+            type="text"
+            name="username"
+            placeholder="Käyttäjätunnus"
+            id="username"
+          />
           <label for="password">Salasana</label>
-          <input type="password" name="password" placeholder="Salasana" id="password" />
-          <input name="submit" type="submit" value="Kirjaudu" class="loginuser" />
+          <input
+            type="password"
+            name="password"
+            placeholder="Salasana"
+            id="password"
+          />
+          <input
+            name="submit"
+            type="submit"
+            value="Kirjaudu"
+            class="loginuser"
+          />
           <a href="password.html">Unohditko salasanasi?</a>
         </form>
       </div>
     </section>
-    <footer>          <div class="logo-wrapper">
-      <img src="images/icon5.png" alt="logo" class="nav-logo" />
-      </div>©️ Ryhmä 9</footer>
+    <footer>
+      <div class="logo-wrapper">
+        <img src="images/icon5.png" alt="logo" class="nav-logo" />
+      </div>
+      ©️ Ryhmä 9
+    </footer>
+    <div id="toast-container"></div>
     <script type="module" src="/login.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 
 document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.querySelector(".menu-toggle");

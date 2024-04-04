@@ -1,12 +1,13 @@
 import './style.css';
-import { showToast } from "./toast.js";
+import {showToast} from './toast.js';
+import {fetchData} from './fetch.js';
 
-document.addEventListener("DOMContentLoaded", function () {
-  const menuToggle = document.querySelector(".menu-toggle");
-  const menu = document.querySelector(".menu");
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
 
-  menuToggle.addEventListener("click", function () {
-    menu.classList.toggle("show");
+  menuToggle.addEventListener('click', function() {
+    menu.classList.toggle('show');
   });
 });
 
@@ -24,11 +25,11 @@ loginUser.addEventListener('click', async (evt) => {
   };
 
   const options = {
-    method: 'POST', 
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data), 
+    body: JSON.stringify(data),
   };
 
   fetchData(url, options).then((data) => {
@@ -41,13 +42,15 @@ loginUser.addEventListener('click', async (evt) => {
     } else {
       showToast(data.message);
       localStorage.setItem('name', data.user.username);
-      localStorage.setItem('user_id',data.user.user_id);
+      localStorage.setItem('user_id', data.user.user_id);
       setTimeout(() => {
         window.location.href = 'home.html';
       }, 2000);
-      
-      }
-      logResponse('loginResponse', `localStorage set with token 
-      value: ${data.token}`);
-    });
+    }
+    logResponse(
+      'loginResponse',
+      `localStorage set with token 
+      value: ${data.token}`,
+    );
+  });
 });
