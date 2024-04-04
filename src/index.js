@@ -6,6 +6,7 @@ import {fileURLToPath} from 'url';
 import logger from "./middlewares/logger.mjs";
 import userRouter from './routes/user-router.mjs';
 import symptomRouter from './routes/symptom-router.mjs';
+import messageRouter from './routes/message-router.mjs';
 
 
 // import http from 'http';
@@ -34,6 +35,9 @@ app.use('/api/symptoms/', symptomRouter);
 // HRV route
 
 // message route
+app.use('/api/messages/', messageRouter);
+
+//Admin routes
 
 // Start the server
 app.listen(port, hostname, () => {

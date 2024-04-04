@@ -1,7 +1,6 @@
 // symptom-router.mjs
 import express from 'express';
 import { getAllSymptoms, getSymptomsBySymptomId, getSymptomsByUserId, postNewEntry, putEntryById, removeSymptomById } from '../controllers/symptom-controller.mjs';
-import { updateEntryById } from '../models/symptom-models.mjs';
 
 const symptomRouter = express.Router();
 
