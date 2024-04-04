@@ -5,4 +5,3 @@ node_modules
 creds.txt
 test-request.http
 login-variables.resource
-test
