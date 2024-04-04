@@ -1,0 +1,18 @@
+// test-scenarios.txt
+
+-- regular --
+1. Succesful login
+2. add new message
+3. add delete message
+3. add new symptom-entry 
+4. delete symptom-entry
+5. add new lifestyle-entry
+6. delete lifestyle- entry
+7. add a new hrv-entry
+8. query hrv-entry from Kubios
+9. get complete analysis
+
+-- hcp --
+
+
+-- admin --
