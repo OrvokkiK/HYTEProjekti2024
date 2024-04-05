@@ -171,9 +171,9 @@ am5.ready(function() {
 
   chart.children.unshift(
     am5.Label.new(root, {
-      text: 'Otsikko',
+      text: 'Stressianalyysi ja HRV-mittaustulokset',
       fontSize: 25,
-      fontWeight: '500',
+      fontWeight: '400',
       textAlign: 'center',
       x: am5.percent(50),
       centerX: am5.percent(50),
