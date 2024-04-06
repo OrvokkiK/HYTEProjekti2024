@@ -1,6 +1,6 @@
 import './style.css';
 import {showToast} from './toast.js';
-// import {fetchData} from './fetch.js';
+import {fetchData} from './fetch.js';
 
 document.addEventListener('DOMContentLoaded', function() {
   const menuToggle = document.querySelector('.menu-toggle');
@@ -14,14 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
   loginUser.addEventListener('click', async (evt) => {
     evt.preventDefault();
-    const url = 'https://localhost:3000/api/auth/login'; // Varmista, että osoite on oikea
+    const url = 'http://localhost:3000/api/auth/login'; // Varmista, että osoite on oikea
 
     const form = document.querySelector('.login_form');
+    console.log(form); 
 
+    const usernameInput = form.querySelector('input[name="username"]'); 
+    const passwordInput = form.querySelector('input[name="password"]');
+    
     const data = {
-      username: form.querySelector('input[name="username"]').value,
-      password: form.querySelector('input[name="password"]').value,
+      username: usernameInput.value,
+      password: passwordInput.value,
     };
+    console.log(data);
 
     const options = {
       method: 'POST',
@@ -30,28 +35,25 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       body: JSON.stringify(data),
     };
+    console.log(options);
 
-    try {
-      const response = await fetch(url, options);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const responseData = await response.json();
+    fetchData(url, options).then((data) => {
+      console.log(data);
+      console.log(data.token);
+      localStorage.setItem('data:', data);
+    
 
-      if (responseData.token) {
-        localStorage.setItem('token', responseData.token);
-        localStorage.setItem('name', responseData.user.username);
-        localStorage.setItem('user_id', responseData.user.user_id);
-        showToast('Kirjautuminen onnistui!');
-        setTimeout(() => {
-          window.location.href = 'home.html'; // Uudelleenohjaus kotisivulle
-        }, 2000);
-      } else {
+      if (data.token == undefined) {
         showToast('Unauthorized: username or password incorrect!');
+      } else {
+        showToast('Kirjautuminen onnistui!');
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('name', data.user.family_name);
+        localStorage.setItem('user_id', data.user_id);
+        setTimeout(() => {
+          window.location.href = 'home.html'; 
+        }, 100000);
       }
-    } catch (error) {
-      showToast(`An error occurred: ${error.message}`);
-    }
-  });
+    });
 });
-
+});

@@ -1,5 +1,14 @@
 import "./style.css";
 
+
+async function showUserName() {
+  const url = "http://localhost:3000/api/auth/me";
+  const token = localStorage.getItem("token");
+  
+
+}
+
+// kalenteri
 let today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
@@ -79,6 +88,7 @@ function next() {
 
 showCalendar(currentMonth, currentYear);
 
+// menu toggle
 document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.querySelector(".menu-toggle");
   const menu = document.querySelector(".menu");
