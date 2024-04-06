@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   loginUser.addEventListener('click', async (evt) => {
     evt.preventDefault();
-    const url = 'http://localhost:3000/api/auth/login'; // Varmista, että osoite on oikea
+    const url = 'http://localhost:3000/api/auth/login';
 
     const form = document.querySelector('.login_form');
     console.log(form); 
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
       if (data.token == undefined) {
-        showToast('Unauthorized: username or password incorrect!');
+        showToast('Väärä salasana tai käyttäjätunnus.');
       } else {
         showToast('Kirjautuminen onnistui!');
         localStorage.setItem('token', data.token);
