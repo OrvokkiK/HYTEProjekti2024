@@ -1,12 +1,26 @@
 import "./style.css";
+// import {fetchData} from './fetch.js';
 
 
-async function showUserName() {
-  const url = "http://localhost:3000/api/auth/me";
-  const token = localStorage.getItem("token");
-  
+// async function showUserName() {
+//   const url = "http://localhost:3000/api/auth/me";
+//   const token = localStorage.getItem("token");
+//   const id = localStorage.getItem('user_id');
 
-}
+//   const options = {
+//     method: "GET",
+//     headers: {
+//       Authorization: "Bearer: " + token,
+//     },
+//   };
+//   fetchData(url, options).then((data) => {
+//     console.log(data);
+//     const user = data.user[0]; // Otetaan ensimmäinen käyttäjä taulukosta
+//     document.getElementById("name").innerHTML = user.username;
+//   });
+// }
+
+// showUserName();
 
 // kalenteri
 let today = new Date();

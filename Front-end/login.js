@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('user_id', data.user_id);
         setTimeout(() => {
           window.location.href = 'home.html'; 
-        }, 100000);
+        }, 1000);
       }
     });
 });
