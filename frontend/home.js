@@ -1,5 +1,7 @@
 /* eslint-disable require-jsdoc */
 import './style.css';
+import {fetchData} from './fetch.js';
+import {showToast} from './toast';
 
 const today = new Date();
 let currentMonth = today.getMonth();
@@ -71,84 +73,27 @@ function previous() {
   currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
   currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
   showCalendar(currentMonth, currentYear);
-};
+}
 
 function next() {
   currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
   currentMonth = (currentMonth + 1) % 12;
   showCalendar(currentMonth, currentYear);
-};
+}
 
 showCalendar(currentMonth, currentYear);
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const menuToggle = document.querySelector('.menu-toggle');
   const menu = document.querySelector('.menu');
 
-  menuToggle.addEventListener('click', function() {
+  menuToggle.addEventListener('click', function () {
     menu.classList.toggle('show');
   });
 });
 
-// Oirearviokyselyn toiminnallisuudet
-const surveyModal = document.getElementById('survey-modal');
-const formMental = document.getElementById('survey-form-mental');
-const formPhysical = document.getElementById('survey-form-physical');
-const button = document.getElementById('openArvioKyselyModal');
-const closeButton = document.querySelector('.close-button');
-
-button.onclick = function() {
-  surveyModal.style.display = 'block';
-  formMental.style.display = 'block';
-  formPhysical.style.display = 'none';
-};
-
-document.querySelector('.next-button').addEventListener('click', function() {
-  formMental.style.display = 'none';
-  formPhysical.style.display = 'block';
-});
-
-document.querySelector('.prev-button').addEventListener('click', function() {
-  formPhysical.style.display = 'none';
-  formMental.style.display = 'block';
-});
-
-closeButton.onclick = () => (surveyModal.style.display = 'none');
-
-window.onclick = (event) => {
-  if (event.target === surveyModal) {
-    surveyModal.style.display = 'none';
-  }
-};
-
-formMental.addEventListener('submit', submitForm1);
-
-function submitForm1() {
-  console.log('toimii');
-}
-
-const button2 = document.getElementById('openElamantapaKyselyModal');
-
-button2.onclick = function() {
-  sleepModal.style.display = 'block';
-};
-
-const form2 = document.getElementById('sleep-form');
-form2.addEventListener('submit', submitForm2);
-
-const sleepModal = document.getElementById('sleep-modal');
-const closeButton2 = document.querySelector('.close-button2');
-
-closeButton2.onclick = () => {
-  sleepModal.style.display = 'none';
-};
-
-function submitForm2() {
-  console.log('elämantapa modal toimii');
-}
-
 // Graph code
-am5.ready(function() {
+am5.ready(function () {
   // Create root element
   const root = am5.Root.new('graph');
 
@@ -387,7 +332,7 @@ am5.ready(function() {
     cornerRadiusTR: 6,
   });
 
-  series.columns.template.adapters.add('fill', function(fill, target) {
+  series.columns.template.adapters.add('fill', function (fill, target) {
     return chart
       .get('colors')
       .getIndex(series.dataItems.indexOf(target.dataItem));
@@ -404,7 +349,7 @@ am5.ready(function() {
     }),
   );
 
-  hrvSeries.bullets.push(function() {
+  hrvSeries.bullets.push(function () {
     return am5.Bullet.new(root, {
       sprite: am5.Circle.new(root, {
         radius: 4,
@@ -421,3 +366,104 @@ am5.ready(function() {
   hrvSeries.appear();
   chart.appear(1000, 100);
 });
+
+// Oirearviokyselyn toiminnallisuudet
+const surveyModal = document.getElementById('survey-modal');
+const formMental = document.getElementById('survey-form-mental');
+const formPhysical = document.getElementById('survey-form-physical');
+const nextButton = document.querySelector('.next-button');
+const prevButton = document.querySelector('.prev-button');
+const saveButton = document.querySelector('.tallenna-button');
+const closeButton = document.querySelector('.close-button');
+const button = document.getElementById('openArvioKyselyModal');
+
+let formData = {};
+
+// Avaa henkisen oirearvioinnin lomake
+button.onclick = function () {
+  const completionDate = localStorage.getItem('surveyCompletionDate');
+  const currentDate = new Date().toDateString();
+
+  if (completionDate === currentDate) {
+    alert('Olet jo suorittanut oirearviokyselyn tänään.');
+    return; // Lopetetaan funktion suoritus tähän, jotta modal ei avaudu
+  }
+
+  surveyModal.style.display = 'block';
+  formMental.style.display = 'block';
+  formPhysical.style.display = 'none';
+};
+
+// Siirry fyysiseen oirearviointiin ja kerää henkisen oirearvioinnin tiedot
+nextButton.addEventListener('click', function () {
+  // Kerää henkisten oireiden tiedot
+  for (let i = 1; i <= 9; i++) {
+    const checkbox = document.getElementById(`symptom${i}`);
+    formData[`symptom${i}`] = checkbox.checked;
+  }
+
+  formMental.style.display = 'none';
+  formPhysical.style.display = 'block';
+});
+
+// Palaa henkiseen oirearviointiin
+prevButton.addEventListener('click', function () {
+  formPhysical.style.display = 'none';
+  formMental.style.display = 'block';
+});
+
+// Kerää fyysisten oireiden tiedot ja lähetä kaikki tiedot palvelimelle
+saveButton.addEventListener('click', function (event) {
+  event.preventDefault();
+
+  // Kerää fyysisten oireiden tiedot
+  for (let i = 1; i <= 8; i++) {
+    const checkbox = document.getElementById(`physical-symptom${i}`);
+    formData[`physical-symptom${i}`] = checkbox.checked;
+  }
+
+  // Hae käyttäjän id localStoragesta
+  const id = localStorage.getItem('user_id');
+
+  // Hae token localStoragesta
+  const token = localStorage.getItem('token');
+
+  // Määrittele pyynnön URL ja optiot
+  const url = `https://localhost:3000/api/auth/symptom/${id}`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(formData),
+  };
+
+  // Lähetä tiedot palvelimelle
+  fetchData(url, options)
+    .then((data) => {
+      console.log(data);
+      showToast('Oirearviokysely tallennettu.');
+      surveyModal.style.display = 'none';
+
+      // Tallenna kyselyn suorituspäivämäärä
+      const completionDate = new Date().toDateString();
+      localStorage.setItem('surveyCompletionDate', completionDate);
+
+      formData = {};
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      showToast('Virhe tallennettaessa oirearviokyselyä.');
+    });
+});
+
+closeButton.onclick = () => {
+  surveyModal.style.display = 'none';
+};
+
+window.onclick = (event) => {
+  if (event.target === surveyModal) {
+    surveyModal.style.display = 'none';
+  }
+};
