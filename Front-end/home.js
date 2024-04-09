@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 import "./style.css";
 import { fetchData } from "./fetch.js";
-import { showToast } from "./toast";
+import { showToast } from "./toast.js";
 
 const today = new Date();
 let currentMonth = today.getMonth();
@@ -499,34 +499,45 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 // elämäntapakyselyn toiminnallisuudet
+document.addEventListener('DOMContentLoaded', (event) => {
+  const sleepModal = document.getElementById("sleep-modal");
+  const sleepForm = document.getElementById("sleep-form");
+  const saveFormButton = document.querySelector(".tallenna-kysely");
+  const closeFormButton = document.querySelector(".close-button2");
+  const openButton = document.getElementById("openElamantapaKyselyModal");
 
-// document.addEventListener('DOMContentLoaded', (event) => {
-const sleepModal = getElementById("sleep-modal");
-const sleepForm = getElementById("sleep-form");
-const saveFormButton = document.querySelector(".tallenna-kysely");
-const closeFormButton = document.querySelector(".close-button2");
-const openButton = document.getElementById("openElamantapaKyselyModal");
+  openButton.onclick = function () {
+    const completionDate = localStorage.getItem("surveyCompletionDate");
+    const currentDate = new Date().toDateString();
 
-openButton.onclick = function () {
-  const completionDate = localStorage.getItem("surveyCompletionDate");
-  const currentDate = new Date().toDateString();
+    if (completionDate === currentDate) {
+      alert("Olet jo suorittanut elämäntapakyselyn tänään.");
+      return; 
+    }
 
-  if (completionDate === currentDate) {
-    alert("Olet jo suorittanut elämäntapakyselyn tänään.");
-    return; // Lopetetaan funktion suoritus tähän, jotta modal ei avaudu
-  }
-};
+    sleepModal.style.display = "block";
+    sleepForm.style.display = "block";
+  };
 
-sleepModal.style.display = "block";
-sleepForm.style.display = "none";
+  closeFormButton.onclick = () => {
+    sleepModal.style.display = "none";
+  };
 
-saveFormButton.addEventListener("click", function (event) {
-  event.preventDefault();
+  window.onclick = (event) => {
+    if (event.target === sleepModal) {
+      sleepModal.style.display = "none";
+    }
+  };
 
-  const sleepData = {
-    entry_date: new Date().toISOString().split("T")[0],
-    hours_slept: document.getElementById("sleep-hours"),
+  saveFormButton.addEventListener("click", function (event) {
+    event.preventDefault();
 
-  }
-})
-// }
+    const sleepData = {
+      entry_date: new Date().toISOString().split("T")[0],
+      hours_slept: document.getElementById("sleep-hours").value,
+    };
+
+    // Tähän voi lisätä koodia sleepDatan käsittelyä varten
+  });
+
+}); // Tämä sulke sulkee 'DOMContentLoaded' tapahtumankäsittelijän

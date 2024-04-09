@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// const loginUser = document.querySelector('.loginuser');
-// loginUser.addEventListener('click', function(event) {
-//   event.preventDefault();
-//   window.location.href = 'home.html';
-// });
+const loginUser = document.querySelector('.loginuser');
+loginUser.addEventListener('click', function(event) {
+  event.preventDefault();
+  window.location.href = 'home.html';
+});

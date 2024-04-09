@@ -305,9 +305,8 @@ button:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  max-width: 90%;
+  max-width: 70%;
   margin: auto;
-  flex-wrap: wrap;
   margin-top: 50px;
 }
 
@@ -319,8 +318,8 @@ button:focus-visible {
   padding: 20px;
   width: 30%;
   margin: auto;
-  background-color: #c6eff0;
-  margin-left: 3%;
+  background-color: rgba(198, 239, 240, 0.3);
+  /* margin-left: 3%; */
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
@@ -374,24 +373,31 @@ button:focus-visible {
   padding: 20px;
 }
 
-.calendar,
 #graph {
   border-radius: 10px;
   padding: 15px;
-  margin-bottom: 20px;
   margin-left: 20%;
-  max-width: 70%;
-  background-color: #c6eff0;
+  max-width: 60%;
+  background-color: rgba(198, 239, 240, 0.6);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-}
-
-#graph {
   height: 350px;
-  max-width: 70%;
   margin: auto;
   margin-bottom: 100px;
   margin-top: 40px;
 }
+
+.calendar {
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 10px;  /* Pienennetty ylämarginaali */
+  margin-left: 20%;  /* Voit säätää tätä arvoa tarpeen mukaan */
+  max-width: 80%;  /* Suurennettu maksimileveys */
+  width: 100%;  /* Asetetaan leveydeksi 100% */
+  background-color: rgba(198, 239, 240, 0.6);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+
 
 .calendar header {
   display: flex;
@@ -420,12 +426,13 @@ button:focus-visible {
 }
 
 .calendar .current-date {
-  background-color: #7b7b7b;
+  background-color: #acd7f1;
   color: white;
 }
 
 .current-date:hover {
-  background-color: #acd7f1;
+  background-color: #b4b0b0;
+
 }
 
 .modal label {
@@ -603,6 +610,39 @@ footer {
   letter-spacing: 1px;
 }
 
+@media screen and (max-width: 1300px) {
+  .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .survey-section, .calendar {
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .sidebar {
+    width:80%;
+  }
+
+  .calendar {
+    margin: auto;
+    order: 1; 
+  }
+
+  #graph {
+    max-width: 80%;
+  }
+
+  .survey-section {
+    order: 0; 
+  }
+}
+
+  
+
+
 @media screen and (max-width: 1150px) {
   nav {
     height: 79px;
@@ -651,9 +691,9 @@ footer {
     margin-right: 20px;
   }
 
-  .menu-toggle:focus {
+  /* .menu-toggle:focus {
     background-color: #d1ebf5;
-  }
+  } */
 
   .menu li a:hover {
     background-color: #c0eaea;
@@ -663,9 +703,4 @@ footer {
     width: 100%;
   }
 
-
-  /* .calendar table,
-  .graph {
-    width: 100%;
-  } */
 }
