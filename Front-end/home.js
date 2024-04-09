@@ -1,33 +1,13 @@
+/* eslint-disable require-jsdoc */
 import "./style.css";
-// import {fetchData} from './fetch.js';
+import { fetchData } from "./fetch.js";
+import { showToast } from "./toast";
 
-
-// async function showUserName() {
-//   const url = "http://localhost:3000/api/auth/me";
-//   const token = localStorage.getItem("token");
-//   const id = localStorage.getItem('user_id');
-
-//   const options = {
-//     method: "GET",
-//     headers: {
-//       Authorization: "Bearer: " + token,
-//     },
-//   };
-//   fetchData(url, options).then((data) => {
-//     console.log(data);
-//     const user = data.user[0]; // Otetaan ensimmäinen käyttäjä taulukosta
-//     document.getElementById("name").innerHTML = user.username;
-//   });
-// }
-
-// showUserName();
-
-// kalenteri
-let today = new Date();
+const today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 
-let monthNames = [
+const monthNames = [
   "Tammikuu",
   "Helmikuu",
   "Maaliskuu",
@@ -47,11 +27,12 @@ document
   .addEventListener("click", () => previous());
 document.getElementById("nextMonth").addEventListener("click", () => next());
 
+// eslint-disable-next-line require-jsdoc
 function showCalendar(month, year) {
-  let firstDay = (new Date(year, month).getDay() + 6) % 7; // Make Monday (0), Sunday (6)
-  let daysInMonth = 32 - new Date(year, month, 32).getDate();
+  const firstDay = (new Date(year, month).getDay() + 6) % 7;
+  const daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-  let tbl = document.getElementById("calendar-body");
+  const tbl = document.getElementById("calendar-body");
   tbl.innerHTML = "";
 
   document.getElementById("monthAndYear").innerText =
@@ -59,18 +40,18 @@ function showCalendar(month, year) {
 
   let date = 1;
   for (let i = 0; i < 6; i++) {
-    let row = document.createElement("tr");
+    const row = document.createElement("tr");
 
     for (let j = 0; j < 7; j++) {
-      let cell = document.createElement("td");
+      const cell = document.createElement("td");
       if (i === 0 && j < firstDay) {
-        let cellText = document.createTextNode("");
+        const cellText = document.createTextNode("");
         cell.appendChild(cellText);
         row.appendChild(cell);
       } else if (date > daysInMonth) {
         break;
       } else {
-        let cellText = document.createTextNode(date);
+        const cellText = document.createTextNode(date);
         cell.appendChild(cellText);
         if (
           date === today.getDate() &&
@@ -102,7 +83,6 @@ function next() {
 
 showCalendar(currentMonth, currentYear);
 
-// menu toggle
 document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.querySelector(".menu-toggle");
   const menu = document.querySelector(".menu");
@@ -112,73 +92,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Oirearviokyselyn toiminnallisuudet
-const surveyModal = document.getElementById("survey-modal");
-const formMental = document.getElementById("survey-form-mental");
-const formPhysical = document.getElementById("survey-form-physical");
-const button = document.getElementById("openArvioKyselyModal");
-const closeButton = document.querySelector(".close-button");
-
-button.onclick = function () {
-  surveyModal.style.display = "block";
-  formMental.style.display = "block";
-  formPhysical.style.display = "none";
-};
-
-document.querySelector(".next-button").addEventListener("click", function () {
-  formMental.style.display = "none";
-  formPhysical.style.display = "block";
-});
-
-document.querySelector(".prev-button").addEventListener("click", function () {
-  formPhysical.style.display = "none";
-  formMental.style.display = "block";
-});
-
-closeButton.onclick = () => (surveyModal.style.display = "none");
-
-window.onclick = (event) => {
-  if (event.target === surveyModal) {
-    surveyModal.style.display = "none";
-  }
-};
-
-formMental.addEventListener("submit", submitForm1);
-
-function submitForm1() {
-  console.log("toimii");
-}
-
-const button2 = document.getElementById("openElamantapaKyselyModal");
-
-button2.onclick = function () {
-  sleepModal.style.display = "block";
-};
-
-const form2 = document.getElementById("sleep-form");
-form2.addEventListener("submit", submitForm2);
-
-const sleepModal = document.getElementById("sleep-modal");
-const closeButton2 = document.querySelector(".close-button2");
-
-closeButton2.onclick = () => {
-  sleepModal.style.display = "none";
-};
-
-function submitForm2() {
-  console.log("elämantapa modal toimii");
-}
-
 // Graph code
 am5.ready(function () {
   // Create root element
-  var root = am5.Root.new("graph");
+  const root = am5.Root.new("graph");
 
   // Set themes
+  // eslint-disable-next-line camelcase
   root.setThemes([am5themes_Animated.new(root)]);
 
   // Create chart
-  var chart = root.container.children.push(
+  const chart = root.container.children.push(
     am5xy.XYChart.new(root, {
       panX: false,
       panY: false,
@@ -192,9 +116,9 @@ am5.ready(function () {
 
   chart.children.unshift(
     am5.Label.new(root, {
-      text: "Otsikko",
+      text: "Stressianalyysi ja HRV-mittaustulokset",
       fontSize: 25,
-      fontWeight: "500",
+      fontWeight: "400",
       textAlign: "center",
       x: am5.percent(50),
       centerX: am5.percent(50),
@@ -216,9 +140,10 @@ am5.ready(function () {
   //   })
   // );
 
-  var colors = chart.get("colors");
+  // eslint-disable-next-line no-unused-vars
+  const colors = chart.get("colors");
 
-  var data = [
+  const data = [
     {
       date: "2012-07-27",
       value: 1,
@@ -336,12 +261,12 @@ am5.ready(function () {
   ];
 
   // Create axes
-  var xRenderer = am5xy.AxisRendererX.new(root, {
+  const xRenderer = am5xy.AxisRendererX.new(root, {
     minGridDistance: 85,
     minorGridEnabled: true,
   });
 
-  var xAxis = chart.xAxes.push(
+  const xAxis = chart.xAxes.push(
     am5xy.CategoryAxis.new(root, {
       categoryField: "date",
       renderer: xRenderer,
@@ -358,9 +283,9 @@ am5.ready(function () {
 
   xAxis.data.setAll(data);
 
-  var yAxis = chart.yAxes.push(
+  const yAxis = chart.yAxes.push(
     am5xy.ValueAxis.new(root, {
-      min: 1,
+      min: 0,
       max: 3,
       maxPrecision: 0,
       renderer: am5xy.AxisRendererY.new(root, {
@@ -369,25 +294,28 @@ am5.ready(function () {
     })
   );
 
-  var hrvAxisRenderer = am5xy.AxisRendererY.new(root, {
+  const hrvAxisRenderer = am5xy.AxisRendererY.new(root, {
     opposite: true,
     inside: false, // Aseta false, jotta arvot näkyvät akselin ulkopuolella
-    maxLabelPosition: 0.98 // Aseta arvo alle 1 estääksesi labelien menemästä kaavion reunan yli
+    // eslint-disable-next-line max-len
+    maxLabelPosition: 0.98, // Aseta arvo alle 1 estääksesi labelien menemästä kaavion reunan yli
   });
 
-  var hrvAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-    renderer: hrvAxisRenderer,
-    min: 0, // Säädä nämä HRV-datan mukaan
-    max: 100, // Säädä nämä HRV-datan mukaan
-  }));
-  
+  const hrvAxis = chart.yAxes.push(
+    am5xy.ValueAxis.new(root, {
+      renderer: hrvAxisRenderer,
+      min: 0, // Säädä nämä HRV-datan mukaan
+      max: 100, // Säädä nämä HRV-datan mukaan
+    })
+  );
+
   // Lisää padding labelien oikealle puolelle
   hrvAxisRenderer.labels.template.setAll({
     paddingRight: 25, // Säädä tämä arvo haluamaksesi paddingiksi
   });
 
   // Add series
-  var series = chart.series.push(
+  const series = chart.series.push(
     am5xy.ColumnSeries.new(root, {
       xAxis: xAxis,
       yAxis: yAxis,
@@ -410,7 +338,7 @@ am5.ready(function () {
       .getIndex(series.dataItems.indexOf(target.dataItem));
   });
 
-  var hrvSeries = chart.series.push(
+  const hrvSeries = chart.series.push(
     am5xy.LineSeries.new(root, {
       xAxis: xAxis,
       yAxis: hrvAxis,
@@ -438,3 +366,167 @@ am5.ready(function () {
   hrvSeries.appear();
   chart.appear(1000, 100);
 });
+
+// Oirearviokyselyn toiminnallisuudet
+document.addEventListener("DOMContentLoaded", (event) => {
+  const surveyModal = document.getElementById("survey-modal");
+  const formMental = document.getElementById("survey-form-mental");
+  const formPhysical = document.getElementById("survey-form-physical");
+  const nextButton = document.querySelector(".next-button");
+  const prevButton = document.querySelector(".prev-button");
+  const saveButton = document.querySelector(".tallenna-button");
+  const closeButton = document.querySelector(".close-button");
+  const button = document.getElementById("openArvioKyselyModal");
+
+  // Avaa henkisen oirearvioinnin lomake
+  button.onclick = function () {
+    const completionDate = localStorage.getItem("surveyCompletionDate");
+    const currentDate = new Date().toDateString();
+
+    if (completionDate === currentDate) {
+      alert("Olet jo suorittanut oirearviokyselyn tänään.");
+      return; // Lopetetaan funktion suoritus tähän, jotta modal ei avaudu
+    }
+
+    surveyModal.style.display = "block";
+    formMental.style.display = "block";
+    formPhysical.style.display = "none";
+  };
+
+  // Siirry fyysiseen oirearviointiin ja kerää henkisen oirearvioinnin tiedot
+  nextButton.addEventListener("click", function () {
+    formMental.style.display = "none";
+    formPhysical.style.display = "block";
+  });
+
+  // Palaa henkiseen oirearviointiin
+  prevButton.addEventListener("click", function () {
+    formPhysical.style.display = "none";
+    formMental.style.display = "block";
+  });
+
+  // Kerää fyysisten oireiden tiedot ja lähetä kaikki tiedot palvelimelle
+  saveButton.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const stressLevel = document.getElementById("stress_level");
+    // if (!stressLevel) {
+    //   console.error('Stress-level elementtiä ei löydy!');
+    //   return; // Lopettaa funktion suorituksen, jos elementtiä ei löydy
+    // }
+    const stressLevelValue = parseInt(stressLevel.value, 10);
+
+    const dataToSubmit = {
+      entry_date: new Date().toISOString().split("T")[0],
+      frustration: document.getElementById("frustration").checked ? "1" : "0",
+      grumpiness: document.getElementById("grumpiness").checked ? "1" : "0",
+      recall_problems: document.getElementById("recall_problems").checked
+        ? "1"
+        : "0",
+      restlesness: document.getElementById("restlesness").checked ? "1" : "0",
+      disquiet: document.getElementById("disquiet").checked ? "1" : "0",
+      tiredness: document.getElementById("tiredness").checked ? "1" : "0",
+      anxiety: document.getElementById("anxiety").checked ? "1" : "0",
+      difficulty_making_decisions: document.getElementById("difficulty").checked
+        ? "1"
+        : "0",
+      sleep_disturbances: document.getElementById("sleep_disturbances").checked
+        ? "1"
+        : "0",
+      changes_in_appetite: document.getElementById("changes_appetite").checked
+        ? "1"
+        : "0",
+      headache: document.getElementById("headache").checked ? "1" : "0",
+      neck_pain: document.getElementById("neck_pain").checked ? "1" : "0",
+      vertigo: document.getElementById("vertigo").checked ? "1" : "0",
+      palpitation: document.getElementById("palpitation").checked ? "1" : "0",
+      nausea: document.getElementById("nausea").checked ? "1" : "0",
+      upset_stomach: document.getElementById("upset_stomach").checked
+        ? "1"
+        : "0",
+      recurring_colds: document.getElementById("recurring_colds").checked
+        ? "1"
+        : "0",
+      back_issues: document.getElementById("back_issues").checked ? "1" : "0",
+      stress_level: stressLevelValue,
+    };
+
+    // Hae käyttäjän id localStoragesta
+    const id = localStorage.getItem("user_id");
+
+    // Hae token localStoragesta
+    const token = localStorage.getItem("token");
+
+    // Määrittele pyynnön URL ja optiot
+    const url = `http://localhost:3000/api/symptoms/${id}`;
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(dataToSubmit),
+    };
+
+    // Lähetä tiedot palvelimelle
+    fetchData(url, options)
+      .then((data) => {
+        console.log(data);
+        showToast("Oirearviokysely tallennettu.");
+        surveyModal.style.display = "none";
+
+        // // Tallenna kyselyn suorituspäivämäärä
+        const completionDate = new Date().toDateString();
+        localStorage.setItem("surveyCompletionDate", completionDate);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        showToast(
+          "Virhe tallennettaessa oirearviokyselyä. Täytä lomake uudelleen."
+        );
+      });
+  });
+
+  closeButton.onclick = () => {
+    surveyModal.style.display = "none";
+  };
+
+  window.onclick = (event) => {
+    if (event.target === surveyModal) {
+      surveyModal.style.display = "none";
+    }
+  };
+});
+
+// elämäntapakyselyn toiminnallisuudet
+
+// document.addEventListener('DOMContentLoaded', (event) => {
+const sleepModal = getElementById("sleep-modal");
+const sleepForm = getElementById("sleep-form");
+const saveFormButton = document.querySelector(".tallenna-kysely");
+const closeFormButton = document.querySelector(".close-button2");
+const openButton = document.getElementById("openElamantapaKyselyModal");
+
+openButton.onclick = function () {
+  const completionDate = localStorage.getItem("surveyCompletionDate");
+  const currentDate = new Date().toDateString();
+
+  if (completionDate === currentDate) {
+    alert("Olet jo suorittanut elämäntapakyselyn tänään.");
+    return; // Lopetetaan funktion suoritus tähän, jotta modal ei avaudu
+  }
+};
+
+sleepModal.style.display = "block";
+sleepForm.style.display = "none";
+
+saveFormButton.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  const sleepData = {
+    entry_date: new Date().toISOString().split("T")[0],
+    hours_slept: document.getElementById("sleep-hours"),
+
+  }
+})
+// }

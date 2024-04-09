@@ -62,9 +62,9 @@
     </header>
     <main class="content-wrapper">
       <section class="survey-section">
-        <div class="user">Hei <span id="name"></span>!</div>
+        <div class="user">Hei <span id="name"></span> *käyttäjän nimi tähän*!</div>
         <div class="user">Tervetuloa MindEase- sovellukseen.</div>
-        <div class="user">Täytä oirearvio- ja elämäntapakysely ja gdjgkdjfkldjfl</div>
+        <div class="user">Täytä oirearvio- ja elämäntapakysely sekä hae HRV-mittauksen tulokset saadaksesi päivittäisen kokonaisanalyysin stressitasostasi. </div>
         <button id="openArvioKyselyModal" class="survey-button green">
           <i class="bi bi-card-checklist"></i>
           Oirearviokysely
@@ -75,6 +75,8 @@
         <button class="survey-button red">
           <i class="bi bi-heart-pulse"></i> HRV-mittaus
         </button>
+        <div class="user">Muista myös harjoitella huolihetkien pitämistä ja täytä huolipäiväkirjaa.</div>
+        <a href="diary.html"><button class="diary-button"><i class="bi bi-pencil"></i> Huolipäiväkirjaan</button></a>
       </section>
 
       <aside class="sidebar">
@@ -112,48 +114,49 @@
 
           <div class="checkbox-group">
             <label for="symptom1">Ärtyneisyys</label>
-            <input type="checkbox" id="symptom1" name="symptom1" />
+            <input type="checkbox" id="grumpiness" name="symptom1" />
           </div>
 
           <div class="checkbox-group">
             <label for="symptom2">Ahdistus</label>
-            <input type="checkbox" id="symptom2" name="symptom2" />
+            <input type="checkbox" id="anxiety" name="symptom2" />
           </div>
 
           <div class="checkbox-group">
             <label for="symptom3">Turhautumisen tunne</label>
-            <input type="checkbox" id="symptom3" name="symptom3" />
+            <input type="checkbox" id="frustration" name="symptom3" />
           </div>
 
           <div class="checkbox-group">
             <label for="symptom4">Muistivaikeudet</label>
-            <input type="checkbox" id="symptom4" name="symptom4" />
+            <input type="checkbox" id="recall_problems" name="symptom4" />
           </div>
 
           <div class="checkbox-group">
             <label for="symptom5">Levottomuus</label>
-            <input type="checkbox" id="symptom5" name="symptom5" />
+            <input type="checkbox" id="restlesness" name="symptom5" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="symptom6">Rauhattomuus</label>
+            <input type="checkbox" id="disquiet" name="symptom6" />
           </div>
 
           <div class="checkbox-group">
             <label for="symptom6">Väsymys</label>
-            <input type="checkbox" id="symptom6" name="symptom6" />
+            <input type="checkbox" id="tiredness" name="symptom6" />
           </div>
 
           <div class="checkbox-group">
             <label for="symptom7">Päätöksen teon vaikeudet</label>
-            <input type="checkbox" id="symptom7" name="symptom7" />
+            <input type="checkbox" id="difficulty" name="symptom7" />
           </div>
 
           <div class="checkbox-group">
             <label for="symptom8">Unihäiriöt</label>
-            <input type="checkbox" id="symptom8" name="symptom8" />
+            <input type="checkbox" id="sleep_disturbances" name="symptom8" />
           </div>
 
-          <div class="checkbox-group">
-            <label for="symptom9">Ruokahalun muutokset</label>
-            <input type="checkbox" id="symptom9" name="symptom9" />
-          </div>
 
           <button type="button" class="next-button">Seuraava</button>
         </form>
@@ -167,20 +170,16 @@
           <p>Valitse oireet joita olet kokenut viimeisen 24:n tunnin aikana:</p>
 
           <div class="checkbox-group">
-            <label for="physical-symptom1">Päänsärky</label>
-            <input
-              type="checkbox"
-              id="physical-symptom1"
-              name="physical-symptom1"
-            />
+            <label for="symptom9">Ruokahalun muutokset</label>
+            <input type="checkbox" id="changes_appetite" name="symptom9" />
           </div>
 
           <div class="checkbox-group">
-            <label for="physical-symptom2">Lihaskivut</label>
+            <label for="physical-symptom1">Päänsärky</label>
             <input
               type="checkbox"
-              id="physical-symptom2"
-              name="physical-symptom2"
+              id="headache"
+              name="physical-symptom1"
             />
           </div>
 
@@ -190,7 +189,18 @@
             >
             <input
               type="checkbox"
-              id="physical-symptom3"
+              id="neck_pain"
+              name="physical-symptom3"
+            />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="physical-symptom3"
+              >Selkäkivut</label
+            >
+            <input
+              type="checkbox"
+              id="back_issues"
               name="physical-symptom3"
             />
           </div>
@@ -199,7 +209,7 @@
             <label for="physical-symptom4">Huimaus</label>
             <input
               type="checkbox"
-              id="physical-symptom4"
+              id="vertigo"
               name="physical-symptom4"
             />
           </div>
@@ -208,7 +218,7 @@
             <label for="physical-symptom5">Sydämen tykytykset</label>
             <input
               type="checkbox"
-              id="physical-symptom5"
+              id="palpitation"
               name="physical-symptom5"
             />
           </div>
@@ -217,7 +227,7 @@
             <label for="physical-symptom6">Pahoinvointi</label>
             <input
               type="checkbox"
-              id="physical-symptom6"
+              id="nausea"
               name="physical-symptom6"
             />
           </div>
@@ -226,7 +236,7 @@
             <label for="physical-symptom7">Vatsavaivat</label>
             <input
               type="checkbox"
-              id="physical-symptom7"
+              id="upset_stomach"
               name="physical-symptom7"
             />
           </div>
@@ -235,9 +245,26 @@
             <label for="physical-symptom8">Flunssakierre</label>
             <input
               type="checkbox"
-              id="physical-symptom8"
+              id="recurring_colds"
               name="physical-symptom8"
             />
+          </div>
+          <div class="question">
+            <label>Kuinka stressaantuneeksi tunnet itsesi?</label>
+            <input
+              type="range"
+              id="stress_level"
+              name="stress_level"
+              min="1"
+              max="5"
+            />
+            <div class="labels">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+              <span>5</span>
+            </div>
           </div>
           <button type="button" class="prev-button">Edellinen</button>
           <button type="submit" class="tallenna-button">Tallenna</button>
@@ -255,7 +282,7 @@
             >
             <input
               type="number"
-              id="sleepHours"
+              id="sleep-hours"
               name="sleepHours"
               min="0"
               max="24"
@@ -302,6 +329,7 @@
         </form>
       </div>
     </div>
+    <div id="toast-container"></div>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
