@@ -277,6 +277,7 @@ input.loginuser:hover,
   color: #abe0f3;
 }
 
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -456,7 +457,7 @@ button:focus-visible {
   margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 30%;
+  width: 50%;
   border-radius: 10px;
 }
 
@@ -492,7 +493,7 @@ button:focus-visible {
 }
 
 button[type="submit"] {
-  width: 100%;
+  width: 30%;
 }
 
 .checkbox-group {

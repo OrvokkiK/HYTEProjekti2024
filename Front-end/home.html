@@ -69,9 +69,14 @@
     </header>
     <main class="content-wrapper">
       <section class="survey-section">
-        <div class="user">Hei <span id="name"></span> *käyttäjän nimi tähän*!</div>
+        <div class="user">
+          Hei <span id="name"></span> *käyttäjän nimi tähän*!
+        </div>
         <div class="user">Tervetuloa MindEase- sovellukseen.</div>
-        <div class="user">Täytä oirearvio- ja elämäntapakysely sekä hae HRV-mittauksen tulokset saadaksesi päivittäisen kokonaisanalyysin stressitasostasi. </div>
+        <div class="user">
+          Täytä oirearvio- ja elämäntapakysely sekä hae HRV-mittauksen tulokset
+          saadaksesi päivittäisen kokonaisanalyysin stressitasostasi.
+        </div>
         <button id="openArvioKyselyModal" class="survey-button green">
           <i class="bi bi-card-checklist"></i>
           Oirearviokysely
@@ -82,8 +87,15 @@
         <button class="survey-button red">
           <i class="bi bi-heart-pulse"></i> HRV-mittaus
         </button>
-        <div class="user">Muista myös harjoitella huolihetkien pitämistä ja täytä huolipäiväkirjaa.</div>
-        <a href="diary.html"><button class="diary-button"><i class="bi bi-pencil"></i> Huolipäiväkirjaan</button></a>
+        <div class="user">
+          Muista myös harjoitella huolihetkien pitämistä ja täytä
+          huolipäiväkirjaa.
+        </div>
+        <a href="diary.html"
+          ><button class="diary-button">
+            <i class="bi bi-pencil"></i> Huolipäiväkirjaan
+          </button></a
+        >
       </section>
 
       <aside class="sidebar">
@@ -164,7 +176,6 @@
             <input type="checkbox" id="sleep_disturbances" name="symptom8" />
           </div>
 
-
           <button type="button" class="next-button">Seuraava</button>
         </form>
         <form
@@ -183,60 +194,34 @@
 
           <div class="checkbox-group">
             <label for="physical-symptom1">Päänsärky</label>
-            <input
-              type="checkbox"
-              id="headache"
-              name="physical-symptom1"
-            />
+            <input type="checkbox" id="headache" name="physical-symptom1" />
           </div>
 
           <div class="checkbox-group">
             <label for="physical-symptom3"
               >Niska- ja hartiaseudun jännitys</label
             >
-            <input
-              type="checkbox"
-              id="neck_pain"
-              name="physical-symptom3"
-            />
+            <input type="checkbox" id="neck_pain" name="physical-symptom3" />
           </div>
 
           <div class="checkbox-group">
-            <label for="physical-symptom3"
-              >Selkäkivut</label
-            >
-            <input
-              type="checkbox"
-              id="back_issues"
-              name="physical-symptom3"
-            />
+            <label for="physical-symptom3">Selkäkivut</label>
+            <input type="checkbox" id="back_issues" name="physical-symptom3" />
           </div>
 
           <div class="checkbox-group">
             <label for="physical-symptom4">Huimaus</label>
-            <input
-              type="checkbox"
-              id="vertigo"
-              name="physical-symptom4"
-            />
+            <input type="checkbox" id="vertigo" name="physical-symptom4" />
           </div>
 
           <div class="checkbox-group">
             <label for="physical-symptom5">Sydämen tykytykset</label>
-            <input
-              type="checkbox"
-              id="palpitation"
-              name="physical-symptom5"
-            />
+            <input type="checkbox" id="palpitation" name="physical-symptom5" />
           </div>
 
           <div class="checkbox-group">
             <label for="physical-symptom6">Pahoinvointi</label>
-            <input
-              type="checkbox"
-              id="nausea"
-              name="physical-symptom6"
-            />
+            <input type="checkbox" id="nausea" name="physical-symptom6" />
           </div>
 
           <div class="checkbox-group">
@@ -282,7 +267,8 @@
       <div class="modal-content">
         <span class="close-button2">×</span>
         <form id="sleep-form">
-          <h3>Uni:</h3>
+          <h3>Elämäntapakysely:</h3>
+          <div class="user">Vastaa jokaiseen kysymykseen.</div>
           <div class="question">
             <label for="sleepHours"
               >Kuinka monta tuntia nukuit viime yönä?</label
@@ -294,8 +280,8 @@
               min="0"
               max="24"
               step="0.5"
+              required
             />
-            h
           </div>
           <div class="question">
             <label>Koetko nukkuneesi eilen tarpeeksi?</label>
@@ -304,6 +290,7 @@
               id="enoughSleepYes"
               name="enoughSleep"
               value="yes"
+              required
             />
             <label for="enoughSleepYes">Kyllä</label>
             <input
@@ -311,6 +298,7 @@
               id="enoughSleepNo"
               name="enoughSleep"
               value="no"
+              required
             />
             <label for="enoughSleepNo">Ei</label>
           </div>
@@ -322,6 +310,7 @@
               name="sleepQuality"
               min="1"
               max="5"
+              required
             />
             <div class="labels">
               <span>Erittäin huono</span>
@@ -331,11 +320,98 @@
               <span>Erittäin hyvä</span>
             </div>
           </div>
-
+          <div class="question">
+            <label>Koetko olosi terveeksi?</label>
+            <input
+              type="radio"
+              id="feelHealthyYes"
+              name="feelHealthy"
+              value="yes"
+              required
+            />
+            <label for="feelHealthyYes">Kyllä</label>
+            <input
+              type="radio"
+              id="feelHealthyNo"
+              name="feelHealthy"
+              value="no"
+              required
+            />
+            <label for="feelHealthyNo">Ei</label>
+          </div>
+          <div class="question">
+            <label for="medication"
+              >Käytätkö jotakin lääkettä tänään? Jos kyllä niin mitä?</label
+            >
+            <input
+              type="text"
+              name="medication"
+              id="medication"
+              placeholder="esim.panadol"
+            />
+          </div>
+          <div class="question">
+            <label for="medication-purpose"
+              >Mihin tarkoitukseen käytät lääkettä?</label
+            >
+            <input
+              type="text"
+              name="medication-purpose"
+              id="medication-purpose"
+              placeholder="esim.pääkipu"
+            />
+          </div>
+          <div class="question">
+            <label for="caffeine"
+              >Kuinka monta kuppia olet juonut kahvia (tai energiajuomaa tms.)
+              tänään? (80mg kofeiinia = 1 kuppi)</label
+            >
+          </div>
+          <input type="number" name="caffeine" id="caffeine" min="0" required/>
+          <div class="question">
+            <label for="nicotine"
+              >Kuinka monta milligrammaa nikotiinia olet käyttänyt
+              tänään?</label
+            >
+            <input type="number" name="nicotine" id="nicotine" min="0" required/>
+          </div>
+          <div class="question">
+            <label for="alcohol"
+              >Kuinka monta alkoholiannosta olet nauttinut tänään? (Yksi annos
+              on 33 cl keskiolutta, 14 cl mietoa viiniä, 4 cl väkevää viinaa)
+            </label>
+            <input type="number" name="alcohol" id="alcohol" min="0" required/>
+          </div>
+          <div class="question">
+            <label for="exercise"
+              >Oletko harrastanut sykettä nostavaa tänään?</label
+            >
+            <input type="radio" id="exerciseYes" name="exercise" value="yes" required/>
+            <label for="exerciseYes">Kyllä</label>
+            <input type="radio" id="exerciseNo" name="exercise" value="no" required/>
+            <label for="exerciseNo">Ei</label>
+          </div>
+          <div id="exercise-additional-questions" style="display: none;">
+            <div class="question">
+              <label for="duration">Kuinka monta tuntia liikuntaa olet harrastanut?</label>
+              <input type="number" name="duration" id="duration" min="0" max="24" step="0.5" />
+            </div>
+            <div class="intensity">
+              <label for="intensity">Mikä oli liikunnan intensiteetti?</label>
+              <input type="range" id="intensity" name="intensity" min="1" max="5" />
+              <div class="labels">
+                <span>Erittäin alhainen</span>
+                <span>Alhainen</span>
+                <span>Keskiverto</span>
+                <span>Korkea</span>
+                <span>Erittäin korkea</span>
+              </div>
+            </div>
+          </div>
           <button type="submit" class="tallenna-kysely">Tallenna</button>
         </form>
       </div>
-    </div>
+      </div>
     <div id="toast-container"></div>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
