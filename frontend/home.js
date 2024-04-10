@@ -1,60 +1,64 @@
-import "./style.css";
+/* eslint-disable require-jsdoc */
+import './style.css';
+import {fetchData} from './fetch.js';
+import {showToast} from './toast';
 
-let today = new Date();
+const today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 
-let monthNames = [
-  "Tammikuu",
-  "Helmikuu",
-  "Maaliskuu",
-  "Huhtikuu",
-  "Toukokuu",
-  "Kesäkuu",
-  "Heinäkuu",
-  "Elokuu",
-  "Syyskuu",
-  "Lokakuu",
-  "Marraskuu",
-  "Joulukuu",
+const monthNames = [
+  'Tammikuu',
+  'Helmikuu',
+  'Maaliskuu',
+  'Huhtikuu',
+  'Toukokuu',
+  'Kesäkuu',
+  'Heinäkuu',
+  'Elokuu',
+  'Syyskuu',
+  'Lokakuu',
+  'Marraskuu',
+  'Joulukuu',
 ];
 
 document
-  .getElementById("prevMonth")
-  .addEventListener("click", () => previous());
-document.getElementById("nextMonth").addEventListener("click", () => next());
+  .getElementById('prevMonth')
+  .addEventListener('click', () => previous());
+document.getElementById('nextMonth').addEventListener('click', () => next());
 
+// eslint-disable-next-line require-jsdoc
 function showCalendar(month, year) {
-  let firstDay = (new Date(year, month).getDay() + 6) % 7; // Make Monday (0), Sunday (6)
-  let daysInMonth = 32 - new Date(year, month, 32).getDate();
+  const firstDay = (new Date(year, month).getDay() + 6) % 7;
+  const daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-  let tbl = document.getElementById("calendar-body");
-  tbl.innerHTML = "";
+  const tbl = document.getElementById('calendar-body');
+  tbl.innerHTML = '';
 
-  document.getElementById("monthAndYear").innerText =
-    monthNames[month] + " " + year;
+  document.getElementById('monthAndYear').innerText =
+    monthNames[month] + ' ' + year;
 
   let date = 1;
   for (let i = 0; i < 6; i++) {
-    let row = document.createElement("tr");
+    const row = document.createElement('tr');
 
     for (let j = 0; j < 7; j++) {
-      let cell = document.createElement("td");
+      const cell = document.createElement('td');
       if (i === 0 && j < firstDay) {
-        let cellText = document.createTextNode("");
+        const cellText = document.createTextNode('');
         cell.appendChild(cellText);
         row.appendChild(cell);
       } else if (date > daysInMonth) {
         break;
       } else {
-        let cellText = document.createTextNode(date);
+        const cellText = document.createTextNode(date);
         cell.appendChild(cellText);
         if (
           date === today.getDate() &&
           year === today.getFullYear() &&
           month === today.getMonth()
         ) {
-          cell.classList.add("current-date"); // Highlight the current date
+          cell.classList.add('current-date'); // Highlight the current date
         }
         row.appendChild(cell);
         date++;
@@ -79,104 +83,48 @@ function next() {
 
 showCalendar(currentMonth, currentYear);
 
-document.addEventListener("DOMContentLoaded", function () {
-  const menuToggle = document.querySelector(".menu-toggle");
-  const menu = document.querySelector(".menu");
+document.addEventListener('DOMContentLoaded', function () {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
 
-  menuToggle.addEventListener("click", function () {
-    menu.classList.toggle("show");
+  menuToggle.addEventListener('click', function () {
+    menu.classList.toggle('show');
   });
 });
-
-// Oirearviokyselyn toiminnallisuudet
-const surveyModal = document.getElementById("survey-modal");
-const formMental = document.getElementById("survey-form-mental");
-const formPhysical = document.getElementById("survey-form-physical");
-const button = document.getElementById("openArvioKyselyModal");
-const closeButton = document.querySelector(".close-button");
-
-button.onclick = function () {
-  surveyModal.style.display = "block";
-  formMental.style.display = "block";
-  formPhysical.style.display = "none";
-};
-
-document.querySelector(".next-button").addEventListener("click", function () {
-  formMental.style.display = "none";
-  formPhysical.style.display = "block";
-});
-
-document.querySelector(".prev-button").addEventListener("click", function () {
-  formPhysical.style.display = "none";
-  formMental.style.display = "block";
-});
-
-closeButton.onclick = () => (surveyModal.style.display = "none");
-
-window.onclick = (event) => {
-  if (event.target === surveyModal) {
-    surveyModal.style.display = "none";
-  }
-};
-
-formMental.addEventListener("submit", submitForm1);
-
-function submitForm1() {
-  console.log("toimii");
-}
-
-const button2 = document.getElementById("openElamantapaKyselyModal");
-
-button2.onclick = function () {
-  sleepModal.style.display = "block";
-};
-
-const form2 = document.getElementById("sleep-form");
-form2.addEventListener("submit", submitForm2);
-
-const sleepModal = document.getElementById("sleep-modal");
-const closeButton2 = document.querySelector(".close-button2");
-
-closeButton2.onclick = () => {
-  sleepModal.style.display = "none";
-};
-
-function submitForm2() {
-  console.log("elämantapa modal toimii");
-}
 
 // Graph code
 am5.ready(function () {
   // Create root element
-  var root = am5.Root.new("graph");
+  const root = am5.Root.new('graph');
 
   // Set themes
+  // eslint-disable-next-line camelcase
   root.setThemes([am5themes_Animated.new(root)]);
 
   // Create chart
-  var chart = root.container.children.push(
+  const chart = root.container.children.push(
     am5xy.XYChart.new(root, {
       panX: false,
       panY: false,
-      wheelX: "panX",
-      wheelY: "zoomX",
+      wheelX: 'panX',
+      wheelY: 'zoomX',
       paddingLeft: 0,
       paddingRight: 0,
       layout: root.verticalLayout,
-    })
+    }),
   );
 
   chart.children.unshift(
     am5.Label.new(root, {
-      text: "Otsikko",
+      text: 'Stressianalyysi ja HRV-mittaustulokset',
       fontSize: 25,
-      fontWeight: "500",
-      textAlign: "center",
+      fontWeight: '400',
+      textAlign: 'center',
       x: am5.percent(50),
       centerX: am5.percent(50),
       paddingTop: 0,
       paddingBottom: 20,
-    })
+    }),
   );
 
   // chart.children.unshift(
@@ -192,136 +140,137 @@ am5.ready(function () {
   //   })
   // );
 
-  var colors = chart.get("colors");
+  // eslint-disable-next-line no-unused-vars
+  const colors = chart.get('colors');
 
-  var data = [
+  const data = [
     {
-      date: "2012-07-27",
+      date: '2012-07-27',
       value: 1,
-      arvio: "Matala stressitaso",
+      arvio: 'Matala stressitaso',
       hrv: 60,
     },
     {
-      date: "2012-07-28",
+      date: '2012-07-28',
       value: 1,
-      arvio: "Matala stressitaso",
+      arvio: 'Matala stressitaso',
       hrv: 60,
     },
     {
-      date: "2012-07-29",
+      date: '2012-07-29',
       value: 3,
-      arvio: "Korkea stressitaso",
+      arvio: 'Korkea stressitaso',
       hrv: 40,
     },
     {
-      date: "2012-07-30",
+      date: '2012-07-30',
       value: 3,
-      arvio: "Korkea stressitaso",
+      arvio: 'Korkea stressitaso',
       hrv: 55,
     },
     {
-      date: "2012-07-31",
+      date: '2012-07-31',
       value: 3,
-      arvio: "Korkea stressitaso",
+      arvio: 'Korkea stressitaso',
       hrv: 35,
     },
     {
-      date: "2012-08-01",
+      date: '2012-08-01',
       value: 2,
-      arvio: "Kohtalainen stressitaso",
+      arvio: 'Kohtalainen stressitaso',
       hrv: 60,
     },
     {
-      date: "2012-08-02",
+      date: '2012-08-02',
       value: 2,
-      arvio: "Kohtalainen stressitaso",
+      arvio: 'Kohtalainen stressitaso',
       hrv: 45,
     },
     {
-      date: "2012-08-03",
+      date: '2012-08-03',
       value: 2,
-      arvio: "Kohtalainen stressitaso",
+      arvio: 'Kohtalainen stressitaso',
       hrv: 60,
     },
     {
-      date: "2012-08-04",
+      date: '2012-08-04',
       value: 2,
-      arvio: "Kohtalainen stressitaso",
+      arvio: 'Kohtalainen stressitaso',
       hrv: 70,
     },
     {
-      date: "2012-08-05",
+      date: '2012-08-05',
       value: 1,
-      arvio: "Matala stressitaso",
+      arvio: 'Matala stressitaso',
       hrv: 60,
     },
     {
-      date: "2012-08-06",
+      date: '2012-08-06',
       value: 1,
-      arvio: "Matala stressitaso",
+      arvio: 'Matala stressitaso',
       hrv: 55,
     },
     {
-      date: "2012-08-07",
+      date: '2012-08-07',
       value: 1,
-      arvio: "Matala stressitaso",
+      arvio: 'Matala stressitaso',
       hrv: 50,
     },
     {
-      date: "2012-08-08",
+      date: '2012-08-08',
       value: 2,
-      arvio: "Kohtalainen stressitaso",
+      arvio: 'Kohtalainen stressitaso',
       hrv: 60,
     },
     {
-      date: "2012-08-09",
+      date: '2012-08-09',
       value: 2,
-      arvio: "Kohtalainen stressitaso",
+      arvio: 'Kohtalainen stressitaso',
       hrv: 60,
     },
     {
-      date: "2012-08-10",
+      date: '2012-08-10',
       value: 2,
-      arvio: "Kohtalainen stressitaso",
+      arvio: 'Kohtalainen stressitaso',
       hrv: 35,
     },
     {
-      date: "2012-08-11",
+      date: '2012-08-11',
       value: 2,
-      arvio: "Kohtalainen stressitaso",
+      arvio: 'Kohtalainen stressitaso',
       hrv: 50,
     },
     {
-      date: "2012-08-12",
+      date: '2012-08-12',
       value: 3,
-      arvio: "Korkea stressitaso",
+      arvio: 'Korkea stressitaso',
       hrv: 40,
     },
     {
-      date: "2012-08-13",
+      date: '2012-08-13',
       value: 1,
-      arvio: "Matala stressitaso",
+      arvio: 'Matala stressitaso',
       hrv: 66,
     },
     {
-      date: "2012-08-14",
+      date: '2012-08-14',
       value: 2,
-      arvio: "Kohtalainen stressitaso",
+      arvio: 'Kohtalainen stressitaso',
       hrv: 55,
     },
   ];
 
   // Create axes
-  var xRenderer = am5xy.AxisRendererX.new(root, {
+  const xRenderer = am5xy.AxisRendererX.new(root, {
     minGridDistance: 85,
     minorGridEnabled: true,
   });
 
-  var xAxis = chart.xAxes.push(
+  const xAxis = chart.xAxes.push(
     am5xy.CategoryAxis.new(root, {
-      categoryField: "date",
+      categoryField: 'date',
       renderer: xRenderer,
-    })
+    }),
   );
 
   xRenderer.grid.template.setAll({
@@ -334,7 +283,7 @@ am5.ready(function () {
 
   xAxis.data.setAll(data);
 
-  var yAxis = chart.yAxes.push(
+  const yAxis = chart.yAxes.push(
     am5xy.ValueAxis.new(root, {
       min: 1,
       max: 3,
@@ -342,67 +291,70 @@ am5.ready(function () {
       renderer: am5xy.AxisRendererY.new(root, {
         strokeOpacity: 0.1,
       }),
-    })
+    }),
   );
 
-  var hrvAxisRenderer = am5xy.AxisRendererY.new(root, {
+  const hrvAxisRenderer = am5xy.AxisRendererY.new(root, {
     opposite: true,
     inside: false, // Aseta false, jotta arvot näkyvät akselin ulkopuolella
-    maxLabelPosition: 0.98 // Aseta arvo alle 1 estääksesi labelien menemästä kaavion reunan yli
+    // eslint-disable-next-line max-len
+    maxLabelPosition: 0.98, // Aseta arvo alle 1 estääksesi labelien menemästä kaavion reunan yli
   });
 
-  var hrvAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-    renderer: hrvAxisRenderer,
-    min: 0, // Säädä nämä HRV-datan mukaan
-    max: 100, // Säädä nämä HRV-datan mukaan
-  }));
-  
+  const hrvAxis = chart.yAxes.push(
+    am5xy.ValueAxis.new(root, {
+      renderer: hrvAxisRenderer,
+      min: 0, // Säädä nämä HRV-datan mukaan
+      max: 100, // Säädä nämä HRV-datan mukaan
+    }),
+  );
+
   // Lisää padding labelien oikealle puolelle
   hrvAxisRenderer.labels.template.setAll({
     paddingRight: 25, // Säädä tämä arvo haluamaksesi paddingiksi
   });
 
   // Add series
-  var series = chart.series.push(
+  const series = chart.series.push(
     am5xy.ColumnSeries.new(root, {
       xAxis: xAxis,
       yAxis: yAxis,
-      valueYField: "value",
-      categoryXField: "date",
-    })
+      valueYField: 'value',
+      categoryXField: 'date',
+    }),
   );
 
   series.columns.template.setAll({
-    tooltipText: "{categoryX}: {valueY}",
+    tooltipText: '{categoryX}: {valueY}',
     tooltipY: 0,
     strokeOpacity: 0,
     cornerRadiusTL: 6,
     cornerRadiusTR: 6,
   });
 
-  series.columns.template.adapters.add("fill", function (fill, target) {
+  series.columns.template.adapters.add('fill', function (fill, target) {
     return chart
-      .get("colors")
+      .get('colors')
       .getIndex(series.dataItems.indexOf(target.dataItem));
   });
 
-  var hrvSeries = chart.series.push(
+  const hrvSeries = chart.series.push(
     am5xy.LineSeries.new(root, {
       xAxis: xAxis,
       yAxis: hrvAxis,
-      valueYField: "hrv",
-      categoryXField: "date",
-      stroke: root.interfaceColors.get("alternativeBackground"),
+      valueYField: 'hrv',
+      categoryXField: 'date',
+      stroke: root.interfaceColors.get('alternativeBackground'),
       strokeWidth: 3,
-    })
+    }),
   );
 
   hrvSeries.bullets.push(function () {
     return am5.Bullet.new(root, {
       sprite: am5.Circle.new(root, {
         radius: 4,
-        fill: hrvSeries.get("stroke"),
-        tooltipText: "HRV: {hrv} ms",
+        fill: hrvSeries.get('stroke'),
+        tooltipText: 'HRV: {hrv} ms',
       }),
     });
   });
@@ -414,3 +366,104 @@ am5.ready(function () {
   hrvSeries.appear();
   chart.appear(1000, 100);
 });
+
+// Oirearviokyselyn toiminnallisuudet
+const surveyModal = document.getElementById('survey-modal');
+const formMental = document.getElementById('survey-form-mental');
+const formPhysical = document.getElementById('survey-form-physical');
+const nextButton = document.querySelector('.next-button');
+const prevButton = document.querySelector('.prev-button');
+const saveButton = document.querySelector('.tallenna-button');
+const closeButton = document.querySelector('.close-button');
+const button = document.getElementById('openArvioKyselyModal');
+
+let formData = {};
+
+// Avaa henkisen oirearvioinnin lomake
+button.onclick = function () {
+  const completionDate = localStorage.getItem('surveyCompletionDate');
+  const currentDate = new Date().toDateString();
+
+  if (completionDate === currentDate) {
+    alert('Olet jo suorittanut oirearviokyselyn tänään.');
+    return; // Lopetetaan funktion suoritus tähän, jotta modal ei avaudu
+  }
+
+  surveyModal.style.display = 'block';
+  formMental.style.display = 'block';
+  formPhysical.style.display = 'none';
+};
+
+// Siirry fyysiseen oirearviointiin ja kerää henkisen oirearvioinnin tiedot
+nextButton.addEventListener('click', function () {
+  // Kerää henkisten oireiden tiedot
+  for (let i = 1; i <= 9; i++) {
+    const checkbox = document.getElementById(`symptom${i}`);
+    formData[`symptom${i}`] = checkbox.checked;
+  }
+
+  formMental.style.display = 'none';
+  formPhysical.style.display = 'block';
+});
+
+// Palaa henkiseen oirearviointiin
+prevButton.addEventListener('click', function () {
+  formPhysical.style.display = 'none';
+  formMental.style.display = 'block';
+});
+
+// Kerää fyysisten oireiden tiedot ja lähetä kaikki tiedot palvelimelle
+saveButton.addEventListener('click', function (event) {
+  event.preventDefault();
+
+  // Kerää fyysisten oireiden tiedot
+  for (let i = 1; i <= 8; i++) {
+    const checkbox = document.getElementById(`physical-symptom${i}`);
+    formData[`physical-symptom${i}`] = checkbox.checked;
+  }
+
+  // Hae käyttäjän id localStoragesta
+  const id = localStorage.getItem('user_id');
+
+  // Hae token localStoragesta
+  const token = localStorage.getItem('token');
+
+  // Määrittele pyynnön URL ja optiot
+  const url = `https://localhost:3000/api/auth/symptom/${id}`;
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(formData),
+  };
+
+  // Lähetä tiedot palvelimelle
+  fetchData(url, options)
+    .then((data) => {
+      console.log(data);
+      showToast('Oirearviokysely tallennettu.');
+      surveyModal.style.display = 'none';
+
+      // Tallenna kyselyn suorituspäivämäärä
+      const completionDate = new Date().toDateString();
+      localStorage.setItem('surveyCompletionDate', completionDate);
+
+      formData = {};
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      showToast('Virhe tallennettaessa oirearviokyselyä.');
+    });
+});
+
+closeButton.onclick = () => {
+  surveyModal.style.display = 'none';
+};
+
+window.onclick = (event) => {
+  if (event.target === surveyModal) {
+    surveyModal.style.display = 'none';
+  }
+};

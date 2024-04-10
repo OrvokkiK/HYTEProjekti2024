@@ -308,6 +308,7 @@ button:focus-visible {
   max-width: 90%;
   margin: auto;
   flex-wrap: wrap;
+  margin-top: 50px;
 }
 
 .survey-section {
@@ -329,7 +330,7 @@ button:focus-visible {
   font-weight: 500;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  font-size: large;
+  font-size: medium;
   letter-spacing: 1px;
 }
 
@@ -342,6 +343,13 @@ button:focus-visible {
   cursor: pointer;
   width: 40%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+}
+
+.diary-button {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+  margin: 10px;
+  padding: 10px;
+
 }
 
 .survey-button:hover {
@@ -382,6 +390,7 @@ button:focus-visible {
   max-width: 70%;
   margin: auto;
   margin-bottom: 100px;
+  margin-top: 40px;
 }
 
 .calendar header {
@@ -594,9 +603,9 @@ footer {
   letter-spacing: 1px;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1150px) {
   nav {
-    height: 80px;
+    height: 79px;
   }
 
   .menu {
@@ -606,7 +615,7 @@ footer {
     top: 80px;
     right: 0;
     background-color: #abe0f3;
-    width: 100%;
+    width: 40%;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
   }
@@ -653,6 +662,7 @@ footer {
   .content-wrapper {
     width: 100%;
   }
+
 
   /* .calendar table,
   .graph {

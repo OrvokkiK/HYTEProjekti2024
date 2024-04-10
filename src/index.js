@@ -10,6 +10,7 @@ import userRouter from './routes/user-router.mjs';
 import kubiosRouter from './routes/kubios-router.mjs';
 import symptomRouter from './routes/symptom-router.mjs';
 import messageRouter from './routes/message-router.mjs';
+import lifestyleRouter from './routes/lifestyle-router.mjs';
 
 
 // import http from 'http';
@@ -40,6 +41,7 @@ app.use('/api/kubios', kubiosRouter);
 app.use('/api/symptoms/', symptomRouter);
 
 // Lifestyle route
+app.use('/api/lifestyle/', lifestyleRouter);
 
 // HRV route
 
