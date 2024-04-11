@@ -14,27 +14,21 @@ const baseUrl = process.env.KUBIOS_API_URI;
 * @param {NextFunction} next
 */
 const getUserData = async (req, res, next) => {
-  try {
-    const { kubiosIdToken } = req.user;
-    const currentDate = new Date().toISOString(); 
-    const headers = new Headers();
-    headers.append('User-Agent', process.env.KUBIOS_USER_AGENT);
-    headers.append('Authorization', kubiosIdToken);
+  const {kubiosIdToken} = req.user;
+  const headers = new Headers();
+  headers.append('User-Agent', process.env.KUBIOS_USER_AGENT);
+  headers.append('Authorization', kubiosIdToken);
 
-    const response = await fetch(`${baseUrl}/result/self?from=${encodeURIComponent(currentDate)}`, {
+  const response = await fetch(
+    // TODO: set the from date in request parameters
+    baseUrl + '/result/self?from=2022-01-01T00%3A00%3A00%2B00%3A00',
+    {
       method: 'GET',
       headers: headers,
-    });
-
-    if (!response.ok) {
-      throw customError(`Kubios API error with status: ${response.status}`, response.status);
-    }
-
-    const results = await response.json();
-    res.json(results);
-  } catch (error) {
-    next(error); 
-  }
+    },
+  );
+  const results = await response.json();
+  return res.json(results);
 };
 
 

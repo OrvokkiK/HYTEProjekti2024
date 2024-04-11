@@ -3,6 +3,28 @@ import './style.css';
 import {fetchData} from './fetch.js';
 import {showToast} from './toast.js';
 
+// get user info
+async function showUserName() {
+  const token = localStorage.getItem('token');
+  const url = 'http://localhost:3000/api/kubios/user-info'
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  fetchData(url, options)
+  .then((data) => {
+    console.log(data);
+    document.getElementById("name").innerHTML = data.user.given_name;
+  });
+} 
+
+showUserName();
+
+
+// kalenteri
 const today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
@@ -58,7 +80,7 @@ function showCalendar(month, year) {
           year === today.getFullYear() &&
           month === today.getMonth()
         ) {
-          cell.classList.add('current-date'); // Highlight the current date
+          cell.classList.add('current-date'); 
         }
         row.appendChild(cell);
         date++;
@@ -117,7 +139,7 @@ am5.ready(function () {
   chart.children.unshift(
     am5.Label.new(root, {
       text: 'Stressianalyysi ja HRV-mittaustulokset',
-      fontSize: 25,
+      fontSize: 20,
       fontWeight: '400',
       textAlign: 'center',
       x: am5.percent(50),
@@ -665,14 +687,21 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
   fetchData(url, options)
-    .then((data) => {
-      console.log(data);
-      const resultDiv = document.getElementById('results');
-      resultDiv.textContent = JSON.stringify(data, null, 2);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+  .then((data) => {
+    console.log(data);
+    const resultDiv = document.getElementById('results');
+    const currentDate = new Date().toISOString().split('T')[0];
+    const todaysResults = data.results.filter(result => result.daily_result === currentDate);
+
+    if (todaysResults.length > 0) {
+      resultDiv.textContent = JSON.stringify(todaysResults);
+    } else {
+      resultDiv.textContent = 'Ei tuloksia tämän päivän osalta. Suorita HRV-mittaus Kubios HRV sovelluksella ja hae mittaustulokset uudelleen.';
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 });
 });
 
