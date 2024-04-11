@@ -42,7 +42,7 @@ nav {
 }
 
 .logo-text {
-  font-family: "Inria Sans", sans-serif;
+  font-family: 'Inria Sans', sans-serif;
   font-weight: 700;
   background: -webkit-linear-gradient(
     45deg,
@@ -87,8 +87,8 @@ li a:not(.logo) {
   text-align: center;
   padding: 16px 30px;
   text-decoration: none;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
   font-size: smaller;
   letter-spacing: 2px;
 }
@@ -227,19 +227,19 @@ form {
   font-weight: bold;
   width: 300px;
   font-size: 0.9em;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="number"],
-input[type="date"],
-input[type="number"],
-input[type="time"],
-input[type="checkbox"],
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='number'],
+input[type='date'],
+input[type='number'],
+input[type='time'],
+input[type='checkbox'],
 select {
   width: 100%;
   padding: 12px 20px;
@@ -247,8 +247,8 @@ select {
   border: 1px solid #c3d6fa;
   box-sizing: border-box;
   border-radius: 5px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
 }
 
 input.loginuser,
@@ -264,8 +264,8 @@ input.loginuser,
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   font-size: 16px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
   transition: background-color 0.3s ease;
 }
 
@@ -276,7 +276,6 @@ input.loginuser:hover,
   background-color: #6c49ea;
   color: #abe0f3;
 }
-
 
 h1 {
   font-size: 3.2em;
@@ -293,9 +292,11 @@ button {
   background-color: #7ceaee;
   cursor: pointer;
   transition: border-color 0.25s;
+  transition: background-color 0.3s ease;
 }
 button:hover {
   color: #646cff;
+  background-color: #a0f0f3;
 }
 button:focus,
 button:focus-visible {
@@ -328,10 +329,11 @@ button:focus-visible {
 .user {
   color: #6829e7;
   font-weight: 500;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
   font-size: medium;
   letter-spacing: 1px;
+  text-align: center;
 }
 
 .survey-button {
@@ -349,7 +351,6 @@ button:focus-visible {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   margin: 10px;
   padding: 10px;
-
 }
 
 .survey-button:hover {
@@ -390,15 +391,13 @@ button:focus-visible {
 .calendar {
   border-radius: 10px;
   padding: 15px;
-  margin-top: 10px;  /* Pienennetty ylämarginaali */
-  margin-left: 20%;  /* Voit säätää tätä arvoa tarpeen mukaan */
-  max-width: 80%;  /* Suurennettu maksimileveys */
-  width: 100%;  /* Asetetaan leveydeksi 100% */
+  margin-top: 10px; /* Pienennetty ylämarginaali */
+  margin-left: 20%; /* Voit säätää tätä arvoa tarpeen mukaan */
+  max-width: 80%; /* Suurennettu maksimileveys */
+  width: 100%; /* Asetetaan leveydeksi 100% */
   background-color: rgba(198, 239, 240, 0.6);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
-
-
 
 .calendar header {
   display: flex;
@@ -433,7 +432,6 @@ button:focus-visible {
 
 .current-date:hover {
   background-color: #b4b0b0;
-
 }
 
 .modal label {
@@ -462,7 +460,8 @@ button:focus-visible {
 }
 
 .close-button,
-.close-button2 {
+.close-button2,
+.close-button3 {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -472,27 +471,40 @@ button:focus-visible {
 .close-button:hover,
 .close-button:focus,
 .close-button2:hover,
-.close-button2:focus {
+.close-button2:focus,
+.close-button3:hover,
+.close-button3:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
 
 #survey-form-mental,
-#survey-form-physical {
+#survey-form-physical,
+#hrv-form {
   color: #00080c;
   width: 100%;
 }
 
 #survey-form h3,
-#sleep-form h3 {
-  color: #032988;
+#sleep-form h3,
+#hrv-form h3 {
+  color: #65057f;
   font-size: large;
   text-decoration: underline;
-  margin-left: 40%;
+  margin: auto;
+  text-align: center;
 }
 
-button[type="submit"] {
+#results {
+  height: 300px;
+  width: 300px;
+  margin: auto;
+  margin-top: 30px;
+  text-align: center;
+}
+
+button[type='submit'] {
   width: 30%;
 }
 
@@ -506,7 +518,7 @@ button[type="submit"] {
   margin-right: 10px;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 20px;
   height: 20px;
 }
@@ -521,11 +533,11 @@ input[type="checkbox"] {
   color: #00080c;
 }
 
-input[type="number"] {
+input[type='number'] {
   width: auto;
 }
 
-input[type="range"] {
+input[type='range'] {
   width: 100%;
 }
 
@@ -605,8 +617,8 @@ footer {
   color: #6829e7;
   font-weight: 600;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.2);
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
   font-size: smaller;
   letter-spacing: 1px;
 }
@@ -617,19 +629,20 @@ footer {
     align-items: center;
   }
 
-  .survey-section, .calendar {
+  .survey-section,
+  .calendar {
     width: 100%;
     margin: 0;
     box-sizing: border-box;
   }
 
   .sidebar {
-    width:80%;
+    width: 80%;
   }
 
   .calendar {
     margin: auto;
-    order: 1; 
+    order: 1;
   }
 
   #graph {
@@ -637,12 +650,9 @@ footer {
   }
 
   .survey-section {
-    order: 0; 
+    order: 0;
   }
 }
-
-  
-
 
 @media screen and (max-width: 1150px) {
   nav {
@@ -703,5 +713,31 @@ footer {
   .content-wrapper {
     width: 100%;
   }
+}
 
+@media screen and (max-width: 770px) {
+  .sidebar {
+    width: 130%;
+  }
+
+  .survey-button {
+    width: 50%;
+  }
+  
+.menu {
+  width: 200px;
+}
+
+.menu li a {
+  font-size: 10px;
+}
+
+.content-wrapper {
+  max-width: 90%;
+}
+
+#graph {
+  max-width: 90%;
+  height: 300px;
+}
 }

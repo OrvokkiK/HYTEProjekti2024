@@ -3,6 +3,28 @@ import './style.css';
 import {fetchData} from './fetch.js';
 import {showToast} from './toast.js';
 
+// get user info
+async function showUserName() {
+  const token = localStorage.getItem('token');
+  const url = 'http://localhost:3000/api/kubios/user-info'
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  fetchData(url, options)
+  .then((data) => {
+    console.log(data);
+    document.getElementById("name").innerHTML = data.user.given_name;
+  });
+} 
+
+showUserName();
+
+
+// kalenteri
 const today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
@@ -58,7 +80,7 @@ function showCalendar(month, year) {
           year === today.getFullYear() &&
           month === today.getMonth()
         ) {
-          cell.classList.add('current-date'); // Highlight the current date
+          cell.classList.add('current-date'); 
         }
         row.appendChild(cell);
         date++;
@@ -117,7 +139,7 @@ am5.ready(function () {
   chart.children.unshift(
     am5.Label.new(root, {
       text: 'Stressianalyysi ja HRV-mittaustulokset',
-      fontSize: 25,
+      fontSize: 20,
       fontWeight: '400',
       textAlign: 'center',
       x: am5.percent(50),
@@ -381,7 +403,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   // Avaa henkisen oirearvioinnin lomake
   button.onclick = function () {
     const completionDate = localStorage.getItem('surveyCompletionDate');
-    const currentDate = new Date().toDateString();
+    const currentDate = new Date().toISOString().split('T')[0];
 
     if (completionDate === currentDate) {
       alert('Olet jo suorittanut oirearviokyselyn tänään.');
@@ -391,6 +413,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     surveyModal.style.display = 'block';
     formMental.style.display = 'block';
     formPhysical.style.display = 'none';
+  };
+
+  closeButton.onclick = () => {
+    surveyModal.style.display = 'none';
   };
 
   // Siirry fyysiseen oirearviointiin ja kerää henkisen oirearvioinnin tiedot
@@ -476,7 +502,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         surveyModal.style.display = 'none';
 
         // // Tallenna kyselyn suorituspäivämäärä
-        const completionDate = new Date().toDateString();
+        const completionDate = new Date().toISOString().split('T')[0];
         localStorage.setItem('surveyCompletionDate', completionDate);
       })
       .catch((error) => {
@@ -538,13 +564,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 
   openButton.onclick = function () {
-    const completionDate = localStorage.getItem('surveyCompletionDate');
-    const currentDate = new Date().toDateString();
+    const completionDate = localStorage.getItem('lifestyleSurveyDate');
+    const currentDate = new Date().toISOString().split('T')[0];
 
-    // if (completionDate === currentDate) {
-    //   alert("Olet jo suorittanut elämäntapakyselyn tänään.");
-    //   return;
-    // }
+    if (completionDate === currentDate) {
+      alert('Olet jo suorittanut elämäntapakyselyn tänään.');
+      return;
+    }
 
     sleepModal.style.display = 'block';
     sleepForm.style.display = 'block';
@@ -591,7 +617,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
       duration: document.getElementById('duration').value
         ? document.getElementById('duration').value
         : '0',
-      intensity: document.getElementById('intensity').value,
+      intensity:
+        document.querySelector('input[name="exercise"]:checked') &&
+        document.querySelector('input[name="exercise"]:checked').value === 'yes'
+          ? document.getElementById('intensity').value
+          : null,
       user_id: localStorage.getItem('user_id'),
     };
 
@@ -614,7 +644,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         showToast('Elämäntapakysely tallennettu.');
         sleepModal.style.display = 'none';
 
-        const completionDate = new Date().toDateString();
+        const completionDate = new Date().toISOString().split('T')[0];
         localStorage.setItem('lifestyleSurveyDate', completionDate);
       })
       .catch((error) => {
@@ -626,6 +656,56 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 
+// hrv mittaustulosten hakeminen backendista
+document.addEventListener('DOMContentLoaded', () => {
+  const hrvModal = document.getElementById('hrv-modal');
+  const hrvForm = document.getElementById('hrv-form');
+  const closeHrvButton = document.querySelector('.close-button3');
+  const openButton = document.getElementById('hrvMeasurements');
+  const fetchHrvButton = document.querySelector('.hrv-kubios');
+
+  openButton.onclick = function () {
+    hrvModal.style.display = 'block';
+    hrvForm.style.display = 'block';
+  };
+
+  closeHrvButton.onclick = () => {
+    hrvModal.style.display = 'none';
+  };
+
+  fetchHrvButton.addEventListener('click', function(event) {
+    event.preventDefault();
+  const token = localStorage.getItem('token');
+
+  const url = 'http://localhost:3000/api/kubios/user-data';
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  fetchData(url, options)
+  .then((data) => {
+    console.log(data);
+    const resultDiv = document.getElementById('results');
+    const currentDate = new Date().toISOString().split('T')[0];
+    const todaysResults = data.results.filter(result => result.daily_result === currentDate);
+
+    if (todaysResults.length > 0) {
+      resultDiv.textContent = JSON.stringify(todaysResults);
+    } else {
+      resultDiv.textContent = 'Ei tuloksia tämän päivän osalta. Suorita HRV-mittaus Kubios HRV sovelluksella ja hae mittaustulokset uudelleen.';
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+});
+});
+
+// logout
 document.addEventListener('DOMContentLoaded', function () {
   const logoutLink = document.querySelector('.logout a');
   logoutLink.addEventListener('click', function (event) {

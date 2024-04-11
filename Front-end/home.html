@@ -57,7 +57,7 @@
             </div>
           </li>
           <li class="dropdown">
-            <a href="chat.html"><i class="bi bi-chat"></i> Chat</a>
+            <a href="chat.html"><i class="bi bi-chat"></i> CHAT</a>
           </li>
           <li class="logout">
             <a href="index.html"
@@ -70,7 +70,7 @@
     <main class="content-wrapper">
       <section class="survey-section">
         <div class="user">
-          Hei <span id="name"></span> *käyttäjän nimi tähän*!
+          Hei <span id="name"></span>!
         </div>
         <div class="user">Tervetuloa MindEase- sovellukseen.</div>
         <div class="user">
@@ -84,7 +84,7 @@
         <button id="openElamantapaKyselyModal" class="survey-button blue">
           <i class="bi bi-pencil-square"></i> Elämäntapakysely
         </button>
-        <button class="survey-button red">
+        <button id="hrvMeasurements" class="survey-button red">
           <i class="bi bi-heart-pulse"></i> HRV-mittaus
         </button>
         <div class="user">
@@ -411,6 +411,18 @@
           <button type="submit" class="tallenna-kysely">Tallenna</button>
         </form>
       </div>
+      </div>
+      <div id="hrv-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-button3">×</span>
+          <form id="hrv-form">
+            <h3>HRV-Mittaustuloksesi</h3>
+            <p>Hae Hrv-mittaustuloksesi Kubioksesta ja tallenna ne järjestelmään</p>
+            <button class="hrv-kubios">Hae mittaustulokset</button>
+            <div id="results"></div>
+            <button type="submit" class="tallenna-kysely">Tallenna tulokset</button>
+          </form>
+        </div>
       </div>
     <div id="toast-container"></div>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>

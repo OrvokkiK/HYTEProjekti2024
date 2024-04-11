@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import fetch from 'node-fetch';
-// import {customError} from '../middlewares/error-handler.mjs';
+import {customError} from '../middlewares/error-handler.mjs';
 
 // Kubios API base URL should be set in .env
 const baseUrl = process.env.KUBIOS_API_URI;
@@ -30,6 +30,7 @@ const getUserData = async (req, res, next) => {
   const results = await response.json();
   return res.json(results);
 };
+
 
 /**
 * Get user info from Kubios API example
