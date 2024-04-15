@@ -6,7 +6,7 @@ import {showToast} from './toast.js';
 // get user info
 async function showUserName() {
   const token = localStorage.getItem('token');
-  const url = 'http://localhost:3000/api/kubios/user-info'
+  const url = 'http://localhost:3000/api/kubios/user-info';
   const options = {
     method: 'GET',
     headers: {
@@ -14,15 +14,13 @@ async function showUserName() {
       Authorization: `Bearer ${token}`,
     },
   };
-  fetchData(url, options)
-  .then((data) => {
+  fetchData(url, options).then((data) => {
     console.log(data);
-    document.getElementById("name").innerHTML = data.user.given_name;
+    document.getElementById('name').innerHTML = data.user.given_name;
   });
-} 
+}
 
 showUserName();
-
 
 // kalenteri
 const today = new Date();
@@ -49,7 +47,6 @@ document
   .addEventListener('click', () => previous());
 document.getElementById('nextMonth').addEventListener('click', () => next());
 
-// eslint-disable-next-line require-jsdoc
 function showCalendar(month, year) {
   const firstDay = (new Date(year, month).getDay() + 6) % 7;
   const daysInMonth = 32 - new Date(year, month, 32).getDate();
@@ -80,7 +77,7 @@ function showCalendar(month, year) {
           year === today.getFullYear() &&
           month === today.getMonth()
         ) {
-          cell.classList.add('current-date'); 
+          cell.classList.add('current-date');
         }
         row.appendChild(cell);
         date++;
@@ -657,14 +654,66 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 // hrv mittaustulosten hakeminen backendista
+
+let currentHrvData = null;
+
 document.addEventListener('DOMContentLoaded', () => {
   const hrvModal = document.getElementById('hrv-modal');
   const hrvForm = document.getElementById('hrv-form');
   const closeHrvButton = document.querySelector('.close-button3');
   const openButton = document.getElementById('hrvMeasurements');
   const fetchHrvButton = document.querySelector('.hrv-kubios');
+  const loadingIndicator = document.getElementById('loadingIndicator');
+  const saveHrvButton = document.querySelector('.tallenna-hrv');
+
+
+  saveHrvButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!currentHrvData) {
+        showToast('Virhe. Yritä uudelleen.');
+        return;
+    }
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('user_id');
+    const url = `http://localhost:3000/api/hrv/${userId}`;
+    
+    const options = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(currentHrvData),
+  };
+console.log(currentHrvData);
+fetchData(url, options)
+.then((data) => {
+    console.log(data);
+    showToast('HRV-mittauksen tulokset tallennettu.');
+    const hrvDate = new Date().toISOString().split('T')[0];
+    localStorage.setItem('hrvCompletionDate', hrvDate
+    );
+    hrvModal.style.display = 'none';
+})
+.catch((error) => {
+    console.error('Error:', error);
+    showToast('Virhe tallennettaessa HRV-mittauksen tuloksia. Täytä lomake uudelleen.');
+});
+});
+
+hrvModal.addEventListener('click', function() {
+  
+});
 
   openButton.onclick = function () {
+    const completionDate = localStorage.getItem('hrvCompletionDate');
+    const thisDate = new Date().toISOString().split('T')[0];
+  
+    if (completionDate === thisDate) {
+      alert('Olet jo suorittanut HRV-mittaustulosten haun tänään.')
+      return;
+    }
     hrvModal.style.display = 'block';
     hrvForm.style.display = 'block';
   };
@@ -673,37 +722,191 @@ document.addEventListener('DOMContentLoaded', () => {
     hrvModal.style.display = 'none';
   };
 
-  fetchHrvButton.addEventListener('click', function(event) {
+  window.onclick = (event) => {
+    if (event.target === hrvModal) {
+      hrvModal.style.display = 'none';
+    }
+  };
+
+  fetchHrvButton.addEventListener('click', function (event) {
     event.preventDefault();
-  const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-  const url = 'http://localhost:3000/api/kubios/user-data';
+    const url = 'http://localhost:3000/api/kubios/user-data';
 
-  const options = {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    loadingIndicator.style.display = 'block';
+    fetchData(url, options)
+      .then((data) => {
+        loadingIndicator.style.display = 'none';
+        console.log(data);
+        const resultDiv = document.getElementById('results');
+        const currentDate = new Date().toISOString().split('T')[0];
+        const todaysResults = data.results.filter(
+          (result) => result.daily_result === currentDate,
+        );
+
+        if (todaysResults.length > 0) {
+          const {mean_hr_bpm, stress_index, mood, readiness, mean_rr_ms, sdnn_ms} =
+            todaysResults[0].result;
+
+          const user_happiness = todaysResults[0].user_happiness;
+          const userId = localStorage.getItem('user_id');
+
+          currentHrvData = { 
+            user_id: userId,
+            av_hrv: mean_hr_bpm,
+            stress_index,
+            mood,
+            readiness,
+            mean_rr_ms,
+            sdnn_ms,
+            entry_date: currentDate,
+            user_happiness
+          };
+
+          resultDiv.innerHTML = `
+          Päivämäärä: ${currentDate}<br>
+          Sykkeen keskiarvo: ${parseFloat(mean_hr_bpm).toFixed(0)} bpm<br>
+          Stressi-indeksi: ${parseFloat(stress_index).toFixed(2)}<br>
+          Mieliala: ${user_happiness}<br>
+          Valmiustila: ${parseFloat(readiness).toFixed(0)} %<br>
+          Keskimääräinen RR väli: ${parseFloat(mean_rr_ms).toFixed(2)} ms<br>
+          SDNN: ${parseFloat(sdnn_ms).toFixed(2)} ms
+      `;
+        } else {
+          resultDiv.textContent =
+            'Ei tuloksia tämän päivän osalta. Suorita HRV-mittaus Kubios HRV sovelluksella ja hae mittaustulokset uudelleen.';
+        }
+      })
+      .catch((error) => {
+        loadingIndicator.style.display = 'none';
+        console.error('Error:', error);
+      });
+  });
+});
+
+
+// kokonaisanalyysin saaminen
+// haetaan ensin kyselyiden tulokset ja hrv tulokset nykyiseltä päivältä
+const fetchDataAndFilter = (userId, token) => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth() + 1;
+
+  const fetchDataAndFilterByDate = (url, options) => {
+    return fetchData(url, options)
+      .then((data) => {
+        const filteredData = data.filter(item => {
+          const entryDate = new Date(item.entry_date);
+          const entryDay = entryDate.getDate();
+          const entryMonth = entryDate.getMonth() + 1;
+          return entryDay === currentDay && entryMonth === currentMonth;
+        });
+        return filteredData;
+      })
+      .catch((error) => {
+        console.error("Virhe haettaessa tuloksia:", error);
+        return []; 
+      });
+  };
+
+  // Hae ja suodata oirekyselyn tulokset
+  const symptomUrl = `http://localhost:3000/api/symptoms/${userId}`;
+  const symptomOptions = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   };
-  fetchData(url, options)
-  .then((data) => {
-    console.log(data);
-    const resultDiv = document.getElementById('results');
-    const currentDate = new Date().toISOString().split('T')[0];
-    const todaysResults = data.results.filter(result => result.daily_result === currentDate);
+  const symptomDataPromise = fetchDataAndFilterByDate(symptomUrl, symptomOptions);
 
-    if (todaysResults.length > 0) {
-      resultDiv.textContent = JSON.stringify(todaysResults);
-    } else {
-      resultDiv.textContent = 'Ei tuloksia tämän päivän osalta. Suorita HRV-mittaus Kubios HRV sovelluksella ja hae mittaustulokset uudelleen.';
+  // Hae ja suodata HRV-mittaukset
+  const hrvUrl = `http://localhost:3000/api/hrv/${userId}`;
+  const hrvOptions = {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${token}`,
     }
+  };
+  const hrvDataPromise = fetchDataAndFilterByDate(hrvUrl, hrvOptions);
+
+  // Hae ja suodata elämäntapakyselyn tulokset
+  const lifestyleUrl = `http://localhost:3000/api/lifestyle/${userId}`;
+  const lifestyleOptions = {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    }
+  };
+  const lifestyleDataPromise = fetchDataAndFilterByDate(lifestyleUrl, lifestyleOptions);
+
+  return Promise.all([symptomDataPromise, hrvDataPromise, lifestyleDataPromise]);
+};
+
+const token = localStorage.getItem('token');
+const userId = localStorage.getItem('user_id');
+fetchDataAndFilter(userId, token)
+  .then(([symptomData, hrvData, lifestyleData]) => {
+    console.log("Tämän päivän oirekyselyn tulokset:", symptomData);
+    console.log("Tämän päivän HRV-tulokset:", hrvData);
+    console.log("Tämän päivän elämäntapakyselyn tulokset:", lifestyleData);
+  });
+
+// pisteiden lasku logiikka
+
+function calculateOverallAnalysis(symptomData, lifestyleData, hrvData) {
+  //pisteytys oirekyselystä
+  let symptomPoints = 0;
+  
+  // Lasketaan käyttäjän valitsemien oireiden määrä
+  let selectedSymptomsCount = 0;
+  for (const key in symptomData) {
+    if (!["entry_date", "symptom_id", "user_id"].includes(key) && !isNaN(symptomData[key])) {
+      selectedSymptomsCount += symptomData[key];
+    }
+  }
+  
+  // Pisteytys käyttäjän valitsemien oireiden määrän perusteella
+  if (selectedSymptomsCount >= 0 && selectedSymptomsCount <= 2) {
+    symptomPoints += 1;
+  } else if (selectedSymptomsCount >= 3 && selectedSymptomsCount <= 10) {
+    symptomPoints += 2;
+  } else if (selectedSymptomsCount > 10) {
+    symptomPoints += 3;
+  }
+  
+  // Pisteytys stress_levelin perusteella
+  const stressLevel = parseInt(symptomData["stress_level"]);
+  if (stressLevel >= 1 && stressLevel <= 2) {
+    symptomPoints += 1;
+  } else if (stressLevel >= 3 && stressLevel <= 4) {
+    symptomPoints += 2;
+  } else if (stressLevel === 5) {
+    symptomPoints += 3;
+  }
+  
+  return symptomPoints;
+}
+
+fetchDataAndFilter(userId, token)
+  .then(([symptomData, hrvData, lifestyleData]) => {
+    const symptomScore = calculateOverallAnalysis(symptomData[0]);
+    console.log("Oirekyselyn pistemäärä:", symptomScore);
   })
   .catch((error) => {
-    console.error('Error:', error);
+    console.error("Virhe haettaessa ja laskettaessa tietoja:", error);
   });
-});
-});
+
 
 // logout
 document.addEventListener('DOMContentLoaded', function () {

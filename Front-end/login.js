@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   loginUser.addEventListener('click', async (evt) => {
     evt.preventDefault();
+    showToast('Kirjaudutaan sisään...');
     const url = 'http://localhost:3000/api/auth/login';
 
     const form = document.querySelector('.login_form');
