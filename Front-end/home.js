@@ -1,4 +1,4 @@
-/* eslint-disable require-jsdoc */
+
 import './style.css';
 import {fetchData} from './fetch.js';
 import {showToast} from './toast.js';
@@ -21,6 +21,60 @@ async function showUserName() {
 }
 
 showUserName();
+
+
+let oirekyselyDates = [];
+let elamantapaDates = [];
+let hrvDates = [];
+
+async function fetchDataForCalendar(id, tok) {
+  const urls = {
+    symptoms: `http://localhost:3000/api/symptoms/${id}`,
+    lifestyle: `http://localhost:3000/api/lifestyle/${id}`,
+    hrv: `http://localhost:3000/api/hrv/${id}`
+  };
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tok}`
+    }
+  };
+
+  function extractLocalDateFromUTC(utcDateString) {
+    const date = new Date(utcDateString);
+    // Vaihda käyttämään toUTCString poistaa väärin aikavyöhyke offset vaikutukset.
+    return date.toISOString().split('T')[0];
+}
+
+
+const fetchDataAndExtractDates = async (url) => {
+  const response = await fetch(url, options);
+  if (!response.ok) throw new Error(`Network response was not ok from ${url}`);
+  
+  const data = await response.json();
+  return data.map(entry => extractLocalDateFromUTC(entry.entry_date));
+};
+
+try {
+  // Suorita kaikki pyynnöt rinnakkain
+  [oirekyselyDates, elamantapaDates, hrvDates] = await Promise.all([
+      fetchDataAndExtractDates(urls.symptoms),
+      fetchDataAndExtractDates(urls.lifestyle),
+      fetchDataAndExtractDates(urls.hrv)
+  ]);
+
+  console.log(oirekyselyDates, elamantapaDates, hrvDates);
+  showCalendar(currentMonth, currentYear);
+} catch (error) {
+  console.error('Error fetching data:', error);
+}
+}
+
+const id = localStorage.getItem('user_id');
+const tok = localStorage.getItem('token');
+fetchDataForCalendar(id, tok);
+
 
 // kalenteri
 const today = new Date();
@@ -54,39 +108,53 @@ function showCalendar(month, year) {
   const tbl = document.getElementById('calendar-body');
   tbl.innerHTML = '';
 
-  document.getElementById('monthAndYear').innerText =
-    monthNames[month] + ' ' + year;
+  document.getElementById('monthAndYear').innerText = monthNames[month] + ' ' + year;
 
   let date = 1;
   for (let i = 0; i < 6; i++) {
-    const row = document.createElement('tr');
+      const row = document.createElement('tr');
 
-    for (let j = 0; j < 7; j++) {
-      const cell = document.createElement('td');
-      if (i === 0 && j < firstDay) {
-        const cellText = document.createTextNode('');
-        cell.appendChild(cellText);
-        row.appendChild(cell);
-      } else if (date > daysInMonth) {
-        break;
-      } else {
-        const cellText = document.createTextNode(date);
-        cell.appendChild(cellText);
-        if (
-          date === today.getDate() &&
-          year === today.getFullYear() &&
-          month === today.getMonth()
-        ) {
-          cell.classList.add('current-date');
-        }
-        row.appendChild(cell);
-        date++;
+      for (let j = 0; j < 7; j++) {
+          const cell = document.createElement('td');
+          if (i === 0 && j < firstDay) {
+              row.appendChild(cell);
+          } else if (date > daysInMonth) {
+              break;
+          } else {
+              const cellDate = new Date(year, month, date);
+              const cellDateFormatted = cellDate.toISOString().split('T')[0];
+
+              cell.textContent = date;
+              if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                  cell.classList.add('current-date');
+              }
+
+              if (oirekyselyDates.includes(cellDateFormatted)) {
+                  const dot = document.createElement('span');
+                  dot.className = 'dot oirekysely-dot';
+                  cell.appendChild(dot);
+              }
+              if (elamantapaDates.includes(cellDateFormatted)) {
+                  const dot = document.createElement('span');
+                  dot.className = 'dot elamantapa-dot';
+                  cell.appendChild(dot);
+              }
+              if (hrvDates.includes(cellDateFormatted)) {
+                  const dot = document.createElement('span');
+                  dot.className = 'dot hrv-dot';
+                  cell.appendChild(dot);
+              }
+
+              row.appendChild(cell);
+              date++;
+          }
       }
-    }
-
-    tbl.appendChild(row);
+      tbl.appendChild(row);
   }
 }
+
+
+
 
 function previous() {
   currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
@@ -111,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// Graph code
 am5.ready(function () {
   // Create root element
   const root = am5.Root.new('graph');
@@ -127,18 +194,19 @@ am5.ready(function () {
       panY: false,
       wheelX: 'panX',
       wheelY: 'zoomX',
-      paddingLeft: 0,
-      paddingRight: 0,
+      paddingLeft: 20,
+      paddingRight: 40,
+      paddingBottom: 50,
       layout: root.verticalLayout,
     }),
   );
 
   chart.children.unshift(
     am5.Label.new(root, {
-      text: 'Stressianalyysi',
+      text: 'Stressitasoanalyysi',
       fontSize: 20,
       fontWeight: '400',
-      fontFamily:'Poppins, sans-serif',
+      fontFamily: 'Poppins, sans-serif',
       textAlign: 'center',
       x: am5.percent(50),
       centerX: am5.percent(50),
@@ -146,22 +214,6 @@ am5.ready(function () {
       paddingBottom: 20,
     }),
   );
-
-  // chart.children.unshift(
-  //   am5.Label.new(root, {
-  //     text: "Stressitaso",
-  //     fontSize: 15,
-  //     fontWeight: "300",
-  //     textAlign: "right",
-  //     x: am5.percent(50),
-  //     centerX: am5.percent(50),
-  //     paddingTop: 0,
-  //     paddingBottom: 20,
-  //   })
-  // );
-
-  // eslint-disable-next-line no-unused-vars
-  const colors = chart.get('colors');
 
   const data = [
     {
@@ -314,26 +366,6 @@ am5.ready(function () {
     }),
   );
 
-  const hrvAxisRenderer = am5xy.AxisRendererY.new(root, {
-    opposite: true,
-    inside: false, // Aseta false, jotta arvot näkyvät akselin ulkopuolella
-    // eslint-disable-next-line max-len
-    maxLabelPosition: 0.98, // Aseta arvo alle 1 estääksesi labelien menemästä kaavion reunan yli
-  });
-
-  const hrvAxis = chart.yAxes.push(
-    am5xy.ValueAxis.new(root, {
-      renderer: hrvAxisRenderer,
-      min: 0, // Säädä nämä HRV-datan mukaan
-      max: 100, // Säädä nämä HRV-datan mukaan
-    }),
-  );
-
-  // Lisää padding labelien oikealle puolelle
-  hrvAxisRenderer.labels.template.setAll({
-    paddingRight: 25, // Säädä tämä arvo haluamaksesi paddingiksi
-  });
-
   // Add series
   const series = chart.series.push(
     am5xy.ColumnSeries.new(root, {
@@ -358,34 +390,12 @@ am5.ready(function () {
       .getIndex(series.dataItems.indexOf(target.dataItem));
   });
 
-  const hrvSeries = chart.series.push(
-    am5xy.LineSeries.new(root, {
-      xAxis: xAxis,
-      yAxis: hrvAxis,
-      valueYField: 'hrv',
-      categoryXField: 'date',
-      stroke: root.interfaceColors.get('alternativeBackground'),
-      strokeWidth: 3,
-    }),
-  );
-
-  hrvSeries.bullets.push(function () {
-    return am5.Bullet.new(root, {
-      sprite: am5.Circle.new(root, {
-        radius: 4,
-        fill: hrvSeries.get('stroke'),
-        tooltipText: 'HRV: {hrv} ms',
-      }),
-    });
-  });
-
   series.data.setAll(data);
-  hrvSeries.data.setAll(data);
 
   series.appear();
-  hrvSeries.appear();
   chart.appear(1000, 100);
 });
+
 
 // Oirearviokyselyn toiminnallisuudet
 document.addEventListener('DOMContentLoaded', (event) => {
