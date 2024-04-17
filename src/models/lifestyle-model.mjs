@@ -46,4 +46,21 @@ const addEntry = async (entry) => {
   }
 };
 
-export { addEntry };
+const listLifestyleDataByUserId = async (user_id) => {
+  try {
+    const sql = 'SELECT * FROM LIFESTYLE WHERE user_id=?';
+    const params = [user_id]
+    const [rows] = await promisePool.query(sql, params);
+    if (rows.length === 0 ) {
+      return {error: 404, message: `No lifestyle entries found`};
+    } else {
+      return rows;
+    };
+  } catch (error) {
+    console.error('listLifestyleDataByUserId: ', error.message);
+    return {error: error.message};
+  }
+};
+
+export { addEntry,
+listLifestyleDataByUserId };

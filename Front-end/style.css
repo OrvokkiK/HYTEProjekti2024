@@ -1,4 +1,6 @@
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -6,10 +8,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 
 * {
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  
 }
 
 html {
@@ -22,40 +26,49 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #e7fbfc;
-  background-image: url(/images/backround1.png);
+  background-image: url(/images/backround5.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 90%;
   background-color: #c0eaea;
   margin: auto;
+  margin-top: 5px;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+
 }
 
 .nav-logo {
-  height: 70px;
+  height: 90px;
   margin-left: 20px;
   margin-right: 5px;
 }
 
 .logo-text {
   font-family: 'Inria Sans', sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   background: -webkit-linear-gradient(
     45deg,
     #6829e7,
     #bf62f5
   ); /* Chrome & Safari */
-  background: linear-gradient(45deg, #6829e7, #bf62f5); /* Standard syntax */
+  background: linear-gradient(45deg, #6829e7, #bf62f5); 
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; /* Fallback: Show a solid color on older browsers */
+  color: transparent; 
   font-size: 40px;
   text-shadow: 2px 2px 8px rgba(100, 100, 255, 0.5);
-  letter-spacing: 0.05em; /* Customizable based on preference */
+  /* -webkit-text-stroke: 0.3px black;  */
+}
+
+.login_section .nav-logo {
+  height:80px;
 }
 
 .dropdown-content {
@@ -87,8 +100,6 @@ li a:not(.logo) {
   text-align: center;
   padding: 16px 30px;
   text-decoration: none;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
   font-size: smaller;
   letter-spacing: 2px;
 }
@@ -165,8 +176,9 @@ li a:hover,
 .toast {
   display: flex;
   align-items: center;
-  background-color: #07dff7;
-  color: rgb(10, 5, 5);
+  background-color: #8b87f8;
+  color: rgb(254, 252, 252);
+  font-size: large;
   padding: 20px;
   margin-top: 10px;
   border-radius: 5px;
@@ -188,7 +200,7 @@ li a:hover,
   width: 100vw;
   max-width: 1200px;
   margin-top: 20px;
-  background-image: url(images/login.png);
+  /* background-image: url(images/login.png); */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
@@ -227,8 +239,8 @@ form {
   font-weight: bold;
   width: 300px;
   font-size: 0.9em;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif; */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -247,8 +259,6 @@ select {
   border: 1px solid #c3d6fa;
   box-sizing: border-box;
   border-radius: 5px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
 }
 
 input.loginuser,
@@ -265,8 +275,6 @@ input.loginuser,
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   font-size: 16px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
   transition: background-color 0.3s ease;
 }
 
@@ -289,7 +297,6 @@ button {
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
   background-color: #7ceaee;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -306,8 +313,10 @@ button:focus-visible {
 
 #prevMonth,
 #nextMonth {
-  background-color:#b2eaec;
+  background:none;
+  font-size: x-large;
 }
+
 
 .content-wrapper {
   display: flex;
@@ -326,7 +335,7 @@ button:focus-visible {
   right: 10px;
 } */
 #name {
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .survey-section {
@@ -338,8 +347,7 @@ button:focus-visible {
   padding: 20px;
   width: 30%;
   margin: auto;
-  background-color: rgba(198, 239, 240, 0.3);
-  /* margin-left: 3%; */
+  background-color: rgba(198, 239, 240, 0.7);
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
@@ -347,8 +355,6 @@ button:focus-visible {
 .user {
   color: #6829e7;
   font-weight: 500;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
   font-size: medium;
   letter-spacing: 1px;
   text-align: center;
@@ -398,7 +404,7 @@ button:focus-visible {
   padding: 15px;
   margin-left: 20%;
   max-width: 60%;
-  background-color: rgba(198, 239, 240, 0.6);
+  background-color: rgba(198, 239, 240, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   height: 350px;
   margin: auto;
@@ -409,11 +415,12 @@ button:focus-visible {
 .calendar {
   border-radius: 10px;
   padding: 15px;
-  margin-top: 10px; /* Pienennetty ylämarginaali */
-  margin-left: 20%; /* Voit säätää tätä arvoa tarpeen mukaan */
-  max-width: 80%; /* Suurennettu maksimileveys */
-  width: 100%; /* Asetetaan leveydeksi 100% */
-  background-color: rgba(198, 239, 240, 0.6);
+  margin-top: 10px; 
+  margin-left: 20%; 
+  max-width: 80%; 
+  /* width: 100%;  */
+  height: 400px;
+  background-color: rgba(198, 239, 240, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
@@ -425,32 +432,33 @@ button:focus-visible {
 
 .calendar table {
   width: 100%;
+  height: 300px;
   border-collapse: collapse;
 }
 
-.calendar th,
 .calendar td {
-  border: 1px solid #b3b3b3;
+  border-radius: 90px;
   padding: 8px;
   text-align: center;
 }
 
-.calendar th {
-  background-color: #f2f2f2;
-}
 
-.calendar td {
+.calendar th {
   background-color: #daf1ff;
-}
+  padding: 8px;
+  text-align: center;
+} 
 
 .calendar .current-date {
-  background-color: #acd7f1;
+  background-color: #d17be8;
   color: white;
 }
 
 .current-date:hover {
   background-color: #b4b0b0;
 }
+
+
 
 .modal label {
   color: #131413;
@@ -479,7 +487,8 @@ button:focus-visible {
 
 .close-button,
 .close-button2,
-.close-button3 {
+.close-button3,
+.close-button4 {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -491,7 +500,9 @@ button:focus-visible {
 .close-button2:hover,
 .close-button2:focus,
 .close-button3:hover,
-.close-button3:focus {
+.close-button3:focus,
+.close-button4:hover,
+.close-button4:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -507,7 +518,8 @@ button:focus-visible {
 #survey-form-mental h3,
 #survey-form-physical h3,
 #sleep-form h3,
-#hrv-form h3 {
+#hrv-form h3,
+#overall-analysis-modal h3 {
   color: #65057f;
   font-size: large;
   text-decoration: underline;
@@ -639,6 +651,25 @@ input[type='range'] {
   margin-right: 50px;
 }
 
+#symptom-points,
+#hrv-points,
+#lifestyle-points {
+  font-weight: 500;
+  font-size: small;
+  margin-left: 35%;
+}
+
+#overall-score {
+  font-weight: 700;
+  text-align: center;
+}
+
+#overall-analysis-modal .modal-content {
+  margin-top: 10%;
+  width: 40%;
+}
+
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -677,14 +708,13 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 70px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   color: #6829e7;
   font-weight: 600;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: smaller;
   letter-spacing: 1px;
   background: linear-gradient(to right, #aeecfa 20%, #82d4f2 40%, #aeecfa 60%);
@@ -768,7 +798,7 @@ footer {
     display: block;
     font-size: 20px;
     cursor: pointer;
-    background-color: #abe0f3;
+    background-color: #c0eaea;
     border: solid 1px rgb(164, 185, 232);
     border: none;
     margin-right: 20px;

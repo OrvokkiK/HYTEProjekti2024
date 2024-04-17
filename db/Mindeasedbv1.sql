@@ -83,7 +83,10 @@ CREATE TABLE hrv_analysis (
   stress_index FLOAT,
   mood INT,
   entry_date DATE,
-  av_hr FLOAT,
+  av_hrv FLOAT,
+  mean_rr_ms FLOAT,
+  sdnn_ms FLOAT,
+  readiness FLOAT,
   user_id INT NOT NULL,
   PRIMARY KEY (hrv_id),
   FOREIGN KEY (user_id) REFERENCES Users(user_id)
