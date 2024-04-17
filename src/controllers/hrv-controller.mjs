@@ -1,4 +1,4 @@
-import { addHrv } from "../models/hrv-model.mjs";
+import { addHrv, listHrvByUserId } from "../models/hrv-model.mjs";
 import {customError} from '../middlewares/error-handler.mjs';
 
 const postHrv = async (req, res, next) => {
@@ -12,6 +12,16 @@ const postHrv = async (req, res, next) => {
     }
   };
 
+ const getHrvDataByUserId = async (req, res) => {
+  const user_id = req.params.id;
+  const result = await listHrvByUserId(user_id);
+  if (result.error) {
+    return res.status(result.error).json(result);
+  }
+  return res.json(result);
+};
+
   export {
     postHrv,
+    getHrvDataByUserId
   };

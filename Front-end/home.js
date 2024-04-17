@@ -135,9 +135,10 @@ am5.ready(function () {
 
   chart.children.unshift(
     am5.Label.new(root, {
-      text: 'Stressianalyysi ja HRV-mittaustulokset',
+      text: 'Stressianalyysi',
       fontSize: 20,
       fontWeight: '400',
+      fontFamily:'Poppins, sans-serif',
       textAlign: 'center',
       x: am5.percent(50),
       centerX: am5.percent(50),
@@ -402,10 +403,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const completionDate = localStorage.getItem('surveyCompletionDate');
     const currentDate = new Date().toISOString().split('T')[0];
 
-    if (completionDate === currentDate) {
-      alert('Olet jo suorittanut oirearviokyselyn tänään.');
-      return; // Lopetetaan funktion suoritus tähän, jotta modal ei avaudu
-    }
+    // if (completionDate === currentDate) {
+    //   alert('Olet jo suorittanut oirearviokyselyn tänään.');
+    //   return; // Lopetetaan funktion suoritus tähän, jotta modal ei avaudu
+    // }
 
     surveyModal.style.display = 'block';
     formMental.style.display = 'block';
@@ -564,10 +565,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const completionDate = localStorage.getItem('lifestyleSurveyDate');
     const currentDate = new Date().toISOString().split('T')[0];
 
-    if (completionDate === currentDate) {
-      alert('Olet jo suorittanut elämäntapakyselyn tänään.');
-      return;
-    }
+    // if (completionDate === currentDate) {
+    //   alert('Olet jo suorittanut elämäntapakyselyn tänään.');
+    //   return;
+    // }
 
     sleepModal.style.display = 'block';
     sleepForm.style.display = 'block';
@@ -710,10 +711,10 @@ hrvModal.addEventListener('click', function() {
     const completionDate = localStorage.getItem('hrvCompletionDate');
     const thisDate = new Date().toISOString().split('T')[0];
   
-    if (completionDate === thisDate) {
-      alert('Olet jo suorittanut HRV-mittaustulosten haun tänään.')
-      return;
-    }
+    // if (completionDate === thisDate) {
+    //   alert('Olet jo suorittanut HRV-mittaustulosten haun tänään.')
+    //   return;
+    // }
     hrvModal.style.display = 'block';
     hrvForm.style.display = 'block';
   };
@@ -863,12 +864,10 @@ fetchDataAndFilter(userId, token)
   });
 
 // pisteiden lasku logiikka
-
-function calculateOverallAnalysis(symptomData, lifestyleData, hrvData) {
-  //pisteytys oirekyselystä
+function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
+// oirekyselyn pisteytys
   let symptomPoints = 0;
-  
-  // Lasketaan käyttäjän valitsemien oireiden määrä
+
   let selectedSymptomsCount = 0;
   for (const key in symptomData) {
     if (!["entry_date", "symptom_id", "user_id"].includes(key) && !isNaN(symptomData[key])) {
@@ -894,14 +893,146 @@ function calculateOverallAnalysis(symptomData, lifestyleData, hrvData) {
   } else if (stressLevel === 5) {
     symptomPoints += 3;
   }
-  
-  return symptomPoints;
+  symptomPoints = Math.ceil(symptomPoints / 2);
+
+  // HRV-tuloksen pisteytys
+  let hrvPoints = 0;
+  if (hrvData) {
+    const stressIndex = hrvData.stress_index;
+
+    console.log("stress_index", stressIndex);
+
+    if (stressIndex >= -5 && stressIndex <= 0) {
+      hrvPoints += 1;
+    } else if (stressIndex > 0 && stressIndex <= 2) {
+      hrvPoints += 2;
+    } else if (stressIndex > 2) {
+      hrvPoints += 3;
+    }
+  }
+  // elämäntapakyselyn pisteytys
+  let lifestylePoints = 0;
+  console.log(lifestyleData);
+  if (lifestyleData) {
+    const alcoholIntake = lifestyleData.alcohol_intake;
+    console.log(alcoholIntake);
+    if (alcoholIntake <= 2) {
+      lifestylePoints += 1;
+    } else if (alcoholIntake > 2 && alcoholIntake <= 4) {
+      lifestylePoints +=2;
+    } else {
+      lifestylePoints += 3;
+    }
+
+    const caffeineIntake = lifestyleData.caffeine_intake;
+    console.log(caffeineIntake);
+    if (caffeineIntake <= 2) {
+      lifestylePoints += 1;
+    } else if (caffeineIntake > 2 && caffeineIntake <= 4) {
+      lifestylePoints +=2;
+    } else {
+      lifestylePoints += 3;
+    }
+
+    const enoughSleep = lifestyleData.enough_sleep;
+    console.log(enoughSleep);
+    if (enoughSleep === "no") {
+      lifestylePoints +=3;
+    }else if (enoughSleep === "yes") {
+      lifestylePoints += 1;
+    }
+
+    const feelHealthy = lifestyleData.feel_healthy;
+    if (feelHealthy === "yes") {
+      lifestylePoints -= 1;
+    } else if (feelHealthy === "no") {
+      lifestylePoints += 3;
+    }
+
+    const hoursSlept = lifestyleData.hours_slept;
+    if (hoursSlept >= 7) {
+      lifestylePoints +=1;
+    } else if (hoursSlept >= 5 && hoursSlept < 7) {
+      lifestylePoints +=2;
+    } else {
+      lifestylePoints += 3;
+    }
+
+    const nicotineIntake = lifestyleData.nicotine_intake;
+    if (nicotineIntake <= 2) {
+      lifestylePoints += 1;
+    } else if (nicotineIntake >= 2 && nicotineIntake < 6) {
+      lifestylePoints += 2;
+    } else {
+      lifestylePoints += 3;
+    }
+
+    const physicalActivity = lifestyleData.physical_activity;
+    if (physicalActivity === "yes") {
+      lifestylePoints -= 1;
+    } else {
+      lifestylePoints += 3;
+    }
+
+    const duration = lifestyleData.duration;
+    if (duration === "null" && duration === "0") {
+      lifestylePoints += 3;
+    } else {
+      lifestylePoints += 1
+    }
+
+    const qualitySleep = lifestyleData.quality_sleep;
+    if (qualitySleep >= 3) {
+      lifestylePoints += 1;
+    } else if (qualitySleep === 2 ) {
+      lifestylePoints += 2;
+    } else if (qualitySleep === 1) {
+      lifestylePoints += 3;
+    }
+
+    lifestylePoints = Math.ceil(lifestylePoints / 9);
+
+  }
+
+  return { symptomPoints, hrvPoints, lifestylePoints };
+}
+
+function showModal(symptomPoints, hrvPoints, lifestylePoints, overallScore) {
+  const modal = document.getElementById('overall-analysis-modal');
+  modal.style.display = 'block'; // Asetetaan modaali näkyväksi
+
+  const symptomPointsElement = document.getElementById('symptom-points');
+  const hrvPointsElement = document.getElementById('hrv-points');
+  const lifestylePointsElement = document.getElementById('lifestyle-points');
+  const overallScoreElement = document.getElementById('overall-score');
+
+  symptomPointsElement.textContent = `Oirekyselyn pistemäärä: ${symptomPoints}`;
+  hrvPointsElement.textContent = `HRV:n pistemäärä: ${hrvPoints}`;
+  lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}`;
+  overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}`;
+
+  // Voit lisätä modaalin sulkemistoiminnallisuuden tarvittaessa
+  const closeButton = document.getElementsByClassName('close-button4')[0];
+  closeButton.addEventListener('click', () => {
+    modal.style.display = 'none'; 
+  });
 }
 
 fetchDataAndFilter(userId, token)
   .then(([symptomData, hrvData, lifestyleData]) => {
-    const symptomScore = calculateOverallAnalysis(symptomData[0]);
-    console.log("Oirekyselyn pistemäärä:", symptomScore);
+    if (symptomData.length > 0 && hrvData.length > 0 && lifestyleData.length > 0) {
+      const {symptomPoints, hrvPoints, lifestylePoints} = calculateOverallAnalysis(symptomData[0], hrvData[0], lifestyleData[0]);
+      
+      console.log("Oirekyselyn pistemäärä:", symptomPoints);
+      console.log("HRV:n pistemäärä:", hrvPoints);
+      console.log("Elämäntapakyselyn pistemäärä:", lifestylePoints);
+      const overallScore = Math.ceil((symptomPoints + hrvPoints + lifestylePoints) / 3);
+      
+      console.log("kokonaisanalyysi:", overallScore );
+      showModal(symptomPoints, hrvPoints, lifestylePoints, overallScore);
+    } else {
+      console.log("Oirekyselyn, HRV-datan tai elämäntapakyselyn haku epäonnistui.");
+    }
   })
   .catch((error) => {
     console.error("Virhe haettaessa ja laskettaessa tietoja:", error);
