@@ -58,7 +58,7 @@ nav {
     #6829e7,
     #bf62f5
   ); /* Chrome & Safari */
-  background: linear-gradient(45deg, #6829e7, #bf62f5); 
+  background: linear-gradient(45deg, #6829e7, #b403f5); 
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent; 
@@ -113,6 +113,7 @@ li a:not(.logo) {
   padding: 10px 20px;
   color: #333;
   text-decoration: none;
+  
 }
 
 .dropdown-content a:hover {
@@ -297,14 +298,13 @@ button {
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  background-color: #7ceaee;
+  background-color: #33d3d0;
   cursor: pointer;
   transition: border-color 0.25s;
-  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
 }
 button:hover {
-  color: #646cff;
-  background-color: #a0f0f3;
+  color: aliceblue;
 }
 button:focus,
 button:focus-visible {
@@ -369,6 +369,7 @@ button:focus-visible {
   cursor: pointer;
   width: 40%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+  transition: color 0.3s ease;
 }
 
 .diary-button {
@@ -415,11 +416,9 @@ button:focus-visible {
 .calendar {
   border-radius: 10px;
   padding: 15px;
-  margin-top: 10px; 
   margin-left: 20%; 
   max-width: 80%; 
-  /* width: 100%;  */
-  height: 400px;
+  height: 100%;
   background-color: rgba(198, 239, 240, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
@@ -432,7 +431,7 @@ button:focus-visible {
 
 .calendar table {
   width: 100%;
-  height: 300px;
+  height: 100%;
   border-collapse: collapse;
 }
 
@@ -440,6 +439,10 @@ button:focus-visible {
   border-radius: 90px;
   padding: 8px;
   text-align: center;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
 }
 
 
@@ -458,6 +461,36 @@ button:focus-visible {
   background-color: #b4b0b0;
 }
 
+.dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  margin-top: 4px;
+  margin-left: 4px;
+  display: inline-block;
+}
+
+.oirekysely-dot {
+  background-color: green;
+}
+
+.elamantapa-dot {
+  background-color: rgb(110, 5, 134);
+}
+
+.hrv-dot {
+  background-color: red;
+}
+
+.dot-description {
+  font-size: small;
+  display: flex;
+  align-items: center;
+}
+.dot-text {
+  margin-left: 10px;
+  margin-top: 4px;
+}
 
 
 .modal label {
@@ -669,6 +702,19 @@ input[type='range'] {
   width: 40%;
 }
 
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  height: 450px; 
+}
+
+#myBarChart {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -717,7 +763,7 @@ footer {
   font-weight: 600;
   font-size: smaller;
   letter-spacing: 1px;
-  background: linear-gradient(to right, #aeecfa 20%, #82d4f2 40%, #aeecfa 60%);
+  background: linear-gradient(to right, #aeecfa 20%, #6cbafe 40%, #aeecfa 60%);
   background-size: 200% 100%;
   animation: heartbeat 2s linear infinite;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.2);

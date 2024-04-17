@@ -39,12 +39,12 @@
           <li class="dropdown">
             <a href="#"><i class="bi bi-person"></i> TILI</a>
             <div class="dropdown-content">
-              <a href="symptom-surveys.html"
+              <!-- <a href="symptom-surveys.html"
                 ><i class="bi bi-card-checklist"></i> OIREARVIOKYSELYT</a
               >
               <a href="lifestyle-surveys.html"
                 ><i class="bi bi-pencil-square"></i> ELÄMÄNTAPAKYSELYT</a
-              >
+              > -->
               <a href="hrv-analysis.html"
                 ><i class="bi bi-heart-pulse"></i> HRV-MITTAUKSET</a
               >
@@ -100,6 +100,18 @@
 
       <aside class="sidebar">
         <div class="calendar">
+          <div class="dot-description">
+            <div class="dot oirekysely-dot"></div>
+            <div class="dot-text">Oirekysely</div>
+          </div>
+          <div class="dot-description">
+            <div class="dot elamantapa-dot"></div>
+            <div class="dot-text">Elämäntapakysely</div>
+          </div>
+          <div class="dot-description">
+            <div class="dot hrv-dot"></div>
+            <div class="dot-text">HRV-mittaus</div>
+          </div>
           <header>
             <h2 id="monthAndYear"></h2>
             <button id="prevMonth">&lt;</button>
@@ -122,7 +134,9 @@
         </div>
       </aside>
     </main>
-    <div id="graph"></div>
+    <div id="graph">
+      <div>1=Matala stressi   2=Kohtalainen stressi    3=Korkea stressi</div>
+    </div>
     <div id="survey-modal" class="modal">
       <div class="modal-content">
         <span class="close-button">×</span>
@@ -483,7 +497,7 @@
     <script type="module" src="/home.js"></script>
     <footer>
       <div class="logo-wrapper">
-        <img src="images/icon5.png" alt="logo" class="nav-logo" />
+        <img src="images/icon10.png" alt="logo" class="nav-logo" />
       </div>
       ©️ Ryhmä 9
     </footer>
