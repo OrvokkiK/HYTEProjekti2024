@@ -14,7 +14,8 @@ const getAllSymptoms = async (req, res) => {
 
 //GET all symptoms by user a specific user
 const getSymptomsByUserId = async (req, res) => {
-  const user_id = req.body;
+  const user_id = req.params.id;
+  console.log('controller, getSymptomsbyuserId')
   const result = await listSymptomsByUserId(user_id);
   if (result.error) {
     return res.status(result.error).json(result);

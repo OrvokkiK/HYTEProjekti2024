@@ -12,4 +12,5 @@ symptomRouter.route('/').get(getAllSymptoms); // Move to admin router?
 //symptom/:id endpoints
 symptomRouter.route('/:id').get(getSymptomsBySymptomId).post(postNewEntry).put(putEntryById).delete(removeSymptomById);
 
+
 export default symptomRouter; 

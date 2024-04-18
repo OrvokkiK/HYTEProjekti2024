@@ -48,6 +48,9 @@ GET http://localhost:3000/api/symptoms
 ### GET symptoms by symptom id
 GET http://localhost:3000/api/symptoms/1
 
+### GET symptoms by user id
+GET http://localhost:3000/api/symptoms/user/1
+
 ### POST new entry to symptoms
 POST http://localhost:3000/api/symptoms/3
 Content-Type: application/json

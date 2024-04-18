@@ -8,6 +8,7 @@ import userRouter from './routes/user-router.mjs';
 import symptomRouter from './routes/symptom-router.mjs';
 import messageRouter from './routes/message-router.mjs';
 import analysisRouter from './routes/analysis-router.mjs';
+import symptomUserRouter from './routes/symptom-user-router.mjs';
 
 
 // import http from 'http';
@@ -30,6 +31,9 @@ app.use('/api/users', userRouter);
 
 // symptoms route
 app.use('/api/symptoms/', symptomRouter);
+
+// symptoms/user routes
+app.use('/api/symptoms/user', symptomUserRouter);
 
 // Lifestyle route
 
