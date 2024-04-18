@@ -7,6 +7,7 @@ import logger from "./middlewares/logger.mjs";
 import userRouter from './routes/user-router.mjs';
 import symptomRouter from './routes/symptom-router.mjs';
 import messageRouter from './routes/message-router.mjs';
+import analysisRouter from './routes/analysis-router.mjs';
 
 
 // import http from 'http';
@@ -23,7 +24,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 
-// user route
+// user routes
 // Users resource (/api/users)
 app.use('/api/users', userRouter);
 
@@ -33,6 +34,9 @@ app.use('/api/symptoms/', symptomRouter);
 // Lifestyle route
 
 // HRV route
+
+// Analysis router
+app.use('/api/analysis/', analysisRouter);
 
 // message route
 app.use('/api/messages/', messageRouter);

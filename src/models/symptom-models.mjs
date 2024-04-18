@@ -152,7 +152,7 @@ const deleteSymptomById = async (symptom_id) => {
     }
     return {message: `Entry ${symptom_id} deleted`};
   } catch (error) {
-    console.log('[Model] deleteSymptomsById: ', error);
+    console.error('[Model] deleteSymptomsById: ', error);
     return {error: 500, message: 'db error'};
   }
 }

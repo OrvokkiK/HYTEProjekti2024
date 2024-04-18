@@ -1,5 +1,6 @@
 // message-controller.mjs
 
+import { getNewId } from "../utils/new-conversation.mjs";
 import { deleteMessageByMessageId, insertMessage, listAllMessages, listConverstation, listMessageByMessage_id, listMessagebyAuthor } from "../models/message-model.mjs";
 
 // GET all messages
@@ -48,6 +49,10 @@ const postMessage = async (req, res) => {
     message_content, 
     message_sent_at, 
     sender_id} = req.body;
+  if (!conversation_id) {
+    const newConversation_id =  getNewId();
+  }
+
   if (message_content && recipient_id && message_sent_at && sender_id) {
     const result = await insertMessage(req.body);
   if (result.error) {

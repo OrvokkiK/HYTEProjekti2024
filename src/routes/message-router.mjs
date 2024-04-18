@@ -8,7 +8,7 @@ const messageRouter = express.Router();
 // /api/messages/ routes
 messageRouter.route('/').get(getAllMessages).post(postMessage);
 
-// api/messages/:id
+// api/messages/:id routes
 messageRouter.route('/:id').get(getMessageByMessage_id).delete(deleteMessage);
 
 export default messageRouter;

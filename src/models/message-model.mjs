@@ -59,17 +59,6 @@ const listConverstation = async (conversation_id) => {
 }
 // add message
 const insertMessage = async (message) => {
-  // Creates new conversation_id for a message without such id
-  /* if (!message.conversation_id) {
-    try {
-      const sql = 'SELECT MAX(conversation_id) FROM messages;'
-      const max = await promisePool.query(sql);
-      console.log(max);
-    } catch (error) {
-      console.log(error)
-    }
-  } */
-
   try {
     const sql = 'INSERT INTO messages (conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES (?, ?, ?, ?, ?)';
     const params = [message.conversation_id, message.recipient_id, message.message_content, message.message_sent_at, message.sender_id];
@@ -81,8 +70,6 @@ const insertMessage = async (message) => {
     return {error: 500, message: 'db error'};
   }
 }; 
-
-//modify message?
 
 //delete message
 const deleteMessageByMessageId = async (message_id) => {
