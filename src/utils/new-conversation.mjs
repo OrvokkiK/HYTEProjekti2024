@@ -2,18 +2,16 @@
 // Creates new conversation id for a new conversation between two users
 
 import promisePool from "./database.mjs";
-/**
- * 
- */
 
-async function getNewId (req, res, next) {
+async function getNewId () {
 try {
-  const sql = 'SELECT MAX(conversation_id) FROM Messages;'
+  const sql = 'SELECT MAX(conversation_id) AS MAX from Messages;'
   const response = await promisePool.query(sql);
-  console.log('[Middlewares] getNewId: ', response);
-  const newId = response + 1;
+  const responseObject = response[0][0]
+  const id = responseObject.MAX;
+  const newId = id + 1;
+  console.log('New id', newId);
   return newId
-  next();
 } catch (error) {
   return {error: 500, message: 'db error'};
 }

@@ -130,10 +130,11 @@ Content-Type: application/json
 ### Add new message to a new conversation
 POST http://localhost:3000/api/messages
 Content-Type: application/json
+
 {
   "recipient_id" : "3",
   "message_content" : "Uusi viesti, uudet tuulet",
-  "message_sent_at": "2024-04-05 17:22:00",
+  "message_sent_at": "2024-04-18 10:14:00",
   "sender_id": "4"
 }
 

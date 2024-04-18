@@ -43,18 +43,18 @@ const getMessageByMessage_id = async (req, res) => {
 
 // POST new message
 const postMessage = async (req, res) => {
-  const {
-    conversation_id, 
+  let conversation_id = req.body.converation_id
+  console.log(req.body.converation_id);
+  const { 
     recipient_id, 
     message_content, 
     message_sent_at, 
     sender_id} = req.body;
   if (!conversation_id) {
-    const newConversation_id =  getNewId();
+    conversation_id = await getNewId();
   }
-
-  if (message_content && recipient_id && message_sent_at && sender_id) {
-    const result = await insertMessage(req.body);
+  if (conversation_id && message_content && recipient_id && message_sent_at && sender_id) {
+    const result = await insertMessage(conversation_id, req.body);
   if (result.error) {
     return res.status(result.error).json(result);
   }

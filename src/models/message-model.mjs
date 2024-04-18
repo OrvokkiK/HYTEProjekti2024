@@ -58,10 +58,11 @@ const listConverstation = async (conversation_id) => {
   }
 }
 // add message
-const insertMessage = async (message) => {
+const insertMessage = async (conversation_id, message) => {
   try {
     const sql = 'INSERT INTO messages (conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES (?, ?, ?, ?, ?)';
-    const params = [message.conversation_id, message.recipient_id, message.message_content, message.message_sent_at, message.sender_id];
+    const params = [conversation_id, message.recipient_id, message.message_content, message.message_sent_at, message.sender_id];
+    console.log(params);
     const [rows] = await promisePool.query(sql, params);
     console.log(rows);
     return {message_id: rows.insertId}
