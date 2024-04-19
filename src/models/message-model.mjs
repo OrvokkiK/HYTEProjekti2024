@@ -58,6 +58,7 @@ const listConverstation = async (conversation_id) => {
   }
 }
 // add message
+// TODO: implement cotrols that message chain hpc - regular or regular - hpc
 const insertMessage = async (conversation_id, message) => {
   try {
     const sql = 'INSERT INTO messages (conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES (?, ?, ?, ?, ?)';

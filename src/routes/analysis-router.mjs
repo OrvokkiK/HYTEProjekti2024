@@ -1,6 +1,6 @@
 // analysis-router.mjs
 import express from 'express';
-import { deleteAnalysis, getAllAnalyses, getAnalysisById, postAnalysis, putAnalysis } from '../controllers/analysis-controller.mjs';
+import { deleteAnalysis, getAllAnalyses, getAnalysesByUserId, getAnalysisById, postAnalysis, putAnalysis } from '../controllers/analysis-controller.mjs';
 
 const analysisRouter = express.Router();
 
@@ -12,5 +12,8 @@ analysisRouter.route('/:id')
 .get(getAnalysisById)
 .put(putAnalysis)
 .delete(deleteAnalysis);
+
+// /api/analysis/:id routes
+analysisRouter.route('/user/:id').get(getAnalysesByUserId);
 
 export default analysisRouter

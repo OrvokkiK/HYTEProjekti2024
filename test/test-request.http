@@ -154,6 +154,7 @@ GET http://localhost:3000/api/analysis/
 ### GET a specific analysis
 GET http://localhost:3000/api/analysis/2
 
+
 ### POST a new complete analysis
 POST  http://localhost:3000/api/analysis/
 Content-Type: application/json
@@ -178,3 +179,10 @@ Content-Type: application/json
 
 ### DELETE an analysis by analysis_id
 DELETE http://localhost:3000/api/analysis/4
+
+##
+## /api/analysis/user routes
+##
+
+### GET analyses by user
+GET http://localhost:3000/api/analysis/user/1
