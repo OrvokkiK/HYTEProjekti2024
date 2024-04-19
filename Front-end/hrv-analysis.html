@@ -64,10 +64,29 @@
         </ul>
       </nav>
     </header>
-    <div class="chart-container">
+    <div class="info-section">
+      <h2>HRV-analyysi</h2>
+      <p>Tervetuloa MindEase HRV-analyysisivulle. Täällä voit tarkastella sydämesi toiminnan vaihteluita, joita mitataan Heart Rate Variability (HRV) -menetelmällä. HRV-mittaukset tarjoavat arvokasta tietoa kehosi stressitasoista, palautumisesta ja yleisestä terveydentilasta. Analysoimalla näitä tietoja voit tehdä tietoon perustuvia päätöksiä päivittäisistä rutiineistasi ja parantaa hyvinvointiasi.</p>
+      <p>Mittausdatat haetaan Kubios-sovelluksesta, joka on yksi johtavista työkaluista HRV-analyysin toteuttamiseen. Tässä näkymässä esitämme sinulle selkeästi päivittäiset mittausarvosi, kuten keskimääräisen sykkeen, stressi-indeksin, valmiustilan ja muut keskeiset terveysmittarit. Voit seurata näitä arvoja ajan kuluessa ja tunnistaa mahdolliset muutokset kehosi tilassa.</p>
+      <p>Käytä tietoja hyväksesi ja tee muutoksia elämäntavoissasi tarpeen mukaan. Tavoitteenamme on auttaa sinua ymmärtämään paremmin kehosi signaaleja ja edistää pitkäaikaista terveyttäsi.</p>
+      <a href="#info-section2" class="scroll-down"><i class="bi bi-arrow-down-circle"></i> Mitä mittaustulokset kertovat terveydestäsi?</a>
+  </div>
+  
+  </div>
+  <div id="chart-section" class="chart-container">
       <canvas id="myBarChart"></canvas>
   </div>
-</div>
+  <div id="info-section2">
+    <h2>Ymmärrä Kubios HRV -mittaustesi tuloksia</h2>
+      <p><b>Stressi-indeksi</b> mittaa autonomisen hermoston reaktiivisuutta ja stressitason vaihteluita. Korkeammat arvot viittaavat suurempaan stressireaktiivisuuteen, mikä voi olla merkki liiallisesta henkisestä tai fyysisestä kuormituksesta.</p>
+      <p><b>Readiness</b> eli valmiustila kuvastaa kehosi palautumistason ja päivittäisen suorituskyvyn. Korkeammat readiness-arvot osoittavat parempaa palautumista ja valmiutta kohdata päivän haasteet, kun taas matalammat luvut voivat viitata riittämättömään lepoon tai ylikuormitukseen.</p>
+      <p><b>Keskimääräinen syke</b> antaa yleiskuvan sydämesi toiminnasta lepotilassa. Alhainen keskisyke lepotilassa on usein merkki hyvästä fyysisestä kunnosta ja sydämen tehokkuudesta, kun taas korkeammat lukemat voivat viitata heikompaan kuntoon tai stressitilaan.</p>
+      <p><b>SDNN (Standard Deviation of NN intervals)</b> on sydämen sykevälivaihtelun perusmittari, joka kertoo sydämen lyöntien aikavälien vaihtelusta. Suurempi SDNN-arvo viittaa parempaan autonomisen hermoston sopeutumiskykyyn ja sydämen terveyteen. Pienet arvot saattavat olla merkki stressistä tai väsymyksestä.</p>
+      <p><b>
+        Mean RR</b>  on mittari, joka kuvaa sydämen sykkeiden välistä keskimääräistä aikaa millisekunteina. Se heijastaa sydämen autonomisen hermoston toimintaa ja voi paljastaa sydämen kykyä reagoida stressiin. Normaalisti pidempi RR-väli viittaa parempaan sydämen terveyteen ja rauhallisuuteen, kun taas lyhyempi RR-väli voi olla merkki stressistä tai terveyden heikkenemisestä.</p>
+      <p>Näiden mittareiden ymmärtäminen auttaa sinua seuraamaan terveytesi ja hyvinvointisi kehitystä, ja antaa arvokasta tietoa, jota voit käyttää stressinhallinnassa. </p>
+      <a href="#myBarChart" class="scroll-up"><i class="bi bi-arrow-up-circle"></i> Mittaustuloksiin</a>
+  </div>
     <footer>
         <div class="logo-wrapper">
           <img src="images/icon10.png" alt="logo" class="nav-logo" />

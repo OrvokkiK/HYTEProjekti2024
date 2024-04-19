@@ -1,4 +1,5 @@
 import { Chart } from "chart.js/auto";
+import 'chartjs-plugin-zoom';
 
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('myBarChart').getContext('2d');
@@ -23,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then(data => {
         console.log(data);
-        // Oletetaan, että saat dataa muodossa [{ date: '2021-05-01', value1: 20, value2: 30, value3: 40, value4: 50 }, ...]
         const chartData = {
             labels: data.map(item => item.entry_date.split('T')[0]), // muotoile päivämäärät
             datasets: [{
@@ -40,13 +40,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 label: 'Keskisyke',
                 data: data.map(item => item.av_hrv),
                 backgroundColor: '#3498db',
-                borderColor: 'rgba(255, 206, 86, 1)',
                 borderWidth: 1
               }, {
-                label: 'SDNN ms',
+                label: 'SDNN',
                 data: data.map(item => item.sdnn_ms),
                 backgroundColor: '#33d3d0',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }, {
+                label: 'Mean RR',
+                data: data.map(item => item.mean_rr_ms),
+                backgroundColor: '#0056b3',
                 borderWidth: 1
               }]
             };
@@ -61,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     legend: {
                       labels: {
                         font: {
-                          size: 14
+                          size: 18,
                         }
                       }
                     },
@@ -69,28 +72,43 @@ document.addEventListener('DOMContentLoaded', function() {
                       display: true,
                       text: 'HRV-mittaustulokset',
                       font: {
-                        size: 16
+                        size: 20
                       }
                     }
                   },
+                  zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true, // aktivoi zoomauksen rullapyörällä
+                        },
+                        pinch: {
+                            enabled: true // aktivoi nipistyszoomauksen mobiililaitteilla
+                        },
+                        mode: 'x' // sallii zoomauksen vain x-akselin suhteen
+                    },
+                    pan: {
+                        enabled: true, // aktivoi panoroinnin
+                        mode: 'x' // sallii panoroinnin vain x-akselin suhteen
+                    }
+                }
+            },
                   scales: {
                     y: {
                       beginAtZero: true,
                       ticks: {
                         font: {
-                          size: 12
+                          size: 14
                         }
                       }
                     },
                     x: {
                       ticks: {
                         font: {
-                          size: 12
+                          size: 14
                         }
                       }
                     }
                   }
-                }
               });
       })
       .catch(error => {
