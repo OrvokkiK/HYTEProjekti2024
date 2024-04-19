@@ -266,7 +266,8 @@ input.loginuser,
 .forgot_password,
 .tallenna-button,
 .tallenna-kysely,
-.tallenna-hrv {
+.tallenna-hrv,
+#diary-form button {
   background-color: #8b87f8;
   color: white;
   padding: 10px 15px;
@@ -392,6 +393,7 @@ button:focus-visible {
 
 .survey-button.red {
   background-color: #ef8c8f;
+  margin-bottom: 40px;
 }
 
 .sidebar {
@@ -437,7 +439,7 @@ button:focus-visible {
 
 .calendar td {
   border-radius: 90px;
-  padding: 8px;
+  padding: 10px;
   text-align: center;
   /* display: flex;
   flex-direction: column;
@@ -448,7 +450,7 @@ button:focus-visible {
 
 .calendar th {
   background-color: #daf1ff;
-  padding: 8px;
+  padding: 10px;
   text-align: center;
 } 
 
@@ -710,16 +712,126 @@ input[type='range'] {
   height: 450px; 
 }
 
+.info-section,
+#info-section2 {
+  margin: auto;
+  margin-top: 70px;
+  max-width: 50%;
+  background-color: rgba(198, 239, 240, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+
+
+h2 {
+  font-size: 24px;
+  text-align: center;
+}
+
+
+#info-section2 {
+  margin-bottom: 100px;
+  font-size: 16px;
+}
+
+.scroll-down,
+.scroll-up {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #007bff; /* Sininen väri */
+  text-decoration: none; /* Poista alleviivaus */
+  transition: color 0.3s;
+}
+
+.scroll-down:hover, .scroll-down:focus {
+  color: #0056b3; /* Tummempaa sinistä hover-efektiin */
+  text-decoration: none; /* Varmista, että alleviivaus pysyy poissa */
+}
+
+.scroll-down i,
+.scroll-up i {
+  margin-right: 10px;
+  font-size: x-large;
+}
+
 #myBarChart {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
 }
 
+.stress {
+  font-weight: 600;
+  margin-top: 30px;
+  font-size: larger;
+  background-color: rgba(198, 239, 240, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.diary-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.diary-class {
+  background-color: rgba(198, 239, 240, 0.9);
+  margin: auto;
+  margin-bottom: 80px;
+  margin-top: 70px;
+  max-width: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.diary-section {
+  margin: auto;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: rgba(198, 239, 240, 0.7);
+  color: #00080c;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+}
+
+.diary-section h2 {
+  color: #070707;
+  text-align: center;
+}
+
+#diary-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#diary-form label {
+  margin-bottom: 5px;
+  color: #0c010f;
+}
+
+#diary-form input, #diary-form textarea {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#diary-form button:hover {
+  background-color: #926ff5;
+}
+
 
 /* footer {
   position: absolute;
@@ -770,7 +882,7 @@ footer {
 }
 
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1350px) {
   .content-wrapper {
     flex-direction: column;
     align-items: center;
@@ -799,9 +911,12 @@ footer {
   .survey-section {
     order: 0;
   }
-}
 
-@media screen and (max-width: 1150px) {
+  #info-section2,
+  .info-section,
+  .diary-class {
+    max-width: 500px;
+  }
   nav {
     height: 79px;
   }
@@ -850,6 +965,19 @@ footer {
     margin-right: 20px;
   }
 
+
+}
+
+@media screen and (max-width: 1150px) {
+
+  .info-section,
+#info-section2,
+.diary-class {
+  max-width: 500px;
+
+}
+
+
   /* .menu-toggle:focus {
     background-color: #d1ebf5;
   } */
@@ -889,5 +1017,17 @@ footer {
   height: 300px;
 }
 
+.info-section,
+#info-section2 {
+  max-width: 500px;
+  margin-left: 20px;
+  margin-right: 20px;
+  
+}
+
+#myBarChart {
+  margin-left: 20px;
+  margin-right: 20px;
+}
 
 }
