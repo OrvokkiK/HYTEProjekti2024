@@ -19,6 +19,7 @@ const listSymptomsByUserId = async (user_id) => {
     const sql = 'SELECT * FROM Symptoms WHERE user_id=?';
     const params = [user_id]
     const [rows] = await promisePool.query(sql, params);
+    console.log(rows);
     if (rows.length === 0 ) {
       return {error: 404, message: `No symptom entries found by user_id${user_id}`};
     } else {
@@ -152,7 +153,7 @@ const deleteSymptomById = async (symptom_id) => {
     }
     return {message: `Entry ${symptom_id} deleted`};
   } catch (error) {
-    console.log('[Model] deleteSymptomsById: ', error);
+    console.error('[Model] deleteSymptomsById: ', error);
     return {error: 500, message: 'db error'};
   }
 }

@@ -58,10 +58,12 @@ const listConverstation = async (conversation_id) => {
   }
 }
 // add message
-const insertMessage = async (message) => {
+// TODO: implement cotrols that message chain hpc - regular or regular - hpc
+const insertMessage = async (conversation_id, message) => {
   try {
     const sql = 'INSERT INTO messages (conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES (?, ?, ?, ?, ?)';
-    const params = [message.conversation_id, message.recipient_id, message.message_content, message.message_sent_at, message.sender_id];
+    const params = [conversation_id, message.recipient_id, message.message_content, message.message_sent_at, message.sender_id];
+    console.log(params);
     const [rows] = await promisePool.query(sql, params);
     console.log(rows);
     return {message_id: rows.insertId}
@@ -70,8 +72,6 @@ const insertMessage = async (message) => {
     return {error: 500, message: 'db error'};
   }
 }; 
-
-//modify message?
 
 //delete message
 const deleteMessageByMessageId = async (message_id) => {

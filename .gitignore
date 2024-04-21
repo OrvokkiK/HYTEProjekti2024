@@ -3,6 +3,4 @@ node_modules
 .DS_Store
 .env
 creds.txt
-test-request.http
 login-variables.resource
-test

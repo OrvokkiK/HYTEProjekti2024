@@ -1,0 +1,188 @@
+##
+## /api/users endpoint
+##
+
+### GET all users
+GET http://localhost:3000/api/users
+
+### GET user by id
+GET http://localhost:3000/api/users/6
+
+
+
+### POST new user
+POST  http://localhost:3000/api/users
+content-type: application/json
+
+{
+    "username": "orvokki.kettula@example.com",
+    "password": "isopahaadmin",
+    "first_name": "Orvokki",
+    "last_name": "Kettula"
+}
+
+### PUT (edit) an existing user's info
+PUT http://localhost:3000/api/users/6
+Content-Type: application/json
+
+{
+    "username": "Orvokki.Kettula@example.com",
+    "password": "TOIMIIKOviel", 
+    "first_name": "Orvokki",
+    "last_name": "K",
+    "chat_permission" : "kyllä",
+    "chat_permission_date" : "2024-3-31 09:00:00"
+}
+
+### DELETE an existing user;
+DELETE http://localhost:3000/api/users/6
+
+##
+## /api/symptoms/ endpoints
+##
+
+### GET all symptoms
+GET http://localhost:3000/api/symptoms
+
+
+### GET symptoms by symptom id
+GET http://localhost:3000/api/symptoms/1
+
+### GET symptoms by user id
+GET http://localhost:3000/api/symptoms/user/1
+
+### POST new entry to symptoms
+POST http://localhost:3000/api/symptoms/3
+Content-Type: application/json
+
+{
+    "entry_date" : "2024-3-31", 
+    "frustration" : "1", 
+    "grumpiness" : "0", 
+    "recall_problems": "0", 
+    "restlesness": "0", 
+    "disquiet": "1", 
+    "tiredness": "0", 
+    "anxiety" : "0", 
+    "difficulty_making_decisions" : "0", 
+    "sleep_disturbances": "0", 
+    "changes_in_appetite": "1", 
+    "headache": "0", 
+    "neck_pain": "0", 
+    "vertigo": "0", 
+    "palpitation": "0", 
+    "nausea": "0", 
+    "upset_stomach": "0", 
+    "recurring_colds": "0", 
+    "back_issues": "1", 
+    "stress_level": "3"
+}
+
+### PUT existing entry
+PUT http://localhost:3000/api/symptoms/5
+Content-Type: application/json
+
+{
+    "frustration" : "1", 
+    "grumpiness" : "0", 
+    "recall_problems": "1", 
+    "restlesness": "0", 
+    "disquiet": "1", 
+    "tiredness": "0", 
+    "anxiety" : "1", 
+    "difficulty_making_decisions" : "0", 
+    "sleep_disturbances": "1", 
+    "changes_in_appetite": "0", 
+    "headache": "1", 
+    "neck_pain": "0", 
+    "vertigo": "1", 
+    "palpitation": "0", 
+    "nausea": "1", 
+    "upset_stomach": "0", 
+    "recurring_colds": "1", 
+    "back_issues": "0", 
+    "stress_level": "5",
+    "user_id": "3"
+}
+
+### DELETE Symptom by symptom id
+DELETE http://localhost:3000/api/symptoms/5
+
+##
+## /api/messages/ endpoints
+##
+
+### GET all messages
+GET http://localhost:3000/api/messages
+
+### GET message by message_id
+GET http://localhost:3000/api/messages/1
+
+### Add new message
+POST http://localhost:3000/api/messages
+Content-Type: application/json
+
+{
+  "conversation_id": "2",
+  "recipient_id": "1", 
+  "message_content": "Toimiiko?",
+  "message_sent_at" : "2024-4-3 09:00:00",
+  "sender_id": "2"
+}
+
+### Add new message to a new conversation
+POST http://localhost:3000/api/messages
+Content-Type: application/json
+
+{
+  "recipient_id" : "3",
+  "message_content" : "Uusi viesti, uudet tuulet",
+  "message_sent_at": "2024-04-18 10:14:00",
+  "sender_id": "4"
+}
+
+### Delete messages
+DELETE http://localhost:3000/api/messages/6
+
+##
+## /api/analysis/ routes
+##
+
+### GET all analysis
+GET http://localhost:3000/api/analysis/
+
+### GET a specific analysis
+GET http://localhost:3000/api/analysis/2
+
+
+### POST a new complete analysis
+POST  http://localhost:3000/api/analysis/
+Content-Type: application/json
+
+{
+  "user_id": "1",
+  "analysis_result": "Kohtalainen stressi",
+  "analysis_enumerated": "2",
+  "created_at": "2024-4-17 15:14:00"
+}
+
+
+### PUT an existing analysis
+PUT http://localhost:3000/api/analysis/3
+Content-Type: application/json
+
+{
+  "analysis_result": "Alhainen stressi",
+  "analysis_enumerated": "1",
+  "created_at": "2024-04-17 09:21:00"
+}
+
+### DELETE an analysis by analysis_id
+DELETE http://localhost:3000/api/analysis/4
+
+##
+## /api/analysis/user routes
+##
+
+### GET analyses by user
+GET http://localhost:3000/api/analysis/user/1
