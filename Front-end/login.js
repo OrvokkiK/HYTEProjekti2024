@@ -10,6 +10,17 @@ document.addEventListener('DOMContentLoaded', function() {
     menu.classList.toggle('show');
   });
 
+  document.getElementById('userLoginBtn').addEventListener('click', function() {
+    document.getElementById('userLoginForm').style.display = 'block';
+    document.getElementById('professionalLoginForm').style.display = 'none';
+});
+
+document.getElementById('professionalLoginBtn').addEventListener('click', function() {
+    document.getElementById('userLoginForm').style.display = 'none';
+    document.getElementById('professionalLoginForm').style.display = 'block';
+});
+
+
   const loginUser = document.querySelector('.loginuser');
 
   loginUser.addEventListener('click', async (evt) => {
