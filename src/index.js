@@ -10,6 +10,8 @@ import userRouter from './routes/user-router.mjs';
 import kubiosRouter from './routes/kubios-router.mjs';
 import symptomRouter from './routes/symptom-router.mjs';
 import messageRouter from './routes/message-router.mjs';
+import analysisRouter from './routes/analysis-router.mjs';
+import symptomUserRouter from './routes/symptom-user-router.mjs';
 import lifestyleRouter from './routes/lifestyle-router.mjs';
 import hrvRouter from './routes/hrv-router.mjs';
 import analysisRouter from './routes/analysis-router.mjs';
@@ -29,7 +31,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 
-// user route
+// user routes
 // Users resource (/api/users)
 app.use('/api/users', userRouter);
 
@@ -42,10 +44,16 @@ app.use('/api/kubios', kubiosRouter);
 // symptoms route
 app.use('/api/symptoms/', symptomRouter);
 
+// symptoms/user routes
+app.use('/api/symptoms/user', symptomUserRouter);
+
 // Lifestyle route
 app.use('/api/lifestyle/', lifestyleRouter);
 
 // HRV route
+
+// Analysis router
+app.use('/api/analysis/', analysisRouter);
 app.use('/api/hrv/', hrvRouter);
 
 // message route

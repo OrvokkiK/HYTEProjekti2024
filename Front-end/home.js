@@ -5,7 +5,10 @@ import {showToast} from './toast.js';
 // Kirjautumisajan tarkistus ja automaattinen uloskirjautuminen
 function checkAutoLogout() {
   const loginTime = localStorage.getItem('loginTime');
-  if (loginTime && new Date().getTime() - new Date(loginTime).getTime() > 3600000) {
+  if (
+    loginTime &&
+    new Date().getTime() - new Date(loginTime).getTime() > 3600000
+  ) {
     // Kirjautumisesta on kulunut yli tunti (3600000 millisekuntia)
     localStorage.clear(); // Tyhjennä localStorage
     window.location.href = 'index.html'; // Ohjaa kirjautumissivulle
@@ -200,7 +203,7 @@ am5.ready(function () {
   const root = am5.Root.new('graph');
 
   // Set themes
-  // eslint-disable-next-line camelcase
+
   root.setThemes([am5themes_Animated.new(root)]);
 
   // Create chart
@@ -231,185 +234,91 @@ am5.ready(function () {
     }),
   );
 
-  const data = [
-    {
-      date: '2012-07-27',
-      value: 1,
-      arvio: 'Matala stressitaso',
-      hrv: 60,
-    },
-    {
-      date: '2012-07-28',
-      value: 1,
-      arvio: 'Matala stressitaso',
-      hrv: 60,
-    },
-    {
-      date: '2012-07-29',
-      value: 3,
-      arvio: 'Korkea stressitaso',
-      hrv: 40,
-    },
-    {
-      date: '2012-07-30',
-      value: 3,
-      arvio: 'Korkea stressitaso',
-      hrv: 55,
-    },
-    {
-      date: '2012-07-31',
-      value: 3,
-      arvio: 'Korkea stressitaso',
-      hrv: 35,
-    },
-    {
-      date: '2012-08-01',
-      value: 2,
-      arvio: 'Kohtalainen stressitaso',
-      hrv: 60,
-    },
-    {
-      date: '2012-08-02',
-      value: 2,
-      arvio: 'Kohtalainen stressitaso',
-      hrv: 45,
-    },
-    {
-      date: '2012-08-03',
-      value: 2,
-      arvio: 'Kohtalainen stressitaso',
-      hrv: 60,
-    },
-    {
-      date: '2012-08-04',
-      value: 2,
-      arvio: 'Kohtalainen stressitaso',
-      hrv: 70,
-    },
-    {
-      date: '2012-08-05',
-      value: 1,
-      arvio: 'Matala stressitaso',
-      hrv: 60,
-    },
-    {
-      date: '2012-08-06',
-      value: 1,
-      arvio: 'Matala stressitaso',
-      hrv: 55,
-    },
-    {
-      date: '2012-08-07',
-      value: 1,
-      arvio: 'Matala stressitaso',
-      hrv: 50,
-    },
-    {
-      date: '2012-08-08',
-      value: 2,
-      arvio: 'Kohtalainen stressitaso',
-      hrv: 60,
-    },
-    {
-      date: '2012-08-09',
-      value: 2,
-      arvio: 'Kohtalainen stressitaso',
-      hrv: 60,
-    },
-    {
-      date: '2012-08-10',
-      value: 2,
-      arvio: 'Kohtalainen stressitaso',
-      hrv: 35,
-    },
-    {
-      date: '2012-08-11',
-      value: 2,
-      arvio: 'Kohtalainen stressitaso',
-      hrv: 50,
-    },
-    {
-      date: '2012-08-12',
-      value: 3,
-      arvio: 'Korkea stressitaso',
-      hrv: 40,
-    },
-    {
-      date: '2012-08-13',
-      value: 1,
-      arvio: 'Matala stressitaso',
-      hrv: 66,
-    },
-    {
-      date: '2012-08-14',
-      value: 2,
-      arvio: 'Kohtalainen stressitaso',
-      hrv: 55,
-    },
-  ];
+  const id = localStorage.getItem('user_id');
+  const userToken = localStorage.getItem('token');
 
-  // Create axes
-  const xRenderer = am5xy.AxisRendererX.new(root, {
-    minGridDistance: 85,
-    minorGridEnabled: true,
-  });
+  const chartUrl = `http://localhost:3000/api/analysis/user/${id}`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${userToken}`,
+    },
+  };
+  fetchData(chartUrl, options).then((data) => {
+    console.log(data);
+    const chartData = data.map((item) => {
+      const date = new Date(item.created_at);
+      const formattedDate = date // Muuntaa päivämäärän muotoon 'YYYY-MM-DD'
+      return {
+        date: formattedDate,
+        value: item.analysis_enumerated,
+      };
+    });
 
-  const xAxis = chart.xAxes.push(
-    am5xy.CategoryAxis.new(root, {
-      categoryField: 'date',
-      renderer: xRenderer,
-    }),
-  );
+    const xRenderer = am5xy.AxisRendererX.new(root, {
+      minGridDistance: 85,
+      minorGridEnabled: true,
+    });
 
-  xRenderer.grid.template.setAll({
-    location: 1,
-  });
-
-  xRenderer.labels.template.setAll({
-    paddingTop: 20,
-  });
-
-  xAxis.data.setAll(data);
-
-  const yAxis = chart.yAxes.push(
-    am5xy.ValueAxis.new(root, {
-      min: 0,
-      max: 3,
-      maxPrecision: 0,
-      renderer: am5xy.AxisRendererY.new(root, {
-        strokeOpacity: 0.1,
+    const xAxis = chart.xAxes.push(
+      am5xy.CategoryAxis.new(root, {
+        categoryField: 'date',
+        renderer: xRenderer,
       }),
-    }),
-  );
+    );
 
-  // Add series
-  const series = chart.series.push(
-    am5xy.ColumnSeries.new(root, {
-      xAxis: xAxis,
-      yAxis: yAxis,
-      valueYField: 'value',
-      categoryXField: 'date',
-    }),
-  );
+    xRenderer.grid.template.setAll({
+      location: 1,
+    });
 
-  series.columns.template.setAll({
-    tooltipText: '{categoryX}: {valueY}',
-    tooltipY: 0,
-    strokeOpacity: 0,
-    cornerRadiusTL: 6,
-    cornerRadiusTR: 6,
+    xRenderer.labels.template.setAll({
+      paddingTop: 20,
+    });
+
+    xAxis.data.setAll(chartData);
+
+    const yAxis = chart.yAxes.push(
+      am5xy.ValueAxis.new(root, {
+        min: 0,
+        max: 3,
+        maxPrecision: 0,
+        renderer: am5xy.AxisRendererY.new(root, {
+          strokeOpacity: 0.1,
+        }),
+      }),
+    );
+
+    // Add series
+    const series = chart.series.push(
+      am5xy.ColumnSeries.new(root, {
+        xAxis: xAxis,
+        yAxis: yAxis,
+        valueYField: 'value',
+        categoryXField: 'date',
+      }),
+    );
+
+    series.columns.template.setAll({
+      tooltipText: '{categoryX}: {valueY}',
+      tooltipY: 0,
+      strokeOpacity: 0,
+      cornerRadiusTL: 6,
+      cornerRadiusTR: 6,
+    });
+
+    series.columns.template.adapters.add('fill', function (fill, target) {
+      return chart
+        .get('colors')
+        .getIndex(series.dataItems.indexOf(target.dataItem));
+    });
+
+    series.data.setAll(chartData);
+    series.appear();
+    chart.appear(1000, 100);
+    console.log(chartData);
   });
-
-  series.columns.template.adapters.add('fill', function (fill, target) {
-    return chart
-      .get('colors')
-      .getIndex(series.dataItems.indexOf(target.dataItem));
-  });
-
-  series.data.setAll(data);
-
-  series.appear();
-  chart.appear(1000, 100);
+  
 });
 
 // Oirearviokyselyn toiminnallisuudet
@@ -833,9 +742,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // kokonaisanalyysin saaminen
 
-
-
-
 // haetaan ensin kyselyiden tulokset ja hrv tulokset nykyiseltä päivältä
 const fetchDataAndFilter = (userId, token) => {
   const currentDate = new Date();
@@ -1061,7 +967,13 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   return {symptomPoints, hrvPoints, lifestylePoints};
 }
 
-function showModal(symptomPoints, hrvPoints, lifestylePoints, overallScore, stressLevelText) {
+function showModal(
+  symptomPoints,
+  hrvPoints,
+  lifestylePoints,
+  overallScore,
+  stressLevelText,
+) {
   // Tarkista onko modaali jo näytetty
   if (localStorage.getItem('analysisModalShown') !== 'true') {
     const modal = document.getElementById('overall-analysis-modal');
@@ -1119,33 +1031,44 @@ fetchDataAndFilter(userId, token)
       const stressTodayElement = document.getElementById('stress-today');
       stressTodayElement.textContent = stressLevelText;
       console.log('kokonaisanalyysi:', overallScore);
-      showModal(symptomPoints, hrvPoints, lifestylePoints, overallScore, stressLevelText);
-      // const id = localStorage.getItem('user_id');
-      // const analysisData = {
-      //   user_id : id,
-      //   analysis_result : stressLevelText,
-      //   analysis_enumerated : overallScore,
-      //   created_at : new Date().toISOString().split('T')[0],
-      // };
-
-      // const token = localStorage.getItem('token');
-      // const url = `http://localhost:3000/api/analysis/`;
-      // const options = {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      //   body: JSON.stringify(analysisData),
-      // };
-      // console.log(analysisData);
-      // fetchData(url, options).then((data) => {
-      //   console.log(data);
-      // });
-    } else {
-      console.log(
-        'Oirekyselyn, HRV-datan tai elämäntapakyselyn haku epäonnistui.',
+      showModal(
+        symptomPoints,
+        hrvPoints,
+        lifestylePoints,
+        overallScore,
+        stressLevelText,
       );
+      const currentDate = new Date().toISOString().split('T')[0];  // Muoto: "YYYY-MM-DD"
+      const lastAnalysisDate = localStorage.getItem('lastAnalysisDate');
+  
+      if (lastAnalysisDate !== currentDate) {
+        // Tallennetaan vain, jos edellinen analyysi ei ole tältä päivältä
+        const analysisData = {
+          user_id: userId,
+          analysis_result: stressLevelText,
+          analysis_enumerated: overallScore,
+          created_at: currentDate,
+        };
+  
+        const url = `http://localhost:3000/api/analysis/`;
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(analysisData),
+        };
+  
+        fetchData(url, options).then((data) => {
+          console.log("Analyysi tallennettu:", data);
+          localStorage.setItem('lastAnalysisDate', currentDate); // Päivitetään viimeisin analyysipäivä
+        });
+      } else {
+        console.log("Analyysi on jo suoritettu ja tallennettu tänään.");
+      }
+    } else {
+      console.log("Oirekyselyn, HRV-datan tai elämäntapakyselyn haku epäonnistui.");
     }
   })
   .catch((error) => {
