@@ -9,10 +9,10 @@ function checkAutoLogout() {
     loginTime &&
     new Date().getTime() - new Date(loginTime).getTime() > 3600000
   ) {
-    // Kirjautumisesta on kulunut yli tunti (3600000 millisekuntia)
-    localStorage.clear(); // Tyhjennä localStorage
-    window.location.href = 'index.html'; // Ohjaa kirjautumissivulle
-    showToast('Istuntosi on vanhentunut. Ole hyvä ja kirjaudu uudelleen.');
+    
+    localStorage.clear(); 
+    window.location.href = 'index.html'; 
+    alert('Istuntosi on vanhentunut. Ole hyvä ja kirjaudu uudelleen.');
   }
 }
 
