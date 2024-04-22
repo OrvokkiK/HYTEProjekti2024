@@ -4,3 +4,4 @@ node_modules
 .env
 creds.txt
 login-variables.resource
+frontend-hpc

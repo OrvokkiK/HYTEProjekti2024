@@ -16,7 +16,7 @@ const listAllSymptoms = async () => {
 //Lists all the symptoms of a user
 const listSymptomsByUserId = async (user_id) => {
   try {
-    const sql = 'SELECT * FROM SYMPTOMS WHERE user_id=?';
+    const sql = 'SELECT * FROM Symptoms WHERE user_id=?';
     const params = [user_id]
     const [rows] = await promisePool.query(sql, params);
     console.log(rows);

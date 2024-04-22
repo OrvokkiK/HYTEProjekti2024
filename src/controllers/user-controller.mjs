@@ -1,5 +1,5 @@
 // user-controller.mjs
-import {deleteUserById, insertUser, listAllUsers, selectUserbyId, updateUserInfoById} from '../models/user-model.mjs';
+import {deleteUserById, insertUser, listAllUsers, selectUserById, updateUserInfoById} from '../models/user-model.mjs';
 // import bcrypt from 'bcryptjs';
 
 const getUsers = async (req, res) => {
@@ -11,7 +11,7 @@ const getUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  const result = await selectUserbyId(req.params.id);
+  const result = await selectUserById(req.params.id);
   if (result.error) {
     return res.status(result.error).json(result);
   }
