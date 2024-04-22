@@ -26,7 +26,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #e7fbfc;
-  background-image: url(/images/backround5.png);
+  background-image: url(/images/backround2.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -36,10 +36,10 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  background-color: #c0eaea;
+  background-color: rgba(198, 239, 240, 0.6);
   margin: auto;
   margin-top: 5px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 
 }
@@ -137,6 +137,7 @@ li a:not(.logo) {
 .menu li a,
 .login_form a {
   color: rgb(4, 28, 135);
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -211,8 +212,26 @@ li a:hover,
   align-items: center;
 }
 
+#userLoginBtn {
+  background: rgba(98, 160, 173, 0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  color: antiquewhite;
+  width: 140px;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+#professionalLoginBtn {
+  background: rgba(98, 160, 173, 0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  color: antiquewhite;
+  width: 150px;
+  text-align: center;
+  padding: 10px;
+}
+
 .login_form {
-  background: rgba(82, 190, 215, 0.8);
+  background: rgba(98, 160, 173, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   border-radius: 10px;
 }
@@ -229,6 +248,41 @@ li a:hover,
 .login_form .logo-text {
   margin-top: 20px;
   font-size: xx-large;
+}
+
+#jumbotron {
+  display: flex;
+  justify-content: center;
+  background-color: aqua;
+  max-width: 90%;
+  margin: auto;
+  margin-top: 20px;
+  min-height: 40vh;
+  background-image: url(images/heart2.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  /* border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px; */
+  border-radius: 20px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.7);
+}
+
+.stress,
+.jumbotron-user {
+  font-weight: 600;
+  margin-top: 30px;
+  font-size: larger;
+  background-color: rgba(198, 239, 240, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.jumbotron-user {
+  margin: auto;
+  text-align: center;
+  background-color: rgba(198, 239, 240, 0.8);
 }
 
 form {
@@ -349,12 +403,12 @@ button:focus-visible {
   width: 30%;
   margin: auto;
   background-color: rgba(198, 239, 240, 0.7);
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 .user {
-  color: #6829e7;
+  color: #090909;
   font-weight: 500;
   font-size: medium;
   letter-spacing: 1px;
@@ -402,6 +456,7 @@ button:focus-visible {
   padding: 20px;
 }
 
+
 #graph {
   border-radius: 10px;
   padding: 15px;
@@ -411,8 +466,19 @@ button:focus-visible {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   height: 350px;
   margin: auto;
-  margin-bottom: 100px;
+  margin-bottom: 40px;
   margin-top: 40px;
+}
+
+.links {
+  background-color: rgba(198, 239, 240, 0.7);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  max-width: 30%;
+  margin: auto;
+  margin-bottom: 70px;
+  padding: 10px;
+  padding-left: 20px;
 }
 
 .calendar {
@@ -688,15 +754,19 @@ input[type='range'] {
 
 #symptom-points,
 #hrv-points,
-#lifestyle-points {
+#lifestyle-points,
+#overall-text,
+#overall-score {
   font-weight: 500;
   font-size: small;
-  margin-left: 35%;
+  text-align: center;
 }
 
-#overall-score {
+#overall-text {
+  font-size: large;
   font-weight: 700;
   text-align: center;
+  background-color: #c3d6fa;
 }
 
 #overall-analysis-modal .modal-content {
@@ -764,15 +834,7 @@ h2 {
   border-radius: 10px;
 }
 
-.stress {
-  font-weight: 600;
-  margin-top: 30px;
-  font-size: larger;
-  background-color: rgba(198, 239, 240, 0.7);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-}
+
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -875,7 +937,7 @@ footer {
   font-weight: 600;
   font-size: smaller;
   letter-spacing: 1px;
-  background: linear-gradient(to right, #aeecfa 20%, #6cbafe 40%, #aeecfa 60%);
+  background: linear-gradient(to right, #2656f3 20%, #6cbafe 40%, #caaefa 60%);
   background-size: 200% 100%;
   animation: heartbeat 2s linear infinite;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.2);
@@ -926,9 +988,9 @@ footer {
     flex-direction: column;
     position: absolute;
     top: 80px;
-    right: 0;
-    background-color: #abe0f3;
-    width: 40%;
+    right: 30px;
+    background-color: #e6f2f7;
+    width: 50%;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
     z-index: 999999999999;
@@ -941,6 +1003,7 @@ footer {
   .menu li {
     margin: 0;
     border-bottom: 1px solid #5b9bd0;
+    /* right: 60px; */
   }
 
   .menu li:last-child {
@@ -959,7 +1022,7 @@ footer {
     display: block;
     font-size: 20px;
     cursor: pointer;
-    background-color: #c0eaea;
+    background: none;
     border: solid 1px rgb(164, 185, 232);
     border: none;
     margin-right: 20px;
@@ -1028,6 +1091,10 @@ footer {
 #myBarChart {
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.links {
+  max-width: 70%;
 }
 
 }
