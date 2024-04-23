@@ -32,15 +32,17 @@ body {
 }
 
 nav {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
-  background-color: rgba(198, 239, 240, 0.6);
+  width: 98%;
+  background-color: rgba(198, 239, 240, 0.8);
   margin: auto;
-  margin-top: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+  top: 10px;
 
 }
 
@@ -58,7 +60,7 @@ nav {
     #6829e7,
     #bf62f5
   ); /* Chrome & Safari */
-  background: linear-gradient(45deg, #6829e7, #b403f5); 
+  background: linear-gradient(45deg, #2e06f7, #f503bd); 
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent; 
@@ -162,7 +164,7 @@ li a:not(.logo) {
 
 li a:hover,
 .login_form a:hover {
-  color: rgb(9, 26, 206);
+  color: rgb(158, 74, 155);
   text-decoration: underline;
   text-underline-offset: 10px;
 }
@@ -213,25 +215,25 @@ li a:hover,
 }
 
 #userLoginBtn {
-  background: rgba(159, 200, 202, 0.8);
+  background: rgba(70, 126, 186, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  color: antiquewhite;
+  color: rgb(249, 247, 243);
   width: 140px;
   padding: 10px;
   margin-bottom: 5px;
 }
 
 #professionalLoginBtn {
-  background: rgba(159, 200, 202, 0.8);
+  background: rgba(70, 126, 186, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  color: antiquewhite;
+  color: rgb(245, 244, 242);
   width: 150px;
   text-align: center;
   padding: 10px;
 }
 
 .login_form {
-  background: rgba(159, 200, 202, 0.8);
+  background: rgba(70, 126, 186, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   border-radius: 10px;
 }
@@ -251,25 +253,21 @@ li a:hover,
 }
 
 #jumbotron {
-  display: flex;
-  justify-content: center;
+  position: relative;
   background-color: aqua;
   max-width: 90%;
   margin: auto;
-  margin-top: 20px;
-  min-height: 40vh;
-  background-image: url(images/heart2.png);
+  margin-top: 10px;
+  min-height: 50vh;
+  background-image: url(images/heart4.png);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  /* border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px; */
   border-radius: 20px;
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.7);
 }
 
-.stress,
-.jumbotron-user {
+.stress {
   font-weight: 600;
   margin-top: 30px;
   font-size: larger;
@@ -280,9 +278,18 @@ li a:hover,
 }
 
 .jumbotron-user {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: larger;
+  font-weight: 600;
+  display: inline-block;
   margin: auto;
   text-align: center;
   background-color: rgba(198, 239, 240, 0.8);
+  transform: translate(-50%, -50%);
 }
 
 form {
