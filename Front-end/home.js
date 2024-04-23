@@ -10,7 +10,9 @@ function checkAutoLogout() {
     new Date().getTime() - new Date(loginTime).getTime() > 3600000
   ) {
     
-    localStorage.clear(); 
+    localStorage.removeItem('analysisModalShown');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('token'); 
     window.location.href = 'index.html'; 
     alert('Istuntosi on vanhentunut. Ole hyvä ja kirjaudu uudelleen.');
   }
@@ -1033,7 +1035,9 @@ fetchDataAndFilter(userId, token)
       const stressTodayElement = document.getElementById('stress-today');
       stressTodayElement.textContent = stressLevelText;
       console.log('kokonaisanalyysi:', overallScore);
-      windows.location.href = 'home.html';
+      // setTimeout(() => {
+      //   window.location.href = 'home.html';
+      // }, 2000);
       showModal(
         symptomPoints,
         hrvPoints,
