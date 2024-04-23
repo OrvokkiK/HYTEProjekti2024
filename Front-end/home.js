@@ -864,10 +864,12 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
     console.log('stress_index', stressIndex);
 
     if (stressIndex >= -5 && stressIndex <= 0) {
-      hrvPoints += 1;
+      hrvPoints -= 1;
     } else if (stressIndex > 0 && stressIndex <= 10) {
-      hrvPoints += 2;
-    } else if (stressIndex > 10) {
+      hrvPoints += 1;
+    } else if (stressIndex > 10 && stressIndex <= 20) {
+      hrvPoints +=2;
+    } else if (stressIndex > 20) {
       hrvPoints += 3;
     }
     const readinessData = hrvData.readiness;
@@ -1031,6 +1033,7 @@ fetchDataAndFilter(userId, token)
       const stressTodayElement = document.getElementById('stress-today');
       stressTodayElement.textContent = stressLevelText;
       console.log('kokonaisanalyysi:', overallScore);
+      windows.location.href = 'home.html';
       showModal(
         symptomPoints,
         hrvPoints,
@@ -1038,11 +1041,10 @@ fetchDataAndFilter(userId, token)
         overallScore,
         stressLevelText,
       );
-      const currentDate = new Date().toISOString().split('T')[0];  // Muoto: "YYYY-MM-DD"
+      const currentDate = new Date().toISOString().split('T')[0];  
       const lastAnalysisDate = localStorage.getItem('lastAnalysisDate');
   
       if (lastAnalysisDate !== currentDate) {
-        // Tallennetaan vain, jos edellinen analyysi ei ole tältä päivältä
         const analysisData = {
           user_id: userId,
           analysis_result: stressLevelText,
@@ -1062,7 +1064,7 @@ fetchDataAndFilter(userId, token)
   
         fetchData(url, options).then((data) => {
           console.log("Analyysi tallennettu:", data);
-          localStorage.setItem('lastAnalysisDate', currentDate); // Päivitetään viimeisin analyysipäivä
+          localStorage.setItem('lastAnalysisDate', currentDate); 
         });
       } else {
         console.log("Analyysi on jo suoritettu ja tallennettu tänään.");
