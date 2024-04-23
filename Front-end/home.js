@@ -215,7 +215,7 @@ am5.ready(function () {
       wheelY: 'zoomX',
       paddingLeft: 20,
       paddingRight: 40,
-      paddingBottom: 50,
+      paddingBottom: 60,
       layout: root.verticalLayout,
     }),
   );
@@ -223,8 +223,8 @@ am5.ready(function () {
   chart.children.unshift(
     am5.Label.new(root, {
       text: 'Stressitasoanalyysi',
-      fontSize: 20,
-      fontWeight: '400',
+      fontSize: 22,
+      fontWeight: '600',
       fontFamily: 'Poppins, sans-serif',
       textAlign: 'center',
       x: am5.percent(50),

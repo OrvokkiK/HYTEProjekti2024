@@ -106,7 +106,7 @@ li a:not(.logo) {
 }
 
 .dropdown-content a:hover {
-  background-color: #6ccfe6;
+  background-color: #66b2e4;
 }
 
 .menu {
@@ -151,7 +151,7 @@ li a:not(.logo) {
 
 li a:hover,
 .login_form a:hover {
-  color: rgb(158, 74, 155);
+  color: rgb(214, 235, 244);
   text-decoration: underline;
   text-underline-offset: 10px;
 }
@@ -281,6 +281,7 @@ li a:hover,
   margin: auto;
   text-align: center;
   background-color: rgba(198, 239, 240, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   transform: translate(-50%, -50%);
 }
 
@@ -338,7 +339,7 @@ input.loginuser:hover,
 .tallenna-button:hover,
 .tallenna-kysely:hover {
   background-color: #6c49ea;
-  color: #abe0f3;
+  /* color: #abe0f3; */
 }
 
 h1 {
@@ -350,7 +351,7 @@ button {
   border-radius: 4px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 16px;
   font-weight: 500;
   background-color: #66b2e4;
   cursor: pointer;
@@ -395,7 +396,7 @@ button:hover {
 }
 
 .user {
-  color: #090909;
+  color: black;
   font-weight: 500;
   font-size: medium;
   letter-spacing: 1px;
@@ -417,6 +418,7 @@ button:hover {
 .diary-button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   margin: 10px;
+  margin-top: 30px;
   padding: 10px;
 }
 
@@ -425,7 +427,7 @@ button:hover {
 }
 
 .survey-button.green {
-  background-color: #94d196;
+  background-color: #4989d2;
 }
 
 .survey-button.blue {
@@ -433,7 +435,7 @@ button:hover {
 }
 
 .survey-button.red {
-  background-color: #ef8c8f;
+  background-color:rgb(194, 147, 177);
   margin-bottom: 40px;
 }
 
@@ -520,15 +522,15 @@ button:hover {
 }
 
 .oirekysely-dot {
-  background-color: green;
+  background-color: #014a9f;
 }
 
 .elamantapa-dot {
-  background-color: rgb(110, 5, 134);
+  background-color: #8272f8;
 }
 
 .hrv-dot {
-  background-color: red;
+  background-color: rgb(188, 124, 165);
 }
 
 .dot-description {
@@ -956,7 +958,7 @@ footer {
   background: linear-gradient(to right, #467eba 20%, #c293b1 40%, #467eba 60%);
   background-size: 200% 100%;
   animation: heartbeat 2s linear infinite;
-  box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.9);
 }
 
 @media screen and (max-width: 1350px) {
@@ -1007,6 +1009,7 @@ footer {
     background-color: rgba(198, 239, 240, 0.9);
     width: 99%;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     z-index: 999999999999;
   }
 
@@ -1108,4 +1111,9 @@ footer {
   .links {
     max-width: 70%;
   }
+
+  #graph {
+    height: 350px;
+  }
+
 }
