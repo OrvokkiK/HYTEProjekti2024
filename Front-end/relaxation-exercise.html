@@ -14,13 +14,15 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
     />
-    <title>Vite App</title>
+    <title>Kokonaisanalyysit</title>
   </head>
   <body>
     <header>
       <nav>
         <img src="images/icon5.png" alt="logo" class="nav-logo" />
-        <a href="home.html" class="logo-text-link"><div class="logo-text">MindEase</div></a>
+        <a href="home.html" class="logo-text-link"
+          ><div class="logo-text">MindEase</div></a
+        >
         <button class="menu-toggle">☰</button>
         <ul class="menu">
           <li class="dropdown">
@@ -47,14 +49,20 @@
               <a href="lifestyle-surveys.html"
                 ><i class="bi bi-pencil-square"></i> ELÄMÄNTAPAKYSELYT</a
               >
-              <a href="hrv-analysis.html"><i class="bi bi-heart-pulse"></i> HRV-MITTAUKSET</a>
-              <a href="analysis.html"><i class="bi bi-graph-up"></i> KOKONAISANALYYSIT</a>
-              <a href="diary.html"><i class="bi bi-pencil"></i> HUOLIPÄIVÄKIRJA</a>
+              <a href="hrv-analysis.html"
+                ><i class="bi bi-heart-pulse"></i> HRV-MITTAUKSET</a
+              >
+              <a href="analysis.html"
+                ><i class="bi bi-graph-up"></i> KOKONAISANALYYSIT</a
+              >
+              <a href="diary.html"
+                ><i class="bi bi-pencil"></i> HUOLIPÄIVÄKIRJA</a
+              >
               <a href="settings.html"><i class="bi bi-gear"></i> ASETUKSET</a>
             </div>
           </li>
           <li class="dropdown">
-            <a href="chat.html"><i class="bi bi-chat"></i> VIESTIT</a>
+            <a href="chat.html"><i class="bi bi-chat"></i> Chat</a>
           </li>
           <li class="logout">
             <a href="index.html"
@@ -64,15 +72,45 @@
         </ul>
       </nav>
     </header>
-    <main>
-
-    </main>
+    <main class="relaxation">
+        <section class="introduction">
+          <h2>Rentoutumisharjoitukset</h1>
+          <p>Tervetuloa käyttämään rentoutumisharjoituksiamme, jotka auttavat sinua hallitsemaan stressiä ja parantamaan hyvinvointiasi.</p>
+        </section>
+    
+        <section class="exercises">
+          <h2>Hengitysharjoitukset</h2>
+          <article class="exercise">
+            <h3>Perushengitys</h3>
+            <p>Kuvaus siitä, miten tehdä perushengitysharjoitus.</p>
+          </article>
+          <article class="exercise">
+            <h3>Rauhoittava hengitys</h3>
+            <p>Kuvaus siitä, miten tehdä rauhoittava hengitysharjoitus.</p>
+          </article>
+        </section>
+    
+        <section class="videos">
+          <h2>Rentoutusvideot</h2>
+          <div class="video">
+            <iframe src="https://www.youtube.com/embed/LINKKI1" frameborder="0" allowfullscreen></iframe>
+            <p>Video rauhoittavasta hengityksestä.</p>
+          </div>
+          <div class="video">
+            <iframe src="https://www.youtube.com/embed/LINKKI2" frameborder="0" allowfullscreen></iframe>
+            <p>Video meditaatioharjoituksesta.</p>
+          </div>
+        </section>
+      </main>
     <footer>
       <div class="logo-wrapper">
         <img src="images/icon5.png" alt="logo" class="nav-logo" />
       </div>
       ©️ Ryhmä 9
     </footer>
-    <script type="module" src="/chat.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script type="module" src="/analysis.js"></script>
   </body>
 </html>
