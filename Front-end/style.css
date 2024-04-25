@@ -275,7 +275,7 @@ li a:hover,
   left: 50%;
   border-radius: 10px;
   padding: 20px;
-  font-size: larger;
+  font-size: 30px;
   font-weight: 600;
   display: inline-block;
   margin: auto;
@@ -388,7 +388,7 @@ button:hover {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  width: 30%;
+  width: 35%;
   margin: auto;
   background-color: rgba(198, 239, 240, 0.7);
   border-radius: 10px;
@@ -410,7 +410,7 @@ button:hover {
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  width: 40%;
+  width: 45%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   transition: color 0.3s ease;
 }
@@ -435,7 +435,7 @@ button:hover {
 }
 
 .survey-button.red {
-  background-color:rgb(194, 147, 177);
+  background-color: rgb(194, 147, 177);
   margin-bottom: 40px;
 }
 
@@ -472,8 +472,8 @@ button:hover {
 .calendar {
   border-radius: 10px;
   padding: 15px;
-  margin-left: 20%;
-  max-width: 80%;
+  margin-left: 15%;
+  max-width: 85%;
   height: 100%;
   background-color: rgba(198, 239, 240, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
@@ -550,7 +550,7 @@ button:hover {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   left: 0;
   top: 0;
   width: 100%;
@@ -561,7 +561,7 @@ button:hover {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 5% auto;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
@@ -618,10 +618,6 @@ button:hover {
   text-align: center;
 }
 
-/* button[type='submit'] {
-  width: 30%;
-} */
-
 .checkbox-group {
   display: flex;
   align-items: center;
@@ -666,56 +662,97 @@ input[type='range'] {
 /* // Chat sivun tyylittely */
 
 .chat-section {
-  margin: 0;
-  padding: 0;
+  margin: auto;
+  margin-top: 70px;
+  max-width: 50%;
+  background-color: rgba(198, 239, 240, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 100vh;
-  margin-bottom: 20px;
+  height: 500px;
 }
 
-#chat-container {
-  width: 100%;
-  max-width: 600px; /* Säädä tätä arvoa tarpeen mukaan */
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
+aside.messages {
+  background-color: white;
+  max-height: 100%;
+  margin-right: 20px;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
 }
-#chat-messages {
-  height: 400px; /* Säädä tätä arvoa tarpeen mukaan */
-  overflow-y: scroll;
+
+
+
+.message-dates p {
+  cursor: pointer;
   padding: 10px;
-  background: #e7ecef;
+  border-bottom: 1px solid #ccc;
 }
 .message {
-  background-color: #d9e8ff;
-  padding: 8px 15px;
-  margin: 5px 0;
-  border-radius: 15px;
-  max-width: 70%;
-  clear: both;
-}
-.message.sent {
-  background-color: #aad4ff;
-  margin-left: auto;
-}
-.message.received {
-  background-color: #d9e8ff;
-  margin-right: auto;
-}
-#chat-input-container {
   padding: 10px;
-  background: #f0f4f8;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: block;
+  width: 80%;
+  position: relative;
 }
-#chat-input {
-  width: calc(100% - 60px);
+
+.message-dates p:hover {
+  background-color: #e2e2e2;
+}
+.message-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+}
+.message.professional {
+  background-color: #e2e2e2;
+  align-self: flex-start;
+}
+.message.client {
+  background-color: #b3d9ff;
+  align-self: flex-end;
+}
+.message .date {
+  font-size: 0.8em;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.message-write {
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
-  border-radius: 15px;
+  border-top: 1px solid #ccc;
+}
+.message-write input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin-right: 10px;
+}
+.message-write input[type="submit"] {
+  background-color: #8b87f8;
+  color: white;
+  padding: 10px 15px;
+  margin: 8px 0;
   border: none;
-  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
+
+.message-write input[type="submit"]:hover {
+  background-color: #6c49ea;
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 50px);
+}
+
 
 .loader {
   border: 8px solid #f3f3f3;
@@ -1059,6 +1096,9 @@ footer {
     position: relative;
     width: 100%;
   }
+  .chat-section {
+    max-width: 80%;
+  }
 }
 
 @media screen and (max-width: 1150px) {
@@ -1076,6 +1116,8 @@ footer {
   .content-wrapper {
     width: 100%;
   }
+
+
 }
 
 @media screen and (max-width: 770px) {
@@ -1115,5 +1157,4 @@ footer {
   #graph {
     height: 350px;
   }
-
 }
