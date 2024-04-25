@@ -5,3 +5,5 @@ node_modules
 creds.txt
 login-variables.resource
 frontend-hpc
+frontend-reg
+test-req-sensitive.http

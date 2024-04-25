@@ -123,9 +123,9 @@ POST http://localhost:3000/api/messages
 Content-Type: application/json
 
 {
-  "conversation_id": "2",
-  "recipient_id": "1", 
-  "message_content": "Toimiiko?",
+  "conversation_id": "1",
+  "recipient_id": "3", 
+  "message_content": "Toimiiko tää vittu?",
   "message_sent_at" : "2024-4-3 09:00:00",
   "sender_id": "2"
 }
@@ -204,3 +204,30 @@ DELETE http://localhost:3000/api/analysis/4
 
 ### GET analyses by user
 GET http://localhost:3000/api/analysis/user/3
+
+
+##
+## /api/auth routes
+##
+
+### Login as a student
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+{
+  "username" : "",
+  "password": ""
+}
+
+
+##
+## /api/auth/professional/
+##
+
+### Login as an admin/hpc
+POST http://localhost:3000/api/auth/professional/login
+Content-Type: application/json
+
+{
+  "username" : "",
+  "password": ""
+}

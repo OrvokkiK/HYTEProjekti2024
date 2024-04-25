@@ -6,10 +6,10 @@ USE MindEase;
 
 CREATE TABLE Users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(100) NOT NULL UNIQUE,
+  username VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   email  VARCHAR(255) NOT NULL,
-  first_name VARCHAR(20) NOT NULL,
+  first_name VARCHAR(20),
   last_name VARCHAR(20), 
   title VARCHAR(20) DEFAULT 'Opiskelija', 
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -53,7 +53,7 @@ CREATE TABLE Messages (
   recipient_id INT NOT NULL,
   message_content VARCHAR(200),
   message_sent_at DATETIME, 
-  message_read BOOLEAN DEFAULT '0';
+  message_read BOOLEAN DEFAULT '0',
   sender_id INT NOT NULL,
   FOREIGN KEY (sender_id) REFERENCES Users(user_id)
 );
@@ -144,18 +144,18 @@ CREATE TABLE Intoxicants (
 ('johndoe', 'hashed_password', 'johndoe@example.com', 'John', 'Doe');*/
 
 -- Insert sample student info
-INSERT INTO Users(password, username, first_name, last_name, created_at, risk_group, chat_permission ) VALUES
-('hashed_password', 'johndoe@example.com', 'John', 'Doe', '2024-03-24 09:00:00', 'ei', 'ei'),
-('hashed_password', 'tom.smith@example.com', 'Tom', 'Smith', '2024-03-24 09:00:00', 'ei', 'ei' );
+INSERT INTO Users(password, username, email, first_name, last_name, created_at, risk_group, chat_permission ) VALUES
+('hashed_password', 'johndoe@example.com', 'johndoe@example.com', 'John', 'Doe', '2024-03-24 09:00:00', 'ei', 'ei'),
+('hashed_password', 'tom.smith@example.com','tom.smith@example.com', 'Tom', 'Smith', '2024-03-24 09:00:00', 'ei', 'ei' );
 
 -- Sample riskgroup student
-INSERT INTO Users(password, username, first_name, last_name, created_at, risk_group, chat_permission, risk_group_date, chat_permission_date) VALUES
-('hashed_password', 'ajones@example.com', 'Alice', 'Jones', '2024-03-24 09:00:00', 'kyllä', 'kyllä', '2024-03-25 09:00:00', '2024-02-26 09:00:00');
+INSERT INTO Users(password, username, email, first_name, last_name, created_at, risk_group, chat_permission, risk_group_date, chat_permission_date) VALUES
+('hashed_password', 'ajones@example.com', 'ajones@example.com', 'Alice', 'Jones', '2024-03-24 09:00:00', 'kyllä', 'kyllä', '2024-03-25 09:00:00', '2024-02-26 09:00:00');
 
 -- Insert sample professional roles
-INSERT INTO Users(password, username, first_name, last_name, title, created_at, user_level, chat_permission, chat_permission_date) VALUES 
-('hashed_password', 'jane.doe@example.com', 'Jane', 'Doe', 'Ylläpitäjä', '2024-03-24 08:00:00', 'admin', 'kyllä', '2024-03-24 08:00:00'), 
-('hashed_password', 'bob@example.com', 'Bob', 'Brown', 'Sairaanhoitaja', '2024-03-24 08:15:00', 'hcp', 'kyllä', '2024-03-24 08:15:00');
+INSERT INTO Users(password, username, email, first_name, last_name, title, created_at, user_level, chat_permission, chat_permission_date) VALUES 
+('hashed_password', 'jane.doe@example.com', 'jane.doe@example.com', 'Jane', 'Doe', 'Ylläpitäjä', '2024-03-24 08:00:00', 'admin', 'kyllä', '2024-03-24 08:00:00'), 
+('hashed_password', 'bob@example.com', 'bob@example.com', 'Bob', 'Brown', 'Sairaanhoitaja', '2024-03-24 08:15:00', 'hcp', 'kyllä', '2024-03-24 08:15:00');
 
 -- Insert sample symptoms (oirekysely)
 INSERT INTO Symptoms(entry_date, frustration, grumpiness, recall_problems, restlesness, disquiet,
@@ -165,10 +165,10 @@ INSERT INTO Symptoms(entry_date, frustration, grumpiness, recall_problems, restl
 ('2024-03-25', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '4', '3' );
 
 -- Insert sample lifestyle factors (Elämäntapakysely)
-INSERT INTO Lifestyle(entry_date, height, weight, age, hours_slept, quality_sleep, enough_sleep, illness, chronic_illness, 
-deficiency_D, deficiency_B12, deficiency_omega, physical_activity, duration, intensity, user_id) VALUES 
-('2024-03-25', '175', '65.3', '25', '8.5', 'kyllä', 'hyvä', 'ei', 'heinäallergia', 'ei', 'ei', 'ei', 'Juoksulenkki', '45', 'keskiverto', '1'),
-('2024-03-25', '163', '70', '23', '7', 'kyllä', 'hyvä', 'flunssa', 'ei', 'ei', 'ei', 'ei', 'kävely', '30', 'alhainen', '3');
+-- INSERT INTO Lifestyle(entry_date, height, weight, age, hours_slept, quality_sleep, enough_sleep, illness, chronic_illness, 
+-- deficiency_D, deficiency_B12, deficiency_omega, physical_activity, duration, intensity, user_id) VALUES 
+-- ('2024-03-25', '175', '65.3', '25', '8.5', 'kyllä', 'hyvä', 'ei', 'heinäallergia', 'ei', 'ei', 'ei', 'Juoksulenkki', '45', 'keskiverto', '1'),
+-- ('2024-03-25', '163', '70', '23', '7', 'kyllä', 'hyvä', 'flunssa', 'ei', 'ei', 'ei', 'ei', 'kävely', '30', 'alhainen', '3');
 
 -- Insert sample lifestyle factors (Elämäntapakysely)
 INSERT INTO Medications(entry_date, medication, dose, unit, frequency, indication, user_id) VALUES
@@ -192,7 +192,7 @@ INSERT INTO Messages(conversation_id, recipient_id, message_content, message_sen
 ('1', '3', 'Okei, katon sun tietoja.', '2024-03-25 09:02:00', '4');
 
 -- Insert sample lifestyle factors (Elämäntapakysely)
-INSERT INTO hrv_analysis(stress_index, mood, entry_date, av_hr, user_id) VALUES 
+INSERT INTO hrv_analysis(stress_index, mood, entry_date, av_hrv, user_id) VALUES 
 ('1.676786867394357', '4', '2024-03-25', '60.50632717079356', '1'),
 ('8.676786867394357', '3', '2024-03-25', '64.40632717079356', '3'); 
 

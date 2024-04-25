@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import 'dotenv/config';
 // import {selectUserByUsername} from '../models/user-model.mjs';
 import {customError} from '../middlewares/error-handler.mjs';
+import { selectUserByUsername } from '../models/user-model.mjs';
 
 /**
  * User login

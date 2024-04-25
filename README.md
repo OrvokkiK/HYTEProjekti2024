@@ -13,6 +13,15 @@ npm run start
 ```
 npm install bcrypt
 ```
+### Chart js
+```
+npm i chart.js
+```
+
+### Chart js plugin zoom
+```
+npm i chartjs-plugin-zoom
+```
 
 ### cors (cross-origin resquests)
 ```
