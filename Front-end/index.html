@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
       rel="stylesheet"
     />
-    <title>Vite App</title>
+    <title>MindEase</title>
   </head>
   <body>
     <nav>
@@ -19,42 +19,50 @@
       <button class="menu-toggle">☰</button>
       <ul class="menu">
         <li class="dropdown">
-          <a href="info.html">Info</a>
+          <a href="#"></a>
         </li>
       </ul>
     </nav>
     <section class="login_section">
       <div>
-        <form class="login_form">
-          <div class="logo-wrapper">
-            <img src="images/icon10.png" alt="logo" class="nav-logo" />
-            <div class="logo-text">MindEase</div>
+          <!-- Nappirivi valintaa varten -->
+          <div class="button-group">
+              <button id="userLoginBtn" class="toggle-button">Asiakas</button>
+              <button id="professionalLoginBtn" class="toggle-button">Ammattilainen</button>
           </div>
-          <h2>Kirjaudu sisään</h2>
-          <label for="username">Käyttäjätunnus</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="Käyttäjätunnus"
-            id="username"
-          />
-          <label for="password">Salasana</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Salasana"
-            id="password"
-          />
-          <input
-            name="submit"
-            type="submit"
-            value="Kirjaudu"
-            class="loginuser"
-          />
-          <a href="password.html">Unohditko salasanasi?</a>
-        </form>
+  
+          <!-- Asiakkaan kirjautumislomake -->
+          <form id="userLoginForm" class="login_form active-form">
+              <div class="logo-wrapper">
+                  <img src="images/icon10.png" alt="logo" class="nav-logo" />
+                  <div class="logo-text">MindEase</div>
+              </div>
+              <h2>Kirjaudu sisään Kubios tunnuksillasi</h2>
+              <label for="username">Käyttäjätunnus</label>
+              <input type="text" name="username" placeholder="Käyttäjätunnus" id="username" />
+              <label for="password">Salasana</label>
+              <input type="password" name="password" placeholder="Salasana" id="password" />
+              <input name="submit" type="submit" value="Kirjaudu" class="loginuser" />
+              <!-- <a href="password.html">Unohditko salasanasi?</a> -->
+          </form>
+  
+          <!-- Ammattilaisen kirjautumislomake -->
+          <form id="professionalLoginForm" class="login_form" style="display: none;">
+              <div class="logo-wrapper">
+                  <img src="images/icon10.png" alt="logo" class="nav-logo" />
+                  <div class="logo-text">MindEase</div>
+              </div>
+              <h2>Kirjaudu sisään (Ammattilainen)</h2>
+              <label for="professional_username">Käyttäjätunnus</label>
+              <input type="text" name="professional_username" placeholder="Käyttäjätunnus" id="professional_username" />
+              <label for="professional_password">Salasana</label>
+              <input type="password" name="professional_password" placeholder="Salasana" id="professional_password" />
+              <input name="submit" type="submit" value="Kirjaudu" class="loginuser" />
+              <a href="password.html">Unohditko salasanasi?</a>
+          </form>
       </div>
-    </section>
+  </section>
+  
     <footer>
       <div class="logo-wrapper">
         <img src="images/icon10.png" alt="logo" class="nav-logo" />

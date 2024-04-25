@@ -1,6 +1,15 @@
 import { Chart } from "chart.js/auto";
 import 'chartjs-plugin-zoom';
 
+document.addEventListener('DOMContentLoaded', function () {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
+
+  menuToggle.addEventListener('click', function () {
+    menu.classList.toggle('show');
+  });
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('myBarChart').getContext('2d');
     const userId = localStorage.getItem('user_id'); // Korvaa oikealla käyttäjä-ID:llä

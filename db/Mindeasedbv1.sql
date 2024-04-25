@@ -53,6 +53,7 @@ CREATE TABLE Messages (
   recipient_id INT NOT NULL,
   message_content VARCHAR(200),
   message_sent_at DATETIME, 
+  message_read BOOLEAN DEFAULT '0';
   sender_id INT NOT NULL,
   FOREIGN KEY (sender_id) REFERENCES Users(user_id)
 );

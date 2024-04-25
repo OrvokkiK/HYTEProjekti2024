@@ -9,10 +9,10 @@ function checkAutoLogout() {
     loginTime &&
     new Date().getTime() - new Date(loginTime).getTime() > 3600000
   ) {
-    // Kirjautumisesta on kulunut yli tunti (3600000 millisekuntia)
-    localStorage.clear(); // Tyhjennä localStorage
-    window.location.href = 'index.html'; // Ohjaa kirjautumissivulle
-    showToast('Istuntosi on vanhentunut. Ole hyvä ja kirjaudu uudelleen.');
+    
+    localStorage.clear(); 
+    window.location.href = 'index.html'; 
+    alert('Istuntosi on vanhentunut. Ole hyvä ja kirjaudu uudelleen.');
   }
 }
 
@@ -215,7 +215,7 @@ am5.ready(function () {
       wheelY: 'zoomX',
       paddingLeft: 20,
       paddingRight: 40,
-      paddingBottom: 50,
+      paddingBottom: 60,
       layout: root.verticalLayout,
     }),
   );
@@ -223,8 +223,8 @@ am5.ready(function () {
   chart.children.unshift(
     am5.Label.new(root, {
       text: 'Stressitasoanalyysi',
-      fontSize: 20,
-      fontWeight: '400',
+      fontSize: 22,
+      fontWeight: '600',
       fontFamily: 'Poppins, sans-serif',
       textAlign: 'center',
       x: am5.percent(50),
@@ -864,10 +864,12 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
     console.log('stress_index', stressIndex);
 
     if (stressIndex >= -5 && stressIndex <= 0) {
-      hrvPoints += 1;
+      hrvPoints -= 1;
     } else if (stressIndex > 0 && stressIndex <= 10) {
-      hrvPoints += 2;
-    } else if (stressIndex > 10) {
+      hrvPoints += 1;
+    } else if (stressIndex > 10 && stressIndex <= 20) {
+      hrvPoints +=2;
+    } else if (stressIndex > 20) {
       hrvPoints += 3;
     }
     const readinessData = hrvData.readiness;
@@ -1031,6 +1033,7 @@ fetchDataAndFilter(userId, token)
       const stressTodayElement = document.getElementById('stress-today');
       stressTodayElement.textContent = stressLevelText;
       console.log('kokonaisanalyysi:', overallScore);
+      windows.location.href = 'home.html';
       showModal(
         symptomPoints,
         hrvPoints,
@@ -1038,11 +1041,10 @@ fetchDataAndFilter(userId, token)
         overallScore,
         stressLevelText,
       );
-      const currentDate = new Date().toISOString().split('T')[0];  // Muoto: "YYYY-MM-DD"
+      const currentDate = new Date().toISOString().split('T')[0];  
       const lastAnalysisDate = localStorage.getItem('lastAnalysisDate');
   
       if (lastAnalysisDate !== currentDate) {
-        // Tallennetaan vain, jos edellinen analyysi ei ole tältä päivältä
         const analysisData = {
           user_id: userId,
           analysis_result: stressLevelText,
@@ -1062,7 +1064,7 @@ fetchDataAndFilter(userId, token)
   
         fetchData(url, options).then((data) => {
           console.log("Analyysi tallennettu:", data);
-          localStorage.setItem('lastAnalysisDate', currentDate); // Päivitetään viimeisin analyysipäivä
+          localStorage.setItem('lastAnalysisDate', currentDate); 
         });
       } else {
         console.log("Analyysi on jo suoritettu ja tallennettu tänään.");

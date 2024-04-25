@@ -141,6 +141,24 @@ Content-Type: application/json
   "sender_id": "4"
 }
 
+##
+## /api/messages/user/:id
+##
+
+### GET existing conversations conversation_ids by user_id
+GET http://localhost:3000/api/messages/user/4
+
+
+
+##
+## /api/messages/conversation/:id
+##
+
+### GET messages by conversation id
+
+GET http://localhost:3000/api/messages/conversation/1
+
+
 ### Delete messages
 DELETE http://localhost:3000/api/messages/6
 
@@ -185,4 +203,4 @@ DELETE http://localhost:3000/api/analysis/4
 ##
 
 ### GET analyses by user
-GET http://localhost:3000/api/analysis/user/1
+GET http://localhost:3000/api/analysis/user/3

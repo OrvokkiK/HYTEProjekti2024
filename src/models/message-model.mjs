@@ -1,4 +1,5 @@
 // message-model.mjs
+import { query } from "express";
 import promisePool from "../utils/database.mjs";
 
 //lists all message
@@ -17,7 +18,7 @@ const listAllMessages = async () => {
 const listMessagebyAuthor = async (sender_id) => {
   try {
     const sql = `SELECT * FROM messages WHERE sender_id=${sender_id}`;
-    const [rows] = await promisePool(sql);
+    const [rows] = await promisePool.query(sql);
     if (rows.lenght === 0) {
       return {error: 404, message: 'No messages found by such user'};
     }
@@ -46,8 +47,8 @@ const listMessageByMessage_id = async (message_id) => {
 // List conversation by conversation_id
 const listConverstation = async (conversation_id) => {
   try {
-    sql = `SELECT * FROM messages WHERE conversation_id = ${conversation_id}`;
-    const [rows] = await promisePool(sql);
+    const sql = `SELECT * FROM messages WHERE conversation_id = ${conversation_id}`;
+    const [rows] = await promisePool.query(sql);
     if (rows.lenght === 0) {
       return {error: 404, message: 'No conversation found'};
     }
@@ -57,6 +58,22 @@ const listConverstation = async (conversation_id) => {
     return {error: 500, message: 'db error'};
   }
 }
+
+// list conversations by sender id
+const listConversationByUserId = async (sender_id) => {
+  try {
+    const sql = `SELECT conversation_id FROM messages WHERE sender_id = ${sender_id}`;
+    const [rows] = await promisePool.query(sql);
+    if (rows.length === 0) {
+      return {error: 404, message: 'No conversations found'};
+    } else {
+      return rows;
+    }
+  } catch (error) {
+  console.error('Model: ListConversationByUserId', error);
+  return {error: 500, message: 'db error'};
+  }
+};
 // add message
 // TODO: implement cotrols that message chain hpc - regular or regular - hpc
 const insertMessage = async (conversation_id, message) => {
@@ -93,6 +110,7 @@ export {
   listMessagebyAuthor,
   listMessageByMessage_id,
   listConverstation,
+  listConversationByUserId,
   insertMessage,
   deleteMessageByMessageId
 };
