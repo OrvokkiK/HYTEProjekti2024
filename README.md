@@ -23,6 +23,11 @@ npm install cors
 npm install dotenv
 ```
 
+### express validator
+```
+npm install express-validator
+```
+
 ### mysql2
 ```
 npm install --save mysql2

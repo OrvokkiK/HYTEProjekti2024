@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-// chat
+// chat 
 document.addEventListener('DOMContentLoaded', function() {
   const token = localStorage.getItem('token');
   const id = localStorage.getItem('user_id');
@@ -59,7 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-  // logout
+
+// logout
 document.addEventListener('DOMContentLoaded', function () {
   const logoutLink = document.querySelector('.logout a');
   logoutLink.addEventListener('click', function (event) {

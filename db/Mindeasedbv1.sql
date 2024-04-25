@@ -53,6 +53,7 @@ CREATE TABLE Messages (
   recipient_id INT NOT NULL,
   message_content VARCHAR(200),
   message_sent_at DATETIME, 
+  message_read BOOLEAN DEFAULT '0';
   sender_id INT NOT NULL,
   FOREIGN KEY (sender_id) REFERENCES Users(user_id)
 );
@@ -186,9 +187,9 @@ INSERT INTO Intoxicants(entry_date, caffeine, nicotine, alcohol, user_id) VALUES
 
 -- Insert sample messages
 INSERT INTO Messages(conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES 
-('1', '3', 'Moi, miten voin auttaa?', '2024-03-25 09:00:00', '4'),
-('1', '4', 'Moi, mua stressaa.', '2024-03-25 09:01:00', '3'),
-('1', '3', 'Okei, katon sun tietoja.', '2024-03-25 09:02:00', '4');
+('1', '5', 'Moi, miten voin auttaa?', '2024-03-25 09:00:00', '1'),
+('1', '1', 'Moi, mua stressaa.', '2024-03-25 09:01:00', '5'),
+('1', '5', 'Okei, katon sun tietoja.', '2024-03-25 09:02:00', '1');
 
 -- Insert sample lifestyle factors (Elämäntapakysely)
 INSERT INTO hrv_analysis(stress_index, mood, entry_date, av_hr, user_id) VALUES 

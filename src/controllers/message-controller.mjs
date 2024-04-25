@@ -1,7 +1,7 @@
 // message-controller.mjs
 
 import { getNewId } from "../utils/new-conversation.mjs";
-import { deleteMessageByMessageId, insertMessage, listAllMessages, listConverstation, listMessageByMessage_id, listMessagebyAuthor } from "../models/message-model.mjs";
+import { deleteMessageByMessageId, insertMessage, listAllMessages, listConversationByUserId, listConverstation, listMessageByMessage_id, listMessagebyAuthor } from "../models/message-model.mjs";
 
 // GET all messages
 const getAllMessages = async (req, res) => {
@@ -24,17 +24,27 @@ const getMessagesByAuthor = async (req, res) => {
 //GET messages in a conversation
 const  getMessagesbyConversationId = async (req,res) => {
     const converation_id = req.params.id
-  const result = await listMessagebyAuthor(converation_id);
+  const result = await listConverstation(converation_id);
   if (result.error) {
     return res.status(result.error).json(result);
   }
   return res.json(result);
 };
 
-// GET messages by message_id
+// GET message by message_id
 const getMessageByMessage_id = async (req, res) => {
   const message_id = req.params.id;
   const result = await listMessageByMessage_id(message_id);
+  if (result.error) {
+    return res.status(result.error).json(result);
+  }
+  return res.json(result);
+}
+
+// GET conversation_id by sender id
+const getConversationByUserId = async(req, res) => {
+  const user_id = req.params.id
+  const result = await listConversationByUserId(user_id);
   if (result.error) {
     return res.status(result.error).json(result);
   }
@@ -78,6 +88,8 @@ export {
   getAllMessages,
   getMessagesByAuthor,
   getMessageByMessage_id,
+  getConversationByUserId,
+  getMessagesbyConversationId,
   postMessage,
   deleteMessage
 };

@@ -18,7 +18,7 @@ const listAllUsers = async () => {
 // still returns an empty set even if set is empty??
 const selectUserById = async (id) => {
   try {
-    const sql = "SELECT username, user_level, title FROM Users WHERE user_id=?";
+    const sql = "SELECT username, user_level, title, user_id FROM Users WHERE user_id=?";
     const params = [id];
     const [rows] = await promisePool.query(sql, params);
     if (rows.length == 0) {
