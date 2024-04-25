@@ -1,19 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
-/* :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-} */
-
 * {
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  
 }
 
 html {
@@ -38,12 +27,11 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 98%;
-  background-color: rgba(198, 239, 240, 0.8);
+  background-color: rgba(198, 239, 240, 0.9);
   margin: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   top: 10px;
-
 }
 
 .nav-logo {
@@ -60,17 +48,17 @@ nav {
     #6829e7,
     #bf62f5
   ); /* Chrome & Safari */
-  background: linear-gradient(45deg, #2e06f7, #f503bd); 
+  background: linear-gradient(45deg, #2e06f7, #f503bd);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; 
+  color: transparent;
   font-size: 40px;
   text-shadow: 2px 2px 8px rgba(100, 100, 255, 0.5);
   /* -webkit-text-stroke: 0.3px black;  */
 }
 
 .login_section .nav-logo {
-  height:80px;
+  height: 80px;
 }
 
 .dropdown-content {
@@ -115,11 +103,10 @@ li a:not(.logo) {
   padding: 10px 20px;
   color: #333;
   text-decoration: none;
-  
 }
 
 .dropdown-content a:hover {
-  background-color: #98d6e4;
+  background-color: #66b2e4;
 }
 
 .menu {
@@ -164,7 +151,7 @@ li a:not(.logo) {
 
 li a:hover,
 .login_form a:hover {
-  color: rgb(158, 74, 155);
+  color: rgb(214, 235, 244);
   text-decoration: underline;
   text-underline-offset: 10px;
 }
@@ -232,6 +219,11 @@ li a:hover,
   padding: 10px;
 }
 
+#userLoginBtn:hover,
+#professionalLoginBtn:hover {
+  background: rgb(102, 178, 228);
+}
+
 .login_form {
   background: rgba(70, 126, 186, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
@@ -289,6 +281,7 @@ li a:hover,
   margin: auto;
   text-align: center;
   background-color: rgba(198, 239, 240, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   transform: translate(-50%, -50%);
 }
 
@@ -346,7 +339,7 @@ input.loginuser:hover,
 .tallenna-button:hover,
 .tallenna-kysely:hover {
   background-color: #6c49ea;
-  color: #abe0f3;
+  /* color: #abe0f3; */
 }
 
 h1 {
@@ -358,9 +351,9 @@ button {
   border-radius: 4px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
+  font-size: 16px;
   font-weight: 500;
-  background-color: #33d3d0;
+  background-color: #66b2e4;
   cursor: pointer;
   transition: border-color 0.25s;
   transition: color 0.3s ease;
@@ -368,17 +361,12 @@ button {
 button:hover {
   color: aliceblue;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto #6829e7;
-}
 
 #prevMonth,
 #nextMonth {
-  background:none;
+  background: none;
   font-size: x-large;
 }
-
 
 .content-wrapper {
   display: flex;
@@ -389,13 +377,6 @@ button:focus-visible {
   margin-top: 50px;
 }
 
-/* .heart {
-  height: 100px;
-  width: 100px;
-  position: absolute;
-  top: -30px;
-  right: 10px;
-} */
 #name {
   font-weight: 800;
 }
@@ -415,7 +396,7 @@ button:focus-visible {
 }
 
 .user {
-  color: #090909;
+  color: black;
   font-weight: 500;
   font-size: medium;
   letter-spacing: 1px;
@@ -437,6 +418,7 @@ button:focus-visible {
 .diary-button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   margin: 10px;
+  margin-top: 30px;
   padding: 10px;
 }
 
@@ -445,7 +427,7 @@ button:focus-visible {
 }
 
 .survey-button.green {
-  background-color: #94d196;
+  background-color: #4989d2;
 }
 
 .survey-button.blue {
@@ -453,7 +435,7 @@ button:focus-visible {
 }
 
 .survey-button.red {
-  background-color: #ef8c8f;
+  background-color:rgb(194, 147, 177);
   margin-bottom: 40px;
 }
 
@@ -462,7 +444,6 @@ button:focus-visible {
   margin-top: 20px;
   padding: 20px;
 }
-
 
 #graph {
   border-radius: 10px;
@@ -491,8 +472,8 @@ button:focus-visible {
 .calendar {
   border-radius: 10px;
   padding: 15px;
-  margin-left: 20%; 
-  max-width: 80%; 
+  margin-left: 20%;
+  max-width: 80%;
   height: 100%;
   background-color: rgba(198, 239, 240, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
@@ -514,21 +495,16 @@ button:focus-visible {
   border-radius: 90px;
   padding: 10px;
   text-align: center;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
 }
-
 
 .calendar th {
   background-color: #daf1ff;
   padding: 10px;
   text-align: center;
-} 
+}
 
 .calendar .current-date {
-  background-color: #d17be8;
+  background-color: #66b2e4;
   color: white;
 }
 
@@ -546,15 +522,15 @@ button:focus-visible {
 }
 
 .oirekysely-dot {
-  background-color: green;
+  background-color: #014a9f;
 }
 
 .elamantapa-dot {
-  background-color: rgb(110, 5, 134);
+  background-color: #8272f8;
 }
 
 .hrv-dot {
-  background-color: red;
+  background-color: rgb(188, 124, 165);
 }
 
 .dot-description {
@@ -566,7 +542,6 @@ button:focus-visible {
   margin-left: 10px;
   margin-top: 4px;
 }
-
 
 .modal label {
   color: #131413;
@@ -743,8 +718,8 @@ input[type='range'] {
 }
 
 .loader {
-  border: 8px solid #f3f3f3; 
-  border-top: 8px solid #3498db; 
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -754,7 +729,7 @@ input[type='range'] {
 
 .kubios {
   width: 150px;
-  height:30px;
+  height: 30px;
   margin-left: 50px;
   margin-right: 50px;
 }
@@ -766,18 +741,19 @@ input[type='range'] {
 #overall-score {
   font-weight: 500;
   font-size: small;
-  text-align: center;
 }
 
 #overall-text {
   font-size: large;
   font-weight: 700;
   text-align: center;
+  padding: 20px;
+  border-radius: 10px;
   background-color: #c3d6fa;
 }
 
 #overall-analysis-modal .modal-content {
-  margin-top: 10%;
+  margin-top: 20%;
   width: 40%;
 }
 
@@ -786,7 +762,7 @@ input[type='range'] {
   justify-content: center;
   align-items: center;
   margin-top: 60px;
-  height: 450px; 
+  height: 450px;
 }
 
 .info-section,
@@ -800,13 +776,10 @@ input[type='range'] {
   padding: 20px;
 }
 
-
-
 h2 {
   font-size: 24px;
   text-align: center;
 }
-
 
 #info-section2 {
   margin-bottom: 100px;
@@ -824,7 +797,8 @@ h2 {
   transition: color 0.3s;
 }
 
-.scroll-down:hover, .scroll-down:focus {
+.scroll-down:hover,
+.scroll-down:focus {
   color: #0056b3; /* Tummempaa sinistä hover-efektiin */
   text-decoration: none; /* Varmista, että alleviivaus pysyy poissa */
 }
@@ -841,11 +815,13 @@ h2 {
   border-radius: 10px;
 }
 
-
-
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .diary-container {
@@ -872,7 +848,7 @@ h2 {
   background-color: rgba(198, 239, 240, 0.7);
   color: #00080c;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .diary-section h2 {
@@ -890,7 +866,8 @@ h2 {
   color: #0c010f;
 }
 
-#diary-form input, #diary-form textarea {
+#diary-form input,
+#diary-form textarea {
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -900,6 +877,7 @@ h2 {
 #diary-form button:hover {
   background-color: #926ff5;
 }
+
 h1 {
   font-size: 30px;
   text-align: center;
@@ -916,7 +894,7 @@ h1 {
   margin-top: 40px;
   margin-bottom: 70px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .about-stress,
@@ -928,29 +906,31 @@ h1 {
   max-width: 50%;
 }
 
-.introduction, .exercises, .videos {
+.introduction,
+.exercises,
+.videos {
   margin-bottom: 20px;
   max-width: 50%;
   margin: auto;
 }
 
-.exercise, .video {
+.exercise,
+.video {
   background-color: #e9ecef;
   margin: 10px 0;
   padding: 10px;
   border-radius: 5px;
 }
 
-
 iframe {
   width: 100%;
   height: 300px; /* Korkeutta voidaan säätää tarpeen mukaan */
 }
 
-.exercise h3, .video p {
+.exercise h3,
+.video p {
   margin: 5px 0;
 }
-
 
 @keyframes heartbeat {
   0% {
@@ -975,12 +955,11 @@ footer {
   font-weight: 600;
   font-size: smaller;
   letter-spacing: 1px;
-  background: linear-gradient(to right, #2656f3 20%, #6cbafe 40%, #caaefa 60%);
+  background: linear-gradient(to right, #467eba 20%, #c293b1 40%, #467eba 60%);
   background-size: 200% 100%;
   animation: heartbeat 2s linear infinite;
-  box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.9);
 }
-
 
 @media screen and (max-width: 1350px) {
   .content-wrapper {
@@ -1018,20 +997,24 @@ footer {
     max-width: 500px;
   }
   nav {
-    height: 79px;
+    height: 85px;
   }
 
   .menu {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 80px;
-    right: 30px;
-    background-color: #e6f2f7;
-    width: 50%;
+    top: 85px;
+    right: 5px;
+    background-color: rgba(198, 239, 240, 0.9);
+    width: 99%;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
+    border-radius: 10px;
     z-index: 999999999999;
+  }
+
+  .menu li a:hover {
+    background-color: #2ccfcf;
   }
 
   .menu.show {
@@ -1040,7 +1023,7 @@ footer {
 
   .menu li {
     margin: 0;
-    border-bottom: 1px solid #5b9bd0;
+    /* border-bottom: 1px solid #5b9bd0; */
     /* right: 60px; */
   }
 
@@ -1053,12 +1036,12 @@ footer {
     color: rgb(1, 80, 190);
     text-decoration: none;
     display: block;
+    float: none;
     text-align: left;
   }
 
   .menu-toggle {
     display: block;
-    font-size: 20px;
     cursor: pointer;
     background: none;
     border: solid 1px rgb(164, 185, 232);
@@ -1066,25 +1049,28 @@ footer {
     margin-right: 20px;
   }
 
+  .dropdown {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
 
+  .dropdown-content {
+    position: relative;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 1150px) {
-
   .info-section,
-#info-section2,
-.diary-class {
-  max-width: 500px;
+  #info-section2,
+  .diary-class {
+    max-width: 500px;
+  }
 
-}
-
-
-  /* .menu-toggle:focus {
-    background-color: #d1ebf5;
-  } */
-
-  .menu li a:hover {
-    background-color: #c0eaea;
+  #overall-analysis-modal .modal-content {
+    margin-top: 20%;
+    width: 80%;
   }
 
   .content-wrapper {
@@ -1100,39 +1086,34 @@ footer {
   .survey-button {
     width: 50%;
   }
-  
-.menu {
-  width: 300px;
-}
 
-.menu li a {
-  font-size: 10px;
-}
+  .content-wrapper {
+    max-width: 90%;
+  }
 
-.content-wrapper {
-  max-width: 90%;
-}
+  #graph {
+    max-width: 90%;
+    height: 300px;
+  }
 
-#graph {
-  max-width: 90%;
-  height: 300px;
-}
+  .info-section,
+  #info-section2 {
+    max-width: 500px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 
-.info-section,
-#info-section2 {
-  max-width: 500px;
-  margin-left: 20px;
-  margin-right: 20px;
-  
-}
+  #myBarChart {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 
-#myBarChart {
-  margin-left: 20px;
-  margin-right: 20px;
-}
+  .links {
+    max-width: 70%;
+  }
 
-.links {
-  max-width: 70%;
-}
+  #graph {
+    height: 350px;
+  }
 
 }

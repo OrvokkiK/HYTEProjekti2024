@@ -2,6 +2,15 @@ import './style.css';
 import {fetchData} from './fetch.js';
 import {showToast} from './toast.js';
 
+document.addEventListener('DOMContentLoaded', function () {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
+
+  menuToggle.addEventListener('click', function () {
+    menu.classList.toggle('show');
+  });
+});
+
 am5.ready(function () {
     // Create root element
     const root = am5.Root.new('graph');
