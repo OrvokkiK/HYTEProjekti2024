@@ -275,7 +275,7 @@ li a:hover,
   left: 50%;
   border-radius: 10px;
   padding: 20px;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 600;
   display: inline-block;
   margin: auto;
@@ -673,7 +673,7 @@ input[type='range'] {
   height: 500px;
 }
 
-aside.messages {
+aside.messages-sidebar {
   background-color: white;
   max-height: 100%;
   margin-right: 20px;
@@ -683,7 +683,7 @@ aside.messages {
 
 
 
-.message-dates p {
+.date-list p {
   cursor: pointer;
   padding: 10px;
   border-bottom: 1px solid #ccc;
@@ -697,7 +697,7 @@ aside.messages {
   position: relative;
 }
 
-.message-dates p:hover {
+.date-list p:hover {
   background-color: #e2e2e2;
 }
 .message-content {

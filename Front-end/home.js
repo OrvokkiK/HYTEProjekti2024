@@ -841,9 +841,9 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   // Pisteytys käyttäjän valitsemien oireiden määrän perusteella
   if (selectedSymptomsCount <= 2) {
     symptomPoints += 1;
-  } else if (selectedSymptomsCount >= 3 && selectedSymptomsCount <= 10) {
+  } else if (selectedSymptomsCount <= 10) { 
     symptomPoints += 2;
-  } else if (selectedSymptomsCount > 10) {
+  } else {
     symptomPoints += 3;
   }
 
@@ -851,11 +851,12 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   const stressLevel = parseInt(symptomData['stress_level']);
   if (stressLevel <= 2) {
     symptomPoints += 1;
-  } else if (stressLevel >= 3 && stressLevel <= 4) {
+  } else if (stressLevel <= 4) { 
     symptomPoints += 2;
-  } else if (stressLevel === 5) {
+  } else {
     symptomPoints += 3;
   }
+  console.log('oirekysely pisteet', symptomPoints);
   symptomPoints = Math.ceil (symptomPoints / 2);
 
   // HRV-tuloksen pisteytys
