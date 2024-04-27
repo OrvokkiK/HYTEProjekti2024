@@ -173,7 +173,7 @@ li a:hover,
   padding: 20px;
   margin-top: 10px;
   border-radius: 5px;
-  animation: slideIn 0.5s forwards, fadeOut 7s forwards;
+  animation: slideIn 1s forwards, fadeOut 2s 1s forwards;
 }
 
 @keyframes fadeOut {
@@ -222,6 +222,11 @@ li a:hover,
 #userLoginBtn:hover,
 #professionalLoginBtn:hover {
   background: rgb(102, 178, 228);
+}
+
+#userLoginBtn:active,
+#professionalLoginBtn:active {
+  border: 1px solid white;
 }
 
 .login_form {
@@ -321,7 +326,8 @@ input.loginuser,
 .tallenna-button,
 .tallenna-kysely,
 .tallenna-hrv,
-#diary-form button {
+#diary-form button,
+#send-button {
   background-color: #8b87f8;
   color: white;
   padding: 10px 15px;
@@ -337,7 +343,8 @@ input.loginuser,
 input.loginuser:hover,
 .forgot_password:hover,
 .tallenna-button:hover,
-.tallenna-kysely:hover {
+.tallenna-kysely:hover,
+#send-button:hover {
   background-color: #6c49ea;
   /* color: #abe0f3; */
 }
@@ -403,7 +410,8 @@ button:hover {
   text-align: center;
 }
 
-.survey-button {
+.survey-button,
+#analysis-result {
   margin: 10px;
   padding: 10px;
   border: none;
@@ -437,6 +445,12 @@ button:hover {
 .survey-button.red {
   background-color: rgb(194, 147, 177);
   margin-bottom: 40px;
+}
+
+#analysis-result {
+  margin-top: 30px;
+  width: 50%;
+  background-color: #63aac1;
 }
 
 .sidebar {
@@ -681,13 +695,25 @@ aside.messages-sidebar {
   border-right: 1px solid #ccc;
 }
 
+.conversation-list {
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-
-.date-list p {
+.conversation-list li {
   cursor: pointer;
   padding: 10px;
+  background-color: #f0f0f0;
   border-bottom: 1px solid #ccc;
 }
+
+.conversation-list li:hover {
+  background-color: #e0e0e0;
+}
+
+
 .message {
   padding: 10px;
   margin-bottom: 10px;
@@ -697,14 +723,14 @@ aside.messages-sidebar {
   position: relative;
 }
 
-.date-list p:hover {
-  background-color: #e2e2e2;
-}
+
 .message-content {
   flex-grow: 1;
   padding: 20px;
   background-color: #fff;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 .message.professional {
   background-color: #e2e2e2;
@@ -730,27 +756,16 @@ aside.messages-sidebar {
   padding: 10px;
   margin-right: 10px;
 }
-.message-write input[type="submit"] {
-  background-color: #8b87f8;
-  color: white;
-  padding: 10px 15px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.message-write input[type="submit"]:hover {
-  background-color: #6c49ea;
-}
 
 .messages-container {
   display: flex;
   flex-direction: column;
   height: calc(100% - 50px);
+  overflow-y: auto;
+}
+
+.no-messages {
+  margin: auto;
 }
 
 
@@ -843,6 +858,7 @@ h2 {
 .scroll-down i,
 .scroll-up i {
   margin-right: 10px;
+  margin-left: 10px;
   font-size: x-large;
 }
 
@@ -920,9 +936,35 @@ h1 {
   text-align: center;
 }
 
-.relaxation,
-.about-stress,
+.relaxation {
+  background-color: rgba(198, 239, 240, 0.7);
+  max-width: 60%;
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 70px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
 .tips {
+  background-color: rgba(198, 239, 240, 0.7);
+  max-width: 60%;
+  margin: auto;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 80px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.about-stress {
+  display: flex;
+  flex-direction: column; /* Asettaa lapsielementit pystysuoraan järjestykseen */
+  align-items: center; /* Keskittää lapsielementit vaakasuunnassa */
   background-color: rgba(198, 239, 240, 0.7);
   max-width: 80%;
   margin: auto;
@@ -934,20 +976,51 @@ h1 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
 
-.about-stress,
-.tips {
+.column {
+  flex: 1 1 25%; /* Kasvaa ja kutistuu, mutta alkuarvo on 30% */
+  min-width: 200px; /* Asettaa minimileveyden sarakkeille */
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin: 0 10px;
+  margin-bottom: 20px;
+}
+
+.scroll-down-relaxation {
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  color: #007bff; /* Sininen väri */
+  text-decoration: none; /* Poista alleviivaus */
+  transition: color 0.3s;
+}
+
+.columns-container {
+  display: flex;
+  justify-content: space-between; /* Tasaisesti jakaa tilaa sarakkeiden välillä */
+  flex-wrap: wrap; /* Mahdollistaa sarakkeiden siirtymisen uudelle riville tarvittaessa */
+  width: 100%; /* Käyttää koko käytettävissä olevan leveyden .about-stress sisällä */
+}
+
+.scroll-down-relaxation:hover,
+.scroll-down-relaxation:focus {
+  color: #0056b3; /* Tummempaa sinistä hover-efektiin */
+  text-decoration: none; /* Varmista, että alleviivaus pysyy poissa */
+}
+
+
+.about-stress {
   padding: 20px;
 }
 
-.tips {
-  max-width: 50%;
-}
 
 .introduction,
 .exercises,
 .videos {
   margin-bottom: 20px;
-  max-width: 50%;
+  max-width: 60%;
   margin: auto;
 }
 
@@ -976,6 +1049,19 @@ iframe {
   100% {
     background-position: 100% 50%;
   }
+}
+
+.arrows {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+}
+
+
+.arrows .scroll-down {
+  padding: 20px;
 }
 
 footer {
@@ -1037,6 +1123,10 @@ footer {
     height: 85px;
   }
 
+  .about-stress {
+    max-width: 90%;
+  }
+
   .menu {
     display: none;
     flex-direction: column;
@@ -1050,8 +1140,9 @@ footer {
     z-index: 999999999999;
   }
 
+
   .menu li a:hover {
-    background-color: #2ccfcf;
+    background-color: #66b2e4;
   }
 
   .menu.show {
@@ -1099,6 +1190,12 @@ footer {
   .chat-section {
     max-width: 80%;
   }
+
+  .relaxation {
+    max-width: 80%;
+  }
+
+
 }
 
 @media screen and (max-width: 1150px) {
@@ -1116,6 +1213,23 @@ footer {
   .content-wrapper {
     width: 100%;
   }
+
+  .about-stress {
+    flex-direction: column;
+  }
+  .columns-container {
+    flex-direction: column;
+  }
+
+  .tips {
+    max-width: 90%;
+  }
+
+  .introduction,
+.exercises {
+  max-width: 90%;
+}
+
 
 
 }
@@ -1156,5 +1270,17 @@ footer {
 
   #graph {
     height: 350px;
+  }
+
+  .tips {
+    margin-bottom: 100px
+  }
+
+  .relaxation {
+    max-width: 95%;
+  }
+
+  .videos {
+    max-width: 95%;
   }
 }

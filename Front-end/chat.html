@@ -19,7 +19,7 @@
   <body>
     <header>
       <nav>
-        <img src="images/icon5.png" alt="logo" class="nav-logo" />
+        <img src="images/icon10.png" alt="logo" class="nav-logo" />
         <a href="home.html" class="logo-text-link"><div class="logo-text">MindEase</div></a>
         <button class="menu-toggle">☰</button>
         <ul class="menu">
@@ -61,30 +61,23 @@
     <main>
       <div class="chat-section">
         <aside class="messages-sidebar">
-          <ul id="date-list" class="date-list">
+          <ul id="conversation-list" class="conversation-list"></ul>
         </aside>
         <div class="message-content">
-          <div class="messages-container">
-            <!-- Viestit -->
-            <div class="message professional">
-                <div class="date"></div>
-            </div>
-            <div class="message client">
-                <div class="date"></div>
-            </div>
-            <!-- ... -->
-        </div>
-        <div class="message-write">
-            <input type="text" placeholder="Kirjoita viesti...">
-            <input type="submit" value="Lähetä">
+          <div id="messages-container" class="messages-container">
+          </div>
+          <div class="message-write">
+            <input type="text" id="message-input" placeholder="Kirjoita viesti...">
+            <button id="send-button">Lähetä</button>
+          </div>
         </div>
       </div>
-    </div>
     </main>
+    
     <div id="toast-container"></div>
     <footer>
       <div class="logo-wrapper">
-        <img src="images/icon5.png" alt="logo" class="nav-logo" />
+        <img src="images/icon10.png" alt="logo" class="nav-logo" />
       </div>
       ©️ Ryhmä 9
     </footer>
