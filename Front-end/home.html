@@ -104,6 +104,7 @@
         <div class="stress">
           Stressitasosi tänään: <span id="stress-today"></span>
         </div>
+        <button id="analysis-result" style="display: none;">Näytä kokonaisanalyysin tulos</button>
       </section>
 
       <aside class="sidebar">
@@ -286,11 +287,11 @@
               max="5"
             />
             <div class="labels">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-              <span>4</span>
-              <span>5</span>
+              <span>En yhtään</span>
+              <span>Hieman</span>
+              <span>Kohtalaisen</span>
+              <span>Paljon</span>
+              <span>Erittäin paljon</span>
             </div>
           </div>
           <button type="button" class="prev-button">Edellinen</button>
@@ -425,7 +426,7 @@
           </div>
           <div class="question">
             <label for="exercise"
-              >Oletko harrastanut sykettä nostavaa tänään?</label
+              >Oletko harrastanut sykettä nostavaa liikuntaa tänään?</label
             >
             <input
               type="radio"
