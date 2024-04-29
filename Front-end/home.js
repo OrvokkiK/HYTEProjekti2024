@@ -9,12 +9,11 @@ function checkAutoLogout() {
     loginTime &&
     new Date().getTime() - new Date(loginTime).getTime() > 3600000
   ) {
-    
     localStorage.removeItem('analysisModalShown');
     localStorage.removeItem('user_id');
     localStorage.removeItem('token');
-    localStorage.removeItem('loginTime'); 
-    window.location.href = 'index.html'; 
+    localStorage.removeItem('loginTime');
+    window.location.href = 'index.html';
     alert('Istuntosi on vanhentunut. Ole hyvä ja kirjaudu uudelleen.');
   }
 }
@@ -50,41 +49,44 @@ let hrvFetched = false;
 
 function checkAllDataFetched() {
   if (symptomsFetched && lifestyleFetched && hrvFetched) {
-      fetchDataAndFilter(userId, token).then(
-          ([symptomData, hrvData, lifestyleData]) => {
-              if (
-                  symptomData.length > 0 &&
-                  hrvData.length > 0 &&
-                  lifestyleData.length > 0
-              ) {
-                  const {symptomPoints, hrvPoints, lifestylePoints} =
-                      calculateOverallAnalysis(symptomData[0], hrvData[0], lifestyleData[0]);
-                  const overallScore = Math.round(
-                      (symptomPoints + hrvPoints + lifestylePoints) / 3
-                  );
-                  let stressLevelText = '';
-                  if (overallScore <= 1) {
-                      stressLevelText = 'Matala';
-                  } else if (overallScore <= 2) {
-                      stressLevelText = 'Kohtalainen';
-                  } else {
-                      stressLevelText = 'Korkea';
-                  }
-                  showModal(
-                      symptomPoints,
-                      hrvPoints,
-                      lifestylePoints,
-                      overallScore,
-                      stressLevelText,
-                  );
-              } else {
-                  console.log("Kaikkia tietoja ei ole saatavilla analyysia varten.");
-              }
+    fetchDataAndFilter(userId, token).then(
+      ([symptomData, hrvData, lifestyleData]) => {
+        if (
+          symptomData.length > 0 &&
+          hrvData.length > 0 &&
+          lifestyleData.length > 0
+        ) {
+          const {symptomPoints, hrvPoints, lifestylePoints} =
+            calculateOverallAnalysis(
+              symptomData[0],
+              hrvData[0],
+              lifestyleData[0],
+            );
+          const overallScore = Math.round(
+            (symptomPoints + hrvPoints + lifestylePoints) / 3,
+          );
+          let stressLevelText = '';
+          if (overallScore <= 1) {
+            stressLevelText = 'Matala stressi';
+          } else if (overallScore <= 2) {
+            stressLevelText = 'Kohtalainen stressi';
+          } else {
+            stressLevelText = 'Korkea stressi';
           }
-      );
+          showModal(
+            symptomPoints,
+            hrvPoints,
+            lifestylePoints,
+            overallScore,
+            stressLevelText,
+          );
+        } else {
+          console.log('Kaikkia tietoja ei ole saatavilla analyysia varten.');
+        }
+      },
+    );
   }
 }
-
 
 let oirekyselyDates = [];
 let elamantapaDates = [];
@@ -134,7 +136,7 @@ async function fetchDataForCalendar(id, tok) {
 
     console.log(oirekyselyDates, elamantapaDates, hrvDates);
     showCalendar(currentMonth, currentYear);
-    checkAllDataFetched(); 
+    checkAllDataFetched();
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -202,6 +204,8 @@ function showCalendar(month, year) {
           cell.classList.add('current-date');
         }
 
+
+
         if (oirekyselyDates.includes(cellDateFormatted)) {
           const dot = document.createElement('span');
           dot.className = 'dot oirekysely-dot';
@@ -225,6 +229,7 @@ function showCalendar(month, year) {
     tbl.appendChild(row);
   }
 }
+
 
 function previous() {
   currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
@@ -300,7 +305,7 @@ am5.ready(function () {
     console.log(data);
     const chartData = data.map((item) => {
       const date = new Date(item.created_at);
-      const formattedDate = date 
+      const formattedDate = date;
       return {
         date: formattedDate,
         value: item.analysis_enumerated,
@@ -369,7 +374,6 @@ am5.ready(function () {
     chart.appear(1000, 100);
     console.log(chartData);
   });
-  
 });
 
 // Oirearviokyselyn toiminnallisuudet
@@ -880,10 +884,12 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   let selectedSymptomsCount = 0;
   if (symptomData.length > 0) {
     const symptoms = symptomData[0]; // Oletetaan, että tarvittavat tiedot ovat ensimmäisessä objektissa
-  
+
     for (const key in symptoms) {
       if (
-        !['entry_date', 'symptom_id', 'user_id', 'stress_level'].includes(key) && // Ota huomioon stress_level poikkeuksena
+        !['entry_date', 'symptom_id', 'user_id', 'stress_level'].includes(
+          key,
+        ) && // Ota huomioon stress_level poikkeuksena
         symptoms[key] !== undefined &&
         symptoms[key] !== null
       ) {
@@ -899,7 +905,7 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   // Pisteytys käyttäjän valitsemien oireiden määrän perusteella
   if (selectedSymptomsCount <= 2) {
     symptomPoints += 1;
-  } else if (selectedSymptomsCount <= 10) { 
+  } else if (selectedSymptomsCount <= 10) {
     symptomPoints += 2;
   } else {
     symptomPoints += 3;
@@ -909,13 +915,13 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   const stressLevel = parseInt(symptomData['stress_level']);
   if (stressLevel <= 2) {
     symptomPoints += 1;
-  } else if (stressLevel <= 4) { 
+  } else if (stressLevel <= 4) {
     symptomPoints += 2;
   } else {
     symptomPoints += 3;
   }
   console.log('oirekysely pisteet', symptomPoints);
-  symptomPoints = Math.ceil (symptomPoints / 2);
+  symptomPoints = Math.ceil(symptomPoints / 2);
 
   // HRV-tuloksen pisteytys
   let hrvPoints = 0;
@@ -929,7 +935,7 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
     } else if (stressIndex > 0 && stressIndex <= 10) {
       hrvPoints += 1;
     } else if (stressIndex > 10 && stressIndex <= 20) {
-      hrvPoints +=2;
+      hrvPoints += 2;
     } else if (stressIndex > 20) {
       hrvPoints += 3;
     }
@@ -1048,10 +1054,10 @@ function showModal(
     const overallScoreElement = document.getElementById('overall-score');
     const overallTextElement = document.getElementById('overall-text');
 
-    symptomPointsElement.textContent = `Oirekyselyn pistemäärä: ${symptomPoints}/3`;
-    hrvPointsElement.textContent = `HRV:n pistemäärä: ${hrvPoints}/3`;
-    lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}/3`;
-    overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}/3`;
+    symptomPointsElement.textContent = `Oirekyselyn pistemäärä: ${symptomPoints}/3 pistettä`;
+    lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}/3 pistettä`;
+    hrvPointsElement.textContent = `HRV mittaustuloksen pistemäärä: ${hrvPoints}/3 pistettä`;
+    overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}/3 pistettä`;
     overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText} stressitaso`;
 
     // Merkitse modaali näytetyksi
@@ -1074,9 +1080,9 @@ fetchDataAndFilter(userId, token)
     ) {
       const {symptomPoints, hrvPoints, lifestylePoints} =
         calculateOverallAnalysis(symptomData[0], hrvData[0], lifestyleData[0]);
-        const overallScore = Math.round(
-          (symptomPoints + hrvPoints + lifestylePoints) / 3
-        );
+      const overallScore = Math.round(
+        (symptomPoints + hrvPoints + lifestylePoints) / 3,
+      );
       let stressLevelText = '';
 
       // Määritä stressin taso kokonaispisteiden mukaan
@@ -1098,9 +1104,9 @@ fetchDataAndFilter(userId, token)
       stressTodayElement.textContent = stressLevelText;
       console.log('kokonaisanalyysi:', overallScore);
 
-      const currentDate = new Date().toISOString().split('T')[0];  
+      const currentDate = new Date().toISOString().split('T')[0];
       const lastAnalysisDate = localStorage.getItem('lastAnalysisDate');
-  
+
       if (lastAnalysisDate !== currentDate) {
         const analysisData = {
           user_id: userId,
@@ -1108,7 +1114,7 @@ fetchDataAndFilter(userId, token)
           analysis_enumerated: overallScore,
           created_at: currentDate,
         };
-  
+
         const url = `http://localhost:3000/api/analysis/`;
         const options = {
           method: 'POST',
@@ -1118,58 +1124,23 @@ fetchDataAndFilter(userId, token)
           },
           body: JSON.stringify(analysisData),
         };
-  
+
         fetchData(url, options).then((data) => {
-          console.log("Analyysi tallennettu:", data);
-          localStorage.setItem('lastAnalysisDate', currentDate); 
+          console.log('Analyysi tallennettu:', data);
+          localStorage.setItem('lastAnalysisDate', currentDate);
         });
       } else {
-        console.log("Analyysi on jo suoritettu ja tallennettu tänään.");
+        console.log('Analyysi on jo suoritettu ja tallennettu tänään.');
       }
     } else {
-      console.log("Oirekyselyn, HRV-datan tai elämäntapakyselyn haku epäonnistui.");
+      console.log(
+        'Oirekyselyn, HRV-datan tai elämäntapakyselyn haku epäonnistui.',
+      );
     }
   })
   .catch((error) => {
     console.error('Virhe haettaessa ja laskettaessa tietoja:', error);
   });
-
-  // document.addEventListener('DOMContentLoaded', () => {
-  //   const resultButton = document.getElementById('analysis-result');
-  //   const resultModal = document.getElementById('overall-analysis-modal');
-  //   const closeButton = document.getElementsByClassName('close')[0];
-  //   const resultText = document.getElementById('result-text');
-  
-  //   // Funktio kokonaisanalyysin tuloksen asettamiseksi ja napin näyttämiseksi
-  //   function showResultButton(analysisResult) {
-  //     resultText.textContent = analysisResult; // Oletetaan, että 'analysisResult' on analyysin teksti
-  //     resultButton.style.display = 'block';
-  //   }
-  
-  //   // Event listener napille, joka avaa modaalin
-  //   resultButton.onclick = function() {
-  //     resultModal.style.display = 'block';
-  //   }
-  
-  //   // Event listener sulje-napille modaalin sulkemiseksi
-  //   closeButton.onclick = function() {
-  //     resultModal.style.display = 'none';
-  //   }
-  
-  //   // Klikkaa missä tahansa ikkunassa sulkeaksesi modaalin
-  //   window.onclick = function(event) {
-  //     if (event.target == resultModal) {
-  //       resultModal.style.display = 'none';
-  //     }
-  //   }
-  
-  //   // Oletetaan, että 'calculateOverallAnalysis' on funktio, joka suoritetaan ja palauttaa analyysin tuloksen
-  //   fetchDataAndFilter(userId, token).then(([symptomData, hrvData, lifestyleData]) => {
-  //     const analysisResult = calculateOverallAnalysis(symptomData, hrvData, lifestyleData);
-  //     showResultButton(analysisResult);
-  //   });
-  // });
-  
 
 // logout
 document.addEventListener('DOMContentLoaded', function () {

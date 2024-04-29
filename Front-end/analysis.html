@@ -19,7 +19,7 @@
   <body>
     <header>
       <nav>
-        <img src="images/icon5.png" alt="logo" class="nav-logo" />
+        <img src="images/icon10.png" alt="logo" class="nav-logo" />
         <a href="home.html" class="logo-text-link"
           ><div class="logo-text">MindEase</div></a
         >
@@ -33,11 +33,11 @@
               ><i class="bi bi-folder"></i> MATERIAALIPANKKI</a
             >
             <div class="dropdown-content">
-              <a href="#"
+              <a href="about-stress.html"
                 ><i class="bi bi-info-circle"></i> TIETOA STRESSISTÄ</a
               >
-              <a href="#"><i class="bi bi-wind"></i> RENTOUTUMISHARJOITUKSET</a>
-              <a href="#"><i class="bi bi-search-heart"></i> VINKKEJÄ</a>
+              <a href="relaxation-exercise.html"><i class="bi bi-wind"></i> RENTOUTUMISHARJOITUKSET</a>
+              <a href="tips.html"><i class="bi bi-search-heart"></i> VINKKEJÄ</a>
             </div>
           </li>
           <li class="dropdown">
@@ -67,13 +67,37 @@
       </nav>
     </header>
     <main>
-      <div id="graph">
+      <div class="analysis-wrapper">
+        <div class="info-panel">
+          <h2>Kokonaisanalyysit</h2>
+          <p>Tällä sivulla voit tarkastella Kokonaisanalyysisi tuloksia.</p>
+          <p>Kokonaisanalyysi lasketaan oirearvio- ja elämäntapakyselyn sekä HRV-mittaustulostesi perusteella. </p>
+          <p>Pisteet määräävät analyysin tuloksen seuraavasti:</p>
+          <p>1 piste: Matala stressitaso</p>
+          <p>2 pistettä: Kohtalainen stressitaso</p>
+          <p>3 pistettä: Korkea stressitaso</p>
+        </div>
+      <div class="table-container">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Päivä</th>
+              <th>Tulos</th>
+              <th>Pisteet</th>
+            </tr>
+          </thead>
+          <tbody class="tbody"></tbody>
+        </table>
+    </div>
+  </div>
+      <div id="graph2">
         <div>1=Matala stressi   2=Kohtalainen stressi    3=Korkea stressi</div>
       </div>
+
     </main>
     <footer>
       <div class="logo-wrapper">
-        <img src="images/icon5.png" alt="logo" class="nav-logo" />
+        <img src="images/icon10.png" alt="logo" class="nav-logo" />
       </div>
       ©️ Ryhmä 9
     </footer>
