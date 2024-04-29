@@ -31,6 +31,22 @@ const selectUserById = async (id) => {
   }
   return { error: 500, message: "db error" };
 };
+// Used for hpc and admin login
+const selectUserByUsername = async (username) => {
+ try {
+  const sql = 'SELECT * FROM Users WHERE username=?'; 
+  const params = [username];
+  const [rows] = await promisePool.query(sql, params);
+  if (rows.length === 0) {
+    return {error: 401, message: 'Unauthorized: Invalid username or password'};
+  } else {
+    return rows[0];
+  }
+  } catch (error) {
+    console.error('Model: selectUserByLoginDetails', error);
+    return {error: 500, message: 'db error'};
+  }
+};
 
 // Create new user profile with regular privs and title 'Opiskelija'
 const insertUser = async (user) => {
@@ -150,4 +166,5 @@ export {
   updateUserInfoById,
   deleteUserById,
   selectUserByEmail,
+  selectUserByUsername
 };

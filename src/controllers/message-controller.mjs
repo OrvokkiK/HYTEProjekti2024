@@ -49,30 +49,42 @@ const getConversationByUserId = async(req, res) => {
     return res.status(result.error).json(result);
   }
   return res.json(result);
-}
+};
 
-// POST new message
+
 const postMessage = async (req, res) => {
-  let conversation_id = req.body.converation_id
-  console.log(req.body.converation_id);
+  let conversation_id = req.body.conversation_id;
+  console.log(conversation_id);
   const { 
     recipient_id, 
     message_content, 
     message_sent_at, 
-    sender_id} = req.body;
-  if (!conversation_id) {
-    conversation_id = await getNewId();
-  }
-  if (conversation_id && message_content && recipient_id && message_sent_at && sender_id) {
-    const result = await insertMessage(conversation_id, req.body);
-  if (result.error) {
-    return res.status(result.error).json(result);
-  }
-  return res.json(result);
+    sender_id
+  } = req.body;
+  if (recipient_id && message_content && message_sent_at && sender_id) {
+    if (!conversation_id) {
+      conversation_id = await getNewId();
+      const result = await insertMessage(conversation_id, req.body);
+      if (result.error) {
+        return res.status(result.error).json(result);
+      } else {
+        return result.json;
+      }
+    } else {
+      const result = await insertMessage(conversation_id, req.body);
+      if (result.error) {
+        return res.status(result.error).json(result);
+      } else {
+        return result.json;
+      }
+    }
   } else {
-    return {error: 404, message: 'bad request'};
- }
+    return {error: 404, message: 'bad request'}; 
+  }
+  
 }
+
+
 
 // DELETE message by message_id
 const deleteMessage = async (req, res) => {
