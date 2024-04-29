@@ -7,3 +7,8 @@ login-variables.resource
 frontend-hpc
 frontend-reg
 test-req-sensitive.http
+browser
+log.html
+output.xml
+playwright-log.txt
+

@@ -34,16 +34,23 @@ const selectUserById = async (id) => {
 // Used for hpc and admin login
 const selectUserByUsername = async (username) => {
  try {
-  const sql = 'SELECT * FROM Users WHERE username=?'; 
+  const sql = 'SELECT * FROM Users WHERE email=?'; 
   const params = [username];
+  console.log(username);
   const [rows] = await promisePool.query(sql, params);
   if (rows.length === 0) {
     return {error: 401, message: 'Unauthorized: Invalid username or password'};
   } else {
-    return rows[0];
+    console.log(rows[0].user_level);
+    if (rows[0].user_level === 'hcp' || rows[0].user_level === 'admin') {
+      return rows[0];
+    } else {
+      
+      return {error: 403, message: 'Unauthorized: userlevel is too low'};
+    }
   }
   } catch (error) {
-    console.error('Model: selectUserByLoginDetails', error);
+    console.error('Model: selectUserByusername', error);
     return {error: 500, message: 'db error'};
   }
 };
@@ -75,7 +82,7 @@ const updateUserInfoById = async (user) => {
       "UPDATE Users SET username=?, password=?, first_name=?, last_name=?, chat_permission=?, chat_permission_date=? WHERE user_id=?";
     const params = [
       user.username,
-      user.password,
+      user.hashedPassword,
       user.first_name,
       user.last_name,
       user.chat_permission,
@@ -114,6 +121,7 @@ const deleteUserById = async (id) => {
   }
 };
 
+// used for login
 const selectUserByEmail = async (email) => {
   try {
     const sql = "SELECT * FROM Users WHERE email=?";

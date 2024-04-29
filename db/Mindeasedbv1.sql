@@ -8,7 +8,7 @@ CREATE TABLE Users (
   user_id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  email  VARCHAR(255) NOT NULL,
+  email  VARCHAR(255) NOT NULL UNIQUE,
   first_name VARCHAR(20),
   last_name VARCHAR(20), 
   title VARCHAR(20) DEFAULT 'Opiskelija', 
@@ -145,17 +145,17 @@ CREATE TABLE Intoxicants (
 
 -- Insert sample student info
 INSERT INTO Users(password, username, email, first_name, last_name, created_at, risk_group, chat_permission ) VALUES
-('hashed_password', 'johndoe@example.com', 'johndoe@example.com', 'John', 'Doe', '2024-03-24 09:00:00', 'ei', 'ei'),
-('hashed_password', 'tom.smith@example.com','tom.smith@example.com', 'Tom', 'Smith', '2024-03-24 09:00:00', 'ei', 'ei' );
+('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'johndoe@example.com', 'johndoe@example.com', 'John', 'Doe', '2024-03-24 09:00:00', 'ei', 'ei'),
+('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'tom.smith@example.com','tom.smith@example.com', 'Tom', 'Smith', '2024-03-24 09:00:00', 'ei', 'ei' );
 
 -- Sample riskgroup student
 INSERT INTO Users(password, username, email, first_name, last_name, created_at, risk_group, chat_permission, risk_group_date, chat_permission_date) VALUES
-('hashed_password', 'ajones@example.com', 'ajones@example.com', 'Alice', 'Jones', '2024-03-24 09:00:00', 'kyllä', 'kyllä', '2024-03-25 09:00:00', '2024-02-26 09:00:00');
+('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'ajones@example.com', 'ajones@example.com', 'Alice', 'Jones', '2024-03-24 09:00:00', 'kyllä', 'kyllä', '2024-03-25 09:00:00', '2024-02-26 09:00:00');
 
 -- Insert sample professional roles
 INSERT INTO Users(password, username, email, first_name, last_name, title, created_at, user_level, chat_permission, chat_permission_date) VALUES 
-('hashed_password', 'jane.doe@example.com', 'jane.doe@example.com', 'Jane', 'Doe', 'Ylläpitäjä', '2024-03-24 08:00:00', 'admin', 'kyllä', '2024-03-24 08:00:00'), 
-('hashed_password', 'bob@example.com', 'bob@example.com', 'Bob', 'Brown', 'Sairaanhoitaja', '2024-03-24 08:15:00', 'hcp', 'kyllä', '2024-03-24 08:15:00');
+('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'jane.doe@example.com', 'jane.doe@example.com', 'Jane', 'Doe', 'Ylläpitäjä', '2024-03-24 08:00:00', 'admin', 'kyllä', '2024-03-24 08:00:00'), 
+('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'bob@example.com', 'bob@example.com', 'Bob', 'Brown', 'Sairaanhoitaja', '2024-03-24 08:15:00', 'hcp', 'kyllä', '2024-03-24 08:15:00');
 
 -- Insert sample symptoms (oirekysely)
 INSERT INTO Symptoms(entry_date, frustration, grumpiness, recall_problems, restlesness, disquiet,

@@ -41,4 +41,5 @@ npm install express-validator
 ```
 npm install --save mysql2
 npm audit fix
+nmp i mysql2
 ```

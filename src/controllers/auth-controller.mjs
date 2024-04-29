@@ -27,6 +27,7 @@ const postLogin = async (req, res, next) => {
     const token = jwt.sign(user, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
+    console.log(token)
     return res.json({message: 'Logged in successfully', user, token});
   } else {
     return next(customError('Invalid username or password', 401));

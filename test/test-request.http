@@ -17,21 +17,22 @@ content-type: application/json
 {
     "username": "orvokki.kettula@example.com",
     "password": "isopahaadmin",
+    "email" : "orvokki.kettula@example.com",
     "first_name": "Orvokki",
     "last_name": "Kettula"
 }
 
 ### PUT (edit) an existing user's info
-PUT http://localhost:3000/api/users/6
+PUT http://localhost:3000/api/users/5
 Content-Type: application/json
 
 {
-    "username": "Orvokki.Kettula@example.com",
-    "password": "TOIMIIKOviel", 
-    "first_name": "Orvokki",
-    "last_name": "K",
-    "chat_permission" : "kyllä",
-    "chat_permission_date" : "2024-3-31 09:00:00"
+    "username": "bob@example.com",
+    "password": "hashed_password", 
+    "first_name": "Bob",
+    "last_name": "Brown",
+    "chat_permission" : "Kyllä",
+    "chat_permission_date" : "2024-4-21 09:00:00"
 }
 
 ### DELETE an existing user;
