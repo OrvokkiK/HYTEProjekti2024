@@ -14,6 +14,8 @@ import analysisRouter from './routes/analysis-router.mjs';
 import symptomUserRouter from './routes/symptom-user-router.mjs';
 import lifestyleRouter from './routes/lifestyle-router.mjs';
 import hrvRouter from './routes/hrv-router.mjs';
+import authProfRouter from './routes/auth-prof-router.mjs';
+
 
 
 // import http from 'http';
@@ -46,14 +48,14 @@ app.use('/api/symptoms/', symptomRouter);
 // symptoms/user routes
 app.use('/api/symptoms/user', symptomUserRouter);
 
-// Lifestyle route
+// Lifestyle routes
 app.use('/api/lifestyle/', lifestyleRouter);
 
-// HRV route
+// HRV routes
+app.use('/api/hrv/', hrvRouter);
 
 // Analysis router
 app.use('/api/analysis/', analysisRouter);
-app.use('/api/hrv/', hrvRouter);
 
 // message route
 app.use('/api/messages/', messageRouter);
@@ -61,7 +63,11 @@ app.use('/api/messages/', messageRouter);
 // analysis router
 app.use('/api/analysis/', analysisRouter);
 
-//Admin routes
+//Admin + hpc login
+app.use('/api/auth/professional/', authProfRouter);
+
+// Admmin routes
+
 
 // Default 404 not found
 app.use(notFoundHandler);

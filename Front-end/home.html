@@ -55,7 +55,6 @@
               <a href="diary.html"
                 ><i class="bi bi-pencil"></i> HUOLIPÄIVÄKIRJA</a
               >
-              <a href="settings.html"><i class="bi bi-gear"></i> ASETUKSET</a>
             </div>
           </li>
           <li class="dropdown">
@@ -104,6 +103,7 @@
         <div class="stress">
           Stressitasosi tänään: <span id="stress-today"></span>
         </div>
+        <button id="analysis-result" style="display: none;">Näytä kokonaisanalyysin tulos</button>
       </section>
 
       <aside class="sidebar">
@@ -286,11 +286,11 @@
               max="5"
             />
             <div class="labels">
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-              <span>4</span>
-              <span>5</span>
+              <span>En yhtään</span>
+              <span>Hieman</span>
+              <span>Kohtalaisen</span>
+              <span>Paljon</span>
+              <span>Erittäin paljon</span>
             </div>
           </div>
           <button type="button" class="prev-button">Edellinen</button>
@@ -425,7 +425,7 @@
           </div>
           <div class="question">
             <label for="exercise"
-              >Oletko harrastanut sykettä nostavaa tänään?</label
+              >Oletko harrastanut sykettä nostavaa liikuntaa tänään?</label
             >
             <input
               type="radio"
@@ -504,7 +504,7 @@
     <div id="overall-analysis-modal" class="modal">
       <div class="modal-content">
         <span class="close-button4">×</span>
-        <h3>Kokonaisanalyysin tulokset:</h3>
+        <h2>Kokonaisanalyysisi tulokset tänään:</h3>
         <p id="symptom-points"></p>
         <p id="hrv-points"></p>
         <p id="lifestyle-points"></p>
@@ -512,6 +512,15 @@
         <p id="overall-text"></p>
       </div>
     </div>
+    <div id="infoModal" class="modal">
+      <div class="modal-content">
+          <span class="close-modal">×</span>
+          <div id="modalContent">
+              <h2>Tiedot Päivämäärälle</h2>
+              <!-- Tänne tulee dynaamisesti lisätty sisältö -->
+          </div>
+      </div>
+  </div>
     <div id="toast-container"></div>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>

@@ -173,7 +173,7 @@ li a:hover,
   padding: 20px;
   margin-top: 10px;
   border-radius: 5px;
-  animation: slideIn 0.5s forwards, fadeOut 7s forwards;
+  animation: slideIn 1s forwards, fadeOut 2s 1s forwards;
 }
 
 @keyframes fadeOut {
@@ -224,11 +224,19 @@ li a:hover,
   background: rgb(102, 178, 228);
 }
 
+#userLoginBtn:active,
+#professionalLoginBtn:active {
+  border: 1px solid white;
+  background-color: #2b418a;
+}
+
+
 .login_form {
   background: rgba(70, 126, 186, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   border-radius: 10px;
 }
+
 
 .login_form .nav-logo {
   margin: 0;
@@ -275,7 +283,7 @@ li a:hover,
   left: 50%;
   border-radius: 10px;
   padding: 20px;
-  font-size: larger;
+  font-size: 20px;
   font-weight: 600;
   display: inline-block;
   margin: auto;
@@ -321,7 +329,8 @@ input.loginuser,
 .tallenna-button,
 .tallenna-kysely,
 .tallenna-hrv,
-#diary-form button {
+#diary-form button,
+#send-button {
   background-color: #8b87f8;
   color: white;
   padding: 10px 15px;
@@ -337,7 +346,8 @@ input.loginuser,
 input.loginuser:hover,
 .forgot_password:hover,
 .tallenna-button:hover,
-.tallenna-kysely:hover {
+.tallenna-kysely:hover,
+#send-button:hover {
   background-color: #6c49ea;
   /* color: #abe0f3; */
 }
@@ -388,7 +398,7 @@ button:hover {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  width: 30%;
+  width: 35%;
   margin: auto;
   background-color: rgba(198, 239, 240, 0.7);
   border-radius: 10px;
@@ -403,14 +413,15 @@ button:hover {
   text-align: center;
 }
 
-.survey-button {
+.survey-button,
+#analysis-result {
   margin: 10px;
   padding: 10px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  width: 40%;
+  width: 45%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   transition: color 0.3s ease;
 }
@@ -435,8 +446,14 @@ button:hover {
 }
 
 .survey-button.red {
-  background-color:rgb(194, 147, 177);
+  background-color: rgb(194, 147, 177);
   margin-bottom: 40px;
+}
+
+#analysis-result {
+  margin-top: 30px;
+  width: 50%;
+  background-color: #63aac1;
 }
 
 .sidebar {
@@ -445,7 +462,8 @@ button:hover {
   padding: 20px;
 }
 
-#graph {
+#graph,
+#graph2 {
   border-radius: 10px;
   padding: 15px;
   margin-left: 20%;
@@ -456,6 +474,10 @@ button:hover {
   margin: auto;
   margin-bottom: 40px;
   margin-top: 40px;
+}
+
+#graph2 {
+  margin-bottom: 100px;
 }
 
 .links {
@@ -471,10 +493,11 @@ button:hover {
 
 .calendar {
   border-radius: 10px;
-  padding: 15px;
-  margin-left: 20%;
-  max-width: 80%;
-  height: 100%;
+  padding: 10px;
+  margin: 0 auto; 
+  max-width: 500px; 
+  width: 90%; 
+  height: auto; 
   background-color: rgba(198, 239, 240, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
@@ -492,7 +515,7 @@ button:hover {
 }
 
 .calendar td {
-  border-radius: 90px;
+  border-radius: 50%;
   padding: 10px;
   text-align: center;
 }
@@ -508,9 +531,10 @@ button:hover {
   color: white;
 }
 
-.current-date:hover {
+/* .current-date:hover {
   background-color: #b4b0b0;
-}
+} */
+
 
 .dot {
   height: 8px;
@@ -550,7 +574,7 @@ button:hover {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   left: 0;
   top: 0;
   width: 100%;
@@ -561,7 +585,7 @@ button:hover {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 5% auto;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
@@ -571,7 +595,8 @@ button:hover {
 .close-button,
 .close-button2,
 .close-button3,
-.close-button4 {
+.close-button4,
+.close-modal {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -585,7 +610,9 @@ button:hover {
 .close-button3:hover,
 .close-button3:focus,
 .close-button4:hover,
-.close-button4:focus {
+.close-button4:focus,
+.close-modal:hover,
+.close-modal:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -617,10 +644,6 @@ button:hover {
   margin-top: 30px;
   text-align: center;
 }
-
-/* button[type='submit'] {
-  width: 30%;
-} */
 
 .checkbox-group {
   display: flex;
@@ -666,56 +689,98 @@ input[type='range'] {
 /* // Chat sivun tyylittely */
 
 .chat-section {
-  margin: 0;
-  padding: 0;
+  margin: auto;
+  margin-top: 70px;
+  max-width: 50%;
+  background-color: rgba(198, 239, 240, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  padding: 20px;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 100vh;
-  margin-bottom: 20px;
+  height: 500px;
 }
 
-#chat-container {
-  width: 100%;
-  max-width: 600px; /* Säädä tätä arvoa tarpeen mukaan */
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
+aside.messages-sidebar {
+  background-color: white;
+  max-height: 100%;
+  margin-right: 20px;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
 }
-#chat-messages {
-  height: 400px; /* Säädä tätä arvoa tarpeen mukaan */
-  overflow-y: scroll;
+
+.conversation-list {
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.conversation-list li {
+  cursor: pointer;
   padding: 10px;
-  background: #e7ecef;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
 }
+
+.conversation-list li:hover {
+  background-color: #e0e0e0;
+}
+
+
 .message {
-  background-color: #d9e8ff;
-  padding: 8px 15px;
-  margin: 5px 0;
-  border-radius: 15px;
-  max-width: 70%;
-  clear: both;
-}
-.message.sent {
-  background-color: #aad4ff;
-  margin-left: auto;
-}
-.message.received {
-  background-color: #d9e8ff;
-  margin-right: auto;
-}
-#chat-input-container {
   padding: 10px;
-  background: #f0f4f8;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: block;
+  width: 80%;
+  position: relative;
 }
-#chat-input {
-  width: calc(100% - 60px);
+
+
+.message-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.message.professional {
+  background-color: #e2e2e2;
+  align-self: flex-start;
+}
+.message.client {
+  background-color: #b3d9ff;
+  align-self: flex-end;
+}
+.message .date {
+  font-size: 0.8em;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.message-write {
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
-  border-radius: 15px;
-  border: none;
-  outline: none;
+  border-top: 1px solid #ccc;
 }
+.message-write input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 50px);
+  overflow-y: auto;
+}
+
+.no-messages {
+  margin: auto;
+}
+
 
 .loader {
   border: 8px solid #f3f3f3;
@@ -757,6 +822,7 @@ input[type='range'] {
   width: 40%;
 }
 
+
 .chart-container {
   display: flex;
   justify-content: center;
@@ -774,6 +840,13 @@ input[type='range'] {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   padding: 20px;
+}
+
+.hrv-section {
+  background-color: #e9ecef;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 h2 {
@@ -806,6 +879,7 @@ h2 {
 .scroll-down i,
 .scroll-up i {
   margin-right: 10px;
+  margin-left: 10px;
   font-size: x-large;
 }
 
@@ -828,27 +902,17 @@ h2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
 }
 
-.diary-class {
+.diary-class, .diary-section {
   background-color: rgba(198, 239, 240, 0.9);
-  margin: auto;
-  margin-bottom: 80px;
-  margin-top: 70px;
-  max-width: 50%;
+  margin: 20px auto;
+  flex-basis: 45%; /* Aseta alkuperäinen leveys */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   padding: 20px;
-}
-
-.diary-section {
-  margin: auto;
-  margin-top: 50px;
-  padding: 20px;
-  background-color: rgba(198, 239, 240, 0.7);
-  color: #00080c;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .diary-section h2 {
@@ -857,6 +921,7 @@ h2 {
 }
 
 #diary-form {
+  width: 90%;
   display: flex;
   flex-direction: column;
 }
@@ -874,6 +939,7 @@ h2 {
   border-radius: 4px;
 }
 
+
 #diary-form button:hover {
   background-color: #926ff5;
 }
@@ -883,9 +949,41 @@ h1 {
   text-align: center;
 }
 
-.relaxation,
-.about-stress,
+.relaxation {
+  background-color: rgba(198, 239, 240, 0.7);
+  max-width: 60%;
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 70px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
 .tips {
+  background-color: rgba(198, 239, 240, 0.7);
+  max-width: 50%;
+  margin: 50px auto; 
+  padding: 10px 20px 10px 20px; 
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  padding-bottom: 50px;
+}
+
+
+.tip {
+  background-color: #e0e0e0;
+  margin: 10px 0;
+  margin-right: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.about-stress {
+  display: flex;
+  flex-direction: column; /* Asettaa lapsielementit pystysuoraan järjestykseen */
+  align-items: center; /* Keskittää lapsielementit vaakasuunnassa */
   background-color: rgba(198, 239, 240, 0.7);
   max-width: 80%;
   margin: auto;
@@ -897,20 +995,51 @@ h1 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
 
-.about-stress,
-.tips {
+.column {
+  flex: 1 1 25%; /* Kasvaa ja kutistuu, mutta alkuarvo on 30% */
+  min-width: 200px; /* Asettaa minimileveyden sarakkeille */
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin: 0 10px;
+  margin-bottom: 20px;
+}
+
+.scroll-down-relaxation {
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  color: #007bff; /* Sininen väri */
+  text-decoration: none; /* Poista alleviivaus */
+  transition: color 0.3s;
+}
+
+.columns-container {
+  display: flex;
+  justify-content: space-between; /* Tasaisesti jakaa tilaa sarakkeiden välillä */
+  flex-wrap: wrap; /* Mahdollistaa sarakkeiden siirtymisen uudelle riville tarvittaessa */
+  width: 100%; /* Käyttää koko käytettävissä olevan leveyden .about-stress sisällä */
+}
+
+.scroll-down-relaxation:hover,
+.scroll-down-relaxation:focus {
+  color: #0056b3; /* Tummempaa sinistä hover-efektiin */
+  text-decoration: none; /* Varmista, että alleviivaus pysyy poissa */
+}
+
+
+.about-stress {
   padding: 20px;
 }
 
-.tips {
-  max-width: 50%;
-}
 
 .introduction,
 .exercises,
 .videos {
   margin-bottom: 20px;
-  max-width: 50%;
+  max-width: 60%;
   margin: auto;
 }
 
@@ -941,6 +1070,89 @@ iframe {
   }
 }
 
+.arrows {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+}
+
+
+.arrows .scroll-down {
+  padding: 20px;
+}
+
+.analysis-wrapper {
+  max-width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: auto;
+}
+
+.info-panel { 
+  background-color: #f4f4f4; 
+}
+
+.info-panel, .table-container {
+  flex: 1;  /* Molemmille elementeille annetaan yhtä paljon tilaa */
+  padding: 10px;
+  margin: 10px;
+  margin-top: 100px;  /* Säädä marginaalia tarpeen mukaan */
+  border-radius: 8px;  /* Yhtenäiset pyöristetyt kulmat */
+}
+
+.info-panel {
+  margin-top: 120px;
+}
+
+.table-container {
+  display: flex;  
+ justify-content: center;
+ overflow-y: auto;
+ max-height: 400px;  
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: separate; /* Muuttaa border-collapse asetusta varjostuksen ja reunan pyöristämisen vuoksi */
+  border-spacing: 0; /* Poistaa ylimääräisen tilan solujen väliltä */
+  margin: 0; /* Keskittää taulukon ja antaa ylä- ja alamarginaalin */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Lisää hienovaraisen varjostuksen taulukon ympärille */
+  border-radius: 10px; /* Pyöristää taulukon ulkoreunat */
+  overflow: hidden; /* Estää sisällön ulospursuamisen pyöristetyistä reunoista */
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px; /* Lisää paddingia mukavuuden ja ulkoasun parantamiseksi */
+  text-align: left; /* Tekstin kohdistus */
+  border-bottom: 1px solid #ddd; /* Viimeisen rivin poistamiseen tarvitaan muutoksia */
+  color: #080808; /* Tekstin väri */
+}
+
+.styled-table th {
+  background-color: #66a2c6; /* Sarakeotsikoiden taustaväri */
+  color: white; /* Sarakeotsikoiden tekstin väri */
+  text-align:justify; /* Otsikoiden tekstin keskitys */
+}
+
+.styled-table tbody tr:last-child td {
+  border-bottom: none; /* Poistaa viimeisen rivin alareunan */
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #a3d6f8; /* Parannettu visuaalinen erottaminen */
+  font-size: 12px;
+}
+
+.styled-table tbody tr:nth-child(odd) {
+  background-color: #f0f8ff; /* Vaihtoehtoinen väri */
+  font-size: 12px;
+}
+
+
 footer {
   position: absolute;
   left: 0;
@@ -959,6 +1171,7 @@ footer {
   background-size: 200% 100%;
   animation: heartbeat 2s linear infinite;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.9);
+
 }
 
 @media screen and (max-width: 1350px) {
@@ -1000,6 +1213,10 @@ footer {
     height: 85px;
   }
 
+  .about-stress {
+    max-width: 90%;
+  }
+
   .menu {
     display: none;
     flex-direction: column;
@@ -1013,8 +1230,9 @@ footer {
     z-index: 999999999999;
   }
 
+
   .menu li a:hover {
-    background-color: #2ccfcf;
+    background-color: #66b2e4;
   }
 
   .menu.show {
@@ -1059,6 +1277,15 @@ footer {
     position: relative;
     width: 100%;
   }
+  .chat-section {
+    max-width: 80%;
+  }
+
+  .relaxation {
+    max-width: 80%;
+  }
+
+
 }
 
 @media screen and (max-width: 1150px) {
@@ -1076,9 +1303,32 @@ footer {
   .content-wrapper {
     width: 100%;
   }
+
+  .about-stress {
+    flex-direction: column;
+  }
+  .columns-container {
+    flex-direction: column;
+  }
+
+  .tips {
+    max-width: 90%;
+  }
+
+  .introduction,
+.exercises {
+  max-width: 90%;
+}
+
+
+
 }
 
 @media screen and (max-width: 770px) {
+
+  .calendar {
+    max-width:80%;
+  }
   .sidebar {
     width: 130%;
   }
@@ -1116,4 +1366,19 @@ footer {
     height: 350px;
   }
 
+  .tips {
+    margin-bottom: 100px
+  }
+
+  .relaxation {
+    max-width: 95%;
+  }
+
+  .videos {
+    max-width: 95%;
+  }
+
+  .diary-class, .diary-section {
+    flex-basis: 100%; /* Säädä leveyttä pienemmillä näytöillä */
+  }
 }

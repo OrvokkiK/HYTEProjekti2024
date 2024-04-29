@@ -1,6 +1,6 @@
 // user-controller.mjs
 import {deleteUserById, insertUser, listAllUsers, selectUserById, updateUserInfoById} from '../models/user-model.mjs';
-// import bcrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 
 const getUsers = async (req, res) => {
   const result = await listAllUsers();
@@ -40,12 +40,17 @@ const putUserById = async (req, res) => {
   const user_id = req.params.id;
   const {username, password, first_name, last_name, chat_permission, chat_permission_date} = req.body;
   // console.log(username, password, first_name, last_name); 
-   console.log('controller:', chat_permission, chat_permission_date);
+  //  console.log('controller:', chat_permission, chat_permission_date);
   // console.log(user_id);
-  if (user_id && username && password && first_name && last_name && chat_permission && chat_permission_date) {
+
+  // hashes password if it is included in the request
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+    console.log(hashedPassword);
+    if (user_id && username && hashedPassword && first_name && last_name && chat_permission && chat_permission_date) {
     const result = await updateUserInfoById({
       username,
-      password,
+      hashedPassword,
       first_name,
       last_name,
       chat_permission,
