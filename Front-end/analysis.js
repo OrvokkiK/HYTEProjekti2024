@@ -7,15 +7,29 @@ import {showToast} from './toast.js';
 document.addEventListener('DOMContentLoaded', function () {
   const menuToggle = document.querySelector('.menu-toggle');
   const menu = document.querySelector('.menu');
+  const logoutLink = document.querySelector('.logout a');
 
   menuToggle.addEventListener('click', function () {
     menu.classList.toggle('show');
   });
+
+  logoutLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    localStorage.removeItem('analysisModalShown');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('token');
+    showToast('Kirjaudutaan ulos.');
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 2000);
+  });
+
+  getEntries(); // Kutsu tätä funktiota ladataksesi taulukon tiedot automaattisesti
 });
 
 am5.ready(function () {
     // Create root element
-    const root = am5.Root.new('graph');
+    const root = am5.Root.new('graph2');
   
     // Set themes
   
@@ -136,17 +150,59 @@ am5.ready(function () {
     
   });
 
-  // logout
-document.addEventListener('DOMContentLoaded', function () {
-  const logoutLink = document.querySelector('.logout a');
-  logoutLink.addEventListener('click', function (event) {
-    event.preventDefault();
-    localStorage.removeItem('analysisModalShown');
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('token');
-    showToast('Kirjaudutaan ulos.');
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 2000);
+
+ // analyysitulostaulukko
+ async function getEntries() {
+  const userId = localStorage.getItem("user_id");
+  const url = `http://localhost:3000/api/analysis/user/${userId}`;
+  const token = localStorage.getItem("token");
+
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  fetchData(url, options).then((data) => {
+    createTable(data);
   });
-});
+}
+
+function createTable(data) {
+  console.log(data);
+
+  const tbody = document.querySelector(".tbody");
+  tbody.innerHTML = "";
+
+  data.forEach((element) => {
+    console.log(
+      element.created_at,
+      element.analysis_result,
+      element.analysis_enumerated,
+    );
+
+    const tr = document.createElement("tr");
+
+    const formattedDate = new Date(element.created_at).toLocaleDateString(
+      "fi-FI"
+    );
+
+    const td1 = document.createElement("td");
+    td1.innerText = formattedDate;
+
+    const td2 = document.createElement("td");
+    td2.innerText = element.analysis_result;
+
+    const td3 = document.createElement("td");
+    td3.innerText = element.analysis_enumerated;
+
+
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+
+    tbody.appendChild(tr);
+  });
+}
+ 
