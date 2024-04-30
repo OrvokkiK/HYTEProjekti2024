@@ -596,7 +596,8 @@ button:hover {
 .close-button2,
 .close-button3,
 .close-button4,
-.close-modal {
+.close-modal,
+.close {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -612,7 +613,9 @@ button:hover {
 .close-button4:hover,
 .close-button4:focus,
 .close-modal:hover,
-.close-modal:focus {
+.close-modal:focus,
+.close:hover,
+.close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -1152,6 +1155,102 @@ iframe {
   font-size: 12px;
 }
 
+/* ammattilaisen tyylittelyt */
+
+
+.professional-table {
+  width: 60%; 
+  border-collapse: collapse; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+  background: white;
+  margin-bottom: 20px; 
+}
+
+.professional-table th {
+  background-color: #28527a; 
+  color: white; 
+  padding: 12px 15px; 
+  text-align: left; 
+  position: sticky;
+  top: 0; 
+  /* z-index: 10; */
+}
+
+.professional-table td {
+  padding: 10px 15px; 
+  border-bottom: 1px solid #ddd; 
+  color: #333; 
+}
+
+.professional-table tr:hover {
+  background-color: #bad4e0; 
+  cursor: pointer;
+}
+
+.professional-table thead th {
+  position: sticky;
+  top: 0;
+  /* z-index: 10; */
+}
+
+.professional {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f4f4f4;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+.detailsContent {
+  width: 100%;
+}
+
+.detail-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 10px;
+}
+
+.selection-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.selection-modal-content button {
+  margin: 10px;
+  width: 50%;
+}
+
+
 
 footer {
   position: absolute;
@@ -1318,6 +1417,10 @@ footer {
   .introduction,
 .exercises {
   max-width: 90%;
+}
+
+.detail-modal-content {
+  width: 95%;
 }
 
 
