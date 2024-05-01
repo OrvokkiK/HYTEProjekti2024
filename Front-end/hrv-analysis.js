@@ -1,5 +1,8 @@
-import { Chart } from "chart.js/auto";
-import 'chartjs-plugin-zoom';
+import { Chart, registerables } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
+
+Chart.register(...registerables, zoomPlugin);
+
 
 document.addEventListener('DOMContentLoaded', function () {
   const ctx = document.getElementById('myBarChart').getContext('2d');
