@@ -31,13 +31,13 @@
   <main>
     <div class="chat-section">
       <aside class="messages-sidebar">
-        <ul id="conversation-list" class="conversation-list"></ul>
+        <ul id="user-list" class="conversation-list"></ul>
       </aside>
       <div class="message-content">
         <div id="messages-container" class="messages-container"></div>
         <div class="message-write">
-          <input type="text" id="recipient-input" data-input-type="recipient" placeholder="Valitse vastaanottaja..."> <!-- Muutettu ID -->
-          <input type="text" id="message-input" data-input-type="message" placeholder="Kirjoita viesti...">
+          <input type="text" id="recipient-id" hidden> <!-- Piilotettu ID kenttä -->
+          <input type="text" id="message-content" data-input-type="message" placeholder="Kirjoita viesti...">
           <button id="send-button">Lähetä</button>
         </div>
       </div>
