@@ -60,20 +60,25 @@ const listConverstation = async (conversation_id) => {
 }
 
 // list conversations by sender id
-const listConversationByUserId = async (sender_id) => {
+const listConversationByUserId = async (userId) => {
   try {
-    const sql = `SELECT conversation_id FROM messages WHERE sender_id = ${sender_id}`;
-    const [rows] = await promisePool.query(sql);
+    const sql = `
+      SELECT DISTINCT conversation_id 
+      FROM messages 
+      WHERE sender_id = ? OR recipient_id = ?;
+    `;
+    const [rows] = await promisePool.query(sql, [userId, userId]);
     if (rows.length === 0) {
       return {error: 404, message: 'No conversations found'};
     } else {
       return rows;
     }
   } catch (error) {
-  console.error('Model: ListConversationByUserId', error);
-  return {error: 500, message: 'db error'};
+    console.error('Model: ListConversationByUserId', error);
+    return {error: 500, message: 'DB error'};
   }
 };
+
 // add message
 // TODO: implement cotrols that message chain hpc - regular or regular - hpc
 const insertMessage = async (conversation_id, message) => {
