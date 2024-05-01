@@ -1199,6 +1199,18 @@ iframe {
   flex-direction: column;
   align-items: center;
 }
+
+.professional-text {
+  font-size: large;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(198, 239, 240, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+}
+
 .data-table {
   width: 100%;
   border-collapse: collapse;
@@ -1248,6 +1260,7 @@ iframe {
 .selection-modal-content button {
   margin: 10px;
   width: 50%;
+  background-color: #91bedc;
 }
 
 

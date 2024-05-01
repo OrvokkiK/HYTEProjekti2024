@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
       currentConversation = event.target.dataset.conversationId;
 
 
-      // Tyhjennä viestit näytöltä ja hae viestit uudelleen valitulle keskustelulle
       const container = document.getElementById('messages-container');
       container.innerHTML = '';
       fetchMessagesForConversation(currentConversation);
@@ -149,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const messageData = {
       conversation_id: currentConversation,
-      recipient_id: currentRecipientId, // Aseta vastaanottajan id
+      recipient_id: currentRecipientId, 
       message_content: message,
       message_sent_at: isoStringWithoutZ,
       sender_id: senderId,
@@ -166,10 +165,10 @@ document.addEventListener('DOMContentLoaded', function () {
       body: JSON.stringify(messageData),
     };
     fetchData(messageUrl, options);
-    input.value = ''; // Tyhjennetään tekstikenttä
+    input.value = ''; 
     console.log('Lähetetty viesti:', message);
     fetchMessagesForConversation(currentConversation);
-    // Tähän lisätään logiikka viestin lähettämiseksi palvelimelle
+
   }
 });
 

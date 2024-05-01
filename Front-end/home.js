@@ -1058,7 +1058,7 @@ function showModal(
     lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}/3 pistettä`;
     hrvPointsElement.textContent = `HRV mittaustuloksen pistemäärä: ${hrvPoints}/3 pistettä`;
     overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}/3 pistettä`;
-    overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText} stressitaso`;
+    overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText} `;
 
     // Merkitse modaali näytetyksi
     localStorage.setItem('analysisModalShown', 'true');
@@ -1087,11 +1087,11 @@ fetchDataAndFilter(userId, token)
 
       // Määritä stressin taso kokonaispisteiden mukaan
       if (overallScore <= 1) {
-        stressLevelText = 'Matala';
+        stressLevelText = 'Matala stressitaso';
       } else if (overallScore <= 2) {
-        stressLevelText = 'Kohtalainen';
+        stressLevelText = 'Kohtalainen stressitaso';
       } else {
-        stressLevelText = 'Korkea';
+        stressLevelText = 'Korkea stressitaso';
       }
       showModal(
         symptomPoints,
