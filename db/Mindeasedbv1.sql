@@ -153,9 +153,9 @@ INSERT INTO Users(password, username, email, first_name, last_name, created_at, 
 ('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'ajones@example.com', 'ajones@example.com', 'Alice', 'Jones', '2024-03-24 09:00:00', 'kyllä', 'kyllä', '2024-03-25 09:00:00', '2024-02-26 09:00:00');
 
 -- Insert sample professional roles
-INSERT INTO Users(password, username, email, first_name, last_name, title, created_at, user_level, chat_permission, chat_permission_date) VALUES 
-('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'jane.doe@example.com', 'jane.doe@example.com', 'Jane', 'Doe', 'Ylläpitäjä', '2024-03-24 08:00:00', 'admin', 'kyllä', '2024-03-24 08:00:00'), 
-('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'bob@example.com', 'bob@example.com', 'Bob', 'Brown', 'Sairaanhoitaja', '2024-03-24 08:15:00', 'hcp', 'kyllä', '2024-03-24 08:15:00');
+INSERT INTO Users(password, username, title, created_at, user_level, chat_permission, chat_permission_date, email) VALUES 
+('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'jane.doe@example.com', 'Ylläpitäjä', '2024-03-24 08:00:00', 'admin', 'kyllä', '2024-03-24 08:00:00', 'jane.doe@example.com'), 
+('$2a$10$MlG42c49xY993QgyouBdKOb4XltlVQM2DO1SkrJclD3z/819EHQz2', 'bob@example.com', 'Sairaanhoitaja', '2024-03-24 08:15:00', 'hcp', 'kyllä', '2024-03-24 08:15:00', 'bob@example.com');
 
 -- Insert sample symptoms (oirekysely)
 INSERT INTO Symptoms(entry_date, frustration, grumpiness, recall_problems, restlesness, disquiet,
@@ -187,9 +187,9 @@ INSERT INTO Intoxicants(entry_date, caffeine, nicotine, alcohol, user_id) VALUES
 
 -- Insert sample messages
 INSERT INTO Messages(conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES 
-('1', '5', 'Moi, miten voin auttaa?', '2024-03-25 09:00:00', '1'),
-('1', '1', 'Moi, mua stressaa.', '2024-03-25 09:01:00', '5'),
-('1', '5', 'Okei, katon sun tietoja.', '2024-03-25 09:02:00', '1');
+('1', '5', 'Moi, miten voin auttaa?', '2024-03-25 09:00:00', '7'),
+('1', '7', 'Moi, mua stressaa.', '2024-03-25 09:01:00', '5'),
+('1', '5', 'Okei, katon sun tietoja.', '2024-03-25 09:02:00', '7');
 
 -- Insert sample lifestyle factors (Elämäntapakysely)
 INSERT INTO hrv_analysis(stress_index, mood, entry_date, av_hrv, user_id) VALUES 

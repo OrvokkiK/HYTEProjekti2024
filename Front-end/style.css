@@ -211,7 +211,7 @@ li a:hover,
 }
 
 #professionalLoginBtn {
-  background: rgba(70, 126, 186, 0.8);
+  background: rgba(118, 167, 220, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   color: rgb(245, 244, 242);
   width: 150px;
@@ -235,6 +235,10 @@ li a:hover,
   background: rgba(70, 126, 186, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   border-radius: 10px;
+}
+
+#professionalLoginForm {
+  background: rgba(118, 167, 220, 0.8);
 }
 
 
@@ -1199,6 +1203,18 @@ iframe {
   flex-direction: column;
   align-items: center;
 }
+
+.professional-text {
+  font-size: large;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(198, 239, 240, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+}
+
 .data-table {
   width: 100%;
   border-collapse: collapse;
@@ -1248,6 +1264,7 @@ iframe {
 .selection-modal-content button {
   margin: 10px;
   width: 50%;
+  background-color: #91bedc;
 }
 
 

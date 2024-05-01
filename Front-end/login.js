@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const form = event.target;
         const url = 'http://localhost:3000/api/auth/login';
         const redirectUrl = 'home.html'; // Ohjaus asiakkaan etusivulle
-        processLogin(url, form, redirectUrl);
+        processUserLogin(url, form, redirectUrl);
     });
 
     // Ammattilaisen kirjautumislogiikka
@@ -37,11 +37,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const form = event.target;
         const url = 'http://localhost:3000/api/auth/professional/login';
         const redirectUrl = 'professional.html'; // Ohjaus ammattilaisen sivulle
-        processLogin(url, form, redirectUrl);
+        processProfessionalLogin(url, form, redirectUrl);
     });
 });
 
-function processLogin(url, form, redirectUrl) {
+function processUserLogin(url, form, redirectUrl) {
+    processLogin(url, form, redirectUrl, false);
+}
+
+function processProfessionalLogin(url, form, redirectUrl) {
+    processLogin(url, form, redirectUrl, true);
+}
+
+function processLogin(url, form, redirectUrl, isProfessional) {
     showToast('Kirjaudutaan sisään...');
 
     const usernameInput = form.querySelector('input[type="text"]');
@@ -61,11 +69,13 @@ function processLogin(url, form, redirectUrl) {
     };
 
     fetchData(url, options).then(data => {
+        console.log(data);
         if (data.token) {
             showToast('Kirjautuminen onnistui!');
             localStorage.setItem('token', data.token);
             localStorage.setItem('name', data.user.family_name);
-            localStorage.setItem('user_id', data.user_id);
+            const userId = isProfessional ? data.user.user_id : data.user_id;
+            localStorage.setItem('user_id', userId);
             setTimeout(() => {
                 window.location.href = redirectUrl;
             }, 1000);
