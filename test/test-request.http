@@ -216,6 +216,13 @@ GET http://localhost:3000/api/riskgroup/
 PUT http://localhost:3000/api/riskgroup/2
 
 ##
+## /api/student routes
+## 
+
+### GET all student's ids and usernames
+GET http://localhost:3000/api/student/
+
+##
 ## /api/auth routes
 ##
 

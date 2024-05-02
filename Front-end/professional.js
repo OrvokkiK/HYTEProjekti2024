@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 async function fetchUsers() {
-  const url = 'http://localhost:3000/api/users';
+  const url = 'http://localhost:3000/api/users/';
+  // http://localhost:3000/api/student/ 
   const token = localStorage.getItem('token');
   const options = {
     method: 'GET',

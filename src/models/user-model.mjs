@@ -14,6 +14,18 @@ const listAllUsers = async () => {
   }
 };
 
+const listAllStudents = async () => {
+  try {
+    const sql = 'SELECT user_id, username FROM Users WHERE user_level = "' + 'regular"';
+    const [rows] = await promisePool.query(sql);
+    console.log(rows);
+    return rows;
+  } catch (error) {
+    console.error('Model: listAllStudents:');
+    return {error: 500, message: 'db error'};
+  }
+};
+
 // List all of the user's info
 // still returns an empty set even if set is empty??
 const selectUserById = async (id) => {
@@ -203,6 +215,7 @@ const updateRiskgroupByUserId = async(user_id) => {
 
 export {
   listAllUsers,
+  listAllStudents,
   selectUserById,
   insertUser,
   updateUserInfoById,

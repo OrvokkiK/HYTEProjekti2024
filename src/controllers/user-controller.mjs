@@ -1,5 +1,5 @@
 // user-controller.mjs
-import {deleteUserById, insertUser, listAllUsers, selectUserById, selectUsersByRiskgroup, updateUserInfoById} from '../models/user-model.mjs';
+import {deleteUserById, insertUser, listAllStudents, listAllUsers, selectUserById, selectUsersByRiskgroup, updateUserInfoById} from '../models/user-model.mjs';
 import bcrypt from 'bcryptjs';
 
 // get all of the users info
@@ -73,7 +73,7 @@ const putUserById = async (req, res) => {
 // delete user
 const removeUser = async (req, res) => {
   const user_id = req.params.id;
-  const result = await deleteUserById(user_id)
+  const result = await deleteUserById(user_id);
   if (result.error) {
     return res.status(result.error).json(result);
   }
@@ -98,9 +98,18 @@ const removeUser = async (req, res) => {
   }
 };*/
 
+const getAllStudents = async(req, res) => {
+  const result = await listAllStudents();
+  if (result.error) {
+    return res.status(result.error).json(result);
+  }
+  return res.json(result); 
+};
+
 export {getUsers,
   getUserById,
   postNewUser,
   putUserById,
-  removeUser
+  removeUser,
+  getAllStudents,
   };
