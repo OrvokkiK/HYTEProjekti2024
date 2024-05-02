@@ -211,7 +211,7 @@ li a:hover,
 }
 
 #professionalLoginBtn {
-  background: rgba(70, 126, 186, 0.8);
+  background: rgba(118, 167, 220, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   color: rgb(245, 244, 242);
   width: 150px;
@@ -227,13 +227,20 @@ li a:hover,
 #userLoginBtn:active,
 #professionalLoginBtn:active {
   border: 1px solid white;
+  background-color: #2b418a;
 }
+
 
 .login_form {
   background: rgba(70, 126, 186, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
   border-radius: 10px;
 }
+
+#professionalLoginForm {
+  background: rgba(118, 167, 220, 0.8);
+}
+
 
 .login_form .nav-logo {
   margin: 0;
@@ -459,7 +466,8 @@ button:hover {
   padding: 20px;
 }
 
-#graph {
+#graph,
+#graph2 {
   border-radius: 10px;
   padding: 15px;
   margin-left: 20%;
@@ -470,6 +478,10 @@ button:hover {
   margin: auto;
   margin-bottom: 40px;
   margin-top: 40px;
+}
+
+#graph2 {
+  margin-bottom: 100px;
 }
 
 .links {
@@ -485,10 +497,11 @@ button:hover {
 
 .calendar {
   border-radius: 10px;
-  padding: 15px;
-  margin-left: 15%;
-  max-width: 85%;
-  height: 100%;
+  padding: 10px;
+  margin: 0 auto; 
+  max-width: 500px; 
+  width: 90%; 
+  height: auto; 
   background-color: rgba(198, 239, 240, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
@@ -506,7 +519,7 @@ button:hover {
 }
 
 .calendar td {
-  border-radius: 90px;
+  border-radius: 50%;
   padding: 10px;
   text-align: center;
 }
@@ -522,9 +535,10 @@ button:hover {
   color: white;
 }
 
-.current-date:hover {
+/* .current-date:hover {
   background-color: #b4b0b0;
-}
+} */
+
 
 .dot {
   height: 8px;
@@ -585,7 +599,9 @@ button:hover {
 .close-button,
 .close-button2,
 .close-button3,
-.close-button4 {
+.close-button4,
+.close-modal,
+.close {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -599,7 +615,11 @@ button:hover {
 .close-button3:hover,
 .close-button3:focus,
 .close-button4:hover,
-.close-button4:focus {
+.close-button4:focus,
+.close-modal:hover,
+.close-modal:focus,
+.close:hover,
+.close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -809,6 +829,7 @@ aside.messages-sidebar {
   width: 40%;
 }
 
+
 .chart-container {
   display: flex;
   justify-content: center;
@@ -826,6 +847,13 @@ aside.messages-sidebar {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   padding: 20px;
+}
+
+.hrv-section {
+  background-color: #e9ecef;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 h2 {
@@ -881,27 +909,17 @@ h2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
 }
 
-.diary-class {
+.diary-class, .diary-section {
   background-color: rgba(198, 239, 240, 0.9);
-  margin: auto;
-  margin-bottom: 80px;
-  margin-top: 70px;
-  max-width: 50%;
+  margin: 20px auto;
+  flex-basis: 45%; /* Aseta alkuperäinen leveys */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   padding: 20px;
-}
-
-.diary-section {
-  margin: auto;
-  margin-top: 50px;
-  padding: 20px;
-  background-color: rgba(198, 239, 240, 0.7);
-  color: #00080c;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .diary-section h2 {
@@ -910,6 +928,7 @@ h2 {
 }
 
 #diary-form {
+  width: 90%;
   display: flex;
   flex-direction: column;
 }
@@ -926,6 +945,7 @@ h2 {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 
 #diary-form button:hover {
   background-color: #926ff5;
@@ -950,15 +970,21 @@ h1 {
 
 .tips {
   background-color: rgba(198, 239, 240, 0.7);
-  max-width: 60%;
-  margin: auto;
-  padding-top: 10px;
-  padding-left: 20px;
-  padding-bottom: 10px;
-  margin-top: 40px;
-  margin-bottom: 80px;
+  max-width: 50%;
+  margin: 50px auto; 
+  padding: 10px 20px 10px 20px; 
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  padding-bottom: 50px;
+}
+
+
+.tip {
+  background-color: #e0e0e0;
+  margin: 10px 0;
+  margin-right: 20px;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .about-stress {
@@ -1064,6 +1090,185 @@ iframe {
   padding: 20px;
 }
 
+.analysis-wrapper {
+  max-width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: auto;
+}
+
+.info-panel { 
+  background-color: #f4f4f4; 
+}
+
+.info-panel, .table-container {
+  flex: 1;  /* Molemmille elementeille annetaan yhtä paljon tilaa */
+  padding: 10px;
+  margin: 10px;
+  margin-top: 100px;  /* Säädä marginaalia tarpeen mukaan */
+  border-radius: 8px;  /* Yhtenäiset pyöristetyt kulmat */
+}
+
+.info-panel {
+  margin-top: 120px;
+}
+
+.table-container {
+  display: flex;  
+ justify-content: center;
+ overflow-y: auto;
+ max-height: 400px;  
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: separate; /* Muuttaa border-collapse asetusta varjostuksen ja reunan pyöristämisen vuoksi */
+  border-spacing: 0; /* Poistaa ylimääräisen tilan solujen väliltä */
+  margin: 0; /* Keskittää taulukon ja antaa ylä- ja alamarginaalin */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Lisää hienovaraisen varjostuksen taulukon ympärille */
+  border-radius: 10px; /* Pyöristää taulukon ulkoreunat */
+  overflow: hidden; /* Estää sisällön ulospursuamisen pyöristetyistä reunoista */
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px; /* Lisää paddingia mukavuuden ja ulkoasun parantamiseksi */
+  text-align: left; /* Tekstin kohdistus */
+  border-bottom: 1px solid #ddd; /* Viimeisen rivin poistamiseen tarvitaan muutoksia */
+  color: #080808; /* Tekstin väri */
+}
+
+.styled-table th {
+  background-color: #66a2c6; /* Sarakeotsikoiden taustaväri */
+  color: white; /* Sarakeotsikoiden tekstin väri */
+  text-align:justify; /* Otsikoiden tekstin keskitys */
+}
+
+.styled-table tbody tr:last-child td {
+  border-bottom: none; /* Poistaa viimeisen rivin alareunan */
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #a3d6f8; /* Parannettu visuaalinen erottaminen */
+  font-size: 12px;
+}
+
+.styled-table tbody tr:nth-child(odd) {
+  background-color: #f0f8ff; /* Vaihtoehtoinen väri */
+  font-size: 12px;
+}
+
+/* ammattilaisen tyylittelyt */
+
+
+.professional-table {
+  width: 60%; 
+  border-collapse: collapse; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+  background: white;
+  margin-bottom: 20px; 
+}
+
+.professional-table th {
+  background-color: #28527a; 
+  color: white; 
+  padding: 12px 15px; 
+  text-align: left; 
+  position: sticky;
+  top: 0; 
+  /* z-index: 10; */
+}
+
+.professional-table td {
+  padding: 10px 15px; 
+  border-bottom: 1px solid #ddd; 
+  color: #333; 
+}
+
+.professional-table tr:hover {
+  background-color: #bad4e0; 
+  cursor: pointer;
+}
+
+.professional-table thead th {
+  position: sticky;
+  top: 0;
+  /* z-index: 10; */
+}
+
+.professional {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.professional-text {
+  font-size: large;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(198, 239, 240, 0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f4f4f4;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+.detailsContent {
+  width: 100%;
+}
+
+.detail-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 10px;
+}
+
+.selection-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.selection-modal-content button {
+  margin: 10px;
+  width: 50%;
+  background-color: #91bedc;
+}
+
+
+
 footer {
   position: absolute;
   left: 0;
@@ -1082,6 +1287,7 @@ footer {
   background-size: 200% 100%;
   animation: heartbeat 2s linear infinite;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.9);
+
 }
 
 @media screen and (max-width: 1350px) {
@@ -1230,11 +1436,19 @@ footer {
   max-width: 90%;
 }
 
+.detail-modal-content {
+  width: 95%;
+}
+
 
 
 }
 
 @media screen and (max-width: 770px) {
+
+  .calendar {
+    max-width:80%;
+  }
   .sidebar {
     width: 130%;
   }
@@ -1282,5 +1496,9 @@ footer {
 
   .videos {
     max-width: 95%;
+  }
+
+  .diary-class, .diary-section {
+    flex-basis: 100%; /* Säädä leveyttä pienemmillä näytöillä */
   }
 }
