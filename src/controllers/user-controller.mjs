@@ -99,11 +99,17 @@ const removeUser = async (req, res) => {
 };*/
 
 const getAllStudents = async(req, res) => {
-  const result = await listAllStudents();
-  if (result.error) {
-    return res.status(result.error).json(result);
+  const user_level = req.user.user_level;
+  if (user_level === 'admin' || user_level === 'hpc') {
+    console.log(user_level);
+    const result = await listAllStudents();
+    if (result.error) {
+      return res.status(result.error).json(result);
+    }
+    return res.json(result); 
+  } else {
+    return res.status(403).json('Forbidden');
   }
-  return res.json(result); 
 };
 
 export {getUsers,
