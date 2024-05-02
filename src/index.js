@@ -15,6 +15,7 @@ import symptomUserRouter from './routes/symptom-user-router.mjs';
 import lifestyleRouter from './routes/lifestyle-router.mjs';
 import hrvRouter from './routes/hrv-router.mjs';
 import authProfRouter from './routes/auth-prof-router.mjs';
+import riskgroupRouter from './routes/riskgroup-router.mjs';
 
 
 
@@ -59,6 +60,9 @@ app.use('/api/analysis/', analysisRouter);
 
 // message route
 app.use('/api/messages/', messageRouter);
+
+// riskgroup route
+app.use('/api/riskgroup/', riskgroupRouter);
 
 // analysis router
 app.use('/api/analysis/', analysisRouter);

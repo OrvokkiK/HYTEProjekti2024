@@ -9,7 +9,6 @@ GET http://localhost:3000/api/users
 GET http://localhost:3000/api/users/6
 
 
-
 ### POST new user
 POST  http://localhost:3000/api/users
 content-type: application/json
@@ -206,6 +205,15 @@ DELETE http://localhost:3000/api/analysis/4
 ### GET analyses by user
 GET http://localhost:3000/api/analysis/user/3
 
+##
+## /api/riskgroup/ routes
+##
+
+### GET users in riskgroup
+GET http://localhost:3000/api/riskgroup/
+
+### Change users riskgroup
+PUT http://localhost:3000/api/riskgroup/2
 
 ##
 ## /api/auth routes

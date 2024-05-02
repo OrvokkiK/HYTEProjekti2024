@@ -31,6 +31,7 @@ const selectUserById = async (id) => {
   }
   return { error: 500, message: "db error" };
 };
+
 // Used for hpc and admin login
 const selectUserByUsername = async (username) => {
  try {
@@ -51,6 +52,20 @@ const selectUserByUsername = async (username) => {
   }
   } catch (error) {
     console.error('Model: selectUserByusername', error);
+    return {error: 500, message: 'db error'};
+  }
+};
+
+// Returns the ids of users that are in riskgroup
+const selectUsersByRiskgroup = async () => {
+  try {
+    const risk_group = "kyllä";
+    const sql = 'SELECT user_id FROM users WHERE risk_group = "' + risk_group + '"';
+    console.log(sql);
+    const [rows] = await promisePool.query(sql);
+    return rows
+  } catch (error) {
+    console.error('Model: selectUsersByRiskgroup', error);
     return {error: 500, message: 'db error'};
   }
 };
@@ -162,6 +177,25 @@ const selectUserByEmail = async (email) => {
 };*/
 
 //update riskgroup
+const updateRiskgroupByUserId = async(user_id) => {
+  try {
+    // const riskGroup = kyllä;
+    const sql = `UPDATE users SET risk_group="kyllä` + `" WHERE user_id=${user_id}`;
+    console.log(sql);
+    const [rows] = await promisePool.query(sql);
+    console.log(rows); 
+    if (rows.affectedRows === 0) {
+      return {error: 404, message: 'user not found' };
+    } else {
+      return {message: 'User riskgroup updated'};
+    }
+    
+  } catch (error) {
+    console.error('updateRiskgroupByUserId: ',error );
+    return {error: 500, message: 'db error'};
+  }
+};
+
 // TODO: Implement
 
 //update chat priviledges
@@ -174,5 +208,7 @@ export {
   updateUserInfoById,
   deleteUserById,
   selectUserByEmail,
-  selectUserByUsername
+  selectUserByUsername,
+  selectUsersByRiskgroup,
+  updateRiskgroupByUserId
 };
