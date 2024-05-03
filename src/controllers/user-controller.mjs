@@ -100,7 +100,7 @@ const removeUser = async (req, res) => {
 
 const getAllStudents = async(req, res) => {
   const user_level = req.user.user_level;
-  if (user_level === 'admin' || user_level === 'hpc') {
+  if (user_level === 'admin' || user_level === 'hcp') {
     console.log(user_level);
     const result = await listAllStudents();
     if (result.error) {
