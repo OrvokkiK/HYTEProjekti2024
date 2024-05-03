@@ -1073,15 +1073,15 @@ function showModal(
     const modal = document.getElementById('overall-analysis-modal');
     modal.style.display = 'block'; // Asetetaan modaali näkyväksi
 
-    const symptomPointsElement = document.getElementById('symptom-points');
-    const hrvPointsElement = document.getElementById('hrv-points');
-    const lifestylePointsElement = document.getElementById('lifestyle-points');
+    // const symptomPointsElement = document.getElementById('symptom-points');
+    // const hrvPointsElement = document.getElementById('hrv-points');
+    // const lifestylePointsElement = document.getElementById('lifestyle-points');
     const overallScoreElement = document.getElementById('overall-score');
     const overallTextElement = document.getElementById('overall-text');
 
-    symptomPointsElement.textContent = `Oirekyselyn pistemäärä: ${symptomPoints}/3 pistettä`;
-    lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}/3 pistettä`;
-    hrvPointsElement.textContent = `HRV mittaustuloksen pistemäärä: ${hrvPoints}/3 pistettä`;
+    // symptomPointsElement.textContent = `Oirekyselyn pistemäärä: ${symptomPoints}/3 pistettä`;
+    // lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}/3 pistettä`;
+    // hrvPointsElement.textContent = `HRV mittaustuloksen pistemäärä: ${hrvPoints}/3 pistettä`;
     overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}/3 pistettä`;
     overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText} `;
 
