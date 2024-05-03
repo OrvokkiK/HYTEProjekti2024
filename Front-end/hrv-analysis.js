@@ -132,10 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           }
         }
-              },
-            },
-          },
-        },
       });
       const chartArea = myBarChart.chartArea;
       const minPixel = chartArea.right - 10 * (chartArea.right - chartArea.left) / chartData.labels.length;

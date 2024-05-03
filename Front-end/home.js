@@ -1083,6 +1083,7 @@ function showModal(
     // lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}/3 pistettä`;
     // hrvPointsElement.textContent = `HRV mittaustuloksen pistemäärä: ${hrvPoints}/3 pistettä`;
     overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}/3 pistettä`;
+    overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText}`;
     overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText} `;
 
     // Merkitse modaali näytetyksi
