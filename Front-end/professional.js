@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 async function fetchUsers() {
-  const url = 'http://localhost:3000/api/users/';
+  const url = 'http://localhost:3000/api/student/';
   // http://localhost:3000/api/student/ 
   const token = localStorage.getItem('token');
   const options = {
@@ -53,7 +53,7 @@ function displayUsers(users) {
     const tbody = document.querySelector('#userTable tbody');
     tbody.innerHTML = '';
 
-    users.filter(user => user.user_level === 'regular').forEach((user) => {
+    users.forEach((user) => {
         const row = document.createElement('tr');
         row.innerHTML = `<td>${user.user_id}</td><td>${user.username}</td><td>${user.title}</td>`;
         row.onclick = () => selectUser(user.user_id); // Lisätään klikkauskuuntelija
