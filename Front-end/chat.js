@@ -132,14 +132,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     if (!response.ok) throw new Error('Failed to fetch user');
     const userData = await response.json();
-    console.log(userData);
-    console.log('username:',userData.username);
-    return userData.username;
+    return userData[0].username;
   }
 
   function updateConversationHeader(username) {
     const header = document.getElementById('conversation-header');
-    header.textContent = `Keskustelu käyttäjän ${username} kanssa`;
+    header.textContent = `Keskustelu sairaanhoitajan ${username} kanssa`;
   }
   
 
