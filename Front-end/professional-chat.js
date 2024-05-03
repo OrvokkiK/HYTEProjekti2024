@@ -23,15 +23,18 @@ document.addEventListener('DOMContentLoaded', function () {
   fetchUsers();
 
   async function fetchUsers() {
-    const usersUrl = 'http://localhost:3000/api/users/';
-    try {
-      const users = await fetchData(usersUrl, {
-        headers: {Authorization: `Bearer ${token}`},
-      });
-      displayUsers(users);
-    } catch (error) {
+    const usersUrl = 'http://localhost:3000/api/student/';
+    fetchData(usersUrl, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((users) => {
+      // Suodatetaan käyttäjät, jotka ovat 'regular' tasolla
+      const regularUsers = users.filter(user => user.user_level === 'regular');
+      displayUsers(regularUsers);
+    })
+    .catch((error) => {
       console.error('Error fetching users:', error);
-    }
+    });
   }
 
   function displayUsers(users) {
@@ -53,26 +56,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   async function fetchConversationsAndMessagesForUser(selectedUserId) {
     const apiUrl = `http://localhost:3000/api/messages/user/${selectedUserId}`;
-    try {
-      const conversations = await fetchData(apiUrl, {
-        headers: {Authorization: `Bearer ${token}`},
+    fetchData(apiUrl, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((conversations) => {
+        messagesContainer.innerHTML = ''; // Tyhjennä viestit
+        if (conversations.length > 0) {
+          currentConversationId = conversations[0].conversation_id; // Oleta, että valitaan ensimmäinen keskustelu
+          conversations.forEach((conversation) =>
+            fetchMessagesForConversation(conversation.conversation_id),
+          );
+        } else {
+          currentConversationId = null; // Ei keskusteluja, tyhjennä nykyinen ID
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching conversations:', error);
+        messagesContainer.innerHTML = 'Ei viestejä.';
       });
-      messagesContainer.innerHTML = ''; // Tyhjennä viestit
-      if (conversations.length > 0) {
-        currentConversationId = conversations[0].conversation_id; // Oleta, että valitaan ensimmäinen keskustelu
-        conversations.forEach((conversation) =>
-          fetchMessagesForConversation(conversation.conversation_id),
-        );
-      } else {
-        currentConversationId = null; // Ei keskusteluja, tyhjennä nykyinen ID
-      }
-    } catch (error) {
-      console.error('Error fetching conversations:', error);
-      messagesContainer.innerHTML = 'Ei viestejä.';
-    }
   }
 
-  function fetchMessagesForConversation(conversationId, userId) {
+
+  function fetchMessagesForConversation(conversationId) {
     const apiUrl = `http://localhost:3000/api/messages/conversation/${conversationId}`;
     fetchData(apiUrl, {headers: {Authorization: `Bearer ${token}`}})
       .then((messages) => {
@@ -83,14 +88,34 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-function displayMessages(messages, userId) {
-  messagesContainer.innerHTML = ''; // Tyhjennä viestit ennen uusien näyttämistä
-  messages.forEach((message) => {
-    const className = parseInt(message.sender_id) === parseInt(userId) ? 'client' : 'professional';
-    console.log(className);
-    displayMessage(message, className);
-  });
-}
+  function displayMessages(messages, userId) {
+    const container = document.getElementById('messages-container');
+    container.innerHTML = ''; // Tyhjennetään vanhat viestit
+
+    messages.forEach((message) => {
+      const utcDate = new Date(message.message_sent_at);
+      const localDate = utcDate.toLocaleString('fi-FI', {
+        timeZone: 'Europe/Helsinki',
+      }); // Olettaen että haluat näyttää ajan Helsingin aikavyöhykkeellä
+      const messageDiv = document.createElement('div');
+      // Määritellään viestin tyyliluokka sen perusteella, onko käyttäjä lähettäjä vai vastaanottaja
+      if (parseInt(message.sender_id) === parseInt(userId)) {
+        messageDiv.className = 'message client';
+      } else {
+        messageDiv.className = 'message professional';
+      }
+      messageDiv.innerHTML = `
+      <div class="date">${localDate}</div>
+        <div class="message-text">${message.message_content}</div>
+      `;
+      container.appendChild(messageDiv);
+    });
+
+    if (messages.length === 0) {
+      container.innerHTML =
+        '<div class="no-messages">Ei saapuneita viestejä</div>';
+    }
+  }
 
   
 
@@ -123,20 +148,8 @@ function displayMessages(messages, userId) {
     fetchData(sendMessageUrl, options);
     console.log('Message sent successfully');
     messageInput.value = '';
-    displayMessage(messageData, 'client');
+    fetchMessagesForConversation(currentConversationId);
   }
 
-  function displayMessage(message, userId) {
-    const className = parseInt(message.sender_id) === parseInt(userId) ? 'client' : 'professional';
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${className}`;
-    const messageTime = new Date(message.message_sent_at).toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' });
-    messageDiv.innerHTML = `
-      <div class="date">${messageTime}</div>
-      <div class="message-text">${message.message_content}</div>
-    `;
-    messagesContainer.appendChild(messageDiv);
-  }
-  
   
 });

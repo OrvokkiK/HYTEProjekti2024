@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!currentRecipientId) {
         console.error('No recipient ID found for selected conversation');
       }
-      // Tyhjennä viestit ja hae uudet
+
       const container = document.getElementById('messages-container');
       container.innerHTML = '';
       fetchMessagesForConversation(currentConversation);
@@ -98,22 +98,49 @@ document.addEventListener('DOMContentLoaded', function () {
   function fetchMessagesForConversation(conversationId) {
     const messagesUrl = `http://localhost:3000/api/messages/conversation/${conversationId}`;
     fetchData(messagesUrl, fetchOptions)
-        .then((messages) => {
-            if (Array.isArray(messages) && messages.length > 0) {
-                const nonUserMessage = messages.find(message => message.sender_id !== userId);
-                if (nonUserMessage) {
-                    currentRecipientId = nonUserMessage.sender_id;
-                }
-                displayMessages(messages, userId);
-            } else {
-                messageContainer.innerHTML = '<div class="no-messages">Ei viestejä tässä keskustelussa.</div>';
-            }
-        })
-        .catch((error) => {
-            console.error(`Viestien haku epäonnistui keskustelulle ${conversationId}:`, error);
-        });
-}
+      .then((messages) => {
+        if (Array.isArray(messages) && messages.length > 0) {
+          const nonUserMessage = messages.find(message => message.sender_id !== userId);
+          if (nonUserMessage) {
+            currentRecipientId = nonUserMessage.sender_id;
+            console.log('tämä on vastaanottaja', currentRecipientId);
+            fetchUserName(currentRecipientId).then(username => {
+              console.log(username);
+              updateConversationHeader(username);
+              displayMessages(messages, userId);
+            }).catch(error => {
+              console.error('Failed to fetch user name:', error);
+            });
+          } else {
+            displayMessages(messages, userId);
+          }
+        } else {
+          messageContainer.innerHTML = '<div class="no-messages">Ei viestejä tässä keskustelussa.</div>';
+        }
+      })
+      .catch((error) => {
+        console.error(`Viestien haku epäonnistui keskustelulle ${conversationId}:`, error);
+      });
+  }
+  async function fetchUserName(userId) {
+    const userUrl = `http://localhost:3000/api/users/${userId}`;
+    const response = await fetch(userUrl, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    if (!response.ok) throw new Error('Failed to fetch user');
+    const userData = await response.json();
+    console.log(userData);
+    console.log('username:',userData.username);
+    return userData.username;
+  }
 
+  function updateConversationHeader(username) {
+    const header = document.getElementById('conversation-header');
+    header.textContent = `Keskustelu käyttäjän ${username} kanssa`;
+  }
   
 
 
