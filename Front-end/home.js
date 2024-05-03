@@ -594,8 +594,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       feel_healthy: document.querySelector('input[name="feelHealthy"]:checked')
         ? document.querySelector('input[name="feelHealthy"]:checked').value
         : '',
-      medication: document.getElementById('medication').value,
-      medication_purpose: document.getElementById('medication-purpose').value,
       caffeine_intake: document.getElementById('caffeine').value,
       nicotine_intake: document.getElementById('nicotine').value,
       alcohol_intake: document.getElementById('alcohol').value,
@@ -780,8 +778,8 @@ document.addEventListener('DOMContentLoaded', () => {
           Stressi-indeksi: ${parseFloat(stress_index).toFixed(2)}<br>
           Mieliala: ${user_happiness}<br>
           Valmiustila: ${parseFloat(readiness).toFixed(0)} %<br>
-          Keskimääräinen RR väli: ${parseFloat(mean_rr_ms).toFixed(2)} ms<br>
-          SDNN: ${parseFloat(sdnn_ms).toFixed(2)} ms
+          Keskimääräinen RR väli: ${parseFloat(mean_rr_ms).toFixed(0)} ms<br>
+          SDNN: ${parseFloat(sdnn_ms).toFixed(0)} ms
       `;
         } else {
           resultDiv.textContent =
@@ -1048,17 +1046,17 @@ function showModal(
     const modal = document.getElementById('overall-analysis-modal');
     modal.style.display = 'block'; // Asetetaan modaali näkyväksi
 
-    const symptomPointsElement = document.getElementById('symptom-points');
-    const hrvPointsElement = document.getElementById('hrv-points');
-    const lifestylePointsElement = document.getElementById('lifestyle-points');
+    // const symptomPointsElement = document.getElementById('symptom-points');
+    // const hrvPointsElement = document.getElementById('hrv-points');
+    // const lifestylePointsElement = document.getElementById('lifestyle-points');
     const overallScoreElement = document.getElementById('overall-score');
     const overallTextElement = document.getElementById('overall-text');
 
-    symptomPointsElement.textContent = `Oirekyselyn pistemäärä: ${symptomPoints}/3 pistettä`;
-    lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}/3 pistettä`;
-    hrvPointsElement.textContent = `HRV mittaustuloksen pistemäärä: ${hrvPoints}/3 pistettä`;
+    // symptomPointsElement.textContent = `Oirekyselyn pistemäärä: ${symptomPoints}/3 pistettä`;
+    // lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}/3 pistettä`;
+    // hrvPointsElement.textContent = `HRV mittaustuloksen pistemäärä: ${hrvPoints}/3 pistettä`;
     overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}/3 pistettä`;
-    overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText} stressitaso`;
+    overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText}`;
 
     // Merkitse modaali näytetyksi
     localStorage.setItem('analysisModalShown', 'true');
@@ -1087,11 +1085,11 @@ fetchDataAndFilter(userId, token)
 
       // Määritä stressin taso kokonaispisteiden mukaan
       if (overallScore <= 1) {
-        stressLevelText = 'Matala';
+        stressLevelText = 'Matala stressi';
       } else if (overallScore <= 2) {
-        stressLevelText = 'Kohtalainen';
+        stressLevelText = 'Kohtalainen stressi';
       } else {
-        stressLevelText = 'Korkea';
+        stressLevelText = 'Korkea stressi';
       }
       showModal(
         symptomPoints,
