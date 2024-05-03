@@ -9,7 +9,6 @@ GET http://localhost:3000/api/users
 GET http://localhost:3000/api/users/6
 
 
-
 ### POST new user
 POST  http://localhost:3000/api/users
 content-type: application/json
@@ -17,21 +16,22 @@ content-type: application/json
 {
     "username": "orvokki.kettula@example.com",
     "password": "isopahaadmin",
+    "email" : "orvokki.kettula@example.com",
     "first_name": "Orvokki",
     "last_name": "Kettula"
 }
 
 ### PUT (edit) an existing user's info
-PUT http://localhost:3000/api/users/6
+PUT http://localhost:3000/api/users/5
 Content-Type: application/json
 
 {
-    "username": "Orvokki.Kettula@example.com",
-    "password": "TOIMIIKOviel", 
-    "first_name": "Orvokki",
-    "last_name": "K",
-    "chat_permission" : "kyllä",
-    "chat_permission_date" : "2024-3-31 09:00:00"
+    "username": "bob@example.com",
+    "password": "hashed_password", 
+    "first_name": "Bob",
+    "last_name": "Brown",
+    "chat_permission" : "Kyllä",
+    "chat_permission_date" : "2024-4-21 09:00:00"
 }
 
 ### DELETE an existing user;
@@ -123,9 +123,9 @@ POST http://localhost:3000/api/messages
 Content-Type: application/json
 
 {
-  "conversation_id": "2",
-  "recipient_id": "1", 
-  "message_content": "Toimiiko?",
+  "conversation_id": "1",
+  "recipient_id": "3", 
+  "message_content": "Toimiiko tää vittu?",
   "message_sent_at" : "2024-4-3 09:00:00",
   "sender_id": "2"
 }
@@ -204,3 +204,45 @@ DELETE http://localhost:3000/api/analysis/4
 
 ### GET analyses by user
 GET http://localhost:3000/api/analysis/user/3
+
+##
+## /api/riskgroup/ routes
+##
+
+### GET users in riskgroup
+GET http://localhost:3000/api/riskgroup/
+
+### Change users riskgroup
+PUT http://localhost:3000/api/riskgroup/2
+
+##
+## /api/student routes
+## 
+
+### GET all student's ids and usernames (token)
+GET http://localhost:3000/api/student/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImt1Ymlvc0lkVG9rZW4iOiJleUpyYVdRaU9pSlFWRVJSVUdaTGJqVTJiWEI1UlU5cGNIVnhPR1JGVURCUGVYbEpNV2gxV2xRd01WSlZla2RYVVN0UlBTSXNJbUZzWnlJNklsSlRNalUySW4wLmV5SmhkRjlvWVhOb0lqb2lSRWw1YWxoS1JtTnpkMFJ5ZDFadGJ6RmFZVmw0ZHlJc0luTjFZaUk2SW1SbE0yWTRaVEV4TFRVM09EY3RORGswTVMwNE9UUTRMVGN5WmpBM1lXUTFPV1ZrT1NJc0ltVnRZV2xzWDNabGNtbG1hV1ZrSWpwMGNuVmxMQ0pwYzNNaU9pSm9kSFJ3Y3pwY0wxd3ZZMjluYm1sMGJ5MXBaSEF1WlhVdGQyVnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMWNMMlYxTFhkbGMzUXRNVjkxVVcxQlp6UTFlSGtpTENKamIyZHVhWFJ2T25WelpYSnVZVzFsSWpvaVpHVXpaamhsTVRFdE5UYzROeTAwT1RReExUZzVORGd0TnpKbU1EZGhaRFU1WldRNUlpd2laMmwyWlc1ZmJtRnRaU0k2SWs5eWRtOXJhMmtpTENKaGRXUWlPaUkzTkRVM01YQmthSFZqTjNaMllXczBkR3cwTlhWMGN6aDFPQ0lzSW1WMlpXNTBYMmxrSWpvaU9URm1ObVEzWW1ZdFlqSTNOQzAwTVRjMkxUazNNalV0WVRWaFlURXhZV05oTkdVNElpd2lkRzlyWlc1ZmRYTmxJam9pYVdRaUxDSmhkWFJvWDNScGJXVWlPakUzTVRRMk56ZzJNakFzSW1WNGNDSTZNVGN4TkRZNE1qSXlNQ3dpYVdGMElqb3hOekUwTmpjNE5qSXdMQ0ptWVcxcGJIbGZibUZ0WlNJNklrdGxkSFIxYkdFaUxDSmxiV0ZwYkNJNkltOXJhMkV1YTJWMGRIVnNZVUJuYldGcGJDNWpiMjBpZlEual9xRF9Hbi0ybl9qVGhhUE5yMHFyVkVHbXRyYnEtdWJ5RkZCWTNpY2pEaEJLeUVjSmtZcUtZSEp4UnNEVHhTYTk5RXFZcVp6eE03dXpZTmdZM01VRzZGRXp0RmZ6TE9nVUw3andYREFrM3N3bVBEUjBWcWFoWmpRUm90a21WNF9hTWo1NWhNNzFIWjNvb2NKelgydDBvOW5ZNmtMd3FUUEhDRnZxVGZHOFdNTjEzM25nd2hpSHkxbFIzbmkwZGRuTThzS2NvMzRGOTQ1dVFEbFpCMEh3MlhiNXR1U0R1QlV2Y1BSUU91dHBib19zZ0t1VE9aemRzTWFwYnVXZ2xNdk40NW1rX1c2ZXdwR3FOVnJaNU1WR3lDY2N1S2hWLUc0M3RLUlVFRmFXUzlGTTFVMUNDTkxzdG02X1B3elZ6bjJ3VUg5UkNzQjR1X2lkajRwM2hLZmV3IiwiaWF0IjoxNzE0Njc4NjE4LCJleHAiOjE3MTQ2ODIyMTh9.hj3mUUz3C4PSXdXfTKKBob9ShqNBIhHIR2H_F-n5r4E
+## /api/auth routes
+##
+
+### Login as a student
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+{
+  "username" : "",
+  "password": ""
+}
+
+
+##
+## /api/auth/professional/
+##
+
+### Login as an admin/hpc
+POST http://localhost:3000/api/auth/professional/login
+Content-Type: application/json
+
+{
+  "username" : "",
+  "password": ""
+}

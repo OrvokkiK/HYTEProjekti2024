@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
     menu.classList.toggle('show');
   });
 });
-
+let chart;
 am5.ready(function () {
   // Create root element
   const root = am5.Root.new('graph');
@@ -1034,6 +1034,24 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   return {symptomPoints, hrvPoints, lifestylePoints};
 }
 
+function updateChart(newData) {
+  const chartData = newData.map(item => {
+      return {
+          date: new Date(item.created_at),
+          value: item.analysis_enumerated
+      };
+  });
+
+  // Päivitä chart data
+  if (chart && chart.xAxes.length > 0 && chart.series.length > 0) {
+      const xAxis = chart.xAxes.getIndex(0);
+      const series = chart.series.getIndex(0);
+      xAxis.data.setAll(chartData);
+      series.data.setAll(chartData);
+  }
+}
+
+
 function showModal(
   symptomPoints,
   hrvPoints,
@@ -1043,6 +1061,15 @@ function showModal(
 ) {
   // Tarkista onko modaali jo näytetty
   if (localStorage.getItem('analysisModalShown') !== 'true') {
+    fetchData('http://localhost:3000/api/analysis/user/' + localStorage.getItem('user_id'), {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
+  }).then(data => {
+      updateChart(data);
+  });
     const modal = document.getElementById('overall-analysis-modal');
     modal.style.display = 'block'; // Asetetaan modaali näkyväksi
 
@@ -1057,6 +1084,8 @@ function showModal(
     // hrvPointsElement.textContent = `HRV mittaustuloksen pistemäärä: ${hrvPoints}/3 pistettä`;
     overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}/3 pistettä`;
     overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText}`;
+=======
+    overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText} `;
 
     // Merkitse modaali näytetyksi
     localStorage.setItem('analysisModalShown', 'true');
@@ -1085,11 +1114,11 @@ fetchDataAndFilter(userId, token)
 
       // Määritä stressin taso kokonaispisteiden mukaan
       if (overallScore <= 1) {
-        stressLevelText = 'Matala stressi';
+        stressLevelText = 'Matala stressitaso';
       } else if (overallScore <= 2) {
-        stressLevelText = 'Kohtalainen stressi';
+        stressLevelText = 'Kohtalainen stressitaso';
       } else {
-        stressLevelText = 'Korkea stressi';
+        stressLevelText = 'Korkea stressitaso';
       }
       showModal(
         symptomPoints,

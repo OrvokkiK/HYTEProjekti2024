@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import 'dotenv/config';
 // import {selectUserByUsername} from '../models/user-model.mjs';
 import {customError} from '../middlewares/error-handler.mjs';
+import { selectUserByUsername } from '../models/user-model.mjs';
 
 /**
  * User login
@@ -26,6 +27,7 @@ const postLogin = async (req, res, next) => {
     const token = jwt.sign(user, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
+    console.log(token)
     return res.json({message: 'Logged in successfully', user, token});
   } else {
     return next(customError('Invalid username or password', 401));

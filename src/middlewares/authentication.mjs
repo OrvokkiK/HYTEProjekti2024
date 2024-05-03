@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import {customError} from './error-handler.mjs';
 
+
 const authenticateToken = (req, res, next) => {
   // console.log('authenticateToken', req.headers);
   const authHeader = req.headers['authorization'];

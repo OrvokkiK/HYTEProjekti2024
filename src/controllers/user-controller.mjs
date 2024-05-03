@@ -1,7 +1,8 @@
 // user-controller.mjs
-import {deleteUserById, insertUser, listAllUsers, selectUserById, updateUserInfoById} from '../models/user-model.mjs';
-// import bcrypt from 'bcryptjs';
+import {deleteUserById, insertUser, listAllStudents, listAllUsers, selectUserById, selectUsersByRiskgroup, updateUserInfoById} from '../models/user-model.mjs';
+import bcrypt from 'bcryptjs';
 
+// get all of the users info
 const getUsers = async (req, res) => {
   const result = await listAllUsers();
   if (result.error) {
@@ -10,6 +11,7 @@ const getUsers = async (req, res) => {
   return res.json(result);
 };
 
+// get user's info by id
 const getUserById = async (req, res) => {
   const result = await selectUserById(req.params.id);
   if (result.error) {
@@ -18,6 +20,7 @@ const getUserById = async (req, res) => {
   return res.json(result);
 };
 
+// Post a new user to db
 const postNewUser = async(req, res) => {
   const {username, password, first_name, last_name} = req.body;
   if (username && password && first_name && last_name) {
@@ -36,16 +39,22 @@ const postNewUser = async(req, res) => {
   }
 };
 
+// Edit user info
 const putUserById = async (req, res) => {
   const user_id = req.params.id;
   const {username, password, first_name, last_name, chat_permission, chat_permission_date} = req.body;
   // console.log(username, password, first_name, last_name); 
-   console.log('controller:', chat_permission, chat_permission_date);
+  //  console.log('controller:', chat_permission, chat_permission_date);
   // console.log(user_id);
-  if (user_id && username && password && first_name && last_name && chat_permission && chat_permission_date) {
+
+  // hashes password if it is included in the request
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+    console.log(hashedPassword);
+    if (user_id && username && hashedPassword && first_name && last_name && chat_permission && chat_permission_date) {
     const result = await updateUserInfoById({
       username,
-      password,
+      hashedPassword,
       first_name,
       last_name,
       chat_permission,
@@ -61,9 +70,10 @@ const putUserById = async (req, res) => {
   }
 };
 
+// delete user
 const removeUser = async (req, res) => {
   const user_id = req.params.id;
-  const result = await deleteUserById(user_id)
+  const result = await deleteUserById(user_id);
   if (result.error) {
     return res.status(result.error).json(result);
   }
@@ -88,9 +98,24 @@ const removeUser = async (req, res) => {
   }
 };*/
 
+const getAllStudents = async(req, res) => {
+  const user_level = req.user.user_level;
+  if (user_level === 'admin' || user_level === 'hcp') {
+    console.log(user_level);
+    const result = await listAllStudents();
+    if (result.error) {
+      return res.status(result.error).json(result);
+    }
+    return res.json(result); 
+  } else {
+    return res.status(403).json('Forbidden');
+  }
+};
+
 export {getUsers,
   getUserById,
   postNewUser,
   putUserById,
-  removeUser
+  removeUser,
+  getAllStudents,
   };

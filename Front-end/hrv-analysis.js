@@ -1,9 +1,8 @@
-import { Chart, registerables } from 'chart.js';
-import { showToast } from './toast';
+import {Chart, registerables} from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
+import { showToast } from './toast';
 
 Chart.register(...registerables, zoomPlugin);
-
 
 document.addEventListener('DOMContentLoaded', function () {
   const menuToggle = document.querySelector('.menu-toggle');
@@ -21,46 +20,52 @@ document.addEventListener('DOMContentLoaded', function () {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
+      Authorization: `Bearer ${token}`,
+    },
   };
 
   fetch(url, options)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       return response.json();
     })
-    .then(data => {
+    .then((data) => {
       const chartData = {
-        labels: data.map(item => item.entry_date.split('T')[0]), // Format dates
-        datasets: [{
-          label: 'Stressi-indeksi',
-          data: data.map(item => item.stress_index),
-          backgroundColor: '#65057f',
-          borderWidth: 1
-        }, {
-          label: 'Readiness',
-          data: data.map(item => item.readiness),
-          backgroundColor: '#6c49ea',
-          borderWidth: 1
-        }, {
-          label: 'Keskisyke',
-          data: data.map(item => item.av_hrv),
-          backgroundColor: '#3498db',
-          borderWidth: 1
-        }, {
-          label: 'SDNN',
-          data: data.map(item => item.sdnn_ms),
-          backgroundColor: '#33d3d0',
-          borderWidth: 1
-        }, {
-          label: 'Mean RR',
-          data: data.map(item => item.mean_rr_ms),
-          backgroundColor: '#0056b3',
-          borderWidth: 1
-        }]
+        labels: data.map((item) => item.entry_date.split('T')[0]), // Format dates
+        datasets: [
+          {
+            label: 'Stressi-indeksi',
+            data: data.map((item) => item.stress_index),
+            backgroundColor: '#65057f',
+            borderWidth: 1,
+          },
+          {
+            label: 'Readiness',
+            data: data.map((item) => item.readiness),
+            backgroundColor: '#6c49ea',
+            borderWidth: 1,
+          },
+          {
+            label: 'Keskisyke',
+            data: data.map((item) => item.av_hrv),
+            backgroundColor: '#3498db',
+            borderWidth: 1,
+          },
+          {
+            label: 'SDNN',
+            data: data.map((item) => item.sdnn_ms),
+            backgroundColor: '#33d3d0',
+            borderWidth: 1,
+          },
+          {
+            label: 'Mean RR',
+            data: data.map((item) => item.mean_rr_ms),
+            backgroundColor: '#0056b3',
+            borderWidth: 1,
+          },
+        ],
       };
 
       const myBarChart = new Chart(ctx, {
@@ -74,49 +79,49 @@ document.addEventListener('DOMContentLoaded', function () {
               labels: {
                 font: {
                   size: 18,
-                }
-              }
+                },
+              },
             },
             title: {
               display: true,
               text: 'HRV-mittaustulokset',
               font: {
-                size: 20
-              }
+                size: 20,
+              },
             },
             zoom: {
               pan: {
                 enabled: true,
                 mode: 'x',
                 rangeMin: {
-                  x: null
+                  x: null,
                 },
                 rangeMax: {
-                  x: null
-                }
+                  x: null,
+                },
               },
               zoom: {
                 wheel: {
                   enabled: true,
                   speed: 0.1,
-                  mode: 'x'
+                  mode: 'x',
                 },
                 pinch: {
                   enabled: true,
-                  mode: 'x'
+                  mode: 'x',
                 },
-                mode: 'x'
-              }
-            }
+                mode: 'x',
+              },
+            },
           },
           scales: {
             y: {
               beginAtZero: true,
               ticks: {
                 font: {
-                  size: 14
-                }
-              }
+                  size: 14,
+                },
+              },
             },
             x: {
               type: 'category',
@@ -127,12 +132,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           }
         }
+              },
+            },
+          },
+        },
       });
       const chartArea = myBarChart.chartArea;
       const minPixel = chartArea.right - 10 * (chartArea.right - chartArea.left) / chartData.labels.length;
       myBarChart.zoom(10, 0, {x: minPixel});
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('Fetching data failed:', error);
     });
 });

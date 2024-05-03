@@ -89,6 +89,15 @@ authRouter
     validationErrorHandler,
     postLogin,
   )
+
+  /*
+      body('username').trim().notEmpty(),
+    body('password').trim().notEmpty(),
+    validationErrorHandler,
+    postLogin,
+  )
+  */
+
   /**
    * @api {get} /auth/me Request information about current user
    * @apiVersion 1.0.0
