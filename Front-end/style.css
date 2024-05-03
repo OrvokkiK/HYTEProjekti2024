@@ -230,6 +230,7 @@ li a:hover,
   background-color: #2b418a;
 }
 
+
 .login_form {
   background: rgba(70, 126, 186, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
@@ -239,6 +240,7 @@ li a:hover,
 #professionalLoginForm {
   background: rgba(118, 167, 220, 0.8);
 }
+
 
 .login_form .nav-logo {
   margin: 0;
@@ -496,10 +498,10 @@ button:hover {
 .calendar {
   border-radius: 10px;
   padding: 10px;
-  margin: 0 auto;
-  max-width: 500px;
-  width: 90%;
-  height: auto;
+  margin: 0 auto; 
+  max-width: 500px; 
+  width: 90%; 
+  height: auto; 
   background-color: rgba(198, 239, 240, 0.7);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
@@ -536,6 +538,7 @@ button:hover {
 /* .current-date:hover {
   background-color: #b4b0b0;
 } */
+
 
 .dot {
   height: 8px;
@@ -730,6 +733,7 @@ aside.messages-sidebar {
   background-color: #e0e0e0;
 }
 
+
 .message {
   padding: 10px;
   margin-bottom: 10px;
@@ -738,6 +742,7 @@ aside.messages-sidebar {
   width: 80%;
   position: relative;
 }
+
 
 .message-content {
   flex-grow: 1;
@@ -766,7 +771,7 @@ aside.messages-sidebar {
   padding: 10px;
   border-top: 1px solid #ccc;
 }
-.message-write input[type='text'] {
+.message-write input[type="text"] {
   width: 80%;
   padding: 10px;
   margin-right: 10px;
@@ -782,6 +787,7 @@ aside.messages-sidebar {
 .no-messages {
   margin: auto;
 }
+
 
 .loader {
   border: 8px solid #f3f3f3;
@@ -823,13 +829,13 @@ aside.messages-sidebar {
   width: 40%;
 }
 
+
 .chart-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
-  height: 500px;
-  width: 60%;
+  margin-top: 60px;
+  height: 450px;
 }
 
 .info-section,
@@ -866,7 +872,7 @@ h2 {
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  color: #fafafb; /* Sininen väri */
+  color: #007bff; /* Sininen väri */
   text-decoration: none; /* Poista alleviivaus */
   transition: color 0.3s;
 }
@@ -888,9 +894,6 @@ h2 {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  height: 100%;
-  margin-top: 70px;
-
 }
 
 @keyframes spin {
@@ -910,8 +913,7 @@ h2 {
   margin-bottom: 100px;
 }
 
-.diary-class,
-.diary-section {
+.diary-class, .diary-section {
   background-color: rgba(198, 239, 240, 0.9);
   margin: 20px auto;
   flex-basis: 45%; /* Aseta alkuperäinen leveys */
@@ -944,6 +946,7 @@ h2 {
   border-radius: 4px;
 }
 
+
 #diary-form button:hover {
   background-color: #926ff5;
 }
@@ -968,12 +971,13 @@ h1 {
 .tips {
   background-color: rgba(198, 239, 240, 0.7);
   max-width: 50%;
-  margin: 50px auto;
-  padding: 10px 20px 10px 20px;
+  margin: 50px auto; 
+  padding: 10px 20px 10px 20px; 
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
   padding-bottom: 50px;
 }
+
 
 .tip {
   background-color: #e0e0e0;
@@ -1014,7 +1018,7 @@ h1 {
   display: block;
   font-size: 18px;
   text-align: center;
-  color: #f6f8fa; /* Sininen väri */
+  color: #007bff; /* Sininen väri */
   text-decoration: none; /* Poista alleviivaus */
   transition: color 0.3s;
 }
@@ -1032,9 +1036,11 @@ h1 {
   text-decoration: none; /* Varmista, että alleviivaus pysyy poissa */
 }
 
+
 .about-stress {
   padding: 20px;
 }
+
 
 .introduction,
 .exercises,
@@ -1079,6 +1085,7 @@ iframe {
   justify-content: center;
 }
 
+
 .arrows .scroll-down {
   padding: 20px;
 }
@@ -1091,17 +1098,16 @@ iframe {
   margin: auto;
 }
 
-.info-panel {
-  background-color: #f4f4f4;
+.info-panel { 
+  background-color: #f4f4f4; 
 }
 
-.info-panel,
-.table-container {
-  flex: 1; /* Molemmille elementeille annetaan yhtä paljon tilaa */
+.info-panel, .table-container {
+  flex: 1;  /* Molemmille elementeille annetaan yhtä paljon tilaa */
   padding: 10px;
   margin: 10px;
-  margin-top: 100px; /* Säädä marginaalia tarpeen mukaan */
-  border-radius: 8px; /* Yhtenäiset pyöristetyt kulmat */
+  margin-top: 100px;  /* Säädä marginaalia tarpeen mukaan */
+  border-radius: 8px;  /* Yhtenäiset pyöristetyt kulmat */
 }
 
 .info-panel {
@@ -1109,10 +1115,10 @@ iframe {
 }
 
 .table-container {
-  display: flex;
-  justify-content: center;
-  overflow-y: auto;
-  max-height: 400px;
+  display: flex;  
+ justify-content: center;
+ overflow-y: auto;
+ max-height: 400px;  
 }
 
 .styled-table {
@@ -1120,7 +1126,7 @@ iframe {
   border-collapse: separate; /* Muuttaa border-collapse asetusta varjostuksen ja reunan pyöristämisen vuoksi */
   border-spacing: 0; /* Poistaa ylimääräisen tilan solujen väliltä */
   margin: 0; /* Keskittää taulukon ja antaa ylä- ja alamarginaalin */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lisää hienovaraisen varjostuksen taulukon ympärille */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Lisää hienovaraisen varjostuksen taulukon ympärille */
   border-radius: 10px; /* Pyöristää taulukon ulkoreunat */
   overflow: hidden; /* Estää sisällön ulospursuamisen pyöristetyistä reunoista */
 }
@@ -1136,7 +1142,7 @@ iframe {
 .styled-table th {
   background-color: #66a2c6; /* Sarakeotsikoiden taustaväri */
   color: white; /* Sarakeotsikoiden tekstin väri */
-  text-align: justify; /* Otsikoiden tekstin keskitys */
+  text-align:justify; /* Otsikoiden tekstin keskitys */
 }
 
 .styled-table tbody tr:last-child td {
@@ -1152,7 +1158,6 @@ iframe {
   background-color: #f0f8ff; /* Vaihtoehtoinen väri */
   font-size: 12px;
 }
-
 
 /* ammattilaisen tyylittelyt */
 
@@ -1263,6 +1268,7 @@ iframe {
 }
 
 
+
 footer {
   position: absolute;
   left: 0;
@@ -1281,6 +1287,7 @@ footer {
   background-size: 200% 100%;
   animation: heartbeat 2s linear infinite;
   box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.9);
+
 }
 
 @media screen and (max-width: 1350px) {
@@ -1339,11 +1346,9 @@ footer {
     z-index: 999999999999;
   }
 
-  .menu li a:hover {
 
   .menu li a:hover,
   .nav-notlink:hover {
-
     background-color: #66b2e4;
   }
 
@@ -1398,6 +1403,8 @@ footer {
   .relaxation {
     max-width: 80%;
   }
+
+
 }
 
 @media screen and (max-width: 1150px) {
@@ -1428,10 +1435,6 @@ footer {
   }
 
   .introduction,
-
-  .exercises {
-    max-width: 90%;
-  }
 .exercises {
   max-width: 90%;
 }
@@ -1441,11 +1444,13 @@ footer {
 }
 
 
+
 }
 
 @media screen and (max-width: 770px) {
+
   .calendar {
-    max-width: 80%;
+    max-width:80%;
   }
   .sidebar {
     width: 130%;
@@ -1467,16 +1472,13 @@ footer {
   .info-section,
   #info-section2 {
     max-width: 500px;
-    margin: 20px;
-  }
-  .chart-container {
-    width: 100%;
-    height: 400px;  /* Muuttaa korkeutta pienillä laitteilla */
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   #myBarChart {
-    margin: 20px;
-    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .links {
@@ -1488,7 +1490,7 @@ footer {
   }
 
   .tips {
-    margin-bottom: 100px;
+    margin-bottom: 100px
   }
 
   .relaxation {
@@ -1499,9 +1501,7 @@ footer {
     max-width: 95%;
   }
 
-  .diary-class,
-  .diary-section {
+  .diary-class, .diary-section {
     flex-basis: 100%; /* Säädä leveyttä pienemmillä näytöillä */
   }
-}
 }
