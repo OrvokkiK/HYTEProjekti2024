@@ -28,9 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((users) => {
-      // Suodatetaan käyttäjät, jotka ovat 'regular' tasolla
-      const regularUsers = users.filter(user => user.user_level === 'regular');
-      displayUsers(regularUsers);
+      displayUsers(users);
     })
     .catch((error) => {
       console.error('Error fetching users:', error);
