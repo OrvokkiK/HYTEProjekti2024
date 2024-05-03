@@ -84,7 +84,8 @@ ul {
   overflow: hidden;
 }
 
-li a:not(.logo) {
+li a:not(.logo),
+.nav-notlink {
   display: block;
   color: rgb(6, 6, 6);
   text-align: center;
@@ -124,7 +125,8 @@ li a:not(.logo) {
 }
 
 .menu li a,
-.login_form a {
+.login_form a,
+.nav-notlink {
   color: rgb(4, 28, 135);
   font-weight: 500;
   text-decoration: none;
@@ -139,9 +141,6 @@ li a:not(.logo) {
   z-index: 1;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
 
 .menu-toggle {
   display: none;
@@ -150,7 +149,8 @@ li a:not(.logo) {
 }
 
 li a:hover,
-.login_form a:hover {
+.login_form a:hover,
+.nav-notlink:hover {
   color: rgb(214, 235, 244);
   text-decoration: underline;
   text-underline-offset: 10px;
@@ -211,7 +211,7 @@ li a:hover,
 }
 
 #professionalLoginBtn {
-  background: rgba(118, 167, 220, 0.8);
+  background: rgba(70, 126, 186, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   color: rgb(245, 244, 242);
   width: 150px;
@@ -273,7 +273,7 @@ li a:hover,
 
 .stress {
   font-weight: 600;
-  margin-top: 30px;
+  margin-top: 10px;
   font-size: larger;
   background-color: rgba(198, 239, 240, 0.7);
   padding: 20px;
@@ -562,7 +562,7 @@ button:hover {
 }
 
 .dot-description {
-  font-size: small;
+  font-size: medium;
   display: flex;
   align-items: center;
 }
@@ -1347,7 +1347,8 @@ footer {
   }
 
 
-  .menu li a:hover {
+  .menu li a:hover,
+  .nav-notlink:hover {
     background-color: #66b2e4;
   }
 
@@ -1355,7 +1356,8 @@ footer {
     display: flex;
   }
 
-  .menu li {
+  .menu li,
+  .nav-notlink {
     margin: 0;
     /* border-bottom: 1px solid #5b9bd0; */
     /* right: 60px; */
@@ -1365,7 +1367,8 @@ footer {
     border-bottom: none;
   }
 
-  .menu li a {
+  .menu li a,
+  .nav-notlink {
     padding: 10px 20px;
     color: rgb(1, 80, 190);
     text-decoration: none;

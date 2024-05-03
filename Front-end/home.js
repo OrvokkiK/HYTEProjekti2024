@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
     menu.classList.toggle('show');
   });
 });
-
+let chart;
 am5.ready(function () {
   // Create root element
   const root = am5.Root.new('graph');
@@ -594,8 +594,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       feel_healthy: document.querySelector('input[name="feelHealthy"]:checked')
         ? document.querySelector('input[name="feelHealthy"]:checked').value
         : '',
-      medication: document.getElementById('medication').value,
-      medication_purpose: document.getElementById('medication-purpose').value,
       caffeine_intake: document.getElementById('caffeine').value,
       nicotine_intake: document.getElementById('nicotine').value,
       alcohol_intake: document.getElementById('alcohol').value,
@@ -780,8 +778,8 @@ document.addEventListener('DOMContentLoaded', () => {
           Stressi-indeksi: ${parseFloat(stress_index).toFixed(2)}<br>
           Mieliala: ${user_happiness}<br>
           Valmiustila: ${parseFloat(readiness).toFixed(0)} %<br>
-          Keskimääräinen RR väli: ${parseFloat(mean_rr_ms).toFixed(2)} ms<br>
-          SDNN: ${parseFloat(sdnn_ms).toFixed(2)} ms
+          Keskimääräinen RR väli: ${parseFloat(mean_rr_ms).toFixed(0)} ms<br>
+          SDNN: ${parseFloat(sdnn_ms).toFixed(0)} ms
       `;
         } else {
           resultDiv.textContent =
@@ -1036,6 +1034,24 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   return {symptomPoints, hrvPoints, lifestylePoints};
 }
 
+function updateChart(newData) {
+  const chartData = newData.map(item => {
+      return {
+          date: new Date(item.created_at),
+          value: item.analysis_enumerated
+      };
+  });
+
+  // Päivitä chart data
+  if (chart && chart.xAxes.length > 0 && chart.series.length > 0) {
+      const xAxis = chart.xAxes.getIndex(0);
+      const series = chart.series.getIndex(0);
+      xAxis.data.setAll(chartData);
+      series.data.setAll(chartData);
+  }
+}
+
+
 function showModal(
   symptomPoints,
   hrvPoints,
@@ -1045,6 +1061,15 @@ function showModal(
 ) {
   // Tarkista onko modaali jo näytetty
   if (localStorage.getItem('analysisModalShown') !== 'true') {
+    fetchData('http://localhost:3000/api/analysis/user/' + localStorage.getItem('user_id'), {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
+  }).then(data => {
+      updateChart(data);
+  });
     const modal = document.getElementById('overall-analysis-modal');
     modal.style.display = 'block'; // Asetetaan modaali näkyväksi
 

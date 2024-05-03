@@ -28,8 +28,8 @@
         <button class="menu-toggle">☰</button>
         <ul class="menu">
           <li class="dropdown">
-            <a href="#"
-              ><i class="bi bi-folder"></i> MATERIAALIPANKKI</a
+            <div class="nav-notlink"
+              ><i class="bi bi-folder"></i> MATERIAALIPANKKI</div
             >
             <div class="dropdown-content">
               <a href="about-stress.html"
@@ -44,16 +44,14 @@
             </div>
           </li>
           <li class="dropdown">
-            <a href="#"><i class="bi bi-person"></i> TILI</a>
+            <div class="nav-notlink"
+            ><i class="bi bi-person"></i> TILI</div>
             <div class="dropdown-content">
               <a href="hrv-analysis.html"
                 ><i class="bi bi-heart-pulse"></i> HRV-MITTAUKSET</a
               >
               <a href="analysis.html"
                 ><i class="bi bi-graph-up"></i> KOKONAISANALYYSIT</a
-              >
-              <a href="diary.html"
-                ><i class="bi bi-pencil"></i> HUOLIPÄIVÄKIRJA</a
               >
             </div>
           </li>
@@ -91,15 +89,7 @@
         <button id="hrvMeasurements" class="survey-button red">
           <i class="bi bi-heart-pulse"></i> HRV-mittaus
         </button>
-        <div class="user">
-          Muista myös harjoitella huolihetkien pitämistä ja täytä
-          huolipäiväkirjaa.
-        </div>
-        <a href="diary.html"
-          ><button class="diary-button">
-            <i class="bi bi-pencil"></i> Huolipäiväkirjaan
-          </button></a
-        >
+
         <div class="stress">
           Stressitasosi tänään: <span id="stress-today"></span>
         </div>
@@ -319,7 +309,7 @@
             />
           </div>
           <div class="question">
-            <label>Koetko nukkuneesi eilen tarpeeksi?</label>
+            <label>Koetko nukkuneesi viime yönä tarpeeksi?</label>
             <input
               type="radio"
               id="enoughSleepYes"
@@ -373,28 +363,6 @@
               required
             />
             <label for="feelHealthyNo">Ei</label>
-          </div>
-          <div class="question">
-            <label for="medication"
-              >Käytätkö jotakin lääkettä tänään? Jos kyllä niin mitä?</label
-            >
-            <input
-              type="text"
-              name="medication"
-              id="medication"
-              placeholder="esim.panadol"
-            />
-          </div>
-          <div class="question">
-            <label for="medication-purpose"
-              >Mihin tarkoitukseen käytät lääkettä?</label
-            >
-            <input
-              type="text"
-              name="medication-purpose"
-              id="medication-purpose"
-              placeholder="esim.pääkipu"
-            />
           </div>
           <div class="question">
             <label for="caffeine"
