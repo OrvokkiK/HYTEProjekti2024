@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         data: chartData,
         options: {
           responsive: true,
-          maintainAspectRatio: true,
+          maintainAspectRatio: false, 
           plugins: {
             legend: {
               labels: {
@@ -128,12 +128,14 @@ document.addEventListener('DOMContentLoaded', function () {
               ticks: {
                 autoSkip: true,
                 maxRotation: 0,
-                maxTicksLimit: 10,
-              },
-            },
-          },
-        },
+              }
+            }
+          }
+        }
       });
+      const chartArea = myBarChart.chartArea;
+      const minPixel = chartArea.right - 10 * (chartArea.right - chartArea.left) / chartData.labels.length;
+      myBarChart.zoom(10, 0, {x: minPixel});
     })
     .catch((error) => {
       console.error('Fetching data failed:', error);
