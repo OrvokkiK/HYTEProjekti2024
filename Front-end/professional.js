@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
     menu.classList.toggle('show');
   });
 
+  const backButton = document.querySelector('.back');
+  backButton.addEventListener('click', function () {
+    document.getElementById('detailsModal').style.display = 'none';
+    document.getElementById('dataSelectionModal').style.display = 'block';
+  })
+
   const logoutLink = document.querySelector('.logout a');
   logoutLink.addEventListener('click', function (event) {
     event.preventDefault();
