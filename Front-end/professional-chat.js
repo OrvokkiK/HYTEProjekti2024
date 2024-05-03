@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   fetchUsers();
 
   async function fetchUsers() {
-    const usersUrl = 'http://localhost:3000/api/student/';
+    const usersUrl = 'http://localhost:3000/api/users/';
     fetchData(usersUrl, {
       headers: { Authorization: `Bearer ${token}` },
     })
