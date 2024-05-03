@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const userId = localStorage.getItem('user_id');
   console.log('User ID on load:', userId);
   let currentConversationId = null;
+  let currentRecipientId = null;
 
   const menuToggle = document.querySelector('.menu-toggle');
   const menu = document.querySelector('.menu');
@@ -49,6 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
   async function selectRecipient(event) {
     const selectedUserId = event.target.dataset.userId;
     recipientInput.dataset.userId = selectedUserId;
+    currentRecipientId = selectedUserId;
+    const username = await fetchUserName(selectedUserId);
+    updateConversationHeader(username);
+    fetchConversationsAndMessagesForUser(selectedUserId);
     fetchConversationsAndMessagesForUser(selectedUserId);
   }
 
@@ -74,17 +79,53 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
+  async function fetchUserName(userId) {
+    const userUrl = `http://localhost:3000/api/users/${userId}`;
+    try {
+      const response = await fetch(userUrl, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (!response.ok) throw new Error('Failed to fetch user');
+      const userData = await response.json();
+      return userData[0].username; // Olettaen, että käyttäjät palautetaan listana
+    } catch (error) {
+      console.error('Failed to fetch user name:', error);
+      return "Nimetön käyttäjä"; // Oletusarvo virhetilanteessa
+    }
+  }
+
+  function updateConversationHeader(username) {
+    const header = document.getElementById('conversation-header');
+    header.textContent = `Keskustelu käyttäjän ${username} kanssa`;
+  }
+  
+  async function selectRecipient(event) {
+    const selectedUserId = event.target.dataset.userId;
+    recipientInput.dataset.userId = selectedUserId;
+    const username = await fetchUserName(selectedUserId);
+    updateConversationHeader(username);
+    fetchConversationsAndMessagesForUser(selectedUserId);
+  }
+
 
   function fetchMessagesForConversation(conversationId) {
     const apiUrl = `http://localhost:3000/api/messages/conversation/${conversationId}`;
-    fetchData(apiUrl, {headers: {Authorization: `Bearer ${token}`}})
+    fetchData(apiUrl, { headers: { Authorization: `Bearer ${token}` }})
       .then((messages) => {
-        displayMessages(messages, userId); // Varmista, että userId on tässä oikein
+        if (Array.isArray(messages) && messages.length > 0) {
+          displayMessages(messages, userId);
+        } else {
+          messagesContainer.innerHTML = '<div class="no-messages">Ei viestejä tässä keskustelussa.</div>';
+        }
       })
       .catch((error) => {
-        console.error('Error fetching messages:', error);
+        console.error(`Viestien haku epäonnistui keskustelulle ${conversationId}:`, error);
       });
   }
+  
 
   function displayMessages(messages, userId) {
     const container = document.getElementById('messages-container');
