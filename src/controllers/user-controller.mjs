@@ -12,7 +12,7 @@ const getUsers = async (req, res) => {
   }
   return res.json(result);
   } else {
-    return res.status(403).json('error: 403, message: forbidden');
+    return res.status(403).json({error: 403, message: 'Forbidden'});
   }
   
 };
@@ -35,7 +35,7 @@ const getUserById = async (req, res) => {
     }
     return res.json(result);
   } else {
-    return res.status(403).json('error: 403, message: Forbidden');
+    return res.status(403).json({error: 403, message: 'Forbidden'});
   }
 };
 
@@ -122,7 +122,7 @@ const getAllStudents = async(req, res) => {
     }
     return res.json(result); 
   } else {
-    return res.status(403).json('error: 403, message: Forbidden');
+    return res.status(403).json({error: 403, message: 'Forbidden'});
   }
 };
 

@@ -1,3 +1,5 @@
+# User data endpoints
+
 ##
 ## /api/users endpoint
 ##
@@ -36,8 +38,18 @@ Content-Type: application/json
     "chat_permission_date" : ""
 }
 
-### DELETE an existing user;
+### DELETE an existing user (requires token & & user_level admin or logged in as /:id user)
 DELETE http://localhost:3000/api/users/6
+
+##
+## /api/student routes (requires token)
+## 
+
+### GET all student's ids and usernames (requires token & user_level hcp/admin)
+GET http://localhost:3000/api/student/
+Authorization: Bearer
+
+#symptom data endpoints
 
 ##
 ## /api/symptoms/ endpoints
@@ -164,48 +176,61 @@ GET http://localhost:3000/api/messages/conversation/1
 ### Delete messages
 DELETE http://localhost:3000/api/messages/6
 
+#analysis data routes
+
 ##
 ## /api/analysis/ routes
 ##
 
-### GET all analysis
+### GET all analysis (requires token & user_level admin/hpc)
 GET http://localhost:3000/api/analysis/
+Authorization: Bearer
 
-### GET a specific analysis
+### GET a specific analysis (requires token & user_level admin/hpc or user logged in as /:id)
 GET http://localhost:3000/api/analysis/2
+Authorization: Bearer
 
-
-### POST a new complete analysis
+### POST a new complete analysis (requires token & user logged in as /:id )
 POST  http://localhost:3000/api/analysis/
 Content-Type: application/json
 
 {
-  "user_id": "1",
+  "user_id": "6",
   "analysis_result": "Kohtalainen stressi",
   "analysis_enumerated": "2",
-  "created_at": "2024-4-17 15:14:00"
+  "created_at": "2024-05-4 14:03:00"
 }
 
 
-### PUT an existing analysis
+### PUT an existing analysis (requires token & user_level admin or user logged in as /:id)
 PUT http://localhost:3000/api/analysis/3
+Authorization: Bearer
 Content-Type: application/json
 
 {
+  "user_id" : "", 
   "analysis_result": "Alhainen stressi",
   "analysis_enumerated": "1",
   "created_at": "2024-04-17 09:21:00"
 }
 
-### DELETE an analysis by analysis_id
-DELETE http://localhost:3000/api/analysis/4
-
 ##
 ## /api/analysis/user routes
 ##
 
-### GET analyses by user
+### GET analyses by user (requires token & user signed in as /:id or user_level admin/hcp)
 GET http://localhost:3000/api/analysis/user/3
+Authorization: Bearer
+
+##
+## /api/analysis/:id/user/:user_id
+##
+
+### DELETE an analysis by analysis_id (requires token & user signed in as /:user_id or user_level admin)
+DELETE http://localhost:3000/api/analysis/4/user/10
+Authorization: Bearer
+
+# riskgroup data routes
 
 ##
 ## /api/riskgroup/ routes
@@ -217,14 +242,9 @@ GET http://localhost:3000/api/riskgroup/
 ### Change users riskgroup
 PUT http://localhost:3000/api/riskgroup/2
 
+# Login routes
+
 ##
-## /api/student routes
-## 
-
-### GET all student's ids and usernames (requires token & user_level hcp/admin)
-GET http://localhost:3000/api/student/
-Authorization: Bearer
-
 ## /api/auth routes
 ##
 

@@ -36,8 +36,8 @@ const selectAnalysisbyId = async (analysis_id) => {
   try {
     const sql = `SELECT * FROM Complete_analysis WHERE analysis_id=${analysis_id};`
     const [rows] = await promisePool.query(sql);
-    if (rows.lenght === 0) {
-        return {error: 404,  message: 'No such entry found'};
+    if (rows.length === 0) {
+      return {error: 404,  message: 'No entry found'};
     } else {
         return rows;
     }
@@ -64,8 +64,8 @@ const insertAnalysis = async (entry) => {
 //UPDATE Entry
 const updateAnalysisById = async (entry, entry_id) => {
   try {
-    const sql = 'UPDATE Complete_analysis SET analysis_result=?, analysis_enumerated=?, created_at=? WHERE analysis_id=?;'
-    const params = [entry.analysis_result, entry.analysis_enumerated, entry.created_at, entry_id]
+    const sql = 'UPDATE Complete_analysis SET user_id=?, analysis_result=?, analysis_enumerated=?, created_at=? WHERE analysis_id=?;'
+    const params = [entry.user_id, entry.analysis_result, entry.analysis_enumerated, entry.created_at, entry_id]
     const [rows] = await promisePool.query(sql, params);
     console.log('model:', rows);
     console.log('model:', rows.changedRows)
