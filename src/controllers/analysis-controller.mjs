@@ -34,7 +34,7 @@ const getAnalysesByUserId = async (req,res) => {
 };
 
 const getAnalysisById = async (req, res) => {
-  const user = req.user;
+  // const user = req.user;
   // console.log(user);
   const user_id = req.user.userId;
   // console.log(user_id);

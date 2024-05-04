@@ -6,10 +6,11 @@
 
 ### GET all users (requires token & and user_level admin)
 GET http://localhost:3000/api/users
+Authorization: Bearer
 
 ### GET user by id (requires token & user_level hpc/admin or logged in as /:id user)
 GET http://localhost:3000/api/users/6
-
+Authorization: Bearer
 
 ### POST new user
 POST  http://localhost:3000/api/users

@@ -84,8 +84,6 @@ const postMessage = async (req, res) => {
   
 }
 
-
-
 // DELETE message by message_id
 const deleteMessage = async (req, res) => {
   const message_id = req.params.id
