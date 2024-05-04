@@ -59,6 +59,7 @@ nmp i mysql2
 ```
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
+
 {
   "username" : "",
   "password": ""
@@ -199,6 +200,7 @@ Content-Type: application/json
 ```
 PUT http://localhost:3000/api/symptoms/5
 Authorization: Bearer 
+Content-Type: application/json
 
 {
   "frustration" : "1", 
@@ -284,7 +286,7 @@ Authorization: Bearer
 Content-Type: application/json
 
 {
-  "user_id": "",
+  "user_id": "2",
   "analysis_result": "Korkea stressi",
   "analysis_enumerated": "3",
   "created_at": "2024-05-4 15:00:00"
