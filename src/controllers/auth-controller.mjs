@@ -22,12 +22,16 @@ const postLogin = async (req, res, next) => {
   }
   // compare password and hash, if match, login successful
   const match = await bcrypt.compare(password, user.password);
+  console.log(user);
   if (match) {
     delete user.password;
-    const token = jwt.sign(user, process.env.JWT_SECRET, {
+    const token = jwt.sign(
+      {userId: user.user_id,
+        user_level: user.user_level, 
+        user} , process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
-    console.log(token)
+    // console.log(token)
     return res.json({message: 'Logged in successfully', user, token});
   } else {
     return next(customError('Invalid username or password', 401));
