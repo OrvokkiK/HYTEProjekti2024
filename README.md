@@ -45,7 +45,7 @@ nmp i mysql2
 ```
 
 > [!WARNING]
-> Make sure your using version 3.9.7 or higher of my sql.
+> Make sure your using version 3.9.7 or higher of mysql2.
 
 # Routes
 
@@ -56,18 +56,20 @@ nmp i mysql2
 ##
 
 ### Login as a regular user
+```
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 {
   "username" : "",
   "password": ""
 }
-
+```
 ##
 ## /api/auth/professional/
 ##
 
 ### Login as an admin/hpc
+```
 POST http://localhost:3000/api/auth/professional/login
 Content-Type: application/json
 
@@ -75,15 +77,16 @@ Content-Type: application/json
   "username" : "",
   "password": ""
 }
-
+```
 ##
 ## /api/auth/me
 ##
 
 ### Fetch user's data (requires token)
+```
 GET http://localhost:3000/api/auth/me
 Authorization: Bearer
-
+```
 ## User data related endpoints
 
 ##
@@ -91,17 +94,19 @@ Authorization: Bearer
 ##
 
 ### Fetcht all user data (requires token)
+```
 GET http://localhost:3000/api/users
 Authorization: Bearer
-
+```
 ### Fetch user data by user's id (requires token)
+```
 GET http://localhost:3000/api/users/6
 Authorization: Bearer
-
+```
 ### Create a new user
+```
 POST  http://localhost:3000/api/users
 content-type: application/json
-
 
 {
     "username": "",
@@ -110,8 +115,9 @@ content-type: application/json
     "first_name": "",
     "last_name": ""
 }
-
+```
 ### Edit an existing user's data (requires token)
+```
 PUT http://localhost:3000/api/users/5
 Authorization: Bearer
 Content-Type: application/json
@@ -124,18 +130,21 @@ Content-Type: application/json
     "chat_permission" : "",
     "chat_permission_date" : ""
 }
-
+```
 ### Delete an existing user (requires token)
+```
 DELETE http://localhost:3000/api/users/6
-
+Authorization: Bearer
+```
 ##
 ## /api/student routes (requires token)
 ## 
 
 ### Fetch all student's ids and usernames (requires token)
+```
 GET http://localhost:3000/api/student/
 Authorization: Bearer
-
+```
 ## Symptom related endpoints
 
 ##
@@ -143,22 +152,24 @@ Authorization: Bearer
 ##
 
 ### Fetch all entries in symptoms (requires token)
+```
 GET http://localhost:3000/api/symptoms/
 Authorization: Bearer
-
+```
 
 ##
 ## /api/symptoms/:id routes
 ##
 
 ### Fetch all of the entries by user_id
+```
 GET http://localhost:3000/api/symptoms/11
 Authorization: Bearer
-
+```
 ### Create a new symptom entry (requires token)
+```
 POST http://localhost:3000/api/3
 Authorization: Bearer
-
 Content-Type: application/json
 
 {
@@ -183,8 +194,9 @@ Content-Type: application/json
   "back_issues": "1", 
   "stress_level": "5"
 }
-
+```
 ### Edit an existing entry in symptoms (requires token)
+```
 PUT http://localhost:3000/api/symptoms/5
 Authorization: Bearer 
 
@@ -210,27 +222,32 @@ Authorization: Bearer
   "stress_level": "5",
   "user_id" : "10"
 }
+```
 
 ##
 ## /api/symptoms/user/:id
 ##
 
 ### Fetch symptom entries by user's id (requires token)
+```
 GET http://localhost:3000/api/symptoms/user/6
 Authorzation: Bearer 
+```
 
 ##
 ## /api/symptoms/:symptom_id/user/:user_id
 ##
 
 ### Fetch symptoms by symptom_id and user_id (requires token)
+```
 GET http://localhost:3000/api/symptoms/2/user/6
 Authorization: Bearer 
-
+```
 ### Delete entry in symptoms with symptom_id and user_id (requires token)
+```
 DELETE http://localhost:3000/api/symptoms/4/user/10
 Authorization: Bearer
-
+```
 # analysis related endpoints
 
 ##
@@ -238,14 +255,17 @@ Authorization: Bearer
 ## 
 
 ### Fecth all entries in analysis (requires token)
+```
 GET http://localhost:3000/api/analysis/
 Authorization: Bearer 
-
+```
 ### Fetch entry by analysis id (requires token)
+```
 GET http://localhost:3000/api/analysis/3
 Authorization: Bearer 
-
+```
 ### Create a new analysis entry (requires token)
+```
 POST http://localhost:3000/api/analysis/
 Authorization: Bearer
 Content-Type: application/json
@@ -255,10 +275,10 @@ Content-Type: application/json
   "analysis_result": "Korkea stressi",
   "analysis_enumerated": "1",
   "created_at": "2024-05-4 16:00:00"
-
 }
-
+```
 ### Edit an existing analysis entry (requires token) 
+```
 PUT http://localhost:3000/api/analysis/5
 Authorization: Bearer 
 Content-Type: application/json
@@ -269,19 +289,23 @@ Content-Type: application/json
   "analysis_enumerated": "3",
   "created_at": "2024-05-4 15:00:00"
 }
-
+```
 ##
 ## /api/analysis/user/ routes
 ##
 
 ### GET all analysis entries of a specific user (requires token)
+```
 GET http://localhost:3000/api/analysis/user/6
 Authorization: Bearer 
+```
 
 ##
 ## /api/analysis/:id/user/:id
 ##
 
 ### DELETE a specific entry in analysis (requires token)
+```
 DELETE http://localhost:3000/api/analysis/6/user/10
 Authorization: Bearer
+```

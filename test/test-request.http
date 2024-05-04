@@ -59,9 +59,9 @@ Authorization: Bearer
 ### GET all symptoms
 GET http://localhost:3000/api/symptoms
 
-
-### GET symptoms by symptom id
-GET http://localhost:3000/api/symptoms/1
+##
+## /api/symptoms/:id
+##
 
 ### GET symptoms by user id
 GET http://localhost:3000/api/symptoms/user/1
@@ -120,8 +120,17 @@ Content-Type: application/json
     "user_id": "3"
 }
 
-### DELETE Symptom by symptom id
-DELETE http://localhost:3000/api/symptoms/5
+##
+## /api/symptoms/:symptom_id/user/:user_id routes
+##
+
+### GET symptoms by symptom_id and user_id (requires token)
+GET http://localhost:3000/api/symptoms/5/user/1
+Authorization: Bearer
+
+### DELETE Symptom by symptom id (requires token)
+DELETE http://localhost:3000/api/symptoms/5/user/1
+Authorization: Bearer
 
 ##
 ## /api/messages/ endpoints
