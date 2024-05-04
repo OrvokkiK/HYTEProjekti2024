@@ -5,6 +5,6 @@ import {authenticateToken} from '../middlewares/authentication.mjs';
 
 const studentRouter = express.Router();
 
-studentRouter.route('/').get(authenticateToken ,getAllStudents);
+studentRouter.route('/').get(authenticateToken, getAllStudents);
 
 export default studentRouter;

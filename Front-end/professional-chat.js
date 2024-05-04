@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const userId = localStorage.getItem('user_id');
   console.log('User ID on load:', userId);
   let currentConversationId = null;
+  let currentRecipientId = null;
 
   const menuToggle = document.querySelector('.menu-toggle');
   const menu = document.querySelector('.menu');
@@ -23,15 +24,16 @@ document.addEventListener('DOMContentLoaded', function () {
   fetchUsers();
 
   async function fetchUsers() {
-    const usersUrl = 'http://localhost:3000/api/users/';
-    try {
-      const users = await fetchData(usersUrl, {
-        headers: {Authorization: `Bearer ${token}`},
-      });
+    const usersUrl = 'http://localhost:3000/api/student/';
+    fetchData(usersUrl, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((users) => {
       displayUsers(users);
-    } catch (error) {
+    })
+    .catch((error) => {
       console.error('Error fetching users:', error);
-    }
+    });
   }
 
   function displayUsers(users) {
@@ -48,49 +50,111 @@ document.addEventListener('DOMContentLoaded', function () {
   async function selectRecipient(event) {
     const selectedUserId = event.target.dataset.userId;
     recipientInput.dataset.userId = selectedUserId;
+    currentRecipientId = selectedUserId;
+    const username = await fetchUserName(selectedUserId);
+    updateConversationHeader(username);
+    fetchConversationsAndMessagesForUser(selectedUserId);
     fetchConversationsAndMessagesForUser(selectedUserId);
   }
 
   async function fetchConversationsAndMessagesForUser(selectedUserId) {
     const apiUrl = `http://localhost:3000/api/messages/user/${selectedUserId}`;
-    try {
-      const conversations = await fetchData(apiUrl, {
-        headers: {Authorization: `Bearer ${token}`},
+    fetchData(apiUrl, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((conversations) => {
+        messagesContainer.innerHTML = ''; // Tyhjennä viestit
+        if (conversations.length > 0) {
+          currentConversationId = conversations[0].conversation_id; // Oleta, että valitaan ensimmäinen keskustelu
+          conversations.forEach((conversation) =>
+            fetchMessagesForConversation(conversation.conversation_id),
+          );
+        } else {
+          currentConversationId = null; // Ei keskusteluja, tyhjennä nykyinen ID
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching conversations:', error);
+        messagesContainer.innerHTML = 'Ei viestejä.';
       });
-      messagesContainer.innerHTML = ''; // Tyhjennä viestit
-      if (conversations.length > 0) {
-        currentConversationId = conversations[0].conversation_id; // Oleta, että valitaan ensimmäinen keskustelu
-        conversations.forEach((conversation) =>
-          fetchMessagesForConversation(conversation.conversation_id),
-        );
-      } else {
-        currentConversationId = null; // Ei keskusteluja, tyhjennä nykyinen ID
-      }
+  }
+
+  async function fetchUserName(userId) {
+    const userUrl = `http://localhost:3000/api/users/${userId}`;
+    try {
+      const response = await fetch(userUrl, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (!response.ok) throw new Error('Failed to fetch user');
+      const userData = await response.json();
+      return userData[0].username; // Olettaen, että käyttäjät palautetaan listana
     } catch (error) {
-      console.error('Error fetching conversations:', error);
-      messagesContainer.innerHTML = 'Ei viestejä.';
+      console.error('Failed to fetch user name:', error);
+      return "Nimetön käyttäjä"; // Oletusarvo virhetilanteessa
     }
   }
 
-  function fetchMessagesForConversation(conversationId, userId) {
-    const apiUrl = `http://localhost:3000/api/messages/conversation/${conversationId}`;
-    fetchData(apiUrl, {headers: {Authorization: `Bearer ${token}`}})
-      .then((messages) => {
-        displayMessages(messages, userId); // Varmista, että userId on tässä oikein
-      })
-      .catch((error) => {
-        console.error('Error fetching messages:', error);
-      });
+  function updateConversationHeader(username) {
+    const header = document.getElementById('conversation-header');
+    header.textContent = `Keskustelu käyttäjän ${username} kanssa`;
+  }
+  
+  async function selectRecipient(event) {
+    const selectedUserId = event.target.dataset.userId;
+    recipientInput.dataset.userId = selectedUserId;
+    const username = await fetchUserName(selectedUserId);
+    updateConversationHeader(username);
+    fetchConversationsAndMessagesForUser(selectedUserId);
   }
 
-function displayMessages(messages, userId) {
-  messagesContainer.innerHTML = ''; // Tyhjennä viestit ennen uusien näyttämistä
-  messages.forEach((message) => {
-    const className = parseInt(message.sender_id) === parseInt(userId) ? 'client' : 'professional';
-    console.log(className);
-    displayMessage(message, className);
-  });
-}
+
+  function fetchMessagesForConversation(conversationId) {
+    const apiUrl = `http://localhost:3000/api/messages/conversation/${conversationId}`;
+    fetchData(apiUrl, { headers: { Authorization: `Bearer ${token}` }})
+      .then((messages) => {
+        if (Array.isArray(messages) && messages.length > 0) {
+          displayMessages(messages, userId);
+        } else {
+          messagesContainer.innerHTML = '<div class="no-messages">Ei viestejä tässä keskustelussa.</div>';
+        }
+      })
+      .catch((error) => {
+        console.error(`Viestien haku epäonnistui keskustelulle ${conversationId}:`, error);
+      });
+  }
+  
+
+  function displayMessages(messages, userId) {
+    const container = document.getElementById('messages-container');
+    container.innerHTML = ''; // Tyhjennetään vanhat viestit
+
+    messages.forEach((message) => {
+      const utcDate = new Date(message.message_sent_at);
+      const localDate = utcDate.toLocaleString('fi-FI', {
+        timeZone: 'Europe/Helsinki',
+      }); // Olettaen että haluat näyttää ajan Helsingin aikavyöhykkeellä
+      const messageDiv = document.createElement('div');
+      // Määritellään viestin tyyliluokka sen perusteella, onko käyttäjä lähettäjä vai vastaanottaja
+      if (parseInt(message.sender_id) === parseInt(userId)) {
+        messageDiv.className = 'message client';
+      } else {
+        messageDiv.className = 'message professional';
+      }
+      messageDiv.innerHTML = `
+      <div class="date">${localDate}</div>
+        <div class="message-text">${message.message_content}</div>
+      `;
+      container.appendChild(messageDiv);
+    });
+
+    if (messages.length === 0) {
+      container.innerHTML =
+        '<div class="no-messages">Ei saapuneita viestejä</div>';
+    }
+  }
 
   
 
@@ -123,20 +187,8 @@ function displayMessages(messages, userId) {
     fetchData(sendMessageUrl, options);
     console.log('Message sent successfully');
     messageInput.value = '';
-    displayMessage(messageData, 'client');
+    fetchMessagesForConversation(currentConversationId);
   }
 
-  function displayMessage(message, userId) {
-    const className = parseInt(message.sender_id) === parseInt(userId) ? 'client' : 'professional';
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${className}`;
-    const messageTime = new Date(message.message_sent_at).toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' });
-    messageDiv.innerHTML = `
-      <div class="date">${messageTime}</div>
-      <div class="message-text">${message.message_content}</div>
-    `;
-    messagesContainer.appendChild(messageDiv);
-  }
-  
   
 });

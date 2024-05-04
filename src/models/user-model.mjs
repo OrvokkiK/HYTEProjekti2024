@@ -16,7 +16,7 @@ const listAllUsers = async () => {
 
 const listAllStudents = async () => {
   try {
-    const sql = 'SELECT user_id, username FROM Users WHERE user_level = "' + 'regular"';
+    const sql = 'SELECT user_id, username, title FROM Users WHERE user_level = "' + 'regular"';
     const [rows] = await promisePool.query(sql);
     console.log(rows);
     return rows;

@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
     menu.classList.toggle('show');
   });
 
+  const backButton = document.querySelector('.back');
+  backButton.addEventListener('click', function () {
+    document.getElementById('detailsModal').style.display = 'none';
+    document.getElementById('dataSelectionModal').style.display = 'block';
+  })
+
   const logoutLink = document.querySelector('.logout a');
   logoutLink.addEventListener('click', function (event) {
     event.preventDefault();
@@ -33,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 async function fetchUsers() {
-  const url = 'http://localhost:3000/api/users/';
+  const url = 'http://localhost:3000/api/student/';
   // http://localhost:3000/api/student/ 
   const token = localStorage.getItem('token');
   const options = {
@@ -55,7 +61,7 @@ function displayUsers(users) {
 
     users.forEach((user) => {
         const row = document.createElement('tr');
-        row.innerHTML = `<td>${user.user_id}</td><td>${user.username}</td><td>${user.user_level}</td><td>${user.title}</td>`;
+        row.innerHTML = `<td>${user.user_id}</td><td>${user.username}</td><td>${user.title}</td>`;
         row.onclick = () => selectUser(user.user_id); // Lisätään klikkauskuuntelija
         tbody.appendChild(row);
     });
@@ -106,9 +112,9 @@ function setupModalControls() {
 async function fetchDataForModal(dataType) {
     const urls = {
         'hrv': `http://localhost:3000/api/hrv/${currentUserId}`,
-        'analysis': `http://localhost:3000/api/analysis/user/${currentUserId}`,
-        'lifestyle': `http://localhost:3000/api/lifestyle/${currentUserId}`,
-        'symptoms': `http://localhost:3000/api/symptoms/user/${currentUserId}`
+        'kokonaisanalyysit': `http://localhost:3000/api/analysis/user/${currentUserId}`,
+        'elämäntapakyselyt': `http://localhost:3000/api/lifestyle/${currentUserId}`,
+        'oirearviokyselyt': `http://localhost:3000/api/symptoms/user/${currentUserId}`
     };
 
     fetchData(urls[dataType], {
@@ -124,7 +130,7 @@ async function fetchDataForModal(dataType) {
         document.getElementById('detailsModal').style.display = 'block'; // Näytä tietomodaali
     }).catch(error => {
         console.error('Error fetching data:', error);
-        showToast('Dataa ei voitu ladata.');
+        showToast('Ei dataa saatavilla.');
     });
 }
 function formatDate(dateString) {
@@ -135,20 +141,20 @@ function formatDate(dateString) {
 
 function displayDataDetails(data, dataType) {
     const detailsContent = document.getElementById('detailsContent');
-    detailsContent.innerHTML = `<h3>${dataType.toUpperCase()} Data:</h3>`;
+    detailsContent.innerHTML = `<h3>${dataType.toUpperCase()} :</h3>`;
 
     let headers = {
-        'hrv': ['Päivämäärä', 'Bpm Keskiarvo (ms)', 'Stressi-indeksi', 'Valmiustila (%)', 'SDNN (ms)'],
-        'analysis': ['Päivämäärä', 'Analyysi', 'Pisteet'],
-        'symptoms': ['Päivämäärä', 'Oireet', 'Stressitaso'],
-        'lifestyle': ['Päivämäärä', 'Unen määrä', 'Unen laatu', 'Terveydentila', 'Fyysinen Aktiivisuus', 'Alkoholiannokset', 'Nikotiini(mg)', 'Kofeiini' ]
+        'hrv': ['Päivämäärä', 'Bpm Keskiarvo', 'Stressi-indeksi', 'Valmiustila (%)', 'SDNN (ms)', 'RMDDS (ms)'],
+        'kokonaisanalyysit': ['Päivämäärä', 'Analyysi', 'Pisteet'],
+        'oirearviokyselyt': ['Päivämäärä', 'Oireet', 'Stressitaso'],
+        'elämäntapakyselyt': ['Päivämäärä', 'Unen määrä', 'Unen laatu', 'Tuntee olonsa terveeksi', 'Liikunta', 'Alkoholiannokset', 'Nikotiini(mg)', 'Kofeiini' ]
     };
 
     let fields = {
-        'hrv': ['entry_date', 'av_hrv', 'stress_index', 'readiness', 'sdnn_ms'],
-        'analysis': ['created_at', 'analysis_result', 'analysis_enumerated'],
-        'symptoms': ['entry_date', 'stress_level'],
-        'lifestyle': ['entry_date', 'hours_slept', 'quality_sleep', 'feel_healthy', 'physical_activity', 'alcohol_intake', 'nicotine_intake', 'caffeine_intake']
+        'hrv': ['entry_date', 'av_hrv', 'stress_index', 'readiness', 'sdnn_ms', 'mean_rr_ms'],
+        'kokonaisanalyysit': ['created_at', 'analysis_result', 'analysis_enumerated'],
+        'oirearviokyselyt': ['entry_date', 'stress_level'],
+        'elämäntapakyselyt': ['entry_date', 'hours_slept', 'quality_sleep', 'feel_healthy', 'physical_activity', 'alcohol_intake', 'nicotine_intake', 'caffeine_intake']
     };
 
     let tableHtml = `<table class='data-table'>
@@ -161,24 +167,26 @@ function displayDataDetails(data, dataType) {
         </thead>
         <tbody>`;
 
-    data.forEach(entry => {
-        tableHtml += `<tr>`;
-        fields[dataType].forEach(field => {
-            if (field === 'entry_date' || field === 'created_at') {
-                tableHtml += `<td>${formatDate(entry[field])}</td>`;
-            } else if (dataType === 'symptoms' && field === 'stress_level') {
-                let symptomsList = Object.keys(entry)
-                    .filter(key => entry[key] === 1 && !['symptom_id', 'user_id', 'entry_date', 'stress_level'].includes(key))
-                    .map(symptom => symptom.replace(/_/g, ' ')); // Muuta alaviivat välilyönneiksi oireiden nimissä
-                let symptomsStr = symptomsList.length > 0 ? symptomsList.join(', ') : 'Ei oireita';
-                tableHtml += `<td>${symptomsStr}</td>`; // Listaa oireet
-                tableHtml += `<td>${entry.stress_level}</td>`; // Lisää stressitaso
-            } else {
-                tableHtml += `<td>${entry[field]}</td>`;
-            }
+        data.forEach(entry => {
+            tableHtml += `<tr>`;
+            fields[dataType].forEach(field => {
+                if (field === 'entry_date' || field === 'created_at') {
+                    tableHtml += `<td>${formatDate(entry[field])}</td>`;
+                } else if (dataType === 'hrv' && typeof entry[field] === 'number') {
+                    tableHtml += `<td>${Math.round(entry[field])}</td>`; // Pyöristetään kaikki numerot
+                } else if (dataType === 'oirearviokyselyt' && field === 'stress_level') {
+                    let symptomsList = Object.keys(entry)
+                        .filter(key => entry[key] === 1 && !['symptom_id', 'user_id', 'entry_date', 'stress_level'].includes(key))
+                        .map(symptom => symptom.replace(/_/g, ' ')); // Muuta alaviivat välilyönneiksi oireiden nimissä
+                    let symptomsStr = symptomsList.length > 0 ? symptomsList.join(', ') : 'Ei oireita';
+                    tableHtml += `<td>${symptomsStr}</td>`; // Listaa oireet
+                    tableHtml += `<td>${entry.stress_level}</td>`; // Lisää stressitaso
+                } else {
+                    tableHtml += `<td>${entry[field]}</td>`;
+                }
+            });
+            tableHtml += `</tr>`;
         });
-        tableHtml += `</tr>`;
-    });
 
     tableHtml += `</tbody></table>`;
     detailsContent.innerHTML += tableHtml;

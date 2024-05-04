@@ -23,7 +23,7 @@
   <body>
       <nav>
         <img src="images/icon10.png" alt="logo" class="nav-logo" />
-        <div class="logo-text">MindEase</div>
+        <a href="professional.html" class="logo-text-link"><div class="logo-text">MindEase</div></a>
         <button class="menu-toggle">☰</button>
         <ul class="menu">
           <li class="dropdown">
@@ -49,7 +49,6 @@
                 <tr>
                     <th>Käyttäjän ID</th>
                     <th>Käyttäjätunnus</th>
-                    <th>Käyttäjän taso</th>
                     <th>Luokitus</th>
                 </tr>
             </thead>
@@ -58,19 +57,20 @@
         </table>
         <div id="dataSelectionModal" class="modal">
             <div class="selection-modal-content">
-                <span class="close">&times;</span>
+                <span class="close">Sulje</span>
                 <h2>Valitse tietotyyppi</h2>
                 <button class="data-select" data-type="hrv">HRV Mittaustulokset</button>
-                <button class="data-select" data-type="analysis">Kokonaisanalyysitulokset</button>
-                <button class="data-select" data-type="lifestyle">Elämäntapakyselyt</button>
-                <button class="data-select" data-type="symptoms">Oirearviokyselyt</button>
+                <button class="data-select" data-type="kokonaisanalyysit">Kokonaisanalyysitulokset</button>
+                <button class="data-select" data-type="elämäntapakyselyt">Elämäntapakyselyt</button>
+                <button class="data-select" data-type="oirearviokyselyt">Oirearviokyselyt</button>
                 
             </div>
         </div>
         <!-- Tietojen näyttömodaali -->
         <div id="detailsModal" class="modal">
             <div class="detail-modal-content">
-                <span class="close">&times;</span>
+                <span class="close">Sulje</span>
+                <button class="back">Takaisin</button>
                 <div id="detailsContent"></div>
             </div>
         </div>

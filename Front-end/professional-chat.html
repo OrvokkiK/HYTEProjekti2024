@@ -14,9 +14,12 @@
 <body>
   <nav>
     <img src="images/icon10.png" alt="logo" class="nav-logo" />
-    <div class="logo-text">MindEase</div>
+    <a href="professional.html" class="logo-text-link"><div class="logo-text">MindEase</div></a>
     <button class="menu-toggle">☰</button>
     <ul class="menu">
+      <li class="dropdown">
+        <a href="professional.html">ETUSIVU</a>
+      </li>
       <li class="dropdown">
         <a href="#"><i class="bi bi-person"></i> KONTAKTILISTA</a>
       </li>
@@ -34,9 +37,10 @@
         <ul id="user-list" class="conversation-list"></ul>
       </aside>
       <div class="message-content">
+        <div id="conversation-header"></div>
         <div id="messages-container" class="messages-container"></div>
         <div class="message-write">
-          <input type="text" id="recipient-id" hidden> <!-- Piilotettu ID kenttä -->
+          <input type="text" id="recipient-id" hidden> 
           <input type="text" id="message-content" data-input-type="message" placeholder="Kirjoita viesti...">
           <button id="send-button">Lähetä</button>
         </div>
