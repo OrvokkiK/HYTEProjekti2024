@@ -666,7 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user_id');
-    const url = `http://localhost:3000/api/hrv/${userId}`;
+    const url = 'http://localhost:3000/api/hrv/';
 
     const options = {
       method: 'POST',
