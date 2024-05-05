@@ -364,8 +364,8 @@ am5.ready(function () {
     });
 
 const valueColors = {
-  1: am5.color(0x58D66A), 
-  2: am5.color(0xF7AF12), 
+  1: am5.color(0x08AB1E), 
+  2: am5.color(0xF7AE12), 
   3: am5.color(0xF72E12)  
 };
 
@@ -671,8 +671,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user_id');
-    const url = `http://localhost:3000/api/hrv/${userId}`;
+    // const userId = localStorage.getItem('user_id');
+    const url = `http://localhost:3000/api/hrv/`;
 
     const options = {
       method: 'POST',
