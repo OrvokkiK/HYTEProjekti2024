@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         instructionText.textContent = currentPhase.text;
 
         if (stage === 'inhale') {
-            breathingCircle.style.transform = 'scale(1.3)';
+            breathingCircle.style.transform = 'scale(1.5)';
         } else if (stage === 'exhale') {
             breathingCircle.style.transform = 'scale(1)';
         }

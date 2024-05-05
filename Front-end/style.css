@@ -10,6 +10,10 @@ html {
   padding-bottom: 60px;
 }
 
+.kakka {
+  background-color: rgba(249, 101, 101, 0.7);
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -277,6 +281,7 @@ li a:hover,
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
+
 
 .jumbotron-user {
   position: absolute;
@@ -1485,8 +1490,6 @@ footer {
   .analysis-wrapper {
     max-width: 100%;
   }
-
-}
 
   button.data-select {
     width: 70%;

@@ -114,7 +114,7 @@ async function fetchDataForModal(dataType) {
         'hrv': `http://localhost:3000/api/hrv/${currentUserId}`,
         'kokonaisanalyysit': `http://localhost:3000/api/analysis/user/${currentUserId}`,
         'elämäntapakyselyt': `http://localhost:3000/api/lifestyle/${currentUserId}`,
-        'oirearviokyselyt': `http://localhost:3000/api/symptoms/user/${currentUserId}`
+        'oirearviokyselyt': `http://localhost:3000/api/symptoms/${currentUserId}`
     };
 
     fetchData(urls[dataType], {

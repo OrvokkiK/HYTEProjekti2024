@@ -363,11 +363,17 @@ am5.ready(function () {
       cornerRadiusTR: 6,
     });
 
-    series.columns.template.adapters.add('fill', function (fill, target) {
-      return chart
-        .get('colors')
-        .getIndex(series.dataItems.indexOf(target.dataItem));
-    });
+const valueColors = {
+  1: am5.color(0x58D66A), 
+  2: am5.color(0xF7AF12), 
+  3: am5.color(0xF72E12)  
+};
+
+series.columns.template.adapters.add('fill', function(fill, target) {
+  const value = target.dataItem.get('valueY');
+  return valueColors[value] || fill; // Returns the color based on value or the default fill
+});
+
 
     series.data.setAll(chartData);
     series.appear();
@@ -772,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
           resultDiv.innerHTML = `
           Päivämäärä: ${currentDate}<br>
           Sykkeen keskiarvo: ${parseFloat(mean_hr_bpm).toFixed(0)} bpm<br>
-          Stressi-indeksi: ${parseFloat(stress_index).toFixed(2)}<br>
+          Stressi-indeksi: ${parseFloat(stress_index).toFixed(0)}<br>
           Mieliala: ${user_happiness}<br>
           Valmiustila: ${parseFloat(readiness).toFixed(0)} %<br>
           Keskimääräinen RR väli: ${parseFloat(mean_rr_ms).toFixed(0)} ms<br>
@@ -1114,14 +1120,18 @@ fetchDataAndFilter(userId, token)
         (symptomPoints + hrvPoints + lifestylePoints) / 3,
       );
       let stressLevelText = '';
+      const stressElement = document.querySelector('.stress');
 
       // Määritä stressin taso kokonaispisteiden mukaan
       if (overallScore <= 1) {
         stressLevelText = 'Matala stressitaso';
+        stressElement.style.backgroundColor = 'rgba(108, 231, 149, 0.7)';
       } else if (overallScore <= 2) {
         stressLevelText = 'Kohtalainen stressitaso';
+        stressElement.style.backgroundColor = 'rgba(245, 206, 90, 0.7)';
       } else {
         stressLevelText = 'Korkea stressitaso';
+        stressElement.style.backgroundColor = 'rgba(249, 101, 101, 0.7)';
       }
       showModal(
         symptomPoints,
