@@ -3,27 +3,56 @@ import { addEntry, listLifestyleDataByUserId } from '../models/lifestyle-model.m
 
 // Post lifestyle survey by user id
 const postEntry = async (req, res, next) => {
-    const userId = req.user.user_id;
-    const result = await addEntry(req.body, userId);
-    if (result.entry_id) {
-      res.status(201);
-      res.json({message: 'New entry added.', ...result});
+  const user_id_token = req.user.userId;
+  const {
+    user_id,
+    entry_date,
+    caffeine_intake,
+    nicotine_intake,
+    alcohol_intake,
+    hours_slept,
+    enough_sleep,
+    quality_sleep,
+    physical_activity,
+    duration,
+    intensity,
+  } = req.body;
+  if (user_id && entry_date) {
+    if (user_id == user_id_token ) {
+      const result = await addEntry(req.body, user_id_token);
+      console.log(result); 
+      if (result.lifestyle_id) {
+        res.status(201);
+        res.json({message: 'New entry added.', ...result});
+      } else {
+        next(new Error(result.error));
+      }
     } else {
-      next(new Error(result.error));
+      return res.status(403).json({error: 403, message: 'Forbidden'}); 
     }
-  };
+  } else {
+    return res.status(404).json({error: 404, message: 'Bad request'});
+  }
+};
 
  // get lifestyle survey data by user id 
 const getLifestyleDataByUserId = async (req, res) => {
+  const user_id_token = req.user.userId;
+  const user_level = req.user.user_level;
   const user_id = req.params.id;
-  const result = await listLifestyleDataByUserId(user_id);
-  if (result.error) {
-    return res.status(result.error).json(result);
+  if (user_id_token == user_id || user_level === 'hcp' || user_level === 'admin') {
+    const result = await listLifestyleDataByUserId(user_id);
+    if (result.error) {
+      return res.status(result.error).json(result);
+    }
+    return res.json(result);
+  } else {
+    return res.status(403).json({error: 403, message: 'Forbidden'}); 
   }
-  return res.json(result);
+
 }; 
 
-  export {
-    postEntry,
-    getLifestyleDataByUserId
+export {
+  postEntry,
+  getLifestyleDataByUserId
   };

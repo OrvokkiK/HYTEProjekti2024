@@ -252,10 +252,41 @@ Authorization: Bearer
 ```
 # Lifestyle data related endpoints
 
+##
+## /api/lifestyle/ routes
+##
 
+### Create a new lifestyle entry
+```
+POST http://localhost:3000/api/lifestyle/
+Authotization: Bearer 
 
+Content-Type: application/json
 
+{
+  "entry_date" : "2024-05-01 18:27:00",
+  "hours_slept" : "7.5",
+  "enough_sleep" : "kyllä",
+  "quality_sleep" : "hyvä",
+  "feel_healthy" : "kyllä",
+  "caffeine_intake" : "4",
+  "nicotine_intake": "0",
+  "alcohol_intake": "0",
+  "physical_activity": "Juoksu",
+  "duration": "30",
+  "intensity": "matala",
+  "user_id": "6"
+}
+```
+##
+## /api/lifestyle/:id routes
+##
 
+### fetch lifestyle entries by user_id
+```
+GET http://localhost:3000/api/lifestyle/6
+Authorization: Bearer
+```
 
 # HRV data related endpoints
 

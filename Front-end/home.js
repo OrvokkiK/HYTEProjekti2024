@@ -616,7 +616,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const id = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
 
-    const url = `http://localhost:3000/api/lifestyle/${id}`;
+    const url = 'http://localhost:3000/api/lifestyle/';
     const options = {
       method: 'POST',
       headers: {

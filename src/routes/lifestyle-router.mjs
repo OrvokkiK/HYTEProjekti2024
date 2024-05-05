@@ -6,8 +6,8 @@ import { authenticateToken } from "../middlewares/authentication.mjs";
 
 const lifestyleRouter = express.Router();
 
-lifestyleRouter.route("/:id")
-.post(authenticateToken, postEntry)
-.get(authenticateToken, getLifestyleDataByUserId)
+lifestyleRouter.route("/").post(authenticateToken, postEntry);
+
+lifestyleRouter.route("/:id").get(authenticateToken, getLifestyleDataByUserId);
 
 export default lifestyleRouter;
