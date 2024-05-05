@@ -5,8 +5,8 @@ import { authenticateToken } from "../middlewares/authentication.mjs";
 
 const hrvRouter = express.Router();
 
-hrvRouter.route('/:id')
-.post(authenticateToken, postHrv)
-.get(authenticateToken, getHrvDataByUserId);
+hrvRouter.route('/').post(authenticateToken, postHrv);
+
+hrvRouter.route('/:id').get(authenticateToken, getHrvDataByUserId);
 
 export default hrvRouter;
