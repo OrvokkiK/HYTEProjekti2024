@@ -1,6 +1,7 @@
 // user-router.mjs
 import express from 'express';
 import {getUserById, getUsers, postNewUser, putUserById, removeUser} from '../controllers/user-controller.mjs';
+import { authenticateToken } from '../middlewares/authentication.mjs';
 
 const userRouter = express.Router();
 
@@ -8,16 +9,16 @@ const userRouter = express.Router();
 // User endpoints
 userRouter.route('/')
 //Lists all users;
-.get(getUsers)
+.get(authenticateToken, getUsers)
 //user registration
 .post(postNewUser);
 
 userRouter.route('/:id')
 //Lists a specific user
-.get(getUserById)
+.get(authenticateToken, getUserById)
 //editing user's contact info
-.put(putUserById)
+.put(authenticateToken, putUserById)
 //remove user
-.delete(removeUser);
+.delete(authenticateToken, removeUser);
 
 export default userRouter;

@@ -13,19 +13,36 @@ import { authenticateToken } from "../middlewares/authentication.mjs";
 const symptomRouter = express.Router();
 
 // Symptom endppoints
-symptomRouter.route("/").get(getAllSymptoms); // Move to admin router?
-
-// TODO: figureout routing for getSymptomsByUserId
+symptomRouter.route("/").get(authenticateToken, getAllSymptoms);
 
 //symptom/:id endpoints
 symptomRouter
   .route("/:id")
-  // .get(getSymptomsBySymptomId)
   .get(authenticateToken, getSymptomsByUserId)
-  .post(postNewEntry)
-  .put(putEntryById)
-  .delete(removeSymptomById);
+  .post(authenticateToken, postNewEntry)
+  .put(authenticateToken, putEntryById);
 
+// Original
+/* //symptom/:id endpoints
+symptomRouter
+  .route("/:id")
+  .get(
+    authenticateToken,
+    getSymptomsByUserId)
+  .post(authenticateToken, postNewEntry)
+  .put(authenticateToken, putEntryById)
+  .delete(authenticateToken, removeSymptomById
+  );
+*/ 
 
+symptomRouter
+  .route('/:id/user/:user_id/')
+  .get(
+    authenticateToken,
+    getSymptomsBySymptomId
+  ).delete(
+    authenticateToken,
+    removeSymptomById
+  );
 
 export default symptomRouter;

@@ -1,5 +1,4 @@
 // message-model.mjs
-import { query } from "express";
 import promisePool from "../utils/database.mjs";
 
 //lists all message
@@ -34,8 +33,8 @@ const listMessageByMessage_id = async (message_id) => {
   try {
     const sql = `SELECT * FROM messages WHERE message_id = ${message_id}`;
     const [rows] = await promisePool.query(sql);
-    if (rows.lenght === 0) {
-        return {error: 404, message: 'No message found'};
+    if (rows.length === 0) {
+      return {error: 404, message: 'No message found'};
     }
     return rows;
   } catch (error) {
@@ -49,7 +48,7 @@ const listConverstation = async (conversation_id) => {
   try {
     const sql = `SELECT * FROM messages WHERE conversation_id = ${conversation_id}`;
     const [rows] = await promisePool.query(sql);
-    if (rows.lenght === 0) {
+    if (rows.length === 0) {
       return {error: 404, message: 'No conversation found'};
     }
     return rows;
@@ -59,7 +58,7 @@ const listConverstation = async (conversation_id) => {
   }
 }
 
-// list conversations by sender id
+// list conversations_id by sender or recipient id
 const listConversationByUserId = async (userId) => {
   try {
     const sql = `
@@ -68,6 +67,8 @@ const listConversationByUserId = async (userId) => {
       WHERE sender_id = ? OR recipient_id = ?;
     `;
     const [rows] = await promisePool.query(sql, [userId, userId]);
+    console.log('rows: ',rows);
+    console.log(rows.length);
     if (rows.length === 0) {
       return {error: 404, message: 'No conversations found'};
     } else {
@@ -79,6 +80,7 @@ const listConversationByUserId = async (userId) => {
   }
 };
 
+
 // add message
 // TODO: implement cotrols that message chain hpc - regular or regular - hpc
 const insertMessage = async (conversation_id, message) => {
@@ -88,7 +90,8 @@ const insertMessage = async (conversation_id, message) => {
     console.log(params);
     const [rows] = await promisePool.query(sql, params);
     console.log(rows);
-    return {message_id: rows.insertId}
+    console.log(rows.insertId);
+    return {message_id: rows.insertId};
   } catch (error) {
     console.error('Model: ListConversation ', error);
     return {error: 500, message: 'db error'};
@@ -96,9 +99,9 @@ const insertMessage = async (conversation_id, message) => {
 }; 
 
 //delete message
-const deleteMessageByMessageId = async (message_id) => {
+const deleteMessageByMessageId = async (message_id, user_id) => {
   try {
-    const sql = `DELETE FROM messages WHERE message_id = ${message_id}`;
+    const sql = `DELETE FROM messages WHERE message_id = ${message_id} AND sender_id=${user_id}`;
     const [rows] = await promisePool.query(sql);
     if (rows.affectedRows === 0) {
       return {error: 404, message: 'no message found'};
@@ -110,6 +113,20 @@ const deleteMessageByMessageId = async (message_id) => {
   }
 };
 
+const deleteConversationByConversationId = async (conversation_id) => {
+  try {
+    const sql = `DELETE FROM messages WHERE conversation_id = ${conversation_id}`;
+    const [rows] = await promisePool.query(sql);
+    if (rows.affectedRows === 0) {
+      return {error: 404, message: 'no conversation found'};
+    }
+    return {message: 'conversation deleted', conversation_id: conversation_id };
+  } catch (error) {
+    console.error('Model: ListConversation: ', error);
+    return {error: 500, message: 'db error'};
+  }
+}
+
 export {
   listAllMessages,
   listMessagebyAuthor,
@@ -117,5 +134,6 @@ export {
   listConverstation,
   listConversationByUserId,
   insertMessage,
-  deleteMessageByMessageId
+  deleteMessageByMessageId,
+  deleteConversationByConversationId
 };

@@ -48,7 +48,7 @@ app.use('/api/kubios', kubiosRouter);
 app.use('/api/symptoms/', symptomRouter);
 
 // symptoms/user routes
-app.use('/api/symptoms/user', symptomUserRouter);
+// app.use('/api/symptoms/user', symptomUserRouter);
 
 // Lifestyle routes
 app.use('/api/lifestyle/', lifestyleRouter);

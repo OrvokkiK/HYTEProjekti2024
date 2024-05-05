@@ -331,7 +331,7 @@ input.loginuser,
 .tallenna-kysely,
 .tallenna-hrv,
 #diary-form button,
-#send-button {
+#send-button, .close {
   background-color: #8b87f8;
   color: white;
   padding: 10px 15px;
@@ -599,8 +599,7 @@ button:hover {
 .close-button2,
 .close-button3,
 .close-button4,
-.close-modal,
-.close {
+.close-modal {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -616,12 +615,19 @@ button:hover {
 .close-button4:hover,
 .close-button4:focus,
 .close-modal:hover,
-.close-modal:focus,
-.close:hover,
-.close:focus {
+.close-modal:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.back {
+  background: none;
+  text-decoration: underline;
+}
+
+.back:hover {
+  color: #6829e7;
 }
 
 #survey-form-mental,
@@ -1383,10 +1389,24 @@ footer {
     max-width: 90%;
   }
 
+
   .introduction,
   .exercises {
     max-width: 90%;
   }
+
+.exercises {
+  max-width: 90%;
+}
+
+.selection-modal-content{
+  width: 90%;
+}
+
+.detail-modal-content {
+  width: 95%;
+}
+
 
   .detail-modal-content {
     width: 95%;
@@ -1465,4 +1485,13 @@ footer {
   .analysis-wrapper {
     max-width: 100%;
   }
+
 }
+
+  button.data-select {
+    width: 70%;
+  }
+}
+
+}
+

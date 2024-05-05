@@ -21,7 +21,7 @@ const listSymptomsByUserId = async (user_id) => {
     const [rows] = await promisePool.query(sql, params);
     console.log(rows);
     if (rows.length === 0 ) {
-      return {error: 404, message: `No symptom entries found by user_id${user_id}`};
+      return {error: 404, message: `No symptom entries found by user_id ${user_id}`};
     } else {
       return rows;   
     };
@@ -31,10 +31,10 @@ const listSymptomsByUserId = async (user_id) => {
   }
 };
 
-const listSymptomsBySymptomId = async (id) => {
+const listSymptomsBySymptomId = async (id, user_id) => {
   try {
-    const sql = 'SELECT * FROM SYMPTOMS WHERE symptom_id=?';
-    const params = [id];
+    const sql = 'SELECT * FROM SYMPTOMS WHERE symptom_id=? and user_id=?';
+    const params = [id, user_id];
     const [rows] = await promisePool.query(sql,params);
     if (rows.length === 0) {
       return {error: 404, message: `No symptom entries found by id ${id}`}; 
@@ -92,6 +92,7 @@ const addSymptoms = async (entry, user_id) => {
     stress_level, 
     user_id
   ];
+  console.log(params);
   try {
     const rows = await promisePool.query(sql, params);  
     return {entry_id: rows[0].insertId};   
@@ -143,9 +144,9 @@ const updateEntryById = async (entry) => {
 };
 
 // DELETE an entry in symptoms
-const deleteSymptomById = async (symptom_id) => {
+const deleteSymptomById = async (symptom_id, user_id) => {
   try {
-    const sql = `DELETE FROM Symptoms WHERE symptom_id=${symptom_id}`;
+    const sql = `DELETE FROM Symptoms WHERE symptom_id=${symptom_id} AND user_id=${user_id}`;
     // console.log(sql); 
     const [rows] = await promisePool.query(sql);
     if (rows.affectedRows ===  0) {
