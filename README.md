@@ -69,7 +69,7 @@ Content-Type: application/json
 ## /api/auth/professional/
 ##
 
-### Login as an admin/hpc
+### Login as an admin/healthcare provider
 ```
 POST http://localhost:3000/api/auth/professional/login
 Content-Type: application/json
