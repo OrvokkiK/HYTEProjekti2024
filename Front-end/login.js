@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const userLoginForm = document.getElementById('userLoginForm');
     userLoginForm.addEventListener('submit', function(event) {
         event.preventDefault();
+        if (!userLoginForm.checkValidity()) {
+            userLoginForm.reportValidity();
+            return;
+        }
         const form = event.target;
         const url = 'http://localhost:3000/api/auth/login';
         const redirectUrl = 'home.html'; // Ohjaus asiakkaan etusivulle
@@ -34,6 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const professionalLoginForm = document.getElementById('professionalLoginForm');
     professionalLoginForm.addEventListener('submit', function(event) {
         event.preventDefault();
+        if (!professionalLoginForm.checkValidity()) {
+            professionalLoginForm.reportValidity();
+            return;
+        }
         const form = event.target;
         const url = 'http://localhost:3000/api/auth/professional/login';
         const redirectUrl = 'professional.html'; // Ohjaus ammattilaisen sivulle
