@@ -250,7 +250,21 @@ Authorization: Bearer
 DELETE http://localhost:3000/api/symptoms/4/user/10
 Authorization: Bearer
 ```
-# analysis related endpoints
+# Lifestyle data related endpoints
+
+
+
+
+
+
+# HRV data related endpoints
+
+
+
+
+
+
+# Analysis related endpoints
 
 ##
 ## /api/analysis routes
@@ -296,7 +310,7 @@ Content-Type: application/json
 ## /api/analysis/user/ routes
 ##
 
-### GET all analysis entries of a specific user (requires token)
+### Fetch all analysis entries of a specific user (requires token)
 ```
 GET http://localhost:3000/api/analysis/user/6
 Authorization: Bearer 
@@ -306,8 +320,96 @@ Authorization: Bearer
 ## /api/analysis/:id/user/:id
 ##
 
-### DELETE a specific entry in analysis (requires token)
+### Delete a specific entry in analysis of a specific user (requires token)
 ```
 DELETE http://localhost:3000/api/analysis/6/user/10
+Authorization: Bearer
+```
+
+# Riskgroup data related endpoints
+
+
+
+
+
+
+
+# Messages related endpoints
+
+##
+## /api/messages routes
+##
+
+### Fetch all messages (requires token)
+```
+GET http://localhost:3000/api/messages/
+Authorization: Bearer
+```
+
+### Send a new message to a new conversation (requires token)
+```
+POST http://localhost:3000/api/messages/
+Authorization: Bearer
+Content-Type: application/json
+
+{
+  "recipient_id": "6", 
+  "message_content": "Hello!",
+  "message_sent_at" : "2024-05-05 14:02:00",
+  "sender_id": "5"
+}
+```
+
+### Send a new message to an existing conversation (requires token)
+```
+POST http://localhost:3000/api/messages/
+Authorization: Bearer
+Content-Type: application/json
+
+{
+  "conversation_id" : "1",
+  "recipient_id": "6", 
+  "message_content": "Toimiiko tää vittu?",
+  "message_sent_at" : "2024-05-05 14:02:00",
+  "sender_id": "5"
+}
+```
+##
+## /api/messages/:id routes
+##
+
+### Fetch message by message's id (requires token)
+```
+GET http://localhost:3000/api/messages/6
+Authorization: Bearer
+```
+
+##
+## /api/messages/conversation/:id routes 
+##
+
+### Fetch conversation by conversation id (requires token)
+```
+GET http://localhost:3000/api/messages/conversation/2
+Authorization: Bearer 
+```
+
+##
+## /api/conversation/user/:id routes
+##
+
+### Fetch conversation_id sender's or recipients's id (requires token)
+```
+GET http://localhost:3000/api/messages/user/5
+Authorization: Bearer
+```
+
+##
+## /api/messages/:id/user/:user_id
+##
+
+### Delete messages by message_id and user_id (requires token)
+```
+DELETE http://localhost:3000/api/messages/7/user/6
 Authorization: Bearer
 ```
