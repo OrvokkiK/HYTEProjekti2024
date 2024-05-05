@@ -477,6 +477,13 @@ button:hover {
   margin-top: 40px;
 }
 
+#graph ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
 #graph2 {
   margin-bottom: 100px;
 }
@@ -531,10 +538,6 @@ button:hover {
   background-color: #66b2e4;
   color: white;
 }
-
-/* .current-date:hover {
-  background-color: #b4b0b0;
-} */
 
 .dot {
   height: 8px;
@@ -813,8 +816,7 @@ aside.messages-sidebar {
   font-weight: 700;
   text-align: center;
   padding: 20px;
-  border-radius: 10px;
-  background-color: #c3d6fa;
+  background-color: #d5d6d8;
 }
 
 #overall-analysis-modal .modal-content {
@@ -866,15 +868,15 @@ h2 {
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  color: #fdfefe; /* Sininen väri */
-  text-decoration: none; /* Poista alleviivaus */
+  color: #2b418a;
+  text-decoration: none;
   transition: color 0.3s;
 }
 
 .scroll-down:hover,
 .scroll-down:focus {
-  color: #5e88b5; /* Tummempaa sinistä hover-efektiin */
-  text-decoration: none; /* Varmista, että alleviivaus pysyy poissa */
+  color: #9fcdff;
+  text-decoration: none;
 }
 
 .scroll-down i,
@@ -898,52 +900,6 @@ h2 {
   100% {
     transform: rotate(360deg);
   }
-}
-
-.diary-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 100px;
-}
-
-.diary-class,
-.diary-section {
-  background-color: rgba(198, 239, 240, 0.9);
-  margin: 20px auto;
-  flex-basis: 45%; /* Aseta alkuperäinen leveys */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
-  padding: 20px;
-}
-
-.diary-section h2 {
-  color: #070707;
-  text-align: center;
-}
-
-#diary-form {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-}
-
-#diary-form label {
-  margin-bottom: 5px;
-  color: #0c010f;
-}
-
-#diary-form input,
-#diary-form textarea {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-#diary-form button:hover {
-  background-color: #926ff5;
 }
 
 h1 {
@@ -983,8 +939,8 @@ h1 {
 
 .about-stress {
   display: flex;
-  flex-direction: column; /* Asettaa lapsielementit pystysuoraan järjestykseen */
-  align-items: center; /* Keskittää lapsielementit vaakasuunnassa */
+  flex-direction: column;
+  align-items: center;
   background-color: rgba(198, 239, 240, 0.7);
   max-width: 80%;
   margin: auto;
@@ -997,8 +953,8 @@ h1 {
 }
 
 .column {
-  flex: 1 1 25%; /* Kasvaa ja kutistuu, mutta alkuarvo on 30% */
-  min-width: 200px; /* Asettaa minimileveyden sarakkeille */
+  flex: 1 1 25%;
+  min-width: 200px;
   padding: 20px;
   background-color: #f8f9fa;
   border: 1px solid #ddd;
@@ -1012,22 +968,22 @@ h1 {
   display: block;
   font-size: 18px;
   text-align: center;
-  color: #f8f9fa; /* Sininen väri */
-  text-decoration: none; /* Poista alleviivaus */
+  color: #2b418a;
+  text-decoration: none;
   transition: color 0.3s;
 }
 
 .columns-container {
   display: flex;
-  justify-content: space-between; /* Tasaisesti jakaa tilaa sarakkeiden välillä */
-  flex-wrap: wrap; /* Mahdollistaa sarakkeiden siirtymisen uudelle riville tarvittaessa */
-  width: 100%; /* Käyttää koko käytettävissä olevan leveyden .about-stress sisällä */
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .scroll-down-relaxation:hover,
 .scroll-down-relaxation:focus {
-  color: #5e80a5; /* Tummempaa sinistä hover-efektiin */
-  text-decoration: none; /* Varmista, että alleviivaus pysyy poissa */
+  color: #9fcdff;
+  text-decoration: none;
 }
 
 .about-stress {
@@ -1052,7 +1008,7 @@ h1 {
 
 iframe {
   width: 100%;
-  height: 300px; /* Korkeutta voidaan säätää tarpeen mukaan */
+  height: 300px;
 }
 
 .exercise h3,
@@ -1095,11 +1051,11 @@ iframe {
 
 .info-panel,
 .table-container {
-  flex: 1; /* Molemmille elementeille annetaan yhtä paljon tilaa */
+  flex: 1;
   padding: 10px;
   margin: 10px;
-  margin-top: 100px; /* Säädä marginaalia tarpeen mukaan */
-  border-radius: 8px; /* Yhtenäiset pyöristetyt kulmat */
+  margin-top: 100px;
+  border-radius: 8px;
 }
 
 .info-panel {
@@ -1115,40 +1071,40 @@ iframe {
 
 .styled-table {
   width: 100%;
-  border-collapse: separate; /* Muuttaa border-collapse asetusta varjostuksen ja reunan pyöristämisen vuoksi */
-  border-spacing: 0; /* Poistaa ylimääräisen tilan solujen väliltä */
-  margin: 0; /* Keskittää taulukon ja antaa ylä- ja alamarginaalin */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lisää hienovaraisen varjostuksen taulukon ympärille */
-  border-radius: 10px; /* Pyöristää taulukon ulkoreunat */
-  overflow: hidden; /* Estää sisällön ulospursuamisen pyöristetyistä reunoista */
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .styled-table th,
 .styled-table td {
-  padding: 12px 15px; /* Lisää paddingia mukavuuden ja ulkoasun parantamiseksi */
-  text-align: left; /* Tekstin kohdistus */
-  border-bottom: 1px solid #ddd; /* Viimeisen rivin poistamiseen tarvitaan muutoksia */
-  color: #080808; /* Tekstin väri */
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: #080808;
 }
 
 .styled-table th {
-  background-color: #66a2c6; /* Sarakeotsikoiden taustaväri */
-  color: white; /* Sarakeotsikoiden tekstin väri */
-  text-align: justify; /* Otsikoiden tekstin keskitys */
+  background-color: #66a2c6;
+  color: white;
+  text-align: justify;
 }
 
 .styled-table tbody tr:last-child td {
-  border-bottom: none; /* Poistaa viimeisen rivin alareunan */
+  border-bottom: none;
 }
 
 .styled-table tbody tr:nth-child(even) {
-  background-color: #a3d6f8; /* Parannettu visuaalinen erottaminen */
-  font-size: 12px;
+  background-color: #a3d6f8;
+  font-size: 14px;
 }
 
 .styled-table tbody tr:nth-child(odd) {
-  background-color: #f0f8ff; /* Vaihtoehtoinen väri */
-  font-size: 12px;
+  background-color: #f0f8ff;
+  font-size: 14px;
 }
 
 /* ammattilaisen tyylittelyt */
@@ -1185,7 +1141,6 @@ iframe {
 .professional-table thead th {
   position: sticky;
   top: 0;
-  /* z-index: 10; */
 }
 
 .professional {
@@ -1256,6 +1211,24 @@ iframe {
   margin: 10px;
   width: 50%;
   background-color: #91bedc;
+}
+
+#breathing-circle {
+  width: 100px;
+  height: 100px;
+  background-color: #95d4ea;
+  border-radius: 50%;
+  margin: 20px auto;
+  transition: all 5s ease-in-out;
+}
+#instruction {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#timer {
+  font-size: 48px;
+  color: #333;
 }
 
 footer {
@@ -1345,8 +1318,6 @@ footer {
   .menu li,
   .nav-notlink {
     margin: 0;
-    /* border-bottom: 1px solid #5b9bd0; */
-    /* right: 60px; */
   }
 
   .menu li:last-child {
@@ -1432,7 +1403,6 @@ footer {
   .info-panel {
     margin-top: 30px;
   }
-  
 }
 
 @media screen and (max-width: 770px) {
@@ -1486,11 +1456,6 @@ footer {
 
   .videos {
     max-width: 95%;
-  }
-
-  .diary-class,
-  .diary-section {
-    flex-basis: 100%; /* Säädä leveyttä pienemmillä näytöillä */
   }
 
   .chart-container {
