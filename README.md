@@ -282,7 +282,7 @@ Content-Type: application/json
 ## /api/lifestyle/:id routes
 ##
 
-### fetch lifestyle entries by user_id
+### fetch lifestyle entries by user_id (requires token)
 ```
 GET http://localhost:3000/api/lifestyle/6
 Authorization: Bearer
@@ -290,11 +290,35 @@ Authorization: Bearer
 
 # HRV data related endpoints
 
+##
+## /api/hrv
+##
 
+### Save a new hrv entry (requires token)
+```
+POST http://localhost:3000/api/hrv
+Authorization: Bearer
+Content-Type: application/json
 
+{
+  "entry_date" : "2024-05-05",
+  "stress_index": "8.676786867394357",
+  "mood": "4",
+  "av_hrv": "931.5854922279792" ,
+  "mean_rr_ms" : "931.5854922279792",
+  "sdnn_ms": "47.26890774349144",
+  "readiness": "66.85579905808478"
+}
+```
+##
+## /api/hrv/:id
+##
 
-
-
+### Fetch all user's hrv entries (requires token)
+```
+GET http://localhost:3000/api/lifestyle/6
+Authorization: Bearer
+```
 # Analysis related endpoints
 
 ##
