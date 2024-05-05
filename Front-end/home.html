@@ -132,7 +132,11 @@
       </aside>
     </main>
     <div id="graph">
-      <div>1=Matala stressi 2=Kohtalainen stressi 3=Korkea stressi</div>
+      <ul style="list-style: none; padding: 0; margin-top: 10px;">
+        <li><span style="color: green; font-weight: bold;">● Matala stressi</span> (1)</li>
+        <li><span style="color: orange; font-weight: bold;">● Kohtalainen stressi</span> (2)</li>
+        <li><span style="color: red; font-weight: bold;">● Korkea stressi</span> (3)</li>
+      </ul>
     </div>
     <div class="links">
       <h2>Linkkejä</h2>
@@ -476,9 +480,13 @@
         <!-- <p id="symptom-points"></p>
         <p id="hrv-points"></p>
         <p id="lifestyle-points"></p> -->
-        <p id="lifestyle-points"></p> -->
+        <p id="lifestyle-points"></p> 
         <p id="overall-score"></p>
         <p id="overall-text"></p>
+                <div id="additional-info" style="display:none;">
+            <p id="stress-advice"></p>
+            <a href="relaxation-exercise.html" id="stress-link">Rentoutumisharjoituksiin</a>
+        </div>
       </div>
     </div>
     <div id="infoModal" class="modal">

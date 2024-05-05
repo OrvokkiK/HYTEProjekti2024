@@ -39,9 +39,10 @@ const addEntry = async (entry) => {
   try {
     const rows = await promisePool.query(sql, params);
     console.log("rows", rows);
+    console.log(rows[0].insertId);
     return { lifestyle_id: rows[0].insertId };
   } catch (e) {
-    console.error("error", e.message);
+    console.error("error", e);
     return { error: e.message };
   }
 };
@@ -57,7 +58,7 @@ const listLifestyleDataByUserId = async (user_id) => {
       return rows;
     };
   } catch (error) {
-    console.error('listLifestyleDataByUserId: ', error.message);
+    console.error('listLifestyleDataByUserId: ', error);
     return {error: error.message};
   }
 };

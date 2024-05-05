@@ -271,7 +271,7 @@ am5.ready(function () {
       wheelY: 'zoomX',
       paddingLeft: 20,
       paddingRight: 40,
-      paddingBottom: 60,
+      paddingBottom: 80,
       layout: root.verticalLayout,
     }),
   );
@@ -423,10 +423,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     event.preventDefault();
 
     const stressLevel = document.getElementById('stress_level');
-    // if (!stressLevel) {
-    //   console.error('Stress-level elementtiä ei löydy!');
-    //   return; // Lopettaa funktion suorituksen, jos elementtiä ei löydy
-    // }
+
     const stressLevelValue = parseInt(stressLevel.value, 10);
 
     const dataToSubmit = {
@@ -616,7 +613,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const id = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
 
-    const url = `http://localhost:3000/api/lifestyle/${id}`;
+    const url = 'http://localhost:3000/api/lifestyle/';
     const options = {
       method: 'POST',
       headers: {
@@ -1078,23 +1075,30 @@ function showModal(
     // const lifestylePointsElement = document.getElementById('lifestyle-points');
     const overallScoreElement = document.getElementById('overall-score');
     const overallTextElement = document.getElementById('overall-text');
+    const additionalInfo = document.getElementById('additional-info');
+    const stressAdvice = document.getElementById('stress-advice');
+    const stressLink = document.getElementById('stress-link');
 
     // symptomPointsElement.textContent = `Oirekyselyn pistemäärä: ${symptomPoints}/3 pistettä`;
     // lifestylePointsElement.textContent = `Elämäntapakyselyn pistemäärä: ${lifestylePoints}/3 pistettä`;
     // hrvPointsElement.textContent = `HRV mittaustuloksen pistemäärä: ${hrvPoints}/3 pistettä`;
     overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}/3 pistettä`;
     overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText}`;
-    overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText} `;
 
-    // Merkitse modaali näytetyksi
-    localStorage.setItem('analysisModalShown', 'true');
-
-    // Voit lisätä modaalin sulkemistoiminnallisuuden tarvittaessa
-    const closeButton = document.getElementsByClassName('close-button4')[0];
-    closeButton.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
+    if (overallScore === 2 || overallScore === 3) {
+      additionalInfo.style.display = 'block';
+      stressAdvice.textContent = 'Stressitasosi on korkea. Suosittelemme tarkastamaan elämäntapojasi.';
+      stressLink.textContent = 'Lue lisää stressinhallinnasta täältä';
+  } else {
+      additionalInfo.style.display = 'none';
   }
+
+  const closeButton = document.getElementsByClassName('close-button4')[0];
+  closeButton.onclick = () => {
+      modal.style.display = 'none';
+      localStorage.setItem('analysisModalShown', 'true');
+  };
+}
 }
 
 fetchDataAndFilter(userId, token)
@@ -1176,6 +1180,7 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.removeItem('analysisModalShown');
     localStorage.removeItem('user_id');
     localStorage.removeItem('token');
+    localStorage.removeItem('loginTime');
     showToast('Kirjaudutaan ulos.');
     setTimeout(() => {
       window.location.href = 'index.html';
