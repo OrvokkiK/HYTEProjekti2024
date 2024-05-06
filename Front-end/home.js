@@ -719,7 +719,6 @@ document.addEventListener('DOMContentLoaded', () => {
           const {
             mean_hr_bpm,
             stress_index,
-            mood,
             readiness,
             mean_rr_ms,
             sdnn_ms,
@@ -732,7 +731,6 @@ document.addEventListener('DOMContentLoaded', () => {
             user_id: userId,
             av_hrv: mean_hr_bpm,
             stress_index,
-            mood,
             readiness,
             mean_rr_ms,
             sdnn_ms,
