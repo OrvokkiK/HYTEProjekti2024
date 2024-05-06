@@ -20,7 +20,7 @@ hrvRouter.post('/',
 );
 
 
-// sample body fo post REQ
+// sample body for post REQ
 /*
           currentHrvData = {
             user_id: userId,
