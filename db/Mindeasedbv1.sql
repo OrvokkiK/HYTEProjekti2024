@@ -57,7 +57,6 @@ CREATE TABLE Messages (
   sender_id INT NOT NULL,
   FOREIGN KEY (sender_id) REFERENCES Users(user_id)
 );
---  TODO: Implement message read/unread
 
 CREATE TABLE Lifestyle (
   lifestyle_id INT AUTO_INCREMENT,

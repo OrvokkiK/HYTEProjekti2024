@@ -31,7 +31,7 @@ const listMessagebyAuthor = async (sender_id) => {
 // Lists message by message_id
 const listMessageByMessage_id = async (message_id) => {
   try {
-    const sql = `SELECT * FROM messages WHERE message_id = ${message_id}`;
+    const sql = `SELECT * FROM Messages WHERE message_id = ${message_id}`;
     const [rows] = await promisePool.query(sql);
     if (rows.length === 0) {
       return {error: 404, message: 'No message found'};
@@ -46,7 +46,7 @@ const listMessageByMessage_id = async (message_id) => {
 // List conversation by conversation_id
 const listConverstation = async (conversation_id) => {
   try {
-    const sql = `SELECT * FROM messages WHERE conversation_id = ${conversation_id}`;
+    const sql = `SELECT * FROM Messages WHERE conversation_id = ${conversation_id}`;
     const [rows] = await promisePool.query(sql);
     if (rows.length === 0) {
       return {error: 404, message: 'No conversation found'};
@@ -63,7 +63,7 @@ const listConversationByUserId = async (userId) => {
   try {
     const sql = `
       SELECT DISTINCT conversation_id 
-      FROM messages 
+      FROM Messages 
       WHERE sender_id = ? OR recipient_id = ?;
     `;
     const [rows] = await promisePool.query(sql, [userId, userId]);
@@ -85,7 +85,7 @@ const listConversationByUserId = async (userId) => {
 // TODO: implement cotrols that message chain hpc - regular or regular - hpc
 const insertMessage = async (conversation_id, message) => {
   try {
-    const sql = 'INSERT INTO messages (conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES (?, ?, ?, ?, ?)';
+    const sql = 'INSERT INTO Messages (conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES (?, ?, ?, ?, ?)';
     const params = [conversation_id, message.recipient_id, message.message_content, message.message_sent_at, message.sender_id];
     console.log(params);
     const [rows] = await promisePool.query(sql, params);
@@ -101,7 +101,7 @@ const insertMessage = async (conversation_id, message) => {
 //delete message
 const deleteMessageByMessageId = async (message_id, user_id) => {
   try {
-    const sql = `DELETE FROM messages WHERE message_id = ${message_id} AND sender_id=${user_id}`;
+    const sql = `DELETE FROM Messages WHERE message_id = ${message_id} AND sender_id=${user_id}`;
     const [rows] = await promisePool.query(sql);
     if (rows.affectedRows === 0) {
       return {error: 404, message: 'no message found'};
@@ -115,7 +115,7 @@ const deleteMessageByMessageId = async (message_id, user_id) => {
 
 const deleteConversationByConversationId = async (conversation_id) => {
   try {
-    const sql = `DELETE FROM messages WHERE conversation_id = ${conversation_id}`;
+    const sql = `DELETE FROM Messages WHERE conversation_id = ${conversation_id}`;
     const [rows] = await promisePool.query(sql);
     if (rows.affectedRows === 0) {
       return {error: 404, message: 'no conversation found'};
