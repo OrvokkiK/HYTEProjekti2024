@@ -89,7 +89,7 @@ ul {
 }
 
 li a:not(.logo),
-.nav-notlink {
+.nav-notlink{
   display: block;
   color: rgb(6, 6, 6);
   text-align: center;
@@ -591,7 +591,8 @@ button:hover {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.modal-content,
+.hrv-modal-content {
   background-color: #fefefe;
   margin: 10% auto;
   padding: 20px;
@@ -831,8 +832,17 @@ aside.messages-sidebar {
 }
 
 #overall-analysis-modal .modal-content {
-  margin-top: 20%;
+  margin-top: 10%;
   width: 40%;
+}
+
+#stress-link {
+  font-weight: 500;
+  color:black;
+}
+
+#stress-link:hover {
+  color: #225170;
 }
 
 .chart-container {
@@ -1049,9 +1059,10 @@ iframe {
 }
 
 .analysis-wrapper {
-  max-width: 80%;
+  max-width: 70%;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: flex-start;
   margin: auto;
 }
@@ -1069,15 +1080,15 @@ iframe {
   border-radius: 8px;
 }
 
-.info-panel {
-  margin-top: 120px;
-}
 
 .table-container {
+  margin-top: 30px;
+  width: 100%;
   display: flex;
   justify-content: center;
   overflow-y: auto;
   max-height: 400px;
+  margin-bottom: 80px;
 }
 
 .styled-table {
@@ -1416,11 +1427,8 @@ footer {
   .detail-modal-content {
     width: 95%;
   }
-  .analysis-wrapper {
-    flex-direction: column;
-  }
   .table-container {
-    width: 100%;
+    width: 95%;
     margin-top: 10px;
     margin-bottom: 70px;
   }
@@ -1494,6 +1502,16 @@ footer {
   button.data-select {
     width: 70%;
   }
+
+  .hrv-modal-content {
+    width: 90%;
+  }
+
+  #results {
+    width: 200px;
+  }
+
+  
 }
 
 

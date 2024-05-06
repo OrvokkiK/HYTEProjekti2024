@@ -14,8 +14,7 @@ const postHrv = async (req, res, next) => {
   } = req.body;
   if (entry_date && stress_index && av_hrv && mean_rr_ms && sdnn_ms && readiness) {
     const result = await addHrv(req.body, user_id_token);
-    console.log(result);
-    if (result.hrv_id) {
+    if (result.entry_id) {
       res.status(201);
       res.json({message: 'New Hrv added.', ...result});
     } else {
