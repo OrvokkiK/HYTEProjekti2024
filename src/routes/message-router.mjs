@@ -14,10 +14,11 @@ messageRouter.route('/')
 );
 
 messageRouter.post('/',
-    body('conversation_id').isInt(),
+    body('conversation_id').isInt().optional({nullable: true}),
     body('recipient_id').isInt(),
     body('message_content').escape(),
     body('message_sent_at').isISO8601(),
+    validationErrorHandler,
     authenticateToken,
     postMessage
 );
