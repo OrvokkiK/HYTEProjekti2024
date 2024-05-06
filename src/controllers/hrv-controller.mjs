@@ -16,7 +16,7 @@ const getHrvDataByUserId = async (req, res) => {
   const user_id_token = req.user.userId;
   const user_level = req.user.user_level;
   const user_id = req.params.id;
-  if (user_id == user_id_token || user_level === 'hpc' || user_level === 'admin') {
+  if (user_id == user_id_token || user_level === 'hcp' || user_level === 'admin') {
     const result = await listHrvByUserId(user_id);
     if (result.error) {
       return res.status(result.error).json(result);
