@@ -7,13 +7,12 @@ const postHrv = async (req, res, next) => {
   const {
     entry_date,
     stress_index,
-    mood,
     av_hrv,
     mean_rr_ms,
     sdnn_ms,
     readiness,
   } = req.body;
-  if (entry_date && stress_index && mood && av_hrv && mean_rr_ms && sdnn_ms && readiness) {
+  if (entry_date && stress_index && av_hrv && mean_rr_ms && sdnn_ms && readiness) {
     const result = await addHrv(req.body, user_id_token);
     console.log(result);
     if (result.hrv_id) {

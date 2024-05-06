@@ -54,9 +54,8 @@ const getSymptomsBySymptomId = async (req,res) => {
 
 //POST New entry
 const postNewEntry = async(req,res) => {
-  const user_id = req.params.id
-  const user_id_token = req.user.userId;
-  if (user_id == user_id_token) {
+  const user_id = req.user.userId;
+  console.log(user_id);
     const {
       entry_date, 
       frustration, 
@@ -94,9 +93,6 @@ const postNewEntry = async(req,res) => {
     } else {
       return res.status(404).json({error: 400, message: 'bad request'});
     }
-  } else {
-    return res.status(403).json({error: 403, message: 'Forbidden'});
-  }
 };
 
 // PUT (edit) an entry by entry_id

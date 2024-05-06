@@ -7,12 +7,12 @@ import { validationErrorHandler } from '../middlewares/error-handler.mjs';
 
 const authProfRouter = express.Router();
 
-// authProfRouter.post('/login', body('username').trim().isEmail().notEmpty(),
-// body('password').trim().notEmpty(), validationErrorHandler, 
-// postLogin, 
-// );
+authProfRouter.post('/login', body('username').trim().isEmail().notEmpty(),
+body('password').trim().notEmpty().isLength({min:8, max:undefined}), validationErrorHandler, 
+postLogin, 
+);
 
-authProfRouter.post('/login', postLogin);
+// authProfRouter.post('/login', postLogin);
 
 
 export default authProfRouter

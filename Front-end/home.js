@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const token = localStorage.getItem('token');
 
     // Määrittele pyynnön URL ja optiot
-    const url = `http://localhost:3000/api/symptoms/${id}`;
+    const url = `http://localhost:3000/api/symptoms/`;
     const options = {
       method: 'POST',
       headers: {

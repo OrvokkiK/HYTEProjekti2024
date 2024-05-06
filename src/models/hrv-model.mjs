@@ -5,18 +5,16 @@ const addHrv = async (entry) => {
     user_id,
     entry_date,
     stress_index,
-    mood,
     av_hrv,
     mean_rr_ms,
     sdnn_ms,
     readiness,
   } = entry;
-  const sql = `INSERT INTO hrv_analysis (user_id, entry_date, stress_index, mood, av_hrv, mean_rr_ms, sdnn_ms, readiness) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO hrv_analysis (user_id, entry_date, stress_index, av_hrv, mean_rr_ms, sdnn_ms, readiness) VALUES ( ?, ?, ?, ?, ?, ?, ?)`;
   const params = [
     user_id,
     entry_date,
     stress_index,
-    mood,
     av_hrv,
     mean_rr_ms,
     sdnn_ms,
