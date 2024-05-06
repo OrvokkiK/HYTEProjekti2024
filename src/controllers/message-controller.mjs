@@ -65,7 +65,7 @@ const getConversationByUserId = async(req, res) => {
   const user_id_token = req.user.userId;
   const user_level = req.user.user_level;
   const user_id = req.params.id
-  if (user_id == user_id_token || user_level == 'admin') {
+  if (user_id == user_id_token || user_level == 'admin' || user_level == 'hcp') {
     const result = await listConversationByUserId(user_id);
     if (result.error) {
       return res.status(result.error).json(result);
@@ -98,14 +98,14 @@ const postMessage = async (req, res) => {
         if (result.error) {
           return res.status(result.error).json(result);
         } else {
-          return res.json(result);
+          return res.status(201).json({message: `Message sent`, conversation_id:`${conversation_id}`});
         }
       } else {
         const result = await insertMessage(conversation_id, req.body);
         if (result.error) {
           return res.status(result.error).json(result);
         } else {
-          return res.json(result);
+          return res.status(201).json({message: `Message sent`, conversation_id:`${conversation_id}`});
         }
       }
     } else {

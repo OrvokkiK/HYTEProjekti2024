@@ -1,6 +1,7 @@
 // message-router.mjs
 import express from 'express';
-
+import { body, param } from "express-validator";
+import { validationErrorHandler } from "../middlewares/error-handler.mjs";
 import { deleteMessage, getAllMessages, getConversationByUserId, getMessageByMessage_id, getMessagesByAuthor, getMessagesbyConversationId, postMessage } from "../controllers/message-controller.mjs";
 import { authenticateToken } from "../middlewares/authentication.mjs";
 const messageRouter = express.Router();
@@ -10,11 +11,26 @@ messageRouter.route('/')
   .get(
     authenticateToken,
     getAllMessages
-    )
-  .post(
+);
+
+messageRouter.post('/',
+    body('conversation_id').isInt(),
+    body('recipient_id').isInt(),
+    body('message_content').escape(),
+    body('message_sent_at').isISO8601(),
     authenticateToken,
     postMessage
 );
+
+/* Sample message
+{
+  "conversation_id": "2",
+  "recipient_id": "5", 
+  "message_content": "Vähän turhautumista ilmassa x2",
+  "message_sent_at" : "2024-05-05 14:02:00",
+  "sender_id": "6"
+}
+*/
 
 // api/messages/:id routes
 messageRouter.route('/:id')

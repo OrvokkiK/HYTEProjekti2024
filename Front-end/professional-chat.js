@@ -184,11 +184,24 @@ document.addEventListener('DOMContentLoaded', function () {
       body: JSON.stringify(messageData),
     };
 
-    fetchData(sendMessageUrl, options);
-    console.log('Message sent successfully');
-    messageInput.value = '';
-    fetchMessagesForConversation(currentConversationId);
-  }
+    try {
+      const response = await fetchData(sendMessageUrl, options);
+      console.log(response.conversation_id);
+      // Jos viestin lähettäminen onnistuu ja BE palauttaa conversation_id:n
+      if (response.conversation_id) {
+        console.log('Message sent successfully');
 
-  
+        let currentConversationId = response.conversation_id;
+        console.log(currentConversationId);
+        messageInput.value = '';
+        fetchMessagesForConversation(currentConversationId);
+      } else {
+        console.error('Viestin lähettäminen epäonnistui')
+        showToast('Viestin lähettäminen epäonnistui');
+      }
+    } catch (e) {
+      console.error(e);
+      showToast('Viestin lähettäminen epäonnistui');
+    }
+  }
 });
