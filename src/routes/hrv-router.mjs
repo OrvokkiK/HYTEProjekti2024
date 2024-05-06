@@ -22,17 +22,16 @@ hrvRouter.post('/',
 
 // sample body for post REQ
 /*
-          currentHrvData = {
-            user_id: userId,
-            av_hrv: mean_hr_bpm,
-            stress_index,
-            mood,
-            readiness,
-            mean_rr_ms,
-            sdnn_ms,
-            entry_date: currentDate,
-            user_happiness,
-          };
+  currentHrvData = {
+  user_id: userId,
+  av_hrv: mean_hr_bpm,
+  stress_index,
+  mood,
+  readiness,
+  mean_rr_ms,
+  sdnn_ms,
+  entry_date: currentDate,
+  user_happiness,
 */
 
 hrvRouter.route('/:id').get(authenticateToken, getHrvDataByUserId);
