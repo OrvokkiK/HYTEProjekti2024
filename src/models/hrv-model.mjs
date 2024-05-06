@@ -9,7 +9,7 @@ const addHrv = async (entry) => {
     av_hrv,
     mean_rr_ms,
     sdnn_ms,
-    readiness,
+    readiness
   } = entry;
   const sql = `INSERT INTO hrv_analysis (user_id, entry_date, stress_index, mood, av_hrv, mean_rr_ms, sdnn_ms, readiness) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
   const params = [

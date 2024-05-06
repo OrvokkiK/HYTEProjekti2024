@@ -2,26 +2,6 @@ import './style.css';
 import {fetchData} from './fetch.js';
 import {showToast} from './toast.js';
 
-// Kirjautumisajan tarkistus ja automaattinen uloskirjautuminen
-function checkAutoLogout() {
-  const loginTime = localStorage.getItem('loginTime');
-  if (
-    loginTime &&
-    new Date().getTime() - new Date(loginTime).getTime() > 3600000
-  ) {
-    localStorage.removeItem('analysisModalShown');
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('token');
-    localStorage.removeItem('loginTime');
-    window.location.href = 'index.html';
-    alert('Istuntosi on vanhentunut. Ole hyvä ja kirjaudu uudelleen.');
-  }
-}
-
-// Tallenna kirjautumisaika
-if (!localStorage.getItem('loginTime')) {
-  localStorage.setItem('loginTime', new Date().toISOString());
-}
 
 // Käyttäjänimen näyttäminen
 async function showUserName() {
@@ -36,8 +16,7 @@ async function showUserName() {
   };
   fetchData(url, options).then((data) => {
     console.log(data);
-    document.getElementById('name').innerHTML = data.user.given_name;
-    checkAutoLogout(); // Tarkista aina kun käyttäjätietoja haetaan
+    document.getElementById('name').innerHTML = data.user.given_name; 
   });
 }
 
@@ -108,7 +87,6 @@ async function fetchDataForCalendar(id, tok) {
 
   function extractLocalDateFromUTC(utcDateString) {
     const date = new Date(utcDateString);
-    // Vaihda käyttämään toUTCString poistaa väärin aikavyöhyke offset vaikutukset.
     return date.toISOString().split('T')[0];
   }
 
@@ -122,7 +100,6 @@ async function fetchDataForCalendar(id, tok) {
   };
 
   try {
-    // Suorita kaikki pyynnöt rinnakkain
     [oirekyselyDates, elamantapaDates, hrvDates] = await Promise.all([
       fetchDataAndExtractDates(urls.symptoms),
       fetchDataAndExtractDates(urls.lifestyle),
@@ -253,16 +230,15 @@ document.addEventListener('DOMContentLoaded', function () {
     menu.classList.toggle('show');
   });
 });
+
+// stressitasoanalyysi chart
+
 let chart;
 am5.ready(function () {
-  // Create root element
   const root = am5.Root.new('graph');
-
-  // Set themes
 
   root.setThemes([am5themes_Animated.new(root)]);
 
-  // Create chart
   const chart = root.container.children.push(
     am5xy.XYChart.new(root, {
       panX: false,
@@ -345,7 +321,6 @@ am5.ready(function () {
       }),
     );
 
-    // Add series
     const series = chart.series.push(
       am5xy.ColumnSeries.new(root, {
         xAxis: xAxis,
@@ -371,7 +346,7 @@ const valueColors = {
 
 series.columns.template.adapters.add('fill', function(fill, target) {
   const value = target.dataItem.get('valueY');
-  return valueColors[value] || fill; // Returns the color based on value or the default fill
+  return valueColors[value] || fill; 
 });
 
 
@@ -393,7 +368,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const closeButton = document.querySelector('.close-button');
   const button = document.getElementById('openArvioKyselyModal');
 
-  // Avaa henkisen oirearvioinnin lomake
   button.onclick = function () {
     const completionDate = localStorage.getItem('surveyCompletionDate');
     const currentDate = new Date().toISOString().split('T')[0];
@@ -412,19 +386,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     surveyModal.style.display = 'none';
   };
 
-  // Siirry fyysiseen oirearviointiin ja kerää henkisen oirearvioinnin tiedot
   nextButton.addEventListener('click', function () {
     formMental.style.display = 'none';
     formPhysical.style.display = 'block';
   });
 
-  // Palaa henkiseen oirearviointiin
   prevButton.addEventListener('click', function () {
     formPhysical.style.display = 'none';
     formMental.style.display = 'block';
   });
 
-  // Kerää fyysisten oireiden tiedot ja lähetä kaikki tiedot palvelimelle
   saveButton.addEventListener('click', function (event) {
     event.preventDefault();
 
@@ -467,13 +438,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
       stress_level: stressLevelValue,
     };
 
-    // Hae käyttäjän id localStoragesta
     const id = localStorage.getItem('user_id');
-
-    // Hae token localStoragesta
     const token = localStorage.getItem('token');
 
-    // Määrittele pyynnön URL ja optiot
     const url = `http://localhost:3000/api/symptoms/${id}`;
     const options = {
       method: 'POST',
@@ -484,7 +451,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       body: JSON.stringify(dataToSubmit),
     };
 
-    // Lähetä tiedot palvelimelle
     fetchData(url, options)
       .then((data) => {
         console.log(data);
@@ -494,7 +460,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
         surveyModal.style.display = 'none';
 
-        // // Tallenna kyselyn suorituspäivämäärä
         const completionDate = new Date().toISOString().split('T')[0];
         localStorage.setItem('surveyCompletionDate', completionDate);
       })
@@ -552,7 +517,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   exerciseNo.addEventListener('change', (event) => {
     if (exerciseNo.checked) {
-      exerciseAdditionalQuestions.style.display = 'none'; // Piilota lisäkysymykset
+      exerciseAdditionalQuestions.style.display = 'none'; 
     }
   });
 
@@ -672,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const token = localStorage.getItem('token');
     // const userId = localStorage.getItem('user_id');
-    const url = `http://localhost:3000/api/hrv/`;
+    const url = 'http://localhost:3000/api/hrv/';
 
     const options = {
       method: 'POST',
@@ -884,17 +849,16 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
 
   let selectedSymptomsCount = 0;
   if (symptomData.length > 0) {
-    const symptoms = symptomData[0]; // Oletetaan, että tarvittavat tiedot ovat ensimmäisessä objektissa
+    const symptoms = symptomData[0]; 
 
     for (const key in symptoms) {
       if (
         !['entry_date', 'symptom_id', 'user_id', 'stress_level'].includes(
           key,
-        ) && // Ota huomioon stress_level poikkeuksena
+        ) && 
         symptoms[key] !== undefined &&
         symptoms[key] !== null
       ) {
-        // Tarkistetaan, että arvo on numeerinen ja se ei ole 0
         const numericValue = Number(symptoms[key]);
         if (!isNaN(numericValue) && numericValue !== 0) {
           selectedSymptomsCount += numericValue;
@@ -1045,7 +1009,6 @@ function updateChart(newData) {
       };
   });
 
-  // Päivitä chart data
   if (chart && chart.xAxes.length > 0 && chart.series.length > 0) {
       const xAxis = chart.xAxes.getIndex(0);
       const series = chart.series.getIndex(0);
@@ -1091,10 +1054,18 @@ function showModal(
     overallScoreElement.textContent = `Kokonaisanalyysin pistemäärä: ${overallScore}/3 pistettä`;
     overallTextElement.textContent = `Stressitasoanalyysin tulos: ${stressLevelText}`;
 
-    if (overallScore === 2 || overallScore === 3) {
+    if (overallScore <= 1) {
+      overallTextElement.style.backgroundColor = 'rgba(108, 231, 149, 0.7)'; 
+  } else if (overallScore === 2) {
+      overallTextElement.style.backgroundColor = 'rgba(245, 206, 90, 0.7)'; 
       additionalInfo.style.display = 'block';
-      stressAdvice.textContent = 'Stressitasosi on korkea. Suosittelemme tarkastamaan elämäntapojasi.';
-      stressLink.textContent = 'Lue lisää stressinhallinnasta täältä';
+      stressAdvice.textContent = 'Huomioi stressitasosi. Kokeile rentoutumisharjoituksia ja tarkasta elämäntapojasi.';
+      stressLink.textContent = 'Rentoutumisharjoitukset';
+  } else if (overallScore >= 3) {
+      overallTextElement.style.backgroundColor = 'rgba(249, 101, 101, 0.7)'; 
+      additionalInfo.style.display = 'block';
+      stressAdvice.textContent = 'Korkea stressitaso havaittu. Kokeile rentoutumisharjoituksia ja tarkasta elämäntapojasi. Korkean stressin pitkittyessä on suositeltavaa ottaa yhteyttä terveydenhuollon ammattilaiseen.';
+      stressLink.textContent = 'Rentoutumisharjoitukset';
   } else {
       additionalInfo.style.display = 'none';
   }
@@ -1132,6 +1103,7 @@ fetchDataAndFilter(userId, token)
       } else {
         stressLevelText = 'Korkea stressitaso';
         stressElement.style.backgroundColor = 'rgba(249, 101, 101, 0.7)';
+      
       }
       showModal(
         symptomPoints,
@@ -1190,10 +1162,9 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.removeItem('analysisModalShown');
     localStorage.removeItem('user_id');
     localStorage.removeItem('token');
-    localStorage.removeItem('loginTime');
     showToast('Kirjaudutaan ulos.');
     setTimeout(() => {
       window.location.href = 'index.html';
-    }, 2000);
+    }, 1000);
   });
 });

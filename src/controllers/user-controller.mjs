@@ -19,24 +19,11 @@ const getUsers = async (req, res) => {
 
 // get user's info by id
 const getUserById = async (req, res) => {
-  // const user = req.user;
-  // console.log(user);
-  const user_level = req.user.user_level;
-  // console.log(user_level); 
-  const user_id = req.user.userId;
-  // console.log(user_id);
-  // console.log(req.params.id);
-
-  // console.log(user_level);
-  if ( user_id == req.params.id || user_level == 'admin' || user_level == 'hcp') {
-    const result = await selectUserById(req.params.id);
-    if (result.error) {
-      return res.status(result.error).json(result);
-    }
-    return res.json(result);
-  } else {
-    return res.status(403).json({error: 403, message: 'Forbidden'});
+  const result = await selectUserById(req.params.id);
+  if (result.error) {
+    return res.status(result.error).json(result);
   }
+  return res.json(result);
 };
 
 // Post a new user to db
