@@ -47,6 +47,10 @@ This project uses a range of open-source tools and resources. Below is a list of
 ## Database design
 ![MindEase_db-schema](https://github.com/OrvokkiK/HYTEProjekti2024/assets/122262462/9c1f9724-09f1-4382-8074-72f7a2f0f554)
 
+"[Not in use]": Database tables that cannot be updated due to no functioning routes
+"(FK)": Foreign key of the table
+"(O)": Optional Field
+underline row: Primary key of the table
 
 ## Start Backend-server
 ```
