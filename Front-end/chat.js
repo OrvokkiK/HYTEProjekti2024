@@ -49,10 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   fetchData(conversationsUrl, fetchOptions)
     .then((conversations) => {
-      // Ensimmäinen tarkistus: Onko 'conversations' taulukko?
       if (Array.isArray(conversations) && conversations.length > 0) {
-        messageWrite.style.display = 'block'; // Varmista, että viestialue on näkyvissä, jos keskusteluja on
-        // Oletetaan, että serverin vastauksesta saat 'recipient_id' jokaiselle keskustelulle
+        messageWrite.style.display = 'block'; 
         conversations.forEach((conversation) => {
           const conversationElement = document.createElement('li');
           conversationElement.textContent = `Keskustelu ${conversation.conversation_id}`;
@@ -62,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         
       } else {
-        // Ei keskusteluja tai virheellinen vastaus
         messageContainer.innerHTML =
           '<div class="no-messages">Sinulle ei ole uusia viestejä.</div>';
         messageWrite.style.display = 'none';
@@ -70,7 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .catch((error) => {
       console.error('Keskusteluiden haku epäonnistui:', error);
-      // Näytä virheilmoitus käyttäjälle
       messageContainer.innerHTML =
         '<div class="no-messages">Virhe haettaessa keskusteluja.</div>';
       messageWrite.style.display = 'none';
@@ -79,9 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Käytä yhtä tapahtumankäsittelijää koko listalle, joka reagoi klikkauksiin
   conversationList.addEventListener('click', (event) => {
     const targetElement = event.target.closest('li');
-    if (targetElement && targetElement.dataset.conversationId) {
-      console.log('Selected conversation ID:', targetElement.dataset.conversationId);
-      console.log('Selected recipient ID:', targetElement.dataset.recipientId); // Tarkista tämä logi
+    if (targetElement && targetElement.dataset.conversationId) { 
       currentConversation = targetElement.dataset.conversationId;
       currentRecipientId = targetElement.dataset.recipientId;
       if (!currentRecipientId) {
@@ -105,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
             currentRecipientId = nonUserMessage.sender_id;
             console.log('tämä on vastaanottaja', currentRecipientId);
             fetchUserName(currentRecipientId).then(username => {
-              console.log(username);
               updateConversationHeader(username);
               displayMessages(messages, userId);
             }).catch(error => {
@@ -145,15 +138,14 @@ document.addEventListener('DOMContentLoaded', function () {
   // Näytä viestit
   function displayMessages(messages, userId) {
     const container = document.getElementById('messages-container');
-    container.innerHTML = ''; // Tyhjennetään vanhat viestit
+    container.innerHTML = ''; 
 
     messages.forEach((message) => {
       const utcDate = new Date(message.message_sent_at);
       const localDate = utcDate.toLocaleString('fi-FI', {
         timeZone: 'Europe/Helsinki',
-      }); // Olettaen että haluat näyttää ajan Helsingin aikavyöhykkeellä
+      }); 
       const messageDiv = document.createElement('div');
-      // Määritellään viestin tyyliluokka sen perusteella, onko käyttäjä lähettäjä vai vastaanottaja
       if (parseInt(message.sender_id) === parseInt(userId)) {
         messageDiv.className = 'message client';
       } else {
@@ -173,10 +165,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function sendMessage() {
-    console.log('Sending message...');
-    console.log('Current conversation ID:', currentConversation);
-    console.log('Current recipient ID:', currentRecipientId)
-    console.log('Current conversation:', currentConversation);
     const token = localStorage.getItem('token');
     const senderId = localStorage.getItem('user_id');
     const input = document.getElementById('message-input');

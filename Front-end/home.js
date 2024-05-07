@@ -106,12 +106,12 @@ async function fetchDataForCalendar(id, tok) {
       fetchDataAndExtractDates(urls.hrv),
     ]);
 
-    console.log(oirekyselyDates, elamantapaDates, hrvDates);
+    // console.log(oirekyselyDates, elamantapaDates, hrvDates);
     symptomsFetched = true;
     lifestyleFetched = true;
     hrvFetched = true;
 
-    console.log(oirekyselyDates, elamantapaDates, hrvDates);
+    // console.log(oirekyselyDates, elamantapaDates, hrvDates);
     showCalendar(currentMonth, currentYear);
     checkAllDataFetched();
   } catch (error) {
@@ -441,7 +441,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const id = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
 
-    // Määrittele pyynnön URL ja optiot
     const url = `http://localhost:3000/api/symptoms/`;
     const options = {
       method: 'POST',
@@ -884,15 +883,12 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   } else {
     symptomPoints += 3;
   }
-  console.log('oirekysely pisteet', symptomPoints);
   symptomPoints = Math.ceil(symptomPoints / 2);
 
   // HRV-tuloksen pisteytys
   let hrvPoints = 0;
   if (hrvData) {
     const stressIndex = hrvData.stress_index;
-
-    console.log('stress_index', stressIndex);
 
     if (stressIndex >= -5 && stressIndex <= 0) {
       hrvPoints -= 1;
@@ -916,10 +912,8 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
 
   // elämäntapakyselyn pisteytys
   let lifestylePoints = 0;
-  console.log(lifestyleData);
   if (lifestyleData) {
     const alcoholIntake = lifestyleData.alcohol_intake;
-    console.log(alcoholIntake);
     if (alcoholIntake <= 2) {
       lifestylePoints += 1;
     } else if (alcoholIntake > 2 && alcoholIntake <= 4) {
@@ -929,7 +923,6 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
     }
 
     const caffeineIntake = lifestyleData.caffeine_intake;
-    console.log(caffeineIntake);
     if (caffeineIntake <= 2) {
       lifestylePoints += 1;
     } else if (caffeineIntake > 2 && caffeineIntake <= 4) {
@@ -939,7 +932,6 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
     }
 
     const enoughSleep = lifestyleData.enough_sleep;
-    console.log(enoughSleep);
     if (enoughSleep === 'no') {
       lifestylePoints += 3;
     } else if (enoughSleep === 'yes') {
