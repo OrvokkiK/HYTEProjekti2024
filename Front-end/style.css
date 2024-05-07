@@ -1439,21 +1439,6 @@ footer {
 }
 
 @media screen and (max-width: 770px) {
-
-  nav {
-    justify-content: flex-start; 
-    padding: 10px 15px; 
-  }
-
-  .menu-toggle {
-    right: 10px; 
-  }
-
-  .nav-logo, .logo-text {
-    flex-grow: 0; 
-    margin-right: 5px;
-  }
-
   .calendar {
     max-width: 80%;
   }
@@ -1524,6 +1509,10 @@ footer {
 
   #results {
     width: 200px;
+  }
+
+  #jumbotron {
+    max-width: 95%;
   }
 
   
