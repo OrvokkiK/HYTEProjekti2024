@@ -14,7 +14,9 @@ Preventive Health Strategies: By identifying high stress levels early, MindEase 
 ## References
 This project uses a range of open-source tools and resources. Below is a list of these resources and their contributions to the project.
 
-- Bootstrap Icons - Used for the user interface icons in the application. Available under the MIT License. [View Icons](https://icons.getbootstrap.com/)
+- **Bootstrap Icons** - Icons used throughout the application for a consistent and modern UI. [View Icons](https://icons.getbootstrap.com/)
+- **Chart.js**  Used for the HRV-data chart. [Chart.js](https://www.chartjs.org/)
+- **amCharts** - Used for the Stress Analaysis data chart. [amCharts](https://www.amcharts.com/)
 
 
 ## Start Backend-server
