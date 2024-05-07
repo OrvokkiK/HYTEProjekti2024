@@ -1,69 +1,55 @@
 *** Settings ***
 Library    Browser
-# Documentation    A test suite for valid login
+Documentation    A test suite for valid login
 Resource    login-variables.resource
+Default Tags    Should Pass
 
+*** Variables ***
+${url}    https://hyte24.northeurope.cloudapp.azure.com/index.html
+${ROOT_URL}    https://hyte24.northeurope.cloudapp.azure.com
 
 *** Test Cases ***
-Denied Regular Login with wrong password
-    New Page    http://localhost:5173/
-    Type Secret    input#username    $kubios_username
+# Should PASS
+ Invalid student login 
+    New Page    ${url}
+    Type Secret    input#username    $kubios_username_wrong
     Type Secret    input#password    $kubios_password_wrong
-    Click    id=loginstudent
-     ${token}=    LocalStorage Get Item    token
-    # Log To Console    ${token}
-    Should Not Contain    ${token}
+    Take Screenshot    EMBED
+    Click    css=#userLoginForm .loginuser
+    Wait For Load State    networkidle    timeout=3s
+    Take Screenshot    EMBED
+    Wait For Condition     Url   should end with    index.html
     Close Page
 
+# Should pass
+Invalid professional login
+    New Page    ${url}
+    Type Secret    input#username    $wrong_username
+    Type Secret    input#password    $wrong_password
+        Take Screenshot    EMBED
+    Click    css=#userLoginForm .loginuser
+    Wait For Load State    networkidle    timeout=3s
+    Take Screenshot    EMBED
+    Wait For Condition     Url   should end with    index.html
+    Close Page
 
-Denied Regural Login with wrong username
-    New Page    http://localhost:5173/
-    Type Secret    input#username    $kubios_username_wrong
-    Type Secret    input#password    $kubios_password
-    Click    id=loginstudent    left
-
-
-Denied Professional Login with wrong password
-    New Page    http://localhost:5173/
-    Type Secret    input#username    $username
-    Type Secret    input#password    $password_wrong
-    Click    id=loginstudent    left
-
-
-Denied Professional Login with wrong username
-    New Page    http://localhost:5173/
-    Type Secret    input#username    $username_wrong
-    Type Secret    input#password    $password
-    Click    id=loginstudent    left
-
-Valid Regular (student) Login
-    New Page    http://localhost:5173/
+Valid student login
+    New Page    ${url}
     Type Secret    input#username    $kubios_username
     Type Secret    input#password    $kubios_password
-    Click    id=loginstudent    left
-    
-    Set Browser Timeout    2 seconds
-    # Get Attribute    id=graph    None
-    # Get URL    ends    /home.html
-    Local Storage Get Item    Key    ==    token
-    ${token}=    LocalStorage Get Item    token
-    Should Not Be Empty    ${token}
+    Take Screenshot    EMBED
+    Click    css=#userLoginForm .loginuser
+    Wait For Condition    Url    should end with    home.html
+    Take Screenshot    EMBED
     Close Page    CURRENT
 
-Valid Professional (hpc/admin) login
-    New Page    http://localhost:5173/
+Valid professional login
+    New Page    ${url}
     Click    id=professionalLoginBtn
     Type Secret    id=professional_username    $username
     Type Secret    input#professional_password    $password
-    Click    id=loginprofessional
-    ${object} =    Execute JavaScript    return ${Data}.token
-    Log    Token: ${object}
-    # ${console_logs}=    Get Console Log
-    # Should Contain    ${console_logs}    Kirjautuminen onnistui!
-    # Local Storage Get Item    Key    ==    Bearer
-     ${token}=    LocalStorage Get Item    token.data
-    Log To Console    ${token}
-    # Should Not Be Empty    ${token.Data}
-    # Get Text     equal    "Kirjautuminen onnistui!"
-    # GET URL    equal    http://localhost:5173/home-hcp.html
+    Take Screenshot    EMBED
+    Click    css=#professionalLoginForm .loginuser
+    Wait For Condition    Url    should end with    professional.html
+    Take Screenshot    EMBED
     Close Page    CURRENT
