@@ -125,12 +125,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     if (!response.ok) throw new Error('Failed to fetch user');
     const userData = await response.json();
-    return userData[0].first_name;
+    return userData[0].username;
   }
 
-  function updateConversationHeader(first_name) {
+  function updateConversationHeader(username) {
     const header = document.getElementById('conversation-header');
-    header.textContent = `Keskustelu sairaanhoitajan ${first_name} kanssa`;
+    header.textContent = `Keskustelu sairaanhoitajan ${username} kanssa`;
   }
   
 
