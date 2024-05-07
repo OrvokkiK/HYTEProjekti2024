@@ -72,7 +72,7 @@ const selectUserByUsername = async (username) => {
 const selectUsersByRiskgroup = async () => {
   try {
     const risk_group = "kyllä";
-    const sql = 'SELECT user_id FROM users WHERE risk_group = "' + risk_group + '"';
+    const sql = 'SELECT user_id FROM Users WHERE risk_group = "' + risk_group + '"';
     console.log(sql);
     const [rows] = await promisePool.query(sql);
     return rows
@@ -189,17 +189,17 @@ const selectUserByEmail = async (email) => {
 };*/
 
 //update riskgroup
-const updateRiskgroupByUserId = async(user_id) => {
+const updateRiskgroupByUserId = async(user_id, date) => {
   try {
     // const riskGroup = kyllä;
-    const sql = `UPDATE users SET risk_group="kyllä` + `" WHERE user_id=${user_id}`;
+    const sql = `UPDATE users SET risk_group="kyllä` + `", riskgroup_date = ${date} WHERE user_id=${user_id}`;
     console.log(sql);
     const [rows] = await promisePool.query(sql);
     console.log(rows); 
     if (rows.affectedRows === 0) {
       return {error: 404, message: 'user not found' };
     } else {
-      return {message: 'User riskgroup updated'};
+      return {message: 'User riskgroup updated', user_id: user_id};
     }
     
   } catch (error) {
@@ -207,11 +207,6 @@ const updateRiskgroupByUserId = async(user_id) => {
     return {error: 500, message: 'db error'};
   }
 };
-
-// TODO: Implement
-
-//update chat priviledges
-// TODO: Implement routes
 
 export {
   listAllUsers,

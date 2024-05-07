@@ -4,7 +4,7 @@ import promisePool from '../utils/database.mjs'
 //List all users' symptoms
 const listAllSymptoms = async () => {
   try {
-    const sql = 'SELECT * FROM SYMPTOMS;'
+    const sql = 'SELECT * FROM Symptoms;'
     const [rows] = await promisePool.query(sql);
     return rows;
   } catch (error) {
@@ -33,7 +33,7 @@ const listSymptomsByUserId = async (user_id) => {
 
 const listSymptomsBySymptomId = async (id, user_id) => {
   try {
-    const sql = 'SELECT * FROM SYMPTOMS WHERE symptom_id=? and user_id=?';
+    const sql = 'SELECT * FROM Symptoms WHERE symptom_id=? and user_id=?';
     const params = [id, user_id];
     const [rows] = await promisePool.query(sql,params);
     if (rows.length === 0) {
@@ -105,7 +105,7 @@ const addSymptoms = async (entry, user_id) => {
 // INSERT (edit) an existing entry;
 const updateEntryById = async (entry) => {
   // console.log('Model: entry ', entry);
-  const sql = 'UPDATE Symptoms  SET frustration=?, grumpiness=?, recall_problems=?, restlesness=?, disquiet=?, tiredness=?, anxiety=?, difficulty_making_decisions=?, sleep_disturbances=?, changes_in_appetite=?, headache=?, neck_pain=?, vertigo=?, palpitation=?, nausea=?, upset_stomach=?, recurring_colds=?, back_issues=?, stress_level=?, user_id=? WHERE symptom_id=?';
+  const sql = 'UPDATE Symptoms SET frustration=?, grumpiness=?, recall_problems=?, restlesness=?, disquiet=?, tiredness=?, anxiety=?, difficulty_making_decisions=?, sleep_disturbances=?, changes_in_appetite=?, headache=?, neck_pain=?, vertigo=?, palpitation=?, nausea=?, upset_stomach=?, recurring_colds=?, back_issues=?, stress_level=?, user_id=? WHERE symptom_id=?';
   const params = [
     entry.frustration, 
     entry.grumpiness, 

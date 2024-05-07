@@ -158,18 +158,9 @@ GET http://localhost:3000/api/symptoms/
 Authorization: Bearer
 ```
 
-##
-## /api/symptoms/:id routes
-##
-
-### Fetch all of the entries by user_id
-```
-GET http://localhost:3000/api/symptoms/11
-Authorization: Bearer
-```
 ### Create a new symptom entry (requires token)
 ```
-POST http://localhost:3000/api/3
+POST http://localhost:3000/api/symptoms/
 Authorization: Bearer
 Content-Type: application/json
 
@@ -195,6 +186,15 @@ Content-Type: application/json
   "back_issues": "1", 
   "stress_level": "5"
 }
+```
+##
+## /api/symptoms/:id routes
+##
+
+### Fetch all of the entries by user_id
+```
+GET http://localhost:3000/api/symptoms/11
+Authorization: Bearer
 ```
 ### Edit an existing entry in symptoms (requires token)
 ```
@@ -222,7 +222,7 @@ Content-Type: application/json
   "recurring_colds": "1", 
   "back_issues": "0", 
   "stress_level": "5",
-  "user_id" : "10"
+  "user_id": "6"
 }
 ```
 
@@ -264,7 +264,7 @@ Authotization: Bearer
 Content-Type: application/json
 
 {
-  "entry_date" : "2024-05-01 18:27:00",
+  "entry_date" : "2024-05-06",
   "hours_slept" : "7.5",
   "enough_sleep" : "kyllä",
   "quality_sleep" : "hyvä",

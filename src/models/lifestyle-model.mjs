@@ -49,7 +49,7 @@ const addEntry = async (entry) => {
 
 const listLifestyleDataByUserId = async (user_id) => {
   try {
-    const sql = 'SELECT * FROM LIFESTYLE WHERE user_id=?';
+    const sql = 'SELECT * FROM Lifestyle WHERE user_id=?';
     const params = [user_id]
     const [rows] = await promisePool.query(sql, params);
     if (rows.length === 0 ) {
