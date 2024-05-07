@@ -197,9 +197,9 @@ INSERT INTO hrv_analysis(stress_index, mood, entry_date, av_hrv, user_id) VALUES
 
 -- Insert sample analysis (kokonaisanalyysi)
 INSERT INTO Complete_analysis(user_id, analysis_result, analysis_enumerated, created_at) VALUES 
-('5', 'Alhainen stressi', '1', '2024-03-25 10:00:00'),
-('5', 'Kohtalainen stressi', '2', '2024-03-26 10:00:00'),
-('5', 'Alhainen stressi', '1', '2024-03-27 10:00:00'),
-('5', 'Korkea stressi', '3', '2024-03-28 10:00:00'),
-('5', 'Korkea stressi', '3', '2024-03-29 10:00:00'),
-('5', 'Kohtalainen stressi', '2', '2024-03-30 10:00:00');  
+('2', 'Alhainen stressi', '1', '2024-03-25 10:00:00'),
+('2', 'Kohtalainen stressi', '2', '2024-03-26 10:00:00'),
+('2', 'Alhainen stressi', '1', '2024-03-27 10:00:00'),
+('3', 'Korkea stressi', '3', '2024-03-28 10:00:00'),
+('3', 'Korkea stressi', '3', '2024-03-29 10:00:00'),
+('3', 'Kohtalainen stressi', '2', '2024-03-30 10:00:00');  

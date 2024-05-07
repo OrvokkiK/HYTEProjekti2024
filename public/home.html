@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbol+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+    />
+    <title>MindEase</title>
+    <script type="module" crossorigin src="/assets/home-BPlYDxbL.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/style-Bvx2onkj.js">
+    <link rel="modulepreload" crossorigin href="/assets/fetch-dnjvk_SN.js">
+    <link rel="modulepreload" crossorigin href="/assets/toast-B-6j1RQv.js">
+    <link rel="stylesheet" crossorigin href="/assets/style-V0b7y0WQ.css">
+  </head>
+  <body>
+    <section id="jumbotron">
+      <nav>
+        <img src="/assets/icon10-DFxPVeL8.png" alt="logo" class="nav-logo" />
+        <div class="logo-text">MindEase</div>
+        <button class="menu-toggle">☰</button>
+        <ul class="menu">
+          <li class="dropdown">
+            <div class="nav-notlink"
+              ><i class="bi bi-folder"></i> MATERIAALIPANKKI</div
+            >
+            <div class="dropdown-content">
+              <a href="about-stress.html"
+                ><i class="bi bi-info-circle"></i> TIETOA STRESSISTÄ</a
+              >
+              <a href="relaxation-exercise.html"
+                ><i class="bi bi-wind"></i> RENTOUTUMISHARJOITUKSET</a
+              >
+              <a href="tips.html"
+                ><i class="bi bi-search-heart"></i> VINKKEJÄ</a
+              >
+            </div>
+          </li>
+          <li class="dropdown">
+            <div class="nav-notlink"
+            ><i class="bi bi-person"></i> TILI</div>
+            <div class="dropdown-content">
+              <a href="hrv-analysis.html"
+                ><i class="bi bi-heart-pulse"></i> HRV-MITTAUKSET</a
+              >
+              <a href="analysis.html"
+                ><i class="bi bi-graph-up"></i> KOKONAISANALYYSIT</a
+              >
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="chat.html"><i class="bi bi-chat"></i> VIESTIT</a>
+          </li>
+          <li class="logout">
+            <a href="index.html"
+              ><i class="bi bi-box-arrow-right"></i> KIRJAUDU ULOS</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="jumbotron-user">
+        Hei <span id="name"></span>! Tervetuloa MindEase- sovellukseen.
+      </div>
+    </section>
+    <main class="content-wrapper">
+      <section class="survey-section">
+        <div class="user">
+          Mindease tarjoaa työkaluja stressinhallintaan ja auttaa sinua
+          tunnistamaan stressin oireita.
+        </div>
+        <div class="user">
+          Täytä oirearvio- ja elämäntapakysely sekä hae HRV-mittauksen tulokset
+          saadaksesi päivittäisen analyysin stressitasostasi.
+        </div>
+        <button id="openArvioKyselyModal" class="survey-button green">
+          <i class="bi bi-card-checklist"></i>
+          Oirearviokysely
+        </button>
+        <button id="openElamantapaKyselyModal" class="survey-button blue">
+          <i class="bi bi-pencil-square"></i> Elämäntapakysely
+        </button>
+        <button id="hrvMeasurements" class="survey-button red">
+          <i class="bi bi-heart-pulse"></i> HRV-mittaus
+        </button>
+        <div class="stress">
+          Stressitasosi tänään: <span id="stress-today"></span>
+        </div>
+        <button id="analysis-result" style="display: none;">Näytä kokonaisanalyysin tulos</button>
+      </section>
+
+      <aside class="sidebar">
+        <div class="calendar">
+          <div class="dot-description">
+            <div class="dot oirekysely-dot"></div>
+            <div class="dot-text">Oirekysely</div>
+          </div>
+          <div class="dot-description">
+            <div class="dot elamantapa-dot"></div>
+            <div class="dot-text">Elämäntapakysely</div>
+          </div>
+          <div class="dot-description">
+            <div class="dot hrv-dot"></div>
+            <div class="dot-text">HRV-mittaus</div>
+          </div>
+          <header>
+            <h2 id="monthAndYear"></h2>
+            <button id="prevMonth">&lt;</button>
+            <button id="nextMonth">&gt;</button>
+          </header>
+          <table id="calendar">
+            <thead>
+              <tr>
+                <th>Ma</th>
+                <th>Ti</th>
+                <th>Ke</th>
+                <th>To</th>
+                <th>Pe</th>
+                <th>La</th>
+                <th>Su</th>
+              </tr>
+            </thead>
+            <tbody id="calendar-body"></tbody>
+          </table>
+        </div>
+      </aside>
+    </main>
+    <div id="graph">
+      <ul style="list-style: none; padding: 0; margin-top: 10px;">
+        <li><span style="color: green; font-weight: bold; padding-right: 20px;">● Matala stressi</span> </li>
+        <li><span style="color: orange; font-weight: bold; padding-right: 20px;">● Kohtalainen stressi</span> </li>
+        <li><span style="color: red; font-weight: bold; padding-right: 20px;">● Korkea stressi</span> </li>
+      </ul>
+    </div>
+    <div class="links">
+      <h2>Linkkejä</h2>
+      <p><a href="https://mieli.fi/">Mieli Ry</a></p>
+      <p><a href="https://www.mielenterveystalo.fi/fi">Mielenterveystalo</a></p>
+      <p><a href="https://sekasin.fi/">Sekasin Chat</a></p>
+      <p>Mieli kriisipuhelin: 09 2525 0111</p>
+      <p>
+        <b
+          >Henkeä ja terveyttä uhkaavissa tilanteissa ole yhteydessä
+          Hätäkeskukseen soittamalla numeroon 112.</b
+        >
+      </p>
+    </div>
+    <div id="survey-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">×</span>
+        <form id="survey-form-mental">
+          <h3>Oirearviokysely</h3>
+          <p>Stressin henkiset oireet</p>
+          <p>Valitse oireet joita olet kokenut viimeisen 24:n tunnin aikana:</p>
+
+          <div class="checkbox-group">
+            <label for="symptom1">Ärtyneisyys</label>
+            <input type="checkbox" id="grumpiness" name="symptom1" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="symptom2">Ahdistus</label>
+            <input type="checkbox" id="anxiety" name="symptom2" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="symptom3">Turhautumisen tunne</label>
+            <input type="checkbox" id="frustration" name="symptom3" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="symptom4">Muistivaikeudet</label>
+            <input type="checkbox" id="recall_problems" name="symptom4" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="symptom5">Levottomuus</label>
+            <input type="checkbox" id="restlesness" name="symptom5" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="symptom6">Rauhattomuus</label>
+            <input type="checkbox" id="disquiet" name="symptom6" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="symptom6">Väsymys</label>
+            <input type="checkbox" id="tiredness" name="symptom6" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="symptom7">Päätöksen teon vaikeudet</label>
+            <input type="checkbox" id="difficulty" name="symptom7" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="symptom8">Unihäiriöt</label>
+            <input type="checkbox" id="sleep_disturbances" name="symptom8" />
+          </div>
+
+          <button type="button" class="next-button">Seuraava</button>
+        </form>
+        <form
+          id="survey-form-physical"
+          class="modal-page"
+          style="display: none"
+        >
+          <h3>Oirearviokysely</h3>
+          <p>Stressin fyysiset oireet</p>
+          <p>Valitse oireet joita olet kokenut viimeisen 24:n tunnin aikana:</p>
+
+          <div class="checkbox-group">
+            <label for="symptom9">Ruokahalun muutokset</label>
+            <input type="checkbox" id="changes_appetite" name="symptom9" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="physical-symptom1">Päänsärky</label>
+            <input type="checkbox" id="headache" name="physical-symptom1" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="physical-symptom3"
+              >Niska- ja hartiaseudun jännitys</label
+            >
+            <input type="checkbox" id="neck_pain" name="physical-symptom3" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="physical-symptom3">Selkäkivut</label>
+            <input type="checkbox" id="back_issues" name="physical-symptom3" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="physical-symptom4">Huimaus</label>
+            <input type="checkbox" id="vertigo" name="physical-symptom4" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="physical-symptom5">Sydämen tykytykset</label>
+            <input type="checkbox" id="palpitation" name="physical-symptom5" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="physical-symptom6">Pahoinvointi</label>
+            <input type="checkbox" id="nausea" name="physical-symptom6" />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="physical-symptom7">Vatsavaivat</label>
+            <input
+              type="checkbox"
+              id="upset_stomach"
+              name="physical-symptom7"
+            />
+          </div>
+
+          <div class="checkbox-group">
+            <label for="physical-symptom8">Flunssakierre</label>
+            <input
+              type="checkbox"
+              id="recurring_colds"
+              name="physical-symptom8"
+            />
+          </div>
+          <div class="question">
+            <label>Kuinka stressaantuneeksi tunnet itsesi?</label>
+            <input
+              type="range"
+              id="stress_level"
+              name="stress_level"
+              min="1"
+              max="5"
+            />
+            <div class="labels">
+              <span>En yhtään</span>
+              <span>Hieman</span>
+              <span>Kohtalaisen</span>
+              <span>Paljon</span>
+              <span>Erittäin paljon</span>
+            </div>
+          </div>
+          <button type="button" class="prev-button">Edellinen</button>
+          <button type="submit" class="tallenna-button">Tallenna</button>
+        </form>
+      </div>
+    </div>
+    <div id="sleep-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button2">×</span>
+        <form id="sleep-form">
+          <h3>Elämäntapakysely:</h3>
+          <div class="user">Vastaa jokaiseen kysymykseen.</div>
+          <div class="question">
+            <label for="sleepHours"
+              >Kuinka monta tuntia nukuit viime yönä?</label
+            >
+            <input
+              type="number"
+              id="sleep-hours"
+              name="sleepHours"
+              min="0"
+              max="24"
+              step="0.5"
+              required
+            />
+          </div>
+          <div class="question">
+            <label>Koetko nukkuneesi viime yönä tarpeeksi?</label>
+            <input
+              type="radio"
+              id="enoughSleepYes"
+              name="enoughSleep"
+              value="yes"
+              required
+            />
+            <label for="enoughSleepYes">Kyllä</label>
+            <input
+              type="radio"
+              id="enoughSleepNo"
+              name="enoughSleep"
+              value="no"
+              required
+            />
+            <label for="enoughSleepNo">Ei</label>
+          </div>
+          <div class="question">
+            <label>Millainen oli unen laatusi?</label>
+            <input
+              type="range"
+              id="sleepQuality"
+              name="sleepQuality"
+              min="1"
+              max="5"
+              required
+            />
+            <div class="labels">
+              <span>Erittäin huono</span>
+              <span>Huono</span>
+              <span>Keskiverto</span>
+              <span>Hyvä</span>
+              <span>Erittäin hyvä</span>
+            </div>
+          </div>
+          <div class="question">
+            <label>Koetko olosi terveeksi?</label>
+            <input
+              type="radio"
+              id="feelHealthyYes"
+              name="feelHealthy"
+              value="yes"
+              required
+            />
+            <label for="feelHealthyYes">Kyllä</label>
+            <input
+              type="radio"
+              id="feelHealthyNo"
+              name="feelHealthy"
+              value="no"
+              required
+            />
+            <label for="feelHealthyNo">Ei</label>
+          </div>
+          <div class="question">
+            <label for="caffeine"
+              >Kuinka monta kuppia olet juonut kahvia (tai energiajuomaa tms.)
+              tänään? (80mg kofeiinia = 1 kuppi)</label
+            >
+          </div>
+          <input type="number" name="caffeine" id="caffeine" min="0" required />
+          <div class="question">
+            <label for="nicotine"
+              >Kuinka monta milligrammaa nikotiinia olet käyttänyt
+              tänään?</label
+            >
+            <input
+              type="number"
+              name="nicotine"
+              id="nicotine"
+              min="0"
+              required
+            />
+          </div>
+          <div class="question">
+            <label for="alcohol"
+              >Kuinka monta alkoholiannosta olet nauttinut tänään? (Yksi annos
+              on 33 cl keskiolutta, 14 cl mietoa viiniä, 4 cl väkevää viinaa)
+            </label>
+            <input type="number" name="alcohol" id="alcohol" min="0" required />
+          </div>
+          <div class="question">
+            <label for="exercise"
+              >Oletko harrastanut sykettä nostavaa liikuntaa tänään?</label
+            >
+            <input
+              type="radio"
+              id="exerciseYes"
+              name="exercise"
+              value="yes"
+              required
+            />
+            <label for="exerciseYes">Kyllä</label>
+            <input
+              type="radio"
+              id="exerciseNo"
+              name="exercise"
+              value="no"
+              required
+            />
+            <label for="exerciseNo">Ei</label>
+          </div>
+          <div id="exercise-additional-questions" style="display: none">
+            <div class="question">
+              <label for="duration"
+                >Kuinka monta tuntia liikuntaa olet harrastanut?</label
+              >
+              <input
+                type="number"
+                name="duration"
+                id="duration"
+                min="0"
+                max="24"
+                step="0.5"
+              />
+            </div>
+            <div class="intensity">
+              <label for="intensity">Mikä oli liikunnan intensiteetti?</label>
+              <input
+                type="range"
+                id="intensity"
+                name="intensity"
+                min="1"
+                max="5"
+              />
+              <div class="labels">
+                <span>Erittäin alhainen</span>
+                <span>Alhainen</span>
+                <span>Keskiverto</span>
+                <span>Korkea</span>
+                <span>Erittäin korkea</span>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="tallenna-kysely">Tallenna</button>
+        </form>
+      </div>
+    </div>
+    <div id="hrv-modal" class="modal">
+      <div class="hrv-modal-content">
+        <span class="close-button3">×</span>
+        <form id="hrv-form">
+          <h3>HRV-Mittaustuloksesi</h3>
+          <p>
+            Hae Hrv-mittaustuloksesi Kubioksesta ja tallenna ne järjestelmään.
+          </p>
+          <button class="hrv-kubios">Hae mittaustulokset</button>
+          <div id="results">
+            <div id="loadingIndicator" style="display: none">
+              Ladataan mittaustuloksia.
+              <div class="loader"></div>
+            </div>
+          </div>
+
+          <img src="/assets/kubios-DkFbtp9T.png" alt="kubis" class="kubios" />
+          <button type="button" class="tallenna-hrv">Tallenna</button>
+        </form>
+      </div>
+    </div>
+    <div id="overall-analysis-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button4">×</span>
+        <h2>Kokonaisanalyysisi tulokset tänään:</h3>
+          <p>Kokonaisanalyysi lasketaan oirearviokyselyn ja elämäntapakyselyn tulosten, sekä HRV- mittaustulosten perusteella. </p>
+        <!-- <p id="symptom-points"></p>
+        <p id="hrv-points"></p>
+        <p id="lifestyle-points"></p> -->
+        <p id="lifestyle-points"></p> 
+        <p id="overall-score"></p>
+        <p id="overall-text"></p>
+                <div id="additional-info" style="display:none;">
+            <p id="stress-advice"></p>
+            <a href="relaxation-exercise.html" id="stress-link">Rentoutumisharjoituksiin</a>
+        </div>
+      </div>
+    </div>
+    <div id="infoModal" class="modal">
+      <div class="modal-content">
+          <span class="close-modal">×</span>
+          <div id="modalContent">
+              <h2>Tiedot Päivämäärälle</h2>
+          </div>
+      </div>
+  </div>
+    <div id="toast-container"></div>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <footer>
+      <div class="logo-wrapper">
+        <img src="/assets/icon10-DFxPVeL8.png" alt="logo" class="nav-logo" />
+      </div>
+      ©️ Ryhmä 9
+    </footer>
+  </body>
+</html>
