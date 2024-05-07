@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
     menu.classList.toggle('show');
   });
   const ctx = document.getElementById('myBarChart').getContext('2d');
-  // const userId = localStorage.getItem('user_id');
+  const userId = localStorage.getItem('user_id');
   const token = localStorage.getItem('token');
-  const url = `https://hyte24.northeurope.cloudapp.azure.com/api/kubios/user-data`;
+  const url = `https://hyte24.northeurope.cloudapp.azure.com/api/hrv/${userId}`;
 
   const options = {
     method: 'GET',
