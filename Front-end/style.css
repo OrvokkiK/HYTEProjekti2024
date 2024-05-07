@@ -10,10 +10,6 @@ html {
   padding-bottom: 60px;
 }
 
-.kakka {
-  background-color: rgba(249, 101, 101, 0.7);
-}
-
 body {
   margin: 0;
   min-width: 320px;
@@ -1512,7 +1508,8 @@ footer {
     width: 200px;
   }
 
-  #jumbotron {
+  #jumbotron,
+  .chat-section {
     max-width: 95%;
   }
 
