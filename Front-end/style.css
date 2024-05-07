@@ -1439,6 +1439,21 @@ footer {
 }
 
 @media screen and (max-width: 770px) {
+
+  nav {
+    justify-content: space-around; 
+    padding: 10px 15px; 
+  }
+
+  .menu-toggle {
+    right: 10px; 
+  }
+
+  .nav-logo, .logo-text {
+    flex-grow: 0; 
+    margin-right: 5px; 
+  }
+
   .calendar {
     max-width: 80%;
   }
