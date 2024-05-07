@@ -1517,6 +1517,10 @@ footer {
     margin-left: 5px;
   }
 
+  #survey-form-physical .labels {
+    font-size: 10px;
+  }
+
   
 }
 
