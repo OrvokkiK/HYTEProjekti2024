@@ -1441,7 +1441,7 @@ footer {
 @media screen and (max-width: 770px) {
 
   nav {
-    justify-content: space-around; 
+    justify-content: flex-start; 
     padding: 10px 15px; 
   }
 
@@ -1451,7 +1451,8 @@ footer {
 
   .nav-logo, .logo-text {
     flex-grow: 0; 
-    margin-right: 5px; 
+    margin-right: 5px;
+    margin-left: 20px; 
   }
 
   .calendar {
