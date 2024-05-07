@@ -1500,7 +1500,8 @@ footer {
     width: 70%;
   }
 
-  .hrv-modal-content {
+  .hrv-modal-content,
+  .modal-content {
     width: 90%;
   }
 
@@ -1513,7 +1514,7 @@ footer {
     max-width: 95%;
   }
   .nav-logo {
-    margin-left: 10px;
+    margin-left: 5px;
   }
 
   
