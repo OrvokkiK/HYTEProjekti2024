@@ -32,37 +32,41 @@ document.addEventListener('DOMContentLoaded', function () {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      if (!data.results || data.results.length === 0) {
+        console.error('No data available for chart.');
+        return;
+      }
+
       const chartData = {
-        labels: data.map((item) => item.daily_result), 
+        labels: data.results.map((item) => item.daily_result), 
         datasets: [
           {
             label: 'Stressi-indeksi',
-            data: data.map((item) => item.result.stress_index),
+            data: data.results.map((item) => item.result.stress_index),
             backgroundColor: '#65057f',
             borderWidth: 1,
           },
           {
             label: 'Readiness',
-            data: data.map((item) => item.result.readiness),
+            data: data.results.map((item) => item.result.readiness),
             backgroundColor: '#6c49ea',
             borderWidth: 1,
           },
           {
             label: 'Keskisyke',
-            data: data.map((item) => item.result.mean_hr_bpm),
+            data: data.results.map((item) => item.result.mean_hr_bpm),
             backgroundColor: '#3498db',
             borderWidth: 1,
           },
           {
             label: 'SDNN',
-            data: data.map((item) => item.result.sdnn_ms),
+            data: data.results.map((item) => item.result.sdnn_ms),
             backgroundColor: '#33d3d0',
             borderWidth: 1,
           },
           {
             label: 'Mean RR',
-            data: data.map((item) => item.result.mean_rr_ms),
+            data: data.results.map((item) => item.result.mean_rr_ms),
             backgroundColor: '#0056b3',
             borderWidth: 1,
           },
