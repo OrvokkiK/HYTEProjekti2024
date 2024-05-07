@@ -14,6 +14,7 @@ Preventive Health Strategies: By identifying high stress levels early, MindEase 
 ## References
 This project uses a range of open-source tools and resources. Below is a list of these resources and their contributions to the project.
 
+- **Kubios** - Premium software for heart rate variability analysis, used for detailed insights into stress levels. Note: Check the specific license details depending on your usage. [Kubios](https://www.kubios.com/)
 - **Bootstrap Icons** - Icons used throughout the application for a consistent and modern UI. [View Icons](https://icons.getbootstrap.com/)
 - **Chart.js**  Used for the HRV-data chart. [Chart.js](https://www.chartjs.org/)
 - **amCharts** - Used for the Stress Analaysis data chart. [amCharts](https://www.amcharts.com/)
