@@ -107,11 +107,9 @@ npm run start
 # Routes
 
 ## Authentication/authorization endpoints
-
 ##
 ## /api/auth/login
 ##
-
 ### Login as a regular user
 ```
 POST http://localhost:3000/api/auth/login
@@ -125,21 +123,19 @@ Content-Type: application/json
 ##
 ## /api/auth/professional/
 ##
-
 ### Login as an admin/healthcare provider
 ```
 POST http://localhost:3000/api/auth/professional/login
 Content-Type: application/json
 
 {
-  "username" : "",
+  "username" : "",  (should be email)
   "password": ""
 }
 ```
 ##
 ## /api/auth/me
 ##
-
 ### Fetch user's data (requires token)
 ```
 GET http://localhost:3000/api/auth/me
@@ -161,7 +157,7 @@ Authorization: Bearer
 GET http://localhost:3000/api/users/6
 Authorization: Bearer
 ```
-### Create a new user
+### Create a new user *
 ```
 POST  http://localhost:3000/api/users
 content-type: application/json
@@ -181,15 +177,15 @@ Authorization: Bearer
 Content-Type: application/json
 
 {
-    "username": "",
+    "username": "",  (should be email)
     "password": "", 
     "first_name": "",
     "last_name": "",
-    "chat_permission" : "",
-    "chat_permission_date" : ""
+    "chat_permission" : "",  (should be "yes" or "no")
+    "chat_permission_date" : ""  (should be a date)
 }
 ```
-### Delete an existing user (requires token)
+### Delete an existing user (requires token) 
 ```
 DELETE http://localhost:3000/api/users/6
 Authorization: Bearer
@@ -197,24 +193,21 @@ Authorization: Bearer
 ##
 ## /api/student routes (requires token)
 ## 
-
 ### Fetch all student's ids and usernames (requires token)
 ```
 GET http://localhost:3000/api/student/
 Authorization: Bearer
 ```
-## Symptom related endpoints
 
+## Symptom related endpoints
 ##
 ## /api/symptoms routes
 ##
-
 ### Fetch all entries in symptoms (requires token)
 ```
 GET http://localhost:3000/api/symptoms/
 Authorization: Bearer
 ```
-
 ### Create a new symptom entry (requires token)
 ```
 POST http://localhost:3000/api/symptoms/
@@ -222,32 +215,31 @@ Authorization: Bearer
 Content-Type: application/json
 
 {
-  "entry_date" : "2024-04-05", 
-  "frustration" : "1", 
-  "grumpiness" : "1", 
-  "recall_problems": "1", 
-  "restlesness": "1", 
-  "disquiet": "1", 
-  "tiredness": "1", 
-  "anxiety" : "1", 
-  "difficulty_making_decisions" : "1", 
-  "sleep_disturbances": "1", 
-  "changes_in_appetite": "1", 
-  "headache": "1", 
-  "neck_pain": "1", 
-  "vertigo": "1", 
-  "palpitation": "1", 
-  "nausea": "1", 
-  "upset_stomach": "1", 
-  "recurring_colds": "1", 
-  "back_issues": "1", 
-  "stress_level": "5"
+  "entry_date" : "2024-04-05",  (should be a date)
+  "frustration" : "1",   (should be boolean)
+  "grumpiness" : "1",   (should be boolean)
+  "recall_problems": "1",  (should be boolean)
+  "restlesness": "1",  (should be boolean)
+  "disquiet": "1",  (should be boolean) 
+  "tiredness": "1",  (should be boolean)
+  "anxiety" : "1",  (should be boolean)
+  "difficulty_making_decisions" : "1",  (should be boolean)
+  "sleep_disturbances": "1",  (should be boolean)
+  "changes_in_appetite": "1",  (should be boolean) 
+  "headache": "1",  (should be boolean) 
+  "neck_pain": "1",  (should be boolean) 
+  "vertigo": "1",  (should be boolean) 
+  "palpitation": "1",  (should be boolean) 
+  "nausea": "1",  (should be boolean) 
+  "upset_stomach": "1",  (should be boolean) 
+  "recurring_colds": "1",  (should be boolean) 
+  "back_issues": "1",  (should be boolean) 
+  "stress_level": "5"  (should be integer between 1-5)
 }
 ```
 ##
 ## /api/symptoms/:id routes
 ##
-
 ### Fetch all of the entries by user_id
 ```
 GET http://localhost:3000/api/symptoms/11
@@ -260,43 +252,39 @@ Authorization: Bearer
 Content-Type: application/json
 
 {
-  "frustration" : "1", 
-  "grumpiness" : "0", 
-  "recall_problems": "1", 
-  "restlesness": "0", 
-  "disquiet": "1", 
-  "tiredness": "0", 
-  "anxiety" : "1", 
-  "difficulty_making_decisions" : "0", 
-  "sleep_disturbances": "1", 
-  "changes_in_appetite": "0", 
-  "headache": "1", 
-  "neck_pain": "0", 
-  "vertigo": "1", 
-  "palpitation": "0", 
-  "nausea": "1", 
-  "upset_stomach": "0", 
-  "recurring_colds": "1", 
-  "back_issues": "0", 
-  "stress_level": "5",
-  "user_id": "6"
+  "frustration" : "1",  (should be boolean)
+  "grumpiness" : "0",   (should be boolean)
+  "recall_problems": "1",  (should be boolean) 
+  "restlesness": "0",  (should be boolean) 
+  "disquiet": "1",  (should be boolean) 
+  "tiredness": "0",  (should be boolean) 
+  "anxiety" : "1",  (should be boolean) 
+  "difficulty_making_decisions" : "0",  (should be boolean)
+  "sleep_disturbances": "1",  (should be boolean) 
+  "changes_in_appetite": "0",  (should be boolean) 
+  "headache": "1",  (should be boolean) 
+  "neck_pain": "0",  (should be boolean) 
+  "vertigo": "1",  (should be boolean) 
+  "palpitation": "0",  (should be boolean) 
+  "nausea": "1",  (should be boolean) 
+  "upset_stomach": "0",  (should be boolean) 
+  "recurring_colds": "1",  (should be boolean) 
+  "back_issues": "0",  (should be boolean)
+  "stress_level": "5",  (should be integer between 1-5)
+  "user_id": "6"  (should be integer)
 }
 ```
-
 ##
 ## /api/symptoms/user/:id
 ##
-
 ### Fetch symptom entries by user's id (requires token)
 ```
 GET http://localhost:3000/api/symptoms/user/6
 Authorzation: Bearer 
 ```
-
 ##
 ## /api/symptoms/:symptom_id/user/:user_id
 ##
-
 ### Fetch symptoms by symptom_id and user_id (requires token)
 ```
 GET http://localhost:3000/api/symptoms/2/user/6
@@ -307,8 +295,8 @@ Authorization: Bearer
 DELETE http://localhost:3000/api/symptoms/4/user/10
 Authorization: Bearer
 ```
-# Lifestyle data related endpoints
 
+# Lifestyle data related endpoints
 ##
 ## /api/lifestyle/ routes
 ##
