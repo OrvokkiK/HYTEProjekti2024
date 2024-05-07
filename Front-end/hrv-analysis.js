@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return response.json();
     })
     .then((data) => {
+      console.log(data);
       const chartData = {
         labels: data.map((item) => item.entry_date.split('T')[0]), // Format dates
         datasets: [
