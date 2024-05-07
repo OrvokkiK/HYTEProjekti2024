@@ -142,11 +142,9 @@ GET http://localhost:3000/api/auth/me
 Authorization: Bearer
 ```
 ## User data related endpoints
-
 ##
 ## /api/users endpoint
 ##
-
 ### Fetcht all user data (requires token)
 ```
 GET http://localhost:3000/api/users
@@ -157,15 +155,15 @@ Authorization: Bearer
 GET http://localhost:3000/api/users/6
 Authorization: Bearer
 ```
-### Create a new user *
+### Create a new user
 ```
 POST  http://localhost:3000/api/users
 content-type: application/json
 
 {
-    "username": "",
+    "username": "",  (should be email)
     "password": "",
-    "email" : "",
+    "email" : "",  (should be email)
     "first_name": "",
     "last_name": ""
 }
@@ -191,7 +189,7 @@ DELETE http://localhost:3000/api/users/6
 Authorization: Bearer
 ```
 ##
-## /api/student routes (requires token)
+## /api/student routes
 ## 
 ### Fetch all student's ids and usernames (requires token)
 ```
@@ -309,24 +307,23 @@ Authotization: Bearer
 Content-Type: application/json
 
 {
-  "entry_date" : "2024-05-06",
-  "hours_slept" : "7.5",
-  "enough_sleep" : "kyllä",
-  "quality_sleep" : "hyvä",
-  "feel_healthy" : "kyllä",
-  "caffeine_intake" : "4",
-  "nicotine_intake": "0",
-  "alcohol_intake": "0",
-  "physical_activity": "Juoksu",
-  "duration": "30",
-  "intensity": "matala",
-  "user_id": "6"
+  "entry_date" : "2024-05-06",  (should be a date)
+  "hours_slept" : "7.5",  (should be a number)
+  "enough_sleep" : "yes",  (should be "yes" or "no")
+  "quality_sleep" : "4",  (should be integer)
+  "feel_healthy" : "yes",  (should be "yes" or "no")
+  "caffeine_intake" : "4",  (should be a number)
+  "nicotine_intake": "0",  (should be a number)
+  "alcohol_intake": "0",  (should be a number)
+  "physical_activity": "Juoksu",  
+  "duration": "0.5",  (should be a number)
+  "intensity": "3",  (should be a number)
+  "user_id": "6"  (should be integer)
 }
 ```
 ##
 ## /api/lifestyle/:id routes
 ##
-
 ### fetch lifestyle entries by user_id (requires token)
 ```
 GET http://localhost:3000/api/lifestyle/6
@@ -334,11 +331,9 @@ Authorization: Bearer
 ```
 
 # HRV data related endpoints
-
 ##
 ## /api/hrv
 ##
-
 ### Save a new hrv entry (requires token)
 ```
 POST http://localhost:3000/api/hrv
@@ -346,19 +341,17 @@ Authorization: Bearer
 Content-Type: application/json
 
 {
-  "entry_date" : "2024-05-05",
-  "stress_index": "8.676786867394357",
-  "mood": "4",
-  "av_hrv": "931.5854922279792" ,
-  "mean_rr_ms" : "931.5854922279792",
-  "sdnn_ms": "47.26890774349144",
-  "readiness": "66.85579905808478"
+  "entry_date" : "2024-05-05",  (should be date)
+  "stress_index": "8.676786867394357",  (should be a number)
+  "av_hrv": "931.5854922279792" ,  (should be a number)
+  "mean_rr_ms" : "931.5854922279792",  (should be a number)
+  "sdnn_ms": "47.26890774349144",  (should be a number)
+  "readiness": "66.85579905808478"  (should be a number)
 }
 ```
 ##
 ## /api/hrv/:id
 ##
-
 ### Fetch all user's hrv entries (requires token)
 ```
 GET http://localhost:3000/api/lifestyle/6
@@ -369,7 +362,6 @@ Authorization: Bearer
 ##
 ## /api/analysis routes
 ## 
-
 ### Fecth all entries in analysis (requires token)
 ```
 GET http://localhost:3000/api/analysis/
@@ -387,10 +379,10 @@ Authorization: Bearer
 Content-Type: application/json
 
 {
-  "user_id": "10",
-  "analysis_result": "Korkea stressi",
-  "analysis_enumerated": "1",
-  "created_at": "2024-05-4 16:00:00"
+  "user_id": "10",  (should be integer)
+  "analysis_result": "Korkea stressi",  (should be "korkea stressi", "kohtalainen stressi", "matala stressi")
+  "analysis_enumerated": "1",  (should be integer between 1-3)
+  "created_at": "2024-05-4"  (should be date)
 }
 ```
 ### Edit an existing analysis entry (requires token) 
@@ -400,10 +392,10 @@ Authorization: Bearer
 Content-Type: application/json
 
 {
-  "user_id": "2",
-  "analysis_result": "Korkea stressi",
-  "analysis_enumerated": "3",
-  "created_at": "2024-05-4 15:00:00"
+  "user_id": "2",  (should be integer)
+  "analysis_result": "Korkea stressi",  (should be "korkea stressi", "kohtalainen stressi", "matala stressi")
+  "analysis_enumerated": "3",  (should be integer between 1-3)
+  "created_at": "2024-05-4"  (should be date)
 }
 ```
 ##
@@ -453,10 +445,10 @@ Authorization: Bearer
 Content-Type: application/json
 
 {
-  "recipient_id": "6", 
-  "message_content": "Hello!",
-  "message_sent_at" : "2024-05-05 14:02:00",
-  "sender_id": "5"
+  "recipient_id": "6",  (should be integer) 
+  "message_content": "Hello",
+  "message_sent_at" : "2024-05-05 14:02:00",  (should be ISO8601 date and/or time)
+  "sender_id": "5"  (should be integer)
 }
 ```
 
@@ -467,47 +459,40 @@ Authorization: Bearer
 Content-Type: application/json
 
 {
-  "conversation_id" : "1",
-  "recipient_id": "6", 
-  "message_content": "Toimiiko tää vittu?",
-  "message_sent_at" : "2024-05-05 14:02:00",
-  "sender_id": "5"
+  "conversation_id" : "1",  (should be integer)
+  "recipient_id": "6",  (should be integer)
+  "message_content": "Hi",
+  "message_sent_at" : "2024-05-05 14:02:00",  (should be ISO8601 date and/or time)
+  "sender_id": "5"  (should be integer)
 }
 ```
 ##
 ## /api/messages/:id routes
 ##
-
 ### Fetch message by message's id (requires token)
 ```
 GET http://localhost:3000/api/messages/6
 Authorization: Bearer
 ```
-
 ##
 ## /api/messages/conversation/:id routes 
 ##
-
 ### Fetch conversation by conversation id (requires token)
 ```
 GET http://localhost:3000/api/messages/conversation/2
 Authorization: Bearer 
 ```
-
 ##
 ## /api/conversation/user/:id routes
 ##
-
 ### Fetch conversation_id sender's or recipients's id (requires token)
 ```
 GET http://localhost:3000/api/messages/user/5
 Authorization: Bearer
 ```
-
 ##
 ## /api/messages/:id/user/:user_id
 ##
-
 ### Delete messages by message_id and user_id (requires token)
 ```
 DELETE http://localhost:3000/api/messages/7/user/6
