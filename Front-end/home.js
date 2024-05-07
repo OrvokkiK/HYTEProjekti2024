@@ -268,7 +268,7 @@ am5.ready(function () {
     })
     .then(data => {
       if (data.length === 0) {
-        root.dom.innerHTML = '<p style="text-align:center; padding: 20px;">No data available.</p>';
+        root.dom.innerHTML = '<p style="text-align:center; padding: 20px;">Ei vielä näytettäviä stressitasoanalyysin tuloksia.</p>';
         return;
       }
 
@@ -291,7 +291,7 @@ am5.ready(function () {
     })
     .catch(error => {
       console.error('Fetch error:', error);
-      root.dom.innerHTML = '<p style="text-align:center; padding: 20px;">Error retrieving data. ' + error.message + '</p>';
+      root.dom.innerHTML = '<p style="text-align:center; padding: 20px;">Ei vielä näytettäviä stressitasoanalyysin tuloksia.</p>';
     });
 });
 
