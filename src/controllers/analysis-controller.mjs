@@ -2,7 +2,7 @@
 
 import { deleteAnalysisById, insertAnalysis, selectAllAnalyses, selectAnalysesByUserId, selectAnalysisbyId, updateAnalysisById } from "../models/analysis-model.mjs";
 
-// Get all Analyses in db
+// Get all Analyses in database
 const getAllAnalyses = async (req, res) => {
   const user_level = req.user.user_level;
   if (user_level && (user_level === 'hcp' || user_level === 'admin')) {
@@ -53,7 +53,7 @@ const getAnalysisById = async (req, res) => {
 
 const postAnalysis = async(req, res) => {
   const user_id_token = req.user.userId;
-  // const user_level = req.user.user_level;
+  const analysis_id = req.params.id;
   const {
     user_id,
     analysis_result,
@@ -62,7 +62,7 @@ const postAnalysis = async(req, res) => {
   } = req.body;
   if (user_id_token == user_id) {
     if (user_id && analysis_result && analysis_enumerated && created_at) {
-      const result = await insertAnalysis(req.body);
+      const result = await insertAnalysis(req.body, analysis_id);
       if (result.error) {
           return res.status(result.error).json(result);
       } else {

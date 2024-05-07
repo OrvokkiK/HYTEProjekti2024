@@ -1,5 +1,6 @@
 import promisePool from "../utils/database.mjs";
 
+// Saves a hrv entry to database
 const addHrv = async (entry) => {
   const {
     user_id,
@@ -30,6 +31,7 @@ const addHrv = async (entry) => {
   }
 };
 
+// List user's hrv data
 const listHrvByUserId = async (user_id) => {
   try {
     const sql = 'SELECT * FROM hrv_analysis WHERE user_id=?';

@@ -31,6 +31,7 @@ const listSymptomsByUserId = async (user_id) => {
   }
 };
 
+// Lists for symptom data by symptom_id and user_id
 const listSymptomsBySymptomId = async (id, user_id) => {
   try {
     const sql = 'SELECT * FROM Symptoms WHERE symptom_id=? and user_id=?';
@@ -46,6 +47,7 @@ const listSymptomsBySymptomId = async (id, user_id) => {
   }
 };
 
+// Add an entry to database
 const addSymptoms = async (entry, user_id) => {
   const {
     entry_date, 
@@ -102,9 +104,8 @@ const addSymptoms = async (entry, user_id) => {
   }
 };
 
-// INSERT (edit) an existing entry;
+// Edit an existing entry in database
 const updateEntryById = async (entry) => {
-  // console.log('Model: entry ', entry);
   const sql = 'UPDATE Symptoms SET frustration=?, grumpiness=?, recall_problems=?, restlesness=?, disquiet=?, tiredness=?, anxiety=?, difficulty_making_decisions=?, sleep_disturbances=?, changes_in_appetite=?, headache=?, neck_pain=?, vertigo=?, palpitation=?, nausea=?, upset_stomach=?, recurring_colds=?, back_issues=?, stress_level=?, user_id=? WHERE symptom_id=?';
   const params = [
     entry.frustration, 
@@ -128,10 +129,8 @@ const updateEntryById = async (entry) => {
     entry.stress_level,
     entry.user_id,
     entry.symptom_id];
-    // console.log('Model: params', params);
   try {
     const [rows] = await promisePool.query(sql, params);
-    // console.log(rows);
     if (rows.changedRows === 1) {
       return rows;
     } else {
@@ -143,11 +142,10 @@ const updateEntryById = async (entry) => {
   }
 };
 
-// DELETE an entry in symptoms
+// delete an entry in symptoms from database
 const deleteSymptomById = async (symptom_id, user_id) => {
   try {
     const sql = `DELETE FROM Symptoms WHERE symptom_id=${symptom_id} AND user_id=${user_id}`;
-    // console.log(sql); 
     const [rows] = await promisePool.query(sql);
     if (rows.affectedRows ===  0) {
       return {error: 404, message: 'Entry not found'};
@@ -157,7 +155,7 @@ const deleteSymptomById = async (symptom_id, user_id) => {
     console.error('[Model] deleteSymptomsById: ', error);
     return {error: 500, message: 'db error'};
   }
-}
+};
 
 export {
   listAllSymptoms,

@@ -14,6 +14,7 @@ const listAllUsers = async () => {
   }
 };
 
+// Lists all users with regular privs (students)
 const listAllStudents = async () => {
   try {
     const sql = 'SELECT user_id, username, title FROM Users WHERE user_level = "' + 'regular"';
@@ -27,7 +28,6 @@ const listAllStudents = async () => {
 };
 
 // List all of the user's info
-// still returns an empty set even if set is empty??
 const selectUserById = async (id) => {
   try {
     const sql = "SELECT username, user_level, title, user_id FROM Users WHERE user_id=?";
@@ -49,12 +49,10 @@ const selectUserByUsername = async (username) => {
  try {
   const sql = 'SELECT * FROM Users WHERE email=?'; 
   const params = [username];
-  console.log(username);
   const [rows] = await promisePool.query(sql, params);
   if (rows.length === 0) {
     return {error: 401, message: 'Unauthorized: Invalid username or password'};
   } else {
-    console.log(rows[0].user_level);
     if (rows[0].user_level === 'hcp' || rows[0].user_level === 'admin') {
       return rows[0];
     } else {
@@ -101,10 +99,9 @@ const insertUser = async (user) => {
   }
 };
 
-// Edit existing user
+// Edit existing user's data
 const updateUserInfoById = async (user) => {
   try {
-    // const sql = 'UPDATE Users SET username=?, password=?, first_name=?, last_name=? WHERE user_id=?';
     const sql =
       "UPDATE Users SET username=?, password=?, first_name=?, last_name=?, chat_permission=?, chat_permission_date=? WHERE user_id=?";
     const params = [
@@ -116,7 +113,6 @@ const updateUserInfoById = async (user) => {
       user.chat_permission_date,
       user.user_id,
     ];
-    console.log(params);
     const [result] = await promisePool.query(sql, params);
     if (result.affectedRows == 0) {
       return { error: 500, message: "db error, data not changed" };
@@ -128,9 +124,7 @@ const updateUserInfoById = async (user) => {
   }
 };
 
-// remove user based on id
-// remove all the entries of the user prior to deleting the user??
-
+// Delete user from database
 const deleteUserById = async (id) => {
   try {
     const sql = "DELETE FROM Users WHERE user_id=?";
@@ -167,31 +161,10 @@ const selectUserByEmail = async (email) => {
     return { error: 500, message: "db error" };
   }
 };
-//login
-// TODO: Implement kubios login
 
-//update user priviledges
-//move to admin model??
-/*const updateUserPriviledges = async (user) => {
-  try {
-    const sql = 'UPDATE Users SET user_level=?, title=? WHERE id=?';
-    const params = [user.user_level, user.title, user.user_id];
-    const result = await promisePool.query(sql,params);
-    if (result.affectedRows === 0) {
-      return {error: 500, message: 'db error, data not changed'};
-    } else {
-      return {message: `User ${user.user_id} priviledges updated to ${user.user_level}`};
-    }
-  } catch (error) {
-    console.error('updateUserPriviledges: ',error );
-    return {error: 500, message: 'db error'};
-  }
-};*/
-
-//update riskgroup
+//Updates riskgroup data in database
 const updateRiskgroupByUserId = async(user_id, date) => {
   try {
-    // const riskGroup = kyllä;
     const sql = `UPDATE users SET risk_group="kyllä` + `", riskgroup_date = ${date} WHERE user_id=${user_id}`;
     console.log(sql);
     const [rows] = await promisePool.query(sql);
@@ -201,7 +174,6 @@ const updateRiskgroupByUserId = async(user_id, date) => {
     } else {
       return {message: 'User riskgroup updated', user_id: user_id};
     }
-    
   } catch (error) {
     console.error('updateRiskgroupByUserId: ',error );
     return {error: 500, message: 'db error'};

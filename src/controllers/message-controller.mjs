@@ -1,7 +1,7 @@
 // message-controller.mjs
 
 import { getNewId } from "../utils/new-conversation.mjs";
-import { deleteConversationByConversationId, deleteMessageByMessageId, insertMessage, listAllMessages, listConversationByUserId, listConverstation, listMessageByMessage_id, listMessagebyAuthor } from "../models/message-model.mjs";
+import { deleteMessageByMessageId, insertMessage, listAllMessages, listConversationByUserId, listConverstation, listMessageByMessage_id, listMessagebyAuthor } from "../models/message-model.mjs";
 
 // GET all messages
 const getAllMessages = async (req, res) => {
@@ -18,13 +18,19 @@ const getAllMessages = async (req, res) => {
 
 };
 
-// GET messages by author
+// GET messages by author (sender_id)
 const getMessagesByAuthor = async (req, res) => {
-  const result = await listMessagebyAuthor(req.params.id);
-  if (result.error) {
-    return res.status(result.error).json(result);
+  const user_id_token = req.user.userId;
+  const user_level = req.user.user_level;
+  if (user_id_token == req.params.id || user_level === 'hcp' || user_level === 'admin') {
+    const result = await listMessagebyAuthor(req.params.id);
+    if (result.error) {
+      return res.status(result.error).json(result);
+    }
+    return res.json(result);
+  } else {
+    return res.status(403).json({error: 403, message: 'Forbidden'}); 
   }
-  return res.json(result);
 };
 
 //GET messages in a conversation
@@ -134,36 +140,6 @@ const deleteMessage = async (req, res) => {
     return res.status(403).json({error: 403, message: 'Forbidden'});
   }
 };
-
-// TODO finnish
-// Delete conversation by conversation id
-/* const deleteConversation = async (req, res) => {
-  const conversation_id = req.params.id;
-  const user_id = req.user.userId;
-  const user_level = req.user.userId;
-  // If user's user_level is admin, conversation can be removed 
-  if (user_level == 'admin') {
-    let result = await deleteConversationByConversationId(conversation_id);
-    if (result.error) {
-      return res.status(result.error).json(result);
-    }
-    // if user_level is not admin
-  } else {
-    // Check if user is in a conversation
-    const check = await listConversationByUserId(user_id);
-    // if user not in a conversation
-    if (check.error) {
-      return res.status(403).json({error: 403, message: 'Forbidden'});
-    } else {
-       check.forEach(element => {
-
-        
-      });
-      console.log(check[0]);
-      return res.status(200)
-    }
-  }
-};*/ 
 
 export {
   getAllMessages,

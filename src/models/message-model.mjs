@@ -1,7 +1,7 @@
 // message-model.mjs
 import promisePool from "../utils/database.mjs";
 
-//lists all message
+//lists all messages in the database
 const listAllMessages = async () => {
   try {
     const sql = 'SELECT * FROM messages';
@@ -13,7 +13,7 @@ const listAllMessages = async () => {
   }
 };
 
-// List message by author
+// List all message by author
 const listMessagebyAuthor = async (sender_id) => {
   try {
     const sql = `SELECT * FROM messages WHERE sender_id=${sender_id}`;
@@ -81,16 +81,12 @@ const listConversationByUserId = async (userId) => {
 };
 
 
-// add message
-// TODO: implement cotrols that message chain hpc - regular or regular - hpc
+// add message to database
 const insertMessage = async (conversation_id, message) => {
   try {
     const sql = 'INSERT INTO Messages (conversation_id, recipient_id, message_content, message_sent_at, sender_id) VALUES (?, ?, ?, ?, ?)';
     const params = [conversation_id, message.recipient_id, message.message_content, message.message_sent_at, message.sender_id];
-    console.log(params);
     const [rows] = await promisePool.query(sql, params);
-    console.log(rows);
-    console.log(rows.insertId);
     return {message_id: rows.insertId};
   } catch (error) {
     console.error('Model: ListConversation ', error);
@@ -98,7 +94,7 @@ const insertMessage = async (conversation_id, message) => {
   }
 }; 
 
-//delete message
+//delete messages by message_id and user_id
 const deleteMessageByMessageId = async (message_id, user_id) => {
   try {
     const sql = `DELETE FROM Messages WHERE message_id = ${message_id} AND sender_id=${user_id}`;
@@ -113,20 +109,6 @@ const deleteMessageByMessageId = async (message_id, user_id) => {
   }
 };
 
-const deleteConversationByConversationId = async (conversation_id) => {
-  try {
-    const sql = `DELETE FROM Messages WHERE conversation_id = ${conversation_id}`;
-    const [rows] = await promisePool.query(sql);
-    if (rows.affectedRows === 0) {
-      return {error: 404, message: 'no conversation found'};
-    }
-    return {message: 'conversation deleted', conversation_id: conversation_id };
-  } catch (error) {
-    console.error('Model: ListConversation: ', error);
-    return {error: 500, message: 'db error'};
-  }
-}
-
 export {
   listAllMessages,
   listMessagebyAuthor,
@@ -134,6 +116,5 @@ export {
   listConverstation,
   listConversationByUserId,
   insertMessage,
-  deleteMessageByMessageId,
-  deleteConversationByConversationId
+  deleteMessageByMessageId
 };
