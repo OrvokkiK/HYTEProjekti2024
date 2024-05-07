@@ -1515,6 +1515,10 @@ footer {
     max-width: 95%;
   }
 
+  .columns-container {
+    max-width: 100%;
+  }
+
   
 }
 
