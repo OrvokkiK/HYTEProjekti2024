@@ -702,6 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadingIndicator.style.display = 'block';
     fetchData(url, options)
       .then((data) => {
+        console.log(data);
         loadingIndicator.style.display = 'none';
         console.log(data);
         const resultDiv = document.getElementById('results');
