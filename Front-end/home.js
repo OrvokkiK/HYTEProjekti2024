@@ -87,8 +87,9 @@ async function fetchDataForCalendar(id, tok) {
 
   function extractLocalDateFromUTC(utcDateString) {
     const date = new Date(utcDateString);
-    return date.toISOString().split('T')[0];
-  }
+    const userTimezoneOffset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
+    return new Date(date.getTime() - userTimezoneOffset).toISOString().split('T')[0];
+}
 
   const fetchDataAndExtractDates = async (url) => {
     const response = await fetch(url, options);
@@ -149,61 +150,55 @@ document
 document.getElementById('nextMonth').addEventListener('click', () => next());
 
 function showCalendar(month, year) {
-  const firstDay = (new Date(year, month).getDay() + 6) % 7;
+  const firstDay = (new Date(year, month).getDay() + 6) % 7; // Adjusting for local week start day
   const daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-  const tbl = document.getElementById('calendar-body');
+  const tbl = document.getElementById('calendar-body'); // Ensure you have this element in your HTML
   tbl.innerHTML = '';
 
-  document.getElementById('monthAndYear').innerText =
-    monthNames[month] + ' ' + year;
+  document.getElementById('monthAndYear').innerText = monthNames[month] + ' ' + year;
 
   let date = 1;
   for (let i = 0; i < 6; i++) {
-    const row = document.createElement('tr');
+      const row = document.createElement('tr');
 
-    for (let j = 0; j < 7; j++) {
-      const cell = document.createElement('td');
-      if (i === 0 && j < firstDay) {
-        row.appendChild(cell);
-      } else if (date > daysInMonth) {
-        break;
-      } else {
-        const cellDate = new Date(year, month, date);
-        const cellDateFormatted = cellDate.toISOString().split('T')[0];
+      for (let j = 0; j < 7; j++) {
+          const cell = document.createElement('td');
+          if (i === 0 && j < firstDay) {
+              row.appendChild(cell);
+          } else if (date > daysInMonth) {
+              break;
+          } else {
+              const cellDate = new Date(year, month, date);
+              const localCellDate = new Date(cellDate.getTime() - cellDate.getTimezoneOffset() * 60000);
+              const cellDateFormatted = localCellDate.toISOString().split('T')[0]; // Formatting adjusted for local timezone
 
-        cell.textContent = date;
-        if (
-          date === today.getDate() &&
-          year === today.getFullYear() &&
-          month === today.getMonth()
-        ) {
-          cell.classList.add('current-date');
-        }
+              cell.textContent = date;
+              if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                  cell.classList.add('current-date');
+              }
 
+              if (oirekyselyDates.includes(cellDateFormatted)) {
+                  const dot = document.createElement('span');
+                  dot.className = 'dot oirekysely-dot';
+                  cell.appendChild(dot);
+              }
+              if (elamantapaDates.includes(cellDateFormatted)) {
+                  const dot = document.createElement('span');
+                  dot.className = 'dot elamantapa-dot';
+                  cell.appendChild(dot);
+              }
+              if (hrvDates.includes(cellDateFormatted)) {
+                  const dot = document.createElement('span');
+                  dot.className = 'dot hrv-dot';
+                  cell.appendChild(dot);
+              }
 
-
-        if (oirekyselyDates.includes(cellDateFormatted)) {
-          const dot = document.createElement('span');
-          dot.className = 'dot oirekysely-dot';
-          cell.appendChild(dot);
-        }
-        if (elamantapaDates.includes(cellDateFormatted)) {
-          const dot = document.createElement('span');
-          dot.className = 'dot elamantapa-dot';
-          cell.appendChild(dot);
-        }
-        if (hrvDates.includes(cellDateFormatted)) {
-          const dot = document.createElement('span');
-          dot.className = 'dot hrv-dot';
-          cell.appendChild(dot);
-        }
-
-        row.appendChild(cell);
-        date++;
+              row.appendChild(cell);
+              date++;
+          }
       }
-    }
-    tbl.appendChild(row);
+      tbl.appendChild(row);
   }
 }
 
