@@ -120,6 +120,14 @@ Content-Type: application/json
   "password": ""
 }
 ```
+Expected response:
+```
+{message: 'Logged in successfully', user, token}
+```
+Failed responses:
+```
+{error: 401, message: 'Invalid username or password'}
+```
 ##
 ## /api/auth/professional/
 ##
@@ -132,6 +140,20 @@ Content-Type: application/json
   "username" : "",  (should be email)
   "password": ""
 }
+```
+Expected response:
+```
+{message: 'Logged in successfully', user, token}
+```
+Failed responses:
+User's username or password is incorrect
+```
+{error: 401, message: 'Invalid username or password'}
+```
+User is attempting to login with student credentials at professional login
+```
+{error: 401, message: 'Unauthorized: Invalid username or password'}
+
 ```
 ##
 ## /api/auth/me
