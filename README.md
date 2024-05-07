@@ -44,6 +44,8 @@ This project uses a range of open-source tools and resources. Below is a list of
 
 ### Message
 ![message page](docs/stress.png)
+## Database design
+![MindEase_db-schema](https://github.com/OrvokkiK/HYTEProjekti2024/assets/122262462/9c1f9724-09f1-4382-8074-72f7a2f0f554)
 
 
 ## Start Backend-server
