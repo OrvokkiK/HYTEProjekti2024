@@ -717,7 +717,7 @@ input[type='range'] {
 aside.messages-sidebar {
   background-color: white;
   max-height: 100%;
-  margin-right: 20px;
+  margin-right: 10px;
   overflow-y: auto;
   border-right: 1px solid #ccc;
 }
