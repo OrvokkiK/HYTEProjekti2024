@@ -1447,7 +1447,7 @@ footer {
   }
 
   .survey-button {
-    width: 50%;
+    width: 60%;
   }
 
   .content-wrapper {
@@ -1455,8 +1455,8 @@ footer {
   }
 
   #graph {
-    max-width: 90%;
-    height: 300px;
+    max-width: 95%;
+    height: 340px;
   }
 
   .info-section,
@@ -1472,7 +1472,7 @@ footer {
   }
 
   .links {
-    max-width: 70%;
+    max-width: 80%;
   }
 
   #graph {
