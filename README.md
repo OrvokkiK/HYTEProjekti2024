@@ -85,7 +85,8 @@ This project uses a range of open-source tools and resources. Below is a list of
 ### Message
 ![message page](docs/stress.png)
 ## Database design
-![MindEase_db-schema](https://github.com/OrvokkiK/HYTEProjekti2024/assets/122262462/9c1f9724-09f1-4382-8074-72f7a2f0f554)
+![image](https://github.com/OrvokkiK/HYTEProjekti2024/assets/122262462/81ff8535-b210-4982-91d3-ad29c97e37ef)
+
 
 "[Not in use]": Database tables that cannot be updated due to no functioning routes
 
@@ -95,7 +96,7 @@ This project uses a range of open-source tools and resources. Below is a list of
 
 underline row: Primary key of the table
 
-## Start Backend-server
+## Start server in development server
 ```
 npm run dev
 ```
@@ -380,7 +381,7 @@ Content-Type: application/json
 
 {
   "user_id": "10",  (should be integer)
-  "analysis_result": "Korkea stressi",  (should be "korkea stressi", "kohtalainen stressi", "matala stressi")
+  "analysis_result": "Korkea stressi",  (should be "Matala stressitaso", "Kohtalainen stressitaso" or "Korkea stressitaso")
   "analysis_enumerated": "1",  (should be integer between 1-3)
   "created_at": "2024-05-4"  (should be date)
 }
@@ -393,7 +394,7 @@ Content-Type: application/json
 
 {
   "user_id": "2",  (should be integer)
-  "analysis_result": "Korkea stressi",  (should be "korkea stressi", "kohtalainen stressi", "matala stressi")
+  "analysis_result": "Korkea stressi",  (should be "Matala stressitaso", "Kohtalainen stressitaso" or "Korkea stressitaso"")
   "analysis_enumerated": "3",  (should be integer between 1-3)
   "created_at": "2024-05-4"  (should be date)
 }
