@@ -709,7 +709,7 @@ input[type='range'] {
   background-color: rgba(198, 239, 240, 0.8);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   height: 500px;
 }
@@ -734,7 +734,6 @@ aside.messages-sidebar {
   padding: 10px;
   background-color: #f0f0f0;
   border-bottom: 1px solid #ccc;
-  font-size: 10px;
 }
 
 .conversation-list li:hover {
