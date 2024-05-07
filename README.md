@@ -11,6 +11,12 @@ MindEase is a comprehensive stress management application designed specifically 
 -Data-Driven Insights: Employs advanced analytics to process HRV data and user input from daily surveys on stress symptoms and lifestyle factors, enabling detailed reports and actionable insights.
 Preventive Health Strategies: By identifying high stress levels early, MindEase allows for early intervention which can prevent the development of more serious health issues related to prolonged stress.
 
+## References
+This project uses a range of open-source tools and resources. Below is a list of these resources and their contributions to the project.
+
+- Bootstrap Icons - Used for the user interface icons in the application. Available under the MIT License. [View Icons](https://icons.getbootstrap.com/)
+
+
 ## Start Backend-server
 ```
 npm run dev
