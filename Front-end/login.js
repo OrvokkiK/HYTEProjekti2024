@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         const form = event.target;
-        const url = 'http://localhost:3000/api/auth/login';
+        const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/auth/login';
         const redirectUrl = 'home.html'; // Ohjaus asiakkaan etusivulle
         processUserLogin(url, form, redirectUrl);
     });
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         const form = event.target;
-        const url = 'http://localhost:3000/api/auth/professional/login';
+        const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/auth/professional/login';
         const redirectUrl = 'professional.html'; // Ohjaus ammattilaisen sivulle
         processProfessionalLogin(url, form, redirectUrl);
     });

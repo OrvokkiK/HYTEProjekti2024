@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>MindEase</title>
+    <script type="module" crossorigin src="/assets/main-B_Og44uu.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/style-D24wJ6YD.js">
+    <link rel="modulepreload" crossorigin href="/assets/toast-B-6j1RQv.js">
+    <link rel="modulepreload" crossorigin href="/assets/fetch-dnjvk_SN.js">
+    <link rel="stylesheet" crossorigin href="/assets/style-CampYhro.css">
+  </head>
+  <body>
+    <nav>
+      <img src="/assets/icon10-DFxPVeL8.png" alt="logo" class="nav-logo" />
+      <div class="logo-text">MindEase</div>
+      <button class="menu-toggle"></button>
+      <ul class="menu">
+        <li class="dropdown">
+          <a href="#"></a>
+        </li>
+      </ul>
+    </nav>
+    <section class="login_section">
+      <div>
+          <div class="button-group">
+              <button id="userLoginBtn" class="toggle-button">Asiakas</button>
+              <button id="professionalLoginBtn" class="toggle-button">Ammattilainen</button>
+          </div>
+          <form id="userLoginForm" class="login_form active-form">
+              <div class="logo-wrapper">
+                  <img src="/assets/icon10-DFxPVeL8.png" alt="logo" class="nav-logo" />
+                  <div class="logo-text">MindEase</div>
+              </div>
+              <p class="client" style="text-align: center; font-size: medium;">Asiakkaan kirjautuminen</p>
+              <h2>Kirjaudu sisään Kubios tunnuksillasi</h2>
+              <label for="username">Käyttäjätunnus</label>
+              <input type="text" name="username" placeholder="Käyttäjätunnus" id="username" required />
+              <label for="password">Salasana</label>
+              <input type="password" name="password" placeholder="Salasana" id="password" required/>
+              <input name="submit" type="submit" value="Kirjaudu" class="loginuser" />
+          </form>
+          <form id="professionalLoginForm" class="login_form" style="display: none;">
+              <div class="logo-wrapper">
+                  <img src="/assets/icon10-DFxPVeL8.png" alt="logo" class="nav-logo" />
+                  <div class="logo-text">MindEase</div>
+              </div>
+              <p class="proff" style="text-align: center; font-size: medium;">Ammattilaisen kirjautuminen</p>
+              <h2>Kirjaudu sisään</h2>
+              <label for="professional_username">Käyttäjätunnus</label>
+              <input type="text" name="professional_username" placeholder="Käyttäjätunnus" id="professional_username" required/>
+              <label for="professional_password">Salasana</label>
+              <input type="password" name="professional_password" placeholder="Salasana" id="professional_password" required/>
+              <input name="submit" type="submit" value="Kirjaudu" class="loginuser" />
+          </form>
+      </div>
+  </section>
+  
+    <footer>
+      <div class="logo-wrapper">
+        <img src="/assets/icon10-DFxPVeL8.png" alt="logo" class="nav-logo" />
+      </div>
+      ©️ Ryhmä 9
+    </footer>
+    <div id="toast-container"></div>
+  </body>
+</html>

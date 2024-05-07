@@ -10,10 +10,6 @@ html {
   padding-bottom: 60px;
 }
 
-.kakka {
-  background-color: rgba(249, 101, 101, 0.7);
-}
-
 body {
   margin: 0;
   min-width: 320px;
@@ -1447,7 +1443,7 @@ footer {
   }
 
   .survey-button {
-    width: 50%;
+    width: 60%;
   }
 
   .content-wrapper {
@@ -1455,8 +1451,8 @@ footer {
   }
 
   #graph {
-    max-width: 90%;
-    height: 300px;
+    max-width: 95%;
+    height: 340px;
   }
 
   .info-section,
@@ -1472,7 +1468,7 @@ footer {
   }
 
   .links {
-    max-width: 70%;
+    max-width: 80%;
   }
 
   #graph {
@@ -1495,7 +1491,8 @@ footer {
     width: 100%;
   }
 
-  .analysis-wrapper {
+  .analysis-wrapper,
+  .about-stress {
     max-width: 100%;
   }
 
@@ -1503,12 +1500,25 @@ footer {
     width: 70%;
   }
 
-  .hrv-modal-content {
+  .hrv-modal-content,
+  .modal-content {
     width: 90%;
   }
 
   #results {
     width: 200px;
+  }
+
+  #jumbotron,
+  .chat-section {
+    max-width: 95%;
+  }
+  .nav-logo {
+    margin-left: 5px;
+  }
+
+  #survey-form-physical .labels {
+    font-size: 10px;
   }
 
   

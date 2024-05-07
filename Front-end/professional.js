@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 async function fetchUsers() {
-  const url = 'http://localhost:3000/api/student/';
+  const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/student/';
   // http://localhost:3000/api/student/ 
   const token = localStorage.getItem('token');
   const options = {
@@ -111,10 +111,10 @@ function setupModalControls() {
 
 async function fetchDataForModal(dataType) {
     const urls = {
-        'hrv': `http://localhost:3000/api/hrv/${currentUserId}`,
-        'kokonaisanalyysit': `http://localhost:3000/api/analysis/user/${currentUserId}`,
-        'elämäntapakyselyt': `http://localhost:3000/api/lifestyle/${currentUserId}`,
-        'oirearviokyselyt': `http://localhost:3000/api/symptoms/${currentUserId}`
+        'hrv': `https://hyte24.northeurope.cloudapp.azure.com/api/hrv/${currentUserId}`,
+        'kokonaisanalyysit': `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/${currentUserId}`,
+        'elämäntapakyselyt': `https://hyte24.northeurope.cloudapp.azure.com/api/lifestyle/${currentUserId}`,
+        'oirearviokyselyt': `https://hyte24.northeurope.cloudapp.azure.com/api/symptoms/${currentUserId}`
     };
 
     fetchData(urls[dataType], {

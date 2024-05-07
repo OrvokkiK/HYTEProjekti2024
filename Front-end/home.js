@@ -6,7 +6,7 @@ import {showToast} from './toast.js';
 // Käyttäjänimen näyttäminen
 async function showUserName() {
   const token = localStorage.getItem('token');
-  const url = 'http://localhost:3000/api/kubios/user-info';
+  const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/kubios/user-info';
   const options = {
     method: 'GET',
     headers: {
@@ -73,9 +73,9 @@ let hrvDates = [];
 
 async function fetchDataForCalendar(id, tok) {
   const urls = {
-    symptoms: `http://localhost:3000/api/symptoms/${id}`,
-    lifestyle: `http://localhost:3000/api/lifestyle/${id}`,
-    hrv: `http://localhost:3000/api/hrv/${id}`,
+    symptoms: `https://hyte24.northeurope.cloudapp.azure.com/api/symptoms/${id}`,
+    lifestyle: `https://hyte24.northeurope.cloudapp.azure.com/api/lifestyle/${id}`,
+    hrv: `https://hyte24.northeurope.cloudapp.azure.com/api/hrv/${id}`,
   };
   const options = {
     method: 'GET',
@@ -87,8 +87,9 @@ async function fetchDataForCalendar(id, tok) {
 
   function extractLocalDateFromUTC(utcDateString) {
     const date = new Date(utcDateString);
-    return date.toISOString().split('T')[0];
-  }
+    const userTimezoneOffset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
+    return new Date(date.getTime() - userTimezoneOffset).toISOString().split('T')[0];
+}
 
   const fetchDataAndExtractDates = async (url) => {
     const response = await fetch(url, options);
@@ -106,12 +107,12 @@ async function fetchDataForCalendar(id, tok) {
       fetchDataAndExtractDates(urls.hrv),
     ]);
 
-    console.log(oirekyselyDates, elamantapaDates, hrvDates);
+    // console.log(oirekyselyDates, elamantapaDates, hrvDates);
     symptomsFetched = true;
     lifestyleFetched = true;
     hrvFetched = true;
 
-    console.log(oirekyselyDates, elamantapaDates, hrvDates);
+    // console.log(oirekyselyDates, elamantapaDates, hrvDates);
     showCalendar(currentMonth, currentYear);
     checkAllDataFetched();
   } catch (error) {
@@ -149,61 +150,55 @@ document
 document.getElementById('nextMonth').addEventListener('click', () => next());
 
 function showCalendar(month, year) {
-  const firstDay = (new Date(year, month).getDay() + 6) % 7;
+  const firstDay = (new Date(year, month).getDay() + 6) % 7; // Adjusting for local week start day
   const daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-  const tbl = document.getElementById('calendar-body');
+  const tbl = document.getElementById('calendar-body'); // Ensure you have this element in your HTML
   tbl.innerHTML = '';
 
-  document.getElementById('monthAndYear').innerText =
-    monthNames[month] + ' ' + year;
+  document.getElementById('monthAndYear').innerText = monthNames[month] + ' ' + year;
 
   let date = 1;
   for (let i = 0; i < 6; i++) {
-    const row = document.createElement('tr');
+      const row = document.createElement('tr');
 
-    for (let j = 0; j < 7; j++) {
-      const cell = document.createElement('td');
-      if (i === 0 && j < firstDay) {
-        row.appendChild(cell);
-      } else if (date > daysInMonth) {
-        break;
-      } else {
-        const cellDate = new Date(year, month, date);
-        const cellDateFormatted = cellDate.toISOString().split('T')[0];
+      for (let j = 0; j < 7; j++) {
+          const cell = document.createElement('td');
+          if (i === 0 && j < firstDay) {
+              row.appendChild(cell);
+          } else if (date > daysInMonth) {
+              break;
+          } else {
+              const cellDate = new Date(year, month, date);
+              const localCellDate = new Date(cellDate.getTime() - cellDate.getTimezoneOffset() * 60000);
+              const cellDateFormatted = localCellDate.toISOString().split('T')[0]; // Formatting adjusted for local timezone
 
-        cell.textContent = date;
-        if (
-          date === today.getDate() &&
-          year === today.getFullYear() &&
-          month === today.getMonth()
-        ) {
-          cell.classList.add('current-date');
-        }
+              cell.textContent = date;
+              if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                  cell.classList.add('current-date');
+              }
 
+              if (oirekyselyDates.includes(cellDateFormatted)) {
+                  const dot = document.createElement('span');
+                  dot.className = 'dot oirekysely-dot';
+                  cell.appendChild(dot);
+              }
+              if (elamantapaDates.includes(cellDateFormatted)) {
+                  const dot = document.createElement('span');
+                  dot.className = 'dot elamantapa-dot';
+                  cell.appendChild(dot);
+              }
+              if (hrvDates.includes(cellDateFormatted)) {
+                  const dot = document.createElement('span');
+                  dot.className = 'dot hrv-dot';
+                  cell.appendChild(dot);
+              }
 
-
-        if (oirekyselyDates.includes(cellDateFormatted)) {
-          const dot = document.createElement('span');
-          dot.className = 'dot oirekysely-dot';
-          cell.appendChild(dot);
-        }
-        if (elamantapaDates.includes(cellDateFormatted)) {
-          const dot = document.createElement('span');
-          dot.className = 'dot elamantapa-dot';
-          cell.appendChild(dot);
-        }
-        if (hrvDates.includes(cellDateFormatted)) {
-          const dot = document.createElement('span');
-          dot.className = 'dot hrv-dot';
-          cell.appendChild(dot);
-        }
-
-        row.appendChild(cell);
-        date++;
+              row.appendChild(cell);
+              date++;
+          }
       }
-    }
-    tbl.appendChild(row);
+      tbl.appendChild(row);
   }
 }
 
@@ -269,7 +264,7 @@ am5.ready(function () {
   const id = localStorage.getItem('user_id');
   const userToken = localStorage.getItem('token');
 
-  const chartUrl = `http://localhost:3000/api/analysis/user/${id}`;
+  const chartUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/${id}`;
   const options = {
     method: 'GET',
     headers: {
@@ -441,8 +436,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const id = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
 
-    // Määrittele pyynnön URL ja optiot
-    const url = `http://localhost:3000/api/symptoms/`;
+    const url = `https://hyte24.northeurope.cloudapp.azure.com/api/symptoms/`;
     const options = {
       method: 'POST',
       headers: {
@@ -585,7 +579,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const id = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
 
-    const url = 'http://localhost:3000/api/lifestyle/';
+    const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/lifestyle/';
     const options = {
       method: 'POST',
       headers: {
@@ -638,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const token = localStorage.getItem('token');
     // const userId = localStorage.getItem('user_id');
-    const url = 'http://localhost:3000/api/hrv/';
+    const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/hrv/';
 
     const options = {
       method: 'POST',
@@ -696,7 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const token = localStorage.getItem('token');
 
-    const url = 'http://localhost:3000/api/kubios/user-data';
+    const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/kubios/user-data';
 
     const options = {
       method: 'GET',
@@ -708,6 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadingIndicator.style.display = 'block';
     fetchData(url, options)
       .then((data) => {
+        console.log(data);
         loadingIndicator.style.display = 'none';
         console.log(data);
         const resultDiv = document.getElementById('results');
@@ -786,7 +781,7 @@ const fetchDataAndFilter = (userId, token) => {
   };
 
   // Hae ja suodata oirekyselyn tulokset
-  const symptomUrl = `http://localhost:3000/api/symptoms/${userId}`;
+  const symptomUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/symptoms/${userId}`;
   const symptomOptions = {
     method: 'GET',
     headers: {
@@ -800,7 +795,7 @@ const fetchDataAndFilter = (userId, token) => {
   );
 
   // Hae ja suodata HRV-mittaukset
-  const hrvUrl = `http://localhost:3000/api/hrv/${userId}`;
+  const hrvUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/hrv/${userId}`;
   const hrvOptions = {
     method: 'GET',
     headers: {
@@ -811,7 +806,7 @@ const fetchDataAndFilter = (userId, token) => {
   const hrvDataPromise = fetchDataAndFilterByDate(hrvUrl, hrvOptions);
 
   // Hae ja suodata elämäntapakyselyn tulokset
-  const lifestyleUrl = `http://localhost:3000/api/lifestyle/${userId}`;
+  const lifestyleUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/lifestyle/${userId}`;
   const lifestyleOptions = {
     method: 'GET',
     headers: {
@@ -884,15 +879,12 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
   } else {
     symptomPoints += 3;
   }
-  console.log('oirekysely pisteet', symptomPoints);
   symptomPoints = Math.ceil(symptomPoints / 2);
 
   // HRV-tuloksen pisteytys
   let hrvPoints = 0;
   if (hrvData) {
     const stressIndex = hrvData.stress_index;
-
-    console.log('stress_index', stressIndex);
 
     if (stressIndex >= -5 && stressIndex <= 0) {
       hrvPoints -= 1;
@@ -916,10 +908,8 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
 
   // elämäntapakyselyn pisteytys
   let lifestylePoints = 0;
-  console.log(lifestyleData);
   if (lifestyleData) {
     const alcoholIntake = lifestyleData.alcohol_intake;
-    console.log(alcoholIntake);
     if (alcoholIntake <= 2) {
       lifestylePoints += 1;
     } else if (alcoholIntake > 2 && alcoholIntake <= 4) {
@@ -929,7 +919,6 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
     }
 
     const caffeineIntake = lifestyleData.caffeine_intake;
-    console.log(caffeineIntake);
     if (caffeineIntake <= 2) {
       lifestylePoints += 1;
     } else if (caffeineIntake > 2 && caffeineIntake <= 4) {
@@ -939,7 +928,6 @@ function calculateOverallAnalysis(symptomData, hrvData, lifestyleData) {
     }
 
     const enoughSleep = lifestyleData.enough_sleep;
-    console.log(enoughSleep);
     if (enoughSleep === 'no') {
       lifestylePoints += 3;
     } else if (enoughSleep === 'yes') {
@@ -1026,7 +1014,7 @@ function showModal(
 ) {
   // Tarkista onko modaali jo näytetty
   if (localStorage.getItem('analysisModalShown') !== 'true') {
-    fetchData('http://localhost:3000/api/analysis/user/' + localStorage.getItem('user_id'), {
+    fetchData('https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/' + localStorage.getItem('user_id'), {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -1126,7 +1114,7 @@ fetchDataAndFilter(userId, token)
           created_at: currentDate,
         };
 
-        const url = `http://localhost:3000/api/analysis/`;
+        const url = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/`;
         const options = {
           method: 'POST',
           headers: {

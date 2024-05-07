@@ -33,7 +33,6 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-
 // user routes
 // Users resource (/api/users)
 app.use('/api/users', userRouter);
