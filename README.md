@@ -1,5 +1,5 @@
 # MindEase Stressmanagement Application
-
+[MindEase](https://hyte24.northeurope.cloudapp.azure.com/index.html)
 ## Overview
 MindEase is a comprehensive stress management application designed specifically for college students and healthcare professionals. Utilizing heart rate variability (HRV) measurement, the application offers a science-based approach to monitoring and managing stress levels. By combining technological innovation with practicality, MindEase aims to improve the well-being and mental health of students, preparing them to be the innovators and leaders of tomorrow.
 
