@@ -1495,7 +1495,8 @@ footer {
     width: 100%;
   }
 
-  .analysis-wrapper {
+  .analysis-wrapper,
+  .about-stress {
     max-width: 100%;
   }
 
@@ -1513,10 +1514,6 @@ footer {
 
   #jumbotron {
     max-width: 95%;
-  }
-
-  .columns-container {
-    max-width: 100%;
   }
 
   
