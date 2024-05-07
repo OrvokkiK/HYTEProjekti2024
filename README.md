@@ -4,11 +4,11 @@
 MindEase is a comprehensive stress management application designed specifically for college students and healthcare professionals. Utilizing heart rate variability (HRV) measurement, the application offers a science-based approach to monitoring and managing stress levels. By combining technological innovation with practicality, MindEase aims to improve the well-being and mental health of students, preparing them to be the innovators and leaders of tomorrow.
 
 ## Features
--Personalized Guidance and Support: Offers tailored relaxation exercises and lifestyle recommendations based on individual measurement data and survey responses. These personalized insights help users adopt healthier habits and manage stress more effectively.
+- **Personalized Guidance and Support:** Offers tailored relaxation exercises and lifestyle recommendations based on individual measurement data and survey responses. These personalized insights help users adopt healthier habits and manage stress more effectively.
 
--Direct Communication with Healthcare Professionals: Facilitates seamless communication between students and health professionals through the app, providing a platform for timely advice and professional support.
+- **Direct Communication with Healthcare Professionals:** Facilitates seamless communication between students and health professionals through the app, providing a platform for timely advice and professional support.
 
--Data-Driven Insights: Employs advanced analytics to process HRV data and user input from daily surveys on stress symptoms and lifestyle factors, enabling detailed reports and actionable insights.
+- **Data-Driven Insights:** Employs advanced analytics to process HRV data and user input from daily surveys on stress symptoms and lifestyle factors, enabling detailed reports and actionable insights.
 Preventive Health Strategies: By identifying high stress levels early, MindEase allows for early intervention which can prevent the development of more serious health issues related to prolonged stress.
 
 ## References
