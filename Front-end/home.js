@@ -6,7 +6,7 @@ import {showToast} from './toast.js';
 // Käyttäjänimen näyttäminen
 async function showUserName() {
   const token = localStorage.getItem('token');
-  const url = 'http://localhost:3000/api/kubios/user-info';
+  const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/kubios/user-info';
   const options = {
     method: 'GET',
     headers: {
@@ -73,9 +73,9 @@ let hrvDates = [];
 
 async function fetchDataForCalendar(id, tok) {
   const urls = {
-    symptoms: `http://localhost:3000/api/symptoms/${id}`,
-    lifestyle: `http://localhost:3000/api/lifestyle/${id}`,
-    hrv: `http://localhost:3000/api/hrv/${id}`,
+    symptoms: `https://hyte24.northeurope.cloudapp.azure.com/api/symptoms/${id}`,
+    lifestyle: `https://hyte24.northeurope.cloudapp.azure.com/api/lifestyle/${id}`,
+    hrv: `https://hyte24.northeurope.cloudapp.azure.com/api/hrv/${id}`,
   };
   const options = {
     method: 'GET',
@@ -269,7 +269,7 @@ am5.ready(function () {
   const id = localStorage.getItem('user_id');
   const userToken = localStorage.getItem('token');
 
-  const chartUrl = `http://localhost:3000/api/analysis/user/${id}`;
+  const chartUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/${id}`;
   const options = {
     method: 'GET',
     headers: {
@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const id = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
 
-    const url = `http://localhost:3000/api/symptoms/`;
+    const url = `https://hyte24.northeurope.cloudapp.azure.com/api/symptoms/`;
     const options = {
       method: 'POST',
       headers: {
@@ -584,7 +584,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const id = localStorage.getItem('user_id');
     const token = localStorage.getItem('token');
 
-    const url = 'http://localhost:3000/api/lifestyle/';
+    const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/lifestyle/';
     const options = {
       method: 'POST',
       headers: {
@@ -637,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const token = localStorage.getItem('token');
     // const userId = localStorage.getItem('user_id');
-    const url = 'http://localhost:3000/api/hrv/';
+    const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/hrv/';
 
     const options = {
       method: 'POST',
@@ -695,7 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const token = localStorage.getItem('token');
 
-    const url = 'http://localhost:3000/api/kubios/user-data';
+    const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/kubios/user-data';
 
     const options = {
       method: 'GET',
@@ -785,7 +785,7 @@ const fetchDataAndFilter = (userId, token) => {
   };
 
   // Hae ja suodata oirekyselyn tulokset
-  const symptomUrl = `http://localhost:3000/api/symptoms/${userId}`;
+  const symptomUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/symptoms/${userId}`;
   const symptomOptions = {
     method: 'GET',
     headers: {
@@ -799,7 +799,7 @@ const fetchDataAndFilter = (userId, token) => {
   );
 
   // Hae ja suodata HRV-mittaukset
-  const hrvUrl = `http://localhost:3000/api/hrv/${userId}`;
+  const hrvUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/hrv/${userId}`;
   const hrvOptions = {
     method: 'GET',
     headers: {
@@ -810,7 +810,7 @@ const fetchDataAndFilter = (userId, token) => {
   const hrvDataPromise = fetchDataAndFilterByDate(hrvUrl, hrvOptions);
 
   // Hae ja suodata elämäntapakyselyn tulokset
-  const lifestyleUrl = `http://localhost:3000/api/lifestyle/${userId}`;
+  const lifestyleUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/lifestyle/${userId}`;
   const lifestyleOptions = {
     method: 'GET',
     headers: {
@@ -1018,7 +1018,7 @@ function showModal(
 ) {
   // Tarkista onko modaali jo näytetty
   if (localStorage.getItem('analysisModalShown') !== 'true') {
-    fetchData('http://localhost:3000/api/analysis/user/' + localStorage.getItem('user_id'), {
+    fetchData('https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/' + localStorage.getItem('user_id'), {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -1118,7 +1118,7 @@ fetchDataAndFilter(userId, token)
           created_at: currentDate,
         };
 
-        const url = `http://localhost:3000/api/analysis/`;
+        const url = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/`;
         const options = {
           method: 'POST',
           headers: {

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
   fetchUsers();
 
   async function fetchUsers() {
-    const usersUrl = 'http://localhost:3000/api/student/';
+    const usersUrl = 'https://hyte24.northeurope.cloudapp.azure.com/api/student/';
     fetchData(usersUrl, {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   async function fetchConversationsAndMessagesForUser(selectedUserId) {
-    const apiUrl = `http://localhost:3000/api/messages/user/${selectedUserId}`;
+    const apiUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/messages/user/${selectedUserId}`;
     fetchData(apiUrl, {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   async function fetchUserName(userId) {
-    const userUrl = `http://localhost:3000/api/users/${userId}`;
+    const userUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/users/${userId}`;
     try {
       const response = await fetch(userUrl, {
         headers: {
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   function fetchMessagesForConversation(conversationId) {
-    const apiUrl = `http://localhost:3000/api/messages/conversation/${conversationId}`;
+    const apiUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/messages/conversation/${conversationId}`;
     fetchData(apiUrl, { headers: { Authorization: `Bearer ${token}` }})
       .then((messages) => {
         if (Array.isArray(messages) && messages.length > 0) {
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
       message_sent_at: isoStringWithoutZ,
     };
 
-    const sendMessageUrl = 'http://localhost:3000/api/messages';
+    const sendMessageUrl = 'https://hyte24.northeurope.cloudapp.azure.com/api/messages';
     const options = {
       method: 'POST',
       headers: {

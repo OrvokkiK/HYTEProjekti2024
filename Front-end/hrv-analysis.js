@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const ctx = document.getElementById('myBarChart').getContext('2d');
   const userId = localStorage.getItem('user_id');
   const token = localStorage.getItem('token');
-  const url = `http://localhost:3000/api/hrv/${userId}`;
+  const url = `https://hyte24.northeurope.cloudapp.azure.com/api/hrv/${userId}`;
 
   const options = {
     method: 'GET',

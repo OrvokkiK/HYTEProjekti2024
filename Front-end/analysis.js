@@ -66,7 +66,7 @@ am5.ready(function () {
     const id = localStorage.getItem('user_id');
     const userToken = localStorage.getItem('token');
   
-    const chartUrl = `http://localhost:3000/api/analysis/user/${id}`;
+    const chartUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/${id}`;
     const options = {
       method: 'GET',
       headers: {
@@ -154,7 +154,7 @@ am5.ready(function () {
  // analyysitulostaulukko
  async function getEntries() {
   const userId = localStorage.getItem("user_id");
-  const url = `http://localhost:3000/api/analysis/user/${userId}`;
+  const url = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/${userId}`;
   const token = localStorage.getItem("token");
 
   const options = {
