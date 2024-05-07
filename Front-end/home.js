@@ -286,9 +286,43 @@ am5.ready(function () {
           paddingBottom: 20,
         })
       );
+    // Convert data to chart format
+    const chartData = data.map(item => ({
+      date: new Date(item.created_at).toISOString().split('T')[0],
+      value: item.analysis_enumerated
+    }));
 
-      // Further chart setup using 'data' that is confirmed to exist and be valid
-    })
+    // Create axes
+    const xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+      baseInterval: { timeUnit: "day", count: 1 },
+      categoryField: "date",
+      renderer: am5xy.AxisRendererX.new(root, { minGridDistance: 30 })
+    }));
+    const yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+      min: 0,
+      max: 5,  // Adjust according to the actual max value in your data
+      renderer: am5xy.AxisRendererY.new(root)
+    }));
+
+    // Create series
+    const series = chart.series.push(am5xy.ColumnSeries.new(root, {
+      xAxis: xAxis,
+      yAxis: yAxis,
+      valueYField: "value",
+      categoryXField: "date"
+    }));
+    series.columns.template.setAll({
+      tooltipText: "{categoryX}: {valueY}",
+      tooltipY: 0,
+      strokeOpacity: 0,
+      cornerRadiusTL: 6,
+      cornerRadiusTR: 6,
+    });
+
+    series.data.setAll(chartData);
+    chart.appear(1000, 100);
+  })
+  
     .catch(error => {
       console.error('Fetch error:', error);
       root.dom.innerHTML = '<p style="text-align:center; padding: 20px;">Ei vielä näytettäviä stressitasoanalyysin tuloksia.</p>';
