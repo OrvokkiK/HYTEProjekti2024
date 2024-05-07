@@ -231,9 +231,9 @@ document.addEventListener('DOMContentLoaded', function () {
 let chart;
 am5.ready(function () {
   const root = am5.Root.new('graph');
-
   root.setThemes([am5themes_Animated.new(root)]);
 
+  // Prepare the base chart, but don't add data-related components yet
   const chart = root.container.children.push(
     am5xy.XYChart.new(root, {
       panX: false,
@@ -244,27 +244,13 @@ am5.ready(function () {
       paddingRight: 40,
       paddingBottom: 80,
       layout: root.verticalLayout,
-    }),
-  );
-
-  chart.children.unshift(
-    am5.Label.new(root, {
-      text: 'Stressitasoanalyysi',
-      fontSize: 22,
-      fontWeight: '600',
-      fontFamily: 'Poppins, sans-serif',
-      textAlign: 'center',
-      x: am5.percent(50),
-      centerX: am5.percent(50),
-      paddingTop: 0,
-      paddingBottom: 20,
-    }),
+    })
   );
 
   const id = localStorage.getItem('user_id');
   const userToken = localStorage.getItem('token');
-
   const chartUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/${id}`;
+  
   const options = {
     method: 'GET',
     headers: {
@@ -272,85 +258,45 @@ am5.ready(function () {
       Authorization: `Bearer ${userToken}`,
     },
   };
-  fetchData(chartUrl, options).then((data) => {
-    console.log(data);
-    const chartData = data.map((item) => {
-      const date = new Date(item.created_at);
-      const formattedDate = date;
-      return {
-        date: formattedDate,
-        value: item.analysis_enumerated,
-      };
+
+  fetch(chartUrl, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.length === 0) {
+        root.dom.innerHTML = '<p style="text-align:center; padding: 20px;">No data available.</p>';
+        return;
+      }
+
+      // Code to set up chart goes here, as we now know we have data
+      chart.children.unshift(
+        am5.Label.new(root, {
+          text: 'Stressitasoanalyysi',
+          fontSize: 22,
+          fontWeight: '600',
+          fontFamily: 'Poppins, sans-serif',
+          textAlign: 'center',
+          x: am5.percent(50),
+          centerX: am5.percent(50),
+          paddingTop: 0,
+          paddingBottom: 20,
+        })
+      );
+
+      // Further chart setup using 'data' that is confirmed to exist and be valid
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+      root.dom.innerHTML = '<p style="text-align:center; padding: 20px;">Error retrieving data. ' + error.message + '</p>';
     });
-
-    const xRenderer = am5xy.AxisRendererX.new(root, {
-      minGridDistance: 85,
-      minorGridEnabled: true,
-    });
-
-    const xAxis = chart.xAxes.push(
-      am5xy.CategoryAxis.new(root, {
-        categoryField: 'date',
-        renderer: xRenderer,
-      }),
-    );
-
-    xRenderer.grid.template.setAll({
-      location: 1,
-    });
-
-    xRenderer.labels.template.setAll({
-      paddingTop: 20,
-    });
-
-    xAxis.data.setAll(chartData);
-
-    const yAxis = chart.yAxes.push(
-      am5xy.ValueAxis.new(root, {
-        min: 0,
-        max: 3,
-        maxPrecision: 0,
-        renderer: am5xy.AxisRendererY.new(root, {
-          strokeOpacity: 0.1,
-        }),
-      }),
-    );
-
-    const series = chart.series.push(
-      am5xy.ColumnSeries.new(root, {
-        xAxis: xAxis,
-        yAxis: yAxis,
-        valueYField: 'value',
-        categoryXField: 'date',
-      }),
-    );
-
-    series.columns.template.setAll({
-      tooltipText: '{categoryX}: {valueY}',
-      tooltipY: 0,
-      strokeOpacity: 0,
-      cornerRadiusTL: 6,
-      cornerRadiusTR: 6,
-    });
-
-const valueColors = {
-  1: am5.color(0x08AB1E), 
-  2: am5.color(0xF7AE12), 
-  3: am5.color(0xF72E12)  
-};
-
-series.columns.template.adapters.add('fill', function(fill, target) {
-  const value = target.dataItem.get('valueY');
-  return valueColors[value] || fill; 
 });
 
 
-    series.data.setAll(chartData);
-    series.appear();
-    chart.appear(1000, 100);
-    console.log(chartData);
-  });
-});
+
 
 // Oirearviokyselyn toiminnallisuudet
 document.addEventListener('DOMContentLoaded', (event) => {
