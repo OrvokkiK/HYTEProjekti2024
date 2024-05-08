@@ -1517,7 +1517,8 @@ footer {
     margin-left: 5px;
   }
 
-  #survey-form-physical .labels {
+  #survey-form-physical .labels,
+  #sleep-form .labels {
     font-size: 10px;
   }
 
