@@ -1,9 +1,7 @@
 // analysis-model.mjs
-
 import promisePool from "../utils/database.mjs";
 
-
-// SELECT all entries from Complete_analysis
+// List all entries from Complete_analysis
 const selectAllAnalyses = async () => {
   try {
     const sql = 'SELECT * FROM Complete_analysis;'
@@ -15,7 +13,7 @@ const selectAllAnalyses = async () => {
   }
 };
 
-// SELECT all entries by specified user from Complete_analysis
+// Lists all entries by specified user from Complete_analysis
 const selectAnalysesByUserId = async (user_id) => {
   try {
     const sql = `SELECT * FROM Complete_analysis WHERE user_id=${user_id};`
@@ -31,7 +29,7 @@ const selectAnalysesByUserId = async (user_id) => {
   }
 };
 
-// SELECT Complete analysis by analysis_id
+// Lists a Complete_analysis by analysis_id
 const selectAnalysisbyId = async (analysis_id) => {
   try {
     const sql = `SELECT * FROM Complete_analysis WHERE analysis_id=${analysis_id};`
@@ -47,7 +45,7 @@ const selectAnalysisbyId = async (analysis_id) => {
   }
 };
 
-//INSERT NEW into Complete_analysis
+// Add a new entry into Complete_analysis
 const insertAnalysis = async (entry) => {
   try {
     const sql = 'INSERT INTO Complete_analysis (user_id, analysis_result, analysis_enumerated, created_at) VALUES (?, ?, ?, ?);'
@@ -61,11 +59,11 @@ const insertAnalysis = async (entry) => {
   }
 };
 
-//UPDATE Entry
+// Update an entry in Complete_analysis
 const updateAnalysisById = async (entry, entry_id) => {
   try {
-    const sql = 'UPDATE Complete_analysis SET user_id=?, analysis_result=?, analysis_enumerated=?, created_at=? WHERE analysis_id=?;'
-    const params = [entry.user_id, entry.analysis_result, entry.analysis_enumerated, entry.created_at, entry_id]
+    const sql = 'UPDATE Complete_analysis SET user_id=?, analysis_result=?, analysis_enumerated=?, created_at=? WHERE analysis_id=?';
+    const params = [entry.user_id, entry.analysis_result, entry.analysis_enumerated, entry.created_at, entry_id];
     const [rows] = await promisePool.query(sql, params);
     console.log('model:', rows);
     console.log('model:', rows.changedRows)

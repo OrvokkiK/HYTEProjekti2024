@@ -102,40 +102,6 @@ CREATE TABLE Complete_analysis (
   FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
-CREATE TABLE Medications (
-  medication_id INT AUTO_INCREMENT,
-  entry_date DATE NOT NULL,
-  medication VARCHAR(100) NOT NULL,
-  dose DECIMAL(5,2),
-  unit VARCHAR(20),
-  frequency VARCHAR(50),
-  indication VARCHAR(100),
-  user_id INT NOT NULL,
-  PRIMARY KEY (medication_id),
-  FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
-CREATE TABLE Dietaries (
-  dietary_id INT AUTO_INCREMENT,
-  entry_date DATE NOT NULL,
-  dietary_supplement VARCHAR(50) NOT NULL,
-  dose DECIMAL(5,2),
-  unit VARCHAR(50),
-  user_id INT NOT NULL,
-  PRIMARY KEY (dietary_id),
-  FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
-CREATE TABLE Intoxicants (
-  intoxicant_id INT AUTO_INCREMENT PRIMARY KEY,
-  entry_date DATE,
-  caffeine DECIMAL(5,2),
-  nicotine DECIMAL(5,2),
-  alcohol DECIMAL(5,3),
-  user_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
 --Inserts  sample data
 
 -- Only required data When creating a student profile in db
@@ -163,11 +129,6 @@ INSERT INTO Symptoms(entry_date, frustration, grumpiness, recall_problems, restl
 ('2024-03-25', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '2', '1' ),
 ('2024-03-25', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '4', '3' );
 
--- Insert sample lifestyle factors (Elämäntapakysely)
--- INSERT INTO Lifestyle(entry_date, height, weight, age, hours_slept, quality_sleep, enough_sleep, illness, chronic_illness, 
--- deficiency_D, deficiency_B12, deficiency_omega, physical_activity, duration, intensity, user_id) VALUES 
--- ('2024-03-25', '175', '65.3', '25', '8.5', 'kyllä', 'hyvä', 'ei', 'heinäallergia', 'ei', 'ei', 'ei', 'Juoksulenkki', '45', 'keskiverto', '1'),
--- ('2024-03-25', '163', '70', '23', '7', 'kyllä', 'hyvä', 'flunssa', 'ei', 'ei', 'ei', 'ei', 'kävely', '30', 'alhainen', '3');
 
 -- Insert sample lifestyle factors (Elämäntapakysely)
 INSERT INTO Medications(entry_date, medication, dose, unit, frequency, indication, user_id) VALUES

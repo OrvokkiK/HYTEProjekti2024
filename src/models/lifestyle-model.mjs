@@ -1,5 +1,6 @@
 import promisePool from "../utils/database.mjs";
 
+// add an entry to lifestyle
 const addEntry = async (entry) => {
   const {
     user_id,
@@ -47,6 +48,7 @@ const addEntry = async (entry) => {
   }
 };
 
+// Lists lifestyle entries by user_id
 const listLifestyleDataByUserId = async (user_id) => {
   try {
     const sql = 'SELECT * FROM Lifestyle WHERE user_id=?';
@@ -63,5 +65,7 @@ const listLifestyleDataByUserId = async (user_id) => {
   }
 };
 
-export { addEntry,
-listLifestyleDataByUserId };
+export { 
+  addEntry,
+  listLifestyleDataByUserId
+};
