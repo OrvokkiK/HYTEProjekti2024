@@ -452,9 +452,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         showToast('Oirearviokysely tallennettu.');
         fetchDataForCalendar(id, token).then(() => {
           showCalendar(currentMonth, currentYear);
+          const analysisUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/${id}`;
+          fetchData(analysisUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          }).then(analysisData => {
+            const chartData = analysisData.map(item => ({
+              date: new Date(item.created_at),
+              value: item.analysis_enumerated
+            }));
+            updateChart(chartData); // Päivitä kaavio uudella datalla
+          });
         });
         surveyModal.style.display = 'none';
-
         const completionDate = new Date().toISOString().split('T')[0];
         localStorage.setItem('surveyCompletionDate', completionDate);
       })
@@ -631,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     const token = localStorage.getItem('token');
-    // const userId = localStorage.getItem('user_id');
+    const userId = localStorage.getItem('user_id');
     const url = 'https://hyte24.northeurope.cloudapp.azure.com/api/hrv/';
 
     const options = {
@@ -649,6 +662,20 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('HRV-mittauksen tulokset tallennettu.');
         fetchDataForCalendar(id, token).then(() => {
           showCalendar(currentMonth, currentYear);
+          const analysisUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/${userId}`;
+          fetchData(analysisUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          }).then(analysisData => {
+            const chartData = analysisData.map(item => ({
+              date: new Date(item.created_at),
+              value: item.analysis_enumerated
+            }));
+            updateChart(chartData); // Päivitä kaavio uudella datalla
+          });
         });
         const hrvDate = new Date().toISOString().split('T')[0];
         localStorage.setItem('hrvCompletionDate', hrvDate);
