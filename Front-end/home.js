@@ -608,6 +608,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         showToast('Elämäntapakysely tallennettu.');
         fetchDataForCalendar(id, token).then(() => {
           showCalendar(currentMonth, currentYear);
+          const analysisUrl = `https://hyte24.northeurope.cloudapp.azure.com/api/analysis/user/${id}`;
+          fetchData(analysisUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          }).then(analysisData => {
+            const chartData = analysisData.map(item => ({
+              date: new Date(item.created_at),
+              value: item.analysis_enumerated
+            }));
+            updateChart(chartData); 
+          });
         });
         sleepModal.style.display = 'none';
 
