@@ -1,0 +1,1 @@
+const o=async(a,e={})=>{let r;try{const t=await fetch(a,e);if(!t.ok)throw new Error(`HTTP ${t.status} - ${t.statusText}`);r=await t.json()}catch(t){console.error("fetchData() error",t),r={}}return r};export{o as f};
